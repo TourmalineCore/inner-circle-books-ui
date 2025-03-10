@@ -14,7 +14,8 @@ export default defineConfig({
       USER_LOGIN: process.env.USER_LOGIN,
       USER_PASSWORD: process.env.USER_PASSWORD,
     },
-    video: false,
+    video: true,
+    screenshotOnRunFailure: true,
   },
   component: {
     video: false,
