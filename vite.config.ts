@@ -1,11 +1,15 @@
 /* eslint-disable @typescript-eslint/quotes */
 import { defineConfig } from 'vite'
+// correct version of federation https://github.com/originjs/vite-plugin-federation/issues/670
 import federation from '@originjs/vite-plugin-federation'
 import react from '@vitejs/plugin-react'
 import svgr from 'vite-plugin-svgr'
 
 const LOCAL_ENV_PORT = 40100
 const BOOKS_PORT = process.env.NODE_ENV === `production` ? LOCAL_ENV_PORT : 4005
+
+// for run in local docker use `http://localhost:4455/assets..`, and for others use `../layout/assets..` path
+// const LAYOUT_PATH = process.env.BASE_URL === `http://localhost:4455` ? `` : `/layout`
 
 // const LAYOUT_PORT = process.env.NODE_ENV === `production` ? LOCAL_ENV_PORT : 4006
 
@@ -27,6 +31,7 @@ export default defineConfig({
       remotes: {
         // inner_circle_layout_ui: `http://localhost:4455/assets/inner_circle_layout_ui.js`, // for local docker
         // inner_circle_layout_ui: `http://localhost:40100/layout/assets/inner_circle_layout_ui.js`, // for local-env
+        // inner_circle_layout_ui: `${process.env.BASE_URL}${LAYOUT_PATH}/assets/inner_circle_layout_ui.js`, // for prod
         inner_circle_layout_ui: `${process.env.BASE_URL}/layout/assets/inner_circle_layout_ui.js`, // for prod
       },
       shared: [
