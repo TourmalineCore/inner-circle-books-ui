@@ -27,7 +27,7 @@ export default defineConfig({
       remotes: {
         // inner_circle_layout_ui: `http://localhost:4455/assets/inner_circle_layout_ui.js`, // for local docker
         // inner_circle_layout_ui: `http://localhost:40100/layout/assets/inner_circle_layout_ui.js`, // for local-env
-        inner_circle_layout_ui: `https://${process.env.VITE_DEV_HOST}/layout/assets/inner_circle_layout_ui.js`, // for prod
+        inner_circle_layout_ui: `${process.env.BASE_URL}/layout/assets/inner_circle_layout_ui.js`, // for prod
       },
       shared: [
         "react",
@@ -38,9 +38,6 @@ export default defineConfig({
     'import.meta.env.VITE_BASE_PATH': JSON.stringify(
       process.env.NODE_ENV === `production` ? `/books` : ``,
     ),
-    define: {
-      'import.meta.env.VITE_DEV_HOST': JSON.stringify(process.env.VITE_DEV_HOST),
-    },
   },
   build: {
     // Setting the target browser version for the build

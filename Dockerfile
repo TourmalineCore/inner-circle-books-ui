@@ -1,8 +1,5 @@
 FROM node:20.11.1-alpine3.19 AS build
 
-ARG VITE_DEV_HOST
-ENV VITE_DEV_HOST=$VITE_DEV_HOST
-
 COPY package.json .
 COPY package-lock.json .
 RUN npm ci
