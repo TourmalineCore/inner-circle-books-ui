@@ -8,6 +8,7 @@ export default defineConfig({
       API_ROOT: `/api`,
       API_ROOT_AUTH: `/api/auth`,
       LINK_TO_BOOKS_SERVICE: `/books`,
+      BASE_URL: `http://localhost:40100`,
       USER_LOGIN: `ceo@tourmalinecore.com`,
       USER_PASSWORD: `cEoPa$$wo1d`,
     },
