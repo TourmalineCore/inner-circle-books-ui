@@ -45,7 +45,7 @@ export default defineConfig({
   ],
   define: {
     'import.meta.env.VITE_BASE_PATH': JSON.stringify(
-      process.env.NODE_ENV === `production` ? `/books` : ``,
+      LAYOUT_URL === `http://localhost:4455` ? `` : `/books`,
     ),
     define: {
       'import.meta.env.VITE_BASE_URL': process.env.VITE_BASE_URL,
