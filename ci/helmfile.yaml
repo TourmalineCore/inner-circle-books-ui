@@ -20,4 +20,4 @@ releases:
           LINK_TO_BOOKS_SERVICE: "{{ .StateValues.extraConfigMapEnvVars.LINK_TO_BOOKS_SERVICE }}"
           API_ROOT: "{{ .StateValues.extraConfigMapEnvVars.API_ROOT }}"
           API_ROOT_AUTH: "{{ .StateValues.extraConfigMapEnvVars.API_ROOT_AUTH }}"
-          BASE_URL: "{{ .StateValues.extraConfigMapEnvVars.BASE_URL }}"
+          VITE_BASE_URL: "{{ .StateValues.extraConfigMapEnvVars.VITE_BASE_URL }}"
