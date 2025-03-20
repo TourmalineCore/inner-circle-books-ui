@@ -47,9 +47,6 @@ export default defineConfig({
     'import.meta.env.VITE_BASE_PATH': JSON.stringify(
       process.env.NODE_ENV === `production` ? `/books` : ``,
     ),
-    define: {
-      'import.meta.env.VITE_BASE_URL': process.env.VITE_BASE_URL,
-    },
   },
   build: {
     // Setting the target browser version for the build
