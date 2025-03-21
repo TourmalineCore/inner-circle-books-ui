@@ -5,6 +5,9 @@ import federation from '@originjs/vite-plugin-federation'
 import react from '@vitejs/plugin-react'
 import svgr from 'vite-plugin-svgr'
 
+// description about how to set up remote app configuration you can see in 
+// https://github.com/TourmalineCore/inner-circle-layout-ui/blob/master/vite.config.ts
+
 const LOCAL_ENV_PORT = 40100
 // Set the port for the layout based on the environment
 const BOOKS_PORT = process.env.NODE_ENV === `production` ? LOCAL_ENV_PORT : 4005
