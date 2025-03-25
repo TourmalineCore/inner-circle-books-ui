@@ -8,7 +8,7 @@ import svgr from 'vite-plugin-svgr'
 // description about how to set up remote app configuration you can see in 
 // https://github.com/TourmalineCore/inner-circle-layout-ui/blob/master/vite.config.ts
 
-const LOCAL_ENV_PORT = 40100
+const LOCAL_ENV_PORT = 30090
 // Set the port for the layout based on the environment
 const BOOKS_PORT = process.env.NODE_ENV === `production` ? LOCAL_ENV_PORT : 4005
 
@@ -49,7 +49,7 @@ export default defineConfig({
       // The path where the remote application file can be found and its name
       remotes: {
         // `http://localhost:4455/assets/inner_circle_layout_ui.js` for local docker
-        // `http://localhost:40100/layout/assets/inner_circle_layout_ui.js` for local-env
+        // `http://localhost:30090/layout/assets/inner_circle_layout_ui.js` for local-env
         inner_circle_layout_ui: `${process.env.VITE_BASE_URL}/layout/assets/inner_circle_layout_ui.js`,
       },
       // Shared dependencies to avoid duplication
