@@ -1,6 +1,6 @@
 import { authService } from '../authService'
 
-const REFRESH_TIMEOUT = 1000 * 60 * 60 // 1 hour
+const REFRESH_TIMEOUT = 1000 * 60
 let timeoutId: any = null
 
 export async function refreshTokenAndSubscribe() {
