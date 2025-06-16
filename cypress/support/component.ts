@@ -16,8 +16,14 @@ declare global {
   namespace Cypress {
     interface Chainable {
       mount: typeof mount,
+      compareSnapshot(name: string, options?: any): Chainable<Element>,
     }
   }
 }
 
 Cypress.Commands.add(`mount`, mount)
+
+after(() => {
+  //custom task to generate report
+  cy.task(`generateReport`)
+})
