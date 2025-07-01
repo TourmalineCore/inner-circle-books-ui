@@ -1,9 +1,6 @@
-/// <reference types="cypress" />
-
 import { BookCard } from "./BookCard"
 
-describe(`BookCardContent`, () => {
-
+describe(`BookCard`, () => {
   describe(`Author suffix`, authorSuffixTests)
 })
 
@@ -72,12 +69,14 @@ function mountComponent({
   authors,
   language,
 }: Partial<BookCardType> & { authors: BookCardType["authors"], language: BookCardType["language"], }) {
-  cy.mount(
-    <BookCard
-      bookCoverUrl={bookCoverUrl}
-      title={title}
-      authors={authors}
-      language={language}
-    />,
-  )
+  
+  cy
+    .mount(
+      <BookCard
+        bookCoverUrl={bookCoverUrl}
+        title={title}
+        authors={authors}
+        language={language}
+      />,
+    )
 }

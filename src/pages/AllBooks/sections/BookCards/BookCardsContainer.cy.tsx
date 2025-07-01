@@ -2,45 +2,44 @@ import { BookCardsContainer } from "./BookCardsContainer"
 import { BookCardsState } from "./state/BookCardsState"
 import { BookCardsStateContext } from "./state/BookCardsStateStateContext"
 
-describe(`BookCardsContainer.cy`, () => {
-  beforeEach(() => {
-    const bookCardsResponse = {
-      books: [
+const BOOK_CARDS_RESPONSE = {
+  books: [
+    {
+      bookCoverUrl: `https://cdn.litres.ru/pub/c/cover/14363291.jpg`,
+      title: `Разработка ценностных предложений`,
+      authors: [
         {
-          bookCoverUrl: `https://cdn.litres.ru/pub/c/cover/14363291.jpg`,
-          title: `Разработка ценностных предложений`,
-          authors: [
-            {
-              fullName: `Алекс Остервальдер`,
-            },
-            {
-              fullName: `Сергей Николенко`,
-            },
-          ],
-          language: `rus`,
+          fullName: `Алекс Остервальдер`,
         },
         {
-          bookCoverUrl: `https://cdn.litres.ru/pub/c/cover/14363291.jpg`,
-          title: `Думай медленно… решай быстро`,
-          authors: [
-            {
-              fullName: `Даниэль Канеман`,
-            },
-          ],
-          language: `eng`,
+          fullName: `Сергей Николенко`,
         },
       ],
-    }
+      language: `rus`,
+    },
+    {
+      bookCoverUrl: `https://cdn.litres.ru/pub/c/cover/14363291.jpg`,
+      title: `Думай медленно… решай быстро`,
+      authors: [
+        {
+          fullName: `Даниэль Канеман`,
+        },
+      ],
+      language: `eng`,
+    },
+  ],
+}
 
+describe(`BookCardsContainer`, () => {
+  beforeEach(() => {
     cy.intercept(
       `GET`,
       `*/books`,
-      bookCardsResponse,
+      BOOK_CARDS_RESPONSE,
     )
   })
 
   describe(`Initialization`, initializationTests)
-
 })
 
 function initializationTests() {
@@ -54,7 +53,9 @@ function initializationTests() {
     cy.contains(`Думай медленно… решай быстро`)
     cy.contains(`Даниэль Канеман`)
     cy.contains(`eng`)
-    cy.get(`img[src="https://cdn.litres.ru/pub/c/cover/14363291.jpg"]`)
+    
+    cy
+      .get(`img[src="https://cdn.litres.ru/pub/c/cover/14363291.jpg"]`)
       .should(`exist`)
   })
 }
@@ -66,9 +67,10 @@ function mountComponent() {
     .wrap(bookCardsState)
     .as(`toDosState`)
 
-  cy.mount(
-    <BookCardsStateContext.Provider value={bookCardsState}>
-      <BookCardsContainer/>
-    </BookCardsStateContext.Provider>,
-  )
+  cy
+    .mount(
+      <BookCardsStateContext.Provider value={bookCardsState}>
+        <BookCardsContainer/>
+      </BookCardsStateContext.Provider>,
+    )
 }

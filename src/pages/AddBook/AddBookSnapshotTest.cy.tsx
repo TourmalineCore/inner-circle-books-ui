@@ -1,36 +1,12 @@
 /* eslint-disable array-bracket-newline */
+import { VIEWPORTS } from "../../common/constant"
 import { AddBookContent } from "./AddBookContent"
 import { AddBookState } from "./state/AddBookState"
 import { AddBookStateContext } from "./state/AddBookStateStateContext"
 
-describe(`Page Snapshot test with Cypress`, () => {
-
-  const viewports = [
-    {
-      width: 343,
-      height: 1420,
-    },
-    {
-      width: 768,
-      height: 1036,
-    },
-    {
-      width: 1024,
-      height: 1220,
-    },
-    {
-      width: 1366,
-      height: 1076,
-    },
-    {
-      width: 1920,
-      height: 1076,
-    },
-  ]
-
+describe(`Add Book Snapshot test`, () => {
   it(`Take the snapshot of a result`, () => {
-
-    viewports.forEach((viewport) => {
+    VIEWPORTS.forEach((viewport) => {
       cy.viewport(viewport.width, viewport.height)
 
       cy.wrap(
@@ -47,7 +23,8 @@ describe(`Page Snapshot test with Cypress`, () => {
 
       mountComponent({})
 
-      cy.get(`[data-cy="add-book-form"]`)
+      cy
+        .getByData(`add-book-form`)
         .compareSnapshot(`/${viewport.width}`, {
           capture: `viewport`,
         })
@@ -71,12 +48,14 @@ function mountComponent({
   
   addBookState.initialize(initialState)
 
-  cy.wrap(addBookState)
+  cy
+    .wrap(addBookState)
     .as(`addBookState`)
 
-  cy.mount(
-    <AddBookStateContext.Provider value={addBookState}>
-      <AddBookContent onSubmit={() => {}} />
-    </AddBookStateContext.Provider>,
-  )
+  cy
+    .mount(
+      <AddBookStateContext.Provider value={addBookState}>
+        <AddBookContent onSubmit={() => {}} />
+      </AddBookStateContext.Provider>,
+    )
 }

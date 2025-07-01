@@ -31,7 +31,9 @@ export class AddBookState {
     this._count = count
     this._language = language
     this._annotation = annotation
-    this._authors = authors.length > 0 ? authors : [``]
+    this._authors = authors.length > 0 
+      ? authors 
+      : [``]
     this._coverUrl = coverUrl
   }
 

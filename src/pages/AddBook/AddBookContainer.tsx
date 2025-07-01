@@ -24,7 +24,9 @@ export const AddBookContainer = observer(() => {
         .map(fullName => ({
           fullName, 
         })),
-      language: addBookState.language === `rus` ? `ru` : `en`,
+      language: addBookState.language === `rus` 
+        ? `ru` 
+        : `en`,
       bookCoverUrl: addBookState.coverUrl,
     }
 

@@ -1,6 +1,6 @@
 import { BookCardsState } from "./BookCardsState"
 
-describe(`BooksCards`, () => {
+describe(`BookCardsState`, () => {
   describe(`Initialization`, initializationTests)
 })
 

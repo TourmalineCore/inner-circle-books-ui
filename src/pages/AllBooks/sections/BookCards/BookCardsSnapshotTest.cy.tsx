@@ -1,33 +1,9 @@
+import { VIEWPORTS } from "../../../../common/constant"
 import { BookCardsContent } from "./BookCardsContent"
 
-describe(`Page Snapshot test with Cypress`, () => {
-
-  const viewports = [
-    {
-      width: 375,
-      height: 1420,
-    },
-    {
-      width: 768,
-      height: 1036,
-    },
-    {
-      width: 1024,
-      height: 1220,
-    },
-    {
-      width: 1366,
-      height: 1076,
-    },
-    {
-      width: 1920,
-      height: 1076,
-    },
-  ]
-
+describe(`Book Cards Snapshot test`, () => {
   it(`Take the snapshot of a result`, () => {
-
-    viewports.forEach((viewport) => {
+    VIEWPORTS.forEach((viewport) => {
       cy.viewport(viewport.width, viewport.height)
 
       cy.wrap(
@@ -44,7 +20,8 @@ describe(`Page Snapshot test with Cypress`, () => {
 
       mountComponent()
 
-      cy.get(`[data-cy="cards"]`)
+      cy
+        .getByData(`cards`)
         .compareSnapshot(`/${viewport.width}`, {
           capture: `viewport`,
         })
@@ -72,5 +49,8 @@ function mountComponent() {
     length: 12,
   }, () => card)
 
-  cy.mount(<BookCardsContent cards={cards} />)
+  cy
+    .mount(
+      <BookCardsContent cards={cards} />,
+    )
 }

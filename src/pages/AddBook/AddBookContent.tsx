@@ -28,18 +28,19 @@ export const AddBookContent = observer(({
         <BookIcon className='add-book-form__icon'/>
         New Book
       </header>
-      <div className="add-book-form__right">
 
+      <div className="add-book-form__right">
         <label className="add-book-form__label">
-        Title*
+          Title*
           <textarea
             data-cy="add-book-form-title"
             value={addBookState.title}
             placeholder="Enter the title of the book"
             onChange={(e) => addBookState.setTitle(e.target.value)}
-            className={`add-book-form__textarea add-book-form__title ${addBookState.errors.title ? `error` : ``}`}
+            className={`add-book-form__textarea add-book-form__title ${addBookState.errors.title 
+              ? `error` 
+              : ``}`}
           />
-
         </label>
 
         <div className="add-book-form__wrap">
@@ -69,14 +70,17 @@ export const AddBookContent = observer(({
             ]}
           />
         </div>
+
         <label className="add-book-form__label">
-        Annotation*
+          Annotation*
           <textarea
             data-cy="add-book-form-annotation"
             value={addBookState.annotation}
             placeholder="Enter the annotation from the title page of the book"
             onChange={(e) => addBookState.setAnnotation(e.target.value)}
-            className={`add-book-form__textarea add-book-form__annotation ${addBookState.errors.annotation ? `error` : ``}`}
+            className={`add-book-form__textarea add-book-form__annotation ${addBookState.errors.annotation 
+              ? `error` 
+              : ``}`}
           />
         </label>
 
@@ -91,6 +95,7 @@ export const AddBookContent = observer(({
           error={addBookState.errors.authors}
         />
       </div>
+
       <div className="add-book-form__left">
         <ImagePreviewInput
           data-cy="add-book-form-cover"
@@ -99,21 +104,23 @@ export const AddBookContent = observer(({
           onChange={addBookState.setCoverUrl.bind(addBookState)}
         />
       </div>
+
       <div className="add-book-form__actions">
         <button 
           type="button"
           onClick={() => addBookState.reset()}
           className="add-book-form__cancel"
         >
-            Cancel
+          Cancel
         </button>
+
         <button 
           type="button"
           data-cy="add-book-form-add"
           onClick={onSubmit} 
           className="add-book-form__add"
         >
-            Add
+          Add
         </button>
       </div>
     </form>

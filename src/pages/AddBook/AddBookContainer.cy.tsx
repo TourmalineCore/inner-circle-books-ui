@@ -2,11 +2,28 @@ import { AddBookContainer } from "./AddBookContainer"
 import { AddBookState } from "./state/AddBookState"
 import { AddBookStateContext } from "./state/AddBookStateStateContext"
 
-describe(`AddBookContainer.cy`, () => {
+const BOOK = {
+  title: `Новая книга`,
+  annotation: `Описание книги`,
+  authors: [
+    {
+      fullName: `Имя Автора`, 
+    },
+  ],
+  language: `en`,
+  bookCoverUrl: `https://my.cdn/book.jpg`,
+}
+      
+describe(`AddBookContainer`, () => {
   beforeEach(() => {
-    cy.intercept(`POST`, `**/books`, req => {
-      req.alias = `createBook`
-    })
+    cy
+      .intercept(
+        `POST`, 
+        `**/books`, 
+        req => {
+          req.alias = `createBook`
+        },
+      )
   })
 
   describe(`Add Book Flow`, addBookFlowTests)
@@ -20,48 +37,44 @@ function addBookFlowTests() {
   `, () => {
     mountComponent()
 
-    cy.getByData(`add-book-form-title`)
+    cy
+      .getByData(`add-book-form-title`)
       .type(`Новая книга`)
 
-    cy.getByData(`add-book-form-annotation`)
+    cy
+      .getByData(`add-book-form-annotation`)
       .type(`Описание книги`)
 
-    cy.get(`.dynamic-input-list`)
+    cy
+      .get(`.dynamic-input-list`)
       .type(`Имя Автора`)
 
-    cy.get(`.image-preview-input__input`)
+    cy
+      .get(`.image-preview-input__input`)
       .type(`https://my.cdn/book.jpg`)
 
-    cy.contains(`English`)
+    cy
+      .contains(`English`)
       .click()
 
-    // Нажимаем кнопку добавления
-    cy.getByData(`add-book-form-add`)
+    cy
+      .getByData(`add-book-form-add`)
       .click()
 
-    // Проверяем, что ушел корректный запрос
-    cy.wait(`@createBook`)
+    cy
+      .wait(`@createBook`)
       .its(`request.body`)
-      .should(`deep.equal`, {
-        title: `Новая книга`,
-        annotation: `Описание книги`,
-        authors: [
-          {
-            fullName: `Имя Автора`, 
-          },
-        ],
-        language: `en`,
-        bookCoverUrl: `https://my.cdn/book.jpg`,
-      })
+      .should(`deep.equal`, BOOK)
   })
 }
 
 function mountComponent() {
   const addBookState = new AddBookState()
 
-  cy.mount(
-    <AddBookStateContext.Provider value={addBookState}>
-      <AddBookContainer />
-    </AddBookStateContext.Provider>,
-  )
+  cy
+    .mount(
+      <AddBookStateContext.Provider value={addBookState}>
+        <AddBookContainer />
+      </AddBookStateContext.Provider>,
+    )
 }

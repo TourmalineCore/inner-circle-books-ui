@@ -1,4 +1,5 @@
 import './ImagePreviewInput.scss'
+
 import NoImage from "../../../../assets/img/no-image.png"
 
 export const ImagePreviewInput = ({
@@ -12,8 +13,10 @@ export const ImagePreviewInput = ({
 }) => (
   <label className="image-preview-input">
     <div className="image-preview-input__body">
+      <span className="image-preview-input__label">
+        {label}
+      </span>
 
-      <span className="image-preview-input__label">{label}</span>
       <input
         type="text"
         className="image-preview-input__input"
@@ -22,18 +25,20 @@ export const ImagePreviewInput = ({
         onChange={(e) => onChange(e.target.value)}
       />
     </div>
-    {url ? 
-      <img
-        src={url}
-        alt="Preview"
-        className="image-preview-input__preview"
-        onError={(e) => (e.currentTarget.style.display = `none`)}
-      />
-      :<img
-        src={NoImage}
-        alt="Preview"
-        className="image-preview-input__preview"
-        onError={(e) => (e.currentTarget.style.display = `none`)}
-      />}
+    {
+      url 
+        ? <img
+          src={url}
+          alt="Preview"
+          className="image-preview-input__preview"
+          onError={(e) => (e.currentTarget.style.display = `none`)}
+        />
+        : <img
+          src={NoImage}
+          alt="Preview"
+          className="image-preview-input__preview"
+          onError={(e) => (e.currentTarget.style.display = `none`)}
+        />
+    }
   </label>
 )

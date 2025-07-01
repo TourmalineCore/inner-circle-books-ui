@@ -18,5 +18,4 @@ export class BookCardsState {
   get booksCards() {
     return this._booksCards
   }
-
 }

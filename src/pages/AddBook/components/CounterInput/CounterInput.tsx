@@ -29,6 +29,7 @@ export const CounterInput = ({
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value
+    
     if (val === `` || /^\d+$/.test(val)) {
       setInputValue(val)
     }
@@ -36,6 +37,7 @@ export const CounterInput = ({
 
   const handleBlur = () => {
     const parsed = parseInt(inputValue, 10)
+    
     if (!isNaN(parsed)) {
       onChange(Math.max(min, parsed))
     }
@@ -47,7 +49,10 @@ export const CounterInput = ({
 
   return (
     <div className="counter-input">
-      <span className="counter-input__label">{label}</span>
+      <span className="counter-input__label">
+        {label}
+      </span>
+
       <div className="counter-input__controls">
         <button
           type="button"
@@ -56,6 +61,7 @@ export const CounterInput = ({
         >
           <MinusIcon />
         </button>
+
         <input
           className="counter-input__value"
           type="text"
@@ -64,6 +70,7 @@ export const CounterInput = ({
           onChange={handleInputChange}
           onBlur={handleBlur}
         />
+        
         <button
           type="button"
           className="counter-input__button"
