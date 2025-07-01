@@ -1,4 +1,3 @@
-/* eslint-disable array-bracket-newline */
 import { AddBookState } from './AddBookState'
 
 describe(`AddBookState`, () => {
@@ -6,43 +5,25 @@ describe(`AddBookState`, () => {
     it(`Should have default values`, () => {
       const state = new AddBookState()
 
-      expect(state.title).to.eq(``)
-      expect(state.count).to.eq(1)
-      expect(state.language).to.eq(`rus`)
-      expect(state.annotation).to.eq(``)
-      expect(state.coverUrl).to.eq(``)
-      expect(state.authors).to.deep.eq([``])
+      checkExpectedInitialState({
+        state,
+      })
     })
   })
 
   describe(`Setters`, () => {
-    it(`Should set title`, () => {
+    it(`Should set book data without author`, () => {
       const state = new AddBookState()
-      state.setTitle(`My Book`)
+
+      setBookData({
+        state,
+        isSetAuthor: false,
+      })
+
       expect(state.title).to.eq(`My Book`)
-    })
-
-    it(`Should set count`, () => {
-      const state = new AddBookState()
-      state.setCount(3)
       expect(state.count).to.eq(3)
-    })
-
-    it(`Should set language`, () => {
-      const state = new AddBookState()
-      state.setLanguage(`eng`)
       expect(state.language).to.eq(`eng`)
-    })
-
-    it(`Should set annotation`, () => {
-      const state = new AddBookState()
-      state.setAnnotation(`Some annotation`)
       expect(state.annotation).to.eq(`Some annotation`)
-    })
-
-    it(`Should set coverUrl`, () => {
-      const state = new AddBookState()
-      state.setCoverUrl(`http://image.com`)
       expect(state.coverUrl).to.eq(`http://image.com`)
     })
 
@@ -80,22 +61,49 @@ describe(`AddBookState`, () => {
     it(`Should reset all fields to default`, () => {
       const state = new AddBookState()
       
-      state.setTitle(`Temp`)
-      state.setCount(5)
-      state.setLanguage(`eng`)
-      state.setAnnotation(`Temp annotation`)
-      state.setCoverUrl(`cover.png`)
-      state.setAuthor(0, `John`)
-      state.addAuthor()
+      setBookData({
+        state,
+        isSetAuthor: true,
+      })
 
       state.reset()
 
-      expect(state.title).to.eq(``)
-      expect(state.count).to.eq(1)
-      expect(state.language).to.eq(`rus`)
-      expect(state.annotation).to.eq(``)
-      expect(state.coverUrl).to.eq(``)
-      expect(state.authors).to.deep.eq([``])
+      checkExpectedInitialState({
+        state,
+      })
     })
   })
 })
+
+function checkExpectedInitialState({
+  state,
+}: {
+  state: AddBookState,
+}) {
+  expect(state.title).to.eq(``)
+  expect(state.count).to.eq(1)
+  expect(state.language).to.eq(`rus`)
+  expect(state.annotation).to.eq(``)
+  expect(state.coverUrl).to.eq(``)
+  expect(state.authors).to.deep.eq([
+    ``,
+  ])
+}
+
+function setBookData({
+  state,
+  isSetAuthor,
+}: {
+  state: AddBookState,
+  isSetAuthor: boolean,
+}) {
+  state.setTitle(`My Book`)
+  state.setCount(3)
+  state.setLanguage(`eng`)
+  state.setAnnotation(`Some annotation`)
+  state.setCoverUrl(`http://image.com`)
+
+  if (isSetAuthor) {
+    state.setAuthor(0, `John`)
+  }
+}
