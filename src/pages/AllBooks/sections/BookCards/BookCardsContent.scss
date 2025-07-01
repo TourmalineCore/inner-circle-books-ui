@@ -3,7 +3,6 @@
 
 .cards {
   display: grid;
-  padding: 24px 16px;
   gap: 18px;
 
   &__empty {
@@ -17,7 +16,6 @@
   }
 
   @include m.tablet {
-    padding: 24px;
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -30,7 +28,6 @@
   }
 
   @include m.desktop-xl {
-    padding: 24px 32px;
     gap: 18px;
     grid-template-columns: repeat(6, minmax(0, 1fr));
   }

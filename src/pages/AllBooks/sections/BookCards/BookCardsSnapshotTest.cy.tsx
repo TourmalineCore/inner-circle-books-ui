@@ -1,5 +1,3 @@
-/// <reference types="cypress" />
-
 import { BookCardsContent } from "./BookCardsContent"
 
 describe(`Page Snapshot test with Cypress`, () => {
