@@ -8,8 +8,10 @@ import App from './App'
 
 import { ThemeProvider } from './theme/themeContext'
 import { authService } from './common/authService'
+import { refreshTokenAndSubscribe } from './common/api/refreshByInterval'
 
 async function initApp() {
+  await refreshTokenAndSubscribe()
 
   ReactDOM
     .createRoot(document.getElementById(`root`)!)
