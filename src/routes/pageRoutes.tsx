@@ -1,4 +1,4 @@
-import { booksRoutes } from '../pages/routes'
+import { addBookRoutes, allBooksRoutes } from '../pages/routes'
 import { BreadcrumbComponentProps } from 'use-react-router-breadcrumbs'
 
 export function getPageRoutes(accessPermissions: Map<any, boolean>) {
@@ -8,8 +8,13 @@ export function getPageRoutes(accessPermissions: Map<any, boolean>) {
     Component: () => JSX.Element,
   }[] = []
 
-  if (accessPermissions.get(`ViewContacts`)) { // TODO fix permissions when add them
-    routes.push(...booksRoutes)
+  // TODO fix permissions when add them
+  if (accessPermissions.get(`ViewContacts`)) { 
+    routes.push(...allBooksRoutes)
+  }
+
+  if (accessPermissions.get(`ViewContacts`)) {
+    routes.push(...addBookRoutes)
   }
 
   return routes

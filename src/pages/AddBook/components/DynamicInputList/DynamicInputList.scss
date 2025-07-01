@@ -1,0 +1,89 @@
+@use "../../../../styles/fonts-mixin" as f;
+@use "../../../../styles/variables" as v;
+@use "../../../../styles/media" as m;
+
+.dynamic-input-list {
+  margin-top: -2px;
+
+  &__label {
+    @include f.text;
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    margin-top: 6px;
+
+    @include m.tablet-xl {
+      margin-top: 9px;
+    }
+  }
+
+  &__input-wrapper {
+    position: relative;
+    width: 100%;
+  }
+
+  &__input {
+    @include f.text;
+
+    margin-bottom: 8px;
+    border: 1px solid v.$color-component-border;
+    border-radius: 8px;
+    padding: 11px;
+    width: 100%;
+
+    @include m.tablet {
+      max-width: 343px;
+    }
+  }
+
+  &__remove {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    border: none;
+    padding: 4px;
+    background: none;
+    cursor: pointer;
+    transform: translateY(-50%);
+
+    svg {
+      width: 16px;
+      height: 16px;
+      stroke: v.$color-icon-alternative;
+    }
+
+    @include m.tablet {
+      left: 311px;
+      right: auto;
+    }
+  }
+
+  &__add {
+    @include f.text;
+
+    display: flex;
+    align-items: center;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 16px;
+    color: v.$color-component-active;
+    background: none;
+    cursor: pointer;
+    gap: 12px;
+
+    svg path {
+      stroke: v.$color-icon-alternative;
+    }
+
+    &:hover {
+      background-color: v.$color-background-component-secondary-hover;
+      transition: background-color 0.2s ease-in-out;
+    }
+
+    &:active {
+      background-color: v.$color-background-component-secondary-active;
+    }
+  }
+}

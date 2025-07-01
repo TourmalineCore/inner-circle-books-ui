@@ -1,0 +1,39 @@
+@use "../../../../styles/fonts-mixin" as f;
+@use "../../../../styles/variables" as v;
+@use "../../../../styles/media" as m;
+
+.image-preview-input {
+  margin-top: -2px;
+
+  &__label {
+    @include f.text;
+  }
+
+  &__input {
+    margin-top: 8px;
+    padding: 11px;
+  }
+
+  &__preview {
+    margin-top: 23px;
+    border-radius: 8px;
+    width: 100%;
+    height: 472px;
+    object-fit: contain;
+
+    @include m.tablet-xl {
+      margin-top: 0;
+      margin-bottom: 23px;
+    }
+
+    @include m.desktop-xl {
+      max-height: 544px;
+    }
+  }
+
+  @include m.tablet-xl {
+    display: flex;
+    flex-direction: column;
+    flex-direction: column-reverse;
+  }
+}
