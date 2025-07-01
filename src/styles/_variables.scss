@@ -4,16 +4,32 @@ $color-white-smoke: #f5f5f5;
 // bg
 $color-background-primary: #fff;
 $color-background-component-hover: #eee;
+$color-background-component-hover-contrast: #201f1f;
 
 // border
 $color-component-border: #cacaca;
+$color-component-border-hover: #88878c;
+$color-component-border-active: #3e0fa4;
+$color-border-primary: #201f1f;
+$color-border-error: #b90505;
 
 // button
 $color-accent-violet: #7f4eeb;
+$color-component-active: #3e0fa4;
+$color-background-component-secondary: #e8deff;
+$color-background-component-secondary-hover: #e2d5ff;
+$color-background-component-secondary-active: #d8c7ff;
+$color-background-component-hover: #7f48e8;
+$color-background-component-active: #753def;
 
 // text
 $color-text-primary: #201f1f;
+$color-text-contrast: #fafafa;
 $color-text-secondary: #717171;
+
+// icon
+$color-icon-primary: #201f1f;
+$color-icon-alternative: #3e0fa4;
 
 // z-index
 $profile-nav: 10; // 1

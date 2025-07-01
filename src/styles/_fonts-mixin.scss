@@ -1,8 +1,25 @@
 @font-face {
+  src: url("../../public/fonts/Inter-Medium.woff") format("woff");
+  font-family: Inter;
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  src: url("../../public/fonts/Inter-SemiBold.woff") format("woff");
+  font-family: Inter;
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
   src: url("../../public/fonts/Inter-Regular.woff") format("woff");
   font-family: Inter;
+  font-weight: 400;
+  font-style: normal;
   font-display: swap;
-  weight: "400";
 }
 
 @mixin text {
@@ -15,6 +32,27 @@
 @mixin subhead1-medium {
   font-family: Inter, sans-serif;
   font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
+}
+
+@mixin h4 {
+  font-family: Inter, sans-serif;
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 1.4;
+}
+
+@mixin h5 {
+  font-family: Inter, sans-serif;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 20px;
+}
+
+@mixin h6 {
+  font-family: Inter, sans-serif;
+  font-weight: 600;
   font-size: 16px;
   line-height: 20px;
 }

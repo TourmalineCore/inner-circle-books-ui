@@ -1,4 +1,6 @@
 @use "media" as *;
+@use "./variables" as v;
+@use "./fonts-mixin" as f;
 
 :root {
   --sidebar-width: 207px;
@@ -67,4 +69,36 @@ ol {
 
 a {
   color: inherit;
+}
+
+input,
+textarea {
+  @include f.text;
+
+  border: 1px solid v.$color-component-border;
+  border-radius: 8px;
+  padding: 8px 12px;
+  width: 100%;
+  transition: border-color 0.2s ease-in-out;
+
+  &::placeholder {
+    color: v.$color-text-secondary;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: v.$color-component-border-active;
+  }
+
+  &:hover {
+    border-color: v.$color-component-border-hover;
+  }
+}
+
+button {
+  border: none;
+}
+
+.error {
+  border-color: v.$color-border-error !important;
 }
