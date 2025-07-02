@@ -1,0 +1,34 @@
+@use "../../../../styles/fonts-mixin" as f;
+@use "../../../../styles/variables" as v;
+
+.button {
+  @include f.text;
+
+  flex: 1;
+  border-radius: 8px;
+  width: 100%;
+  height: 44px;
+  background-color: v.$color-background-component-secondary;
+
+  &__accent {
+    color: v.$color-text-contrast;
+    background-color: v.$color-accent-violet;
+
+    &:hover {
+      background-color: v.$color-background-component-hover;
+    }
+
+    &:active {
+      background-color: v.$color-background-component-active;
+    }
+  }
+
+  &:hover {
+    background-color: v.$color-background-component-secondary-hover;
+    transition: background-color 0.2s ease-in-out;
+  }
+
+  &:active {
+    background-color: v.$color-background-component-secondary-active;
+  }
+}

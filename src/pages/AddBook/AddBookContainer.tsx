@@ -3,14 +3,15 @@ import { observer } from "mobx-react-lite"
 import { AddBookContent } from "./AddBookContent"
 import { AddBookStateContext } from "./state/AddBookStateStateContext"
 import { api } from "../../common/api"
+import { BrowserRouter } from "react-router-dom"
 
 export const AddBookContainer = observer(() => {
   const addBookState = useContext(AddBookStateContext)
 
   return (
-    <AddBookContent
-      onSubmit={submitBookAsync}
-    />
+    <BrowserRouter> 
+      <AddBookContent onSubmit={submitBookAsync} />
+    </BrowserRouter> 
   )
 
   async function submitBookAsync() {

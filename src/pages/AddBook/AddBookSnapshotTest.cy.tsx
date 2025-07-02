@@ -1,8 +1,31 @@
 /* eslint-disable array-bracket-newline */
-import { VIEWPORTS } from "../../common/constant"
+import { BrowserRouter } from "react-router-dom"
 import { AddBookContent } from "./AddBookContent"
 import { AddBookState } from "./state/AddBookState"
 import { AddBookStateContext } from "./state/AddBookStateStateContext"
+
+export const VIEWPORTS = [
+  {
+    width: 375,
+    height: 1576,
+  },
+  {
+    width: 768,
+    height: 1408,
+  },
+  {
+    width: 1024,
+    height: 820,
+  },
+  {
+    width: 1366,
+    height: 820,
+  },
+  {
+    width: 1920,
+    height: 1008,
+  },
+]
 
 describe(`Add Book Snapshot test`, () => {
   it(`Take the snapshot of a result`, () => {
@@ -26,6 +49,46 @@ describe(`Add Book Snapshot test`, () => {
       cy
         .getByData(`add-book-form`)
         .compareSnapshot(`/${viewport.width}`, {
+          capture: `viewport`,
+        })
+    })
+  })
+
+  it(`Take the snapshot of a result with overlay`, () => {
+    VIEWPORTS.forEach((viewport) => {
+
+      // TODO because of scrolling mobile test is not correct
+      if (viewport.width === 375) {
+        return
+      }
+
+      cy.viewport(viewport.width, viewport.height)
+
+      cy.wrap(
+        Cypress.automation(`remote:debugger:protocol`, {
+          command: `Emulation.setDeviceMetricsOverride`,
+          params: {
+            width: viewport.width,
+            height: viewport.height,
+            deviceScaleFactor: 1,
+            mobile: false,
+          },
+        }),
+      )
+
+      mountComponent({})
+
+      cy
+        .getByData(`add-book-form-title`)
+        .type(`Some Title`)
+
+      cy
+        .get(`.add-book-form__actions > :nth-child(1)`)
+        .click()
+
+      cy
+        .getByData(`add-book-form`)
+        .compareSnapshot(`/overlay${viewport.width}`, {
           capture: `viewport`,
         })
     })
@@ -54,8 +117,10 @@ function mountComponent({
 
   cy
     .mount(
-      <AddBookStateContext.Provider value={addBookState}>
-        <AddBookContent onSubmit={() => {}} />
-      </AddBookStateContext.Provider>,
+      <BrowserRouter> 
+        <AddBookStateContext.Provider value={addBookState}>
+          <AddBookContent onSubmit={() => {}} />
+        </AddBookStateContext.Provider>
+      </BrowserRouter>, 
     )
 }

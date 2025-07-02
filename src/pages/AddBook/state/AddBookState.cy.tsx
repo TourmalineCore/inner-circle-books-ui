@@ -73,6 +73,43 @@ describe(`AddBookState`, () => {
       })
     })
   })
+
+  describe(`isFormDirty`, () => {
+    it(`Should return false for initial state`, () => {
+      const state = new AddBookState()
+      expect(state.isFormDirty()).to.be.false
+    })
+
+    it(`Should return true if title is changed`, () => {
+      const state = new AddBookState()
+      state.setTitle(`New Title`)
+      expect(state.isFormDirty()).to.be.true
+    })
+
+    it(`Should return true if count is changed`, () => {
+      const state = new AddBookState()
+      state.setCount(2)
+      expect(state.isFormDirty()).to.be.true
+    })
+
+    it(`Should return true if annotation is changed`, () => {
+      const state = new AddBookState()
+      state.setAnnotation(`New Annotation`)
+      expect(state.isFormDirty()).to.be.true
+    })
+
+    it(`Should return true if authors are added`, () => {
+      const state = new AddBookState()
+      state.setAuthor(0, `John Doe`)
+      expect(state.isFormDirty()).to.be.true
+    })
+
+    it(`Should return true if coverUrl is changed`, () => {
+      const state = new AddBookState()
+      state.setCoverUrl(`http://newimage.com`)
+      expect(state.isFormDirty()).to.be.true
+    })
+  })
 })
 
 function checkExpectedInitialState({

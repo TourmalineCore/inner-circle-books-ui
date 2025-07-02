@@ -58,7 +58,7 @@ function addBookFlowTests() {
       .click()
 
     cy
-      .getByData(`add-book-form-add`)
+      .get(`.button__accent`)
       .click()
 
     cy
