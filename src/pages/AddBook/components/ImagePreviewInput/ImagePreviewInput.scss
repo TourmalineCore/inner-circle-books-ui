@@ -27,7 +27,11 @@
     }
 
     @include m.desktop-xl {
-      max-height: 544px;
+      height: 544px;
+    }
+
+    &--no-image {
+      object-fit: cover;
     }
   }
 

@@ -36,7 +36,7 @@ export const ImagePreviewInput = ({
         : <img
           src={NoImage}
           alt="Preview"
-          className="image-preview-input__preview"
+          className="image-preview-input__preview--no-image"
           onError={(e) => (e.currentTarget.style.display = `none`)}
         />
     }

@@ -77,10 +77,6 @@
       max-width: 611px;
     }
 
-    @include m.tablet-xl {
-      max-width: 100%;
-    }
-
     @include m.desktop-xl {
       height: 96px;
     }
@@ -92,10 +88,6 @@
     @include m.tablet {
       height: 212px;
       max-width: 611px;
-    }
-
-    @include m.tablet-xl {
-      max-width: 100%;
     }
 
     @include m.desktop-xl {
@@ -148,6 +140,8 @@
   }
 
   @include m.tablet-xl {
+    margin: 0 auto;
+    max-width: 976px;
     grid-template-areas:
       "header header"
       "left right"
@@ -156,12 +150,13 @@
   }
 
   @include m.desktop {
-    padding: 24px 129px;
+    padding: 24px;
+    max-width: 1032px;
     grid-template-columns: 401px 1fr;
   }
 
   @include m.desktop-xl {
-    padding: 24px 332px;
+    max-width: 1180px;
     grid-template-columns: 430px 1fr;
   }
 }
