@@ -5,7 +5,7 @@ const DEFAULT_PATH = `/books`
 
 export const allBooksRoutes = [
   {
-    path: `${DEFAULT_PATH}`,
+    path: DEFAULT_PATH,
     breadcrumb: `All Books`,
     Component: AllBooksPage,
   },
