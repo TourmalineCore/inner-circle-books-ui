@@ -9,7 +9,7 @@ import 'react-datepicker/dist/react-datepicker.css'
 import '../../src/styles/index.scss'
 
 // commands
-import { mount } from 'cypress/react'
+import { mount } from 'cypress/react18'
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
