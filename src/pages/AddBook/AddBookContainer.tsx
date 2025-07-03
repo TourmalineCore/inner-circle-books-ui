@@ -3,17 +3,15 @@ import { observer } from "mobx-react-lite"
 import { AddBookContent } from "./AddBookContent"
 import { AddBookStateContext } from "./state/AddBookStateStateContext"
 import { api } from "../../common/api"
-import { useNavigate } from 'react-router-dom'
-import { allBooksRoutes } from '../routes'
+import { BrowserRouter } from "react-router-dom"
 
 export const AddBookContainer = observer(() => {
   const addBookState = useContext(AddBookStateContext)
 
   return (
-    <AddBookContent
-      onSubmit={submitBookAsync}
-      onNavigate={submitNavigate}
-    />
+    <BrowserRouter>
+      <AddBookContent onSubmit={submitBookAsync} />
+    </BrowserRouter>
   )
 
   async function submitBookAsync() {
@@ -34,12 +32,5 @@ export const AddBookContainer = observer(() => {
     }
 
     await api.post(`/books`, payload)
-  }
-
-  async function submitNavigate () {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    const navigate = useNavigate()
-    
-    navigate(allBooksRoutes[0].path)
   }
 })

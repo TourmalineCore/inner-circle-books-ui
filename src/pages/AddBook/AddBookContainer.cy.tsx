@@ -1,3 +1,4 @@
+import { MemoryRouter } from "react-router-dom"
 import { AddBookContainer } from "./AddBookContainer"
 import { AddBookState } from "./state/AddBookState"
 import { AddBookStateContext } from "./state/AddBookStateStateContext"
@@ -73,8 +74,10 @@ function mountComponent() {
 
   cy
     .mount(
-      <AddBookStateContext.Provider value={addBookState}>
-        <AddBookContainer />
-      </AddBookStateContext.Provider>,
+      <MemoryRouter>
+        <AddBookStateContext.Provider value={addBookState}>
+          <AddBookContainer />
+        </AddBookStateContext.Provider>
+      </MemoryRouter>,
     )
 }

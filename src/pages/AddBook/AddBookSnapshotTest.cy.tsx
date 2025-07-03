@@ -119,7 +119,6 @@ function mountComponent({
       <AddBookStateContext.Provider value={addBookState}>
         <AddBookContent
           onSubmit={() => {}}
-          onNavigate={() => {}} 
         />
       </AddBookStateContext.Provider>,
     )
