@@ -14,7 +14,8 @@
     padding: 11px;
   }
 
-  &__preview {
+  &__preview,
+  &__preview--no-image {
     margin-top: 23px;
     border-radius: 8px;
     width: 100%;
