@@ -12,7 +12,7 @@ export function AddBookPage() {
   return (
     <div data-cy="books-page">
       <AddBookStateContext.Provider value={addBookState}>
-        <AddBookContainer/>
+        <AddBookContainer />
       </AddBookStateContext.Provider>
     </div>
   )

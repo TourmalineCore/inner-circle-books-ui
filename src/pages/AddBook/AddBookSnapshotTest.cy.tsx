@@ -1,5 +1,4 @@
 /* eslint-disable array-bracket-newline */
-import { BrowserRouter } from "react-router-dom"
 import { AddBookContent } from "./AddBookContent"
 import { AddBookState } from "./state/AddBookState"
 import { AddBookStateContext } from "./state/AddBookStateStateContext"
@@ -117,10 +116,11 @@ function mountComponent({
 
   cy
     .mount(
-      <BrowserRouter> 
-        <AddBookStateContext.Provider value={addBookState}>
-          <AddBookContent onSubmit={() => {}} />
-        </AddBookStateContext.Provider>
-      </BrowserRouter>, 
+      <AddBookStateContext.Provider value={addBookState}>
+        <AddBookContent
+          onSubmit={() => {}}
+          onNavigate={() => {}} 
+        />
+      </AddBookStateContext.Provider>,
     )
 }
