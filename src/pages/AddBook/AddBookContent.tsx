@@ -32,6 +32,9 @@ export const AddBookContent = observer(({
     if (addBookState.isFormDirty()) {
       setShowModal(true)
     }
+    else {
+      window.location.href = allBooksRoutes[0].path
+    }
   }
   
   const handleConfirmQuit = () => {
