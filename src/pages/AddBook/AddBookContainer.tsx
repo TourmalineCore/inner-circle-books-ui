@@ -4,6 +4,7 @@ import { AddBookContent } from "./AddBookContent"
 import { AddBookStateContext } from "./state/AddBookStateStateContext"
 import { api } from "../../common/api"
 import { BrowserRouter } from "react-router-dom"
+import { allBooksRoutes } from "../routes"
 
 export const AddBookContainer = observer(() => {
   const addBookState = useContext(AddBookStateContext)
@@ -32,5 +33,7 @@ export const AddBookContainer = observer(() => {
     }
 
     await api.post(`/books`, payload)
+
+    window.location.href = allBooksRoutes[0].path
   }
 })
