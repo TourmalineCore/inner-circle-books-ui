@@ -1,8 +1,9 @@
 import './BookCardsContent.scss'
 
+import NoBook from '../../../../assets/icons/Not-found.svg?react'
+
 import { observer } from "mobx-react-lite"
 import { BookCard } from './components/BookCard/BookCard'
-import NoBook from '../../../../assets/icons/Not-found.svg?react'
 
 export const BookCardsContent = observer(({
   cards,
