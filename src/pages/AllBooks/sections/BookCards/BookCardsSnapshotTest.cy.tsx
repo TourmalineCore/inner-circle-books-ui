@@ -21,7 +21,7 @@ describe(`Book Cards Snapshot test`, () => {
       mountComponent()
 
       cy
-        .getByData(`cards`)
+        .getByData(`books-list`)
         .compareSnapshot(`/${viewport.width}`, {
           capture: `viewport`,
         })

@@ -1,7 +1,7 @@
-@use "../../../../styles/media" as m;
-@use "../../../../styles/fonts-mixin" as f;
+@use "../../../../../../styles/media" as m;
+@use "../../../../../../styles/fonts-mixin" as f;
 
-.cards {
+.books-list {
   display: grid;
   gap: 18px;
 
