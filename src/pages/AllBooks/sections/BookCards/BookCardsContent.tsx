@@ -1,5 +1,3 @@
-import './BookCardsContent.scss'
-
 import { observer } from "mobx-react-lite"
 import { BooksList } from './components/BooksList/BooksList'
 import { AllBooksActions } from '../AllBooksActions/AllBooksActions'

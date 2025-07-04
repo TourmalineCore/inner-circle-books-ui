@@ -2,8 +2,8 @@ import './ImagePreviewInput.scss'
 
 import NoImage from "../../../../assets/img/no-image.png"
 
-import { useEffect, useState } from 'react'
 import clsx from 'clsx'
+import { useImageValid } from '../../../../common/useImageValid'
 
 export const ImagePreviewInput = ({
   label, 
@@ -14,24 +14,7 @@ export const ImagePreviewInput = ({
   url: string,
   onChange: (value: string) => void,
 }) => {
-  const [
-    isValidUrl,
-    setIsValidUrl,
-  ] = useState(false)
-
-  useEffect(() => {
-    if (!url) {
-      setIsValidUrl(false)
-      return
-    }
-
-    const img = new Image()
-    img.onload = () => setIsValidUrl(true)
-    img.onerror = () => setIsValidUrl(false)
-    img.src = url
-  }, [
-    url,
-  ])
+  const isValidUrl = useImageValid(url)
 
   return (
     <label className="image-preview-input">

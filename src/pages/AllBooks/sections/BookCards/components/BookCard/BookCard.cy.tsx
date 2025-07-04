@@ -2,7 +2,49 @@ import { BookCard } from "./BookCard"
 
 describe(`BookCard`, () => {
   describe(`Author suffix`, authorSuffixTests)
+  describe(`Images changes`, imagesTest)
 })
+function imagesTest() {
+  it(`
+  GIVEN an empty image URL
+  WHEN the card renders
+  THEN it SHOULD render the default image
+  `, () => {
+    mountComponent({
+      bookCoverUrl: ``,
+      authors: [
+        {
+          fullName: `Александр Остервальдер`,
+        },
+      ],
+      language: `rus`,
+    })
+
+    cy.getByData(`card-image`)
+      .should(`have.attr`, `src`)
+      .and(`include`, `no-image.png`)
+  })
+
+  it(`
+  GIVEN a broken image URL
+  WHEN the image fails to load
+  THEN it SHOULD render the default image
+  `, () => {
+    mountComponent({
+      bookCoverUrl: `https://this-does-not-exist.invalid/image.jpg`,
+      authors: [
+        {
+          fullName: `Александр Остервальдер`,
+        },
+      ],
+      language: `rus`,
+    })
+
+    cy.getByData(`card-image`)
+      .should(`have.attr`, `src`)
+      .and(`include`, `no-image.png`)
+  })
+}
 
 function authorSuffixTests() {
   it(`
