@@ -1,4 +1,3 @@
-import { MemoryRouter } from "react-router-dom"
 import { AddBookContainer } from "./AddBookContainer"
 import { AddBookState } from "./state/AddBookState"
 import { AddBookStateContext } from "./state/AddBookStateStateContext"
@@ -17,14 +16,16 @@ const BOOK = {
       
 describe(`AddBookContainer`, () => {
   beforeEach(() => {
-    cy
-      .intercept(
-        `POST`, 
-        `**/books`, 
-        req => {
-          req.alias = `createBook`
-        },
-      )
+    cy.intercept(
+      `POST`,
+      `**/books`,
+      (req) => {
+        req.alias = `createBook`
+        req.reply({
+          statusCode: 200,
+        })
+      },
+    )
   })
 
   describe(`Add Book Flow`, addBookFlowTests)
@@ -66,18 +67,23 @@ function addBookFlowTests() {
       .wait(`@createBook`)
       .its(`request.body`)
       .should(`deep.equal`, BOOK)
+
+    cy.get(`@onSuccess`)
+      .should(`have.been.called`)
+
   })
 }
 
-function mountComponent() {
+function mountComponent(
+  onSuccess = cy
+    .stub()
+    .as(`onSuccess`),
+) {
   const addBookState = new AddBookState()
 
-  cy
-    .mount(
-      <MemoryRouter>
-        <AddBookStateContext.Provider value={addBookState}>
-          <AddBookContainer />
-        </AddBookStateContext.Provider>
-      </MemoryRouter>,
-    )
+  cy.mount(
+    <AddBookStateContext.Provider value={addBookState}>
+      <AddBookContainer goToBooksList={onSuccess} />
+    </AddBookStateContext.Provider>,
+  )
 }

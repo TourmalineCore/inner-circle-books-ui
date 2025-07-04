@@ -13,12 +13,13 @@ import { useContext, useState } from 'react'
 import { AddBookStateContext } from './state/AddBookStateStateContext'
 import { Button } from './components/Button/Button'
 import { Overlay } from './components/Overlay/Overlay'
-import { allBooksRoutes } from '../routes'
 
 export const AddBookContent = observer(({
   onSubmit,
+  goToBooksList,
 }:{
   onSubmit: () => void,
+  goToBooksList: () => void,
 }) => {
 
   const addBookState = useContext(AddBookStateContext)
@@ -33,7 +34,7 @@ export const AddBookContent = observer(({
       setShowModal(true)
     }
     else {
-      window.location.href = allBooksRoutes[0].path
+      goToBooksList()
     }
   }
   
@@ -41,7 +42,7 @@ export const AddBookContent = observer(({
     addBookState.reset()
     setShowModal(false)
 
-    window.location.href = allBooksRoutes[0].path
+    goToBooksList()
   }
 
   const handleCloseModal = () => {
