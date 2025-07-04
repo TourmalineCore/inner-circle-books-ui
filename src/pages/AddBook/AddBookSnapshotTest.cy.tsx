@@ -119,6 +119,7 @@ function mountComponent({
       <AddBookStateContext.Provider value={addBookState}>
         <AddBookContent
           onSubmit={() => {}}
+          goToBooksList={() => {}}
         />
       </AddBookStateContext.Provider>,
     )
