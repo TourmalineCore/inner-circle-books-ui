@@ -4,11 +4,12 @@ describe(`BookCard`, () => {
   describe(`Author suffix`, authorSuffixTests)
   describe(`Images changes`, imagesTest)
 })
+
 function imagesTest() {
   it(`
   GIVEN an empty image URL
   WHEN the card renders
-  THEN it SHOULD render the default image
+  SHOULD render the default image
   `, () => {
     mountComponent({
       bookCoverUrl: ``,
@@ -17,10 +18,10 @@ function imagesTest() {
           fullName: `Александр Остервальдер`,
         },
       ],
-      language: `rus`,
     })
 
-    cy.getByData(`card-image`)
+    cy
+      .getByData(`card-image`)
       .should(`have.attr`, `src`)
       .and(`include`, `no-image.png`)
   })
@@ -28,7 +29,7 @@ function imagesTest() {
   it(`
   GIVEN a broken image URL
   WHEN the image fails to load
-  THEN it SHOULD render the default image
+  SHOULD render the default image
   `, () => {
     mountComponent({
       bookCoverUrl: `https://this-does-not-exist.invalid/image.jpg`,
@@ -37,10 +38,10 @@ function imagesTest() {
           fullName: `Александр Остервальдер`,
         },
       ],
-      language: `rus`,
     })
 
-    cy.getByData(`card-image`)
+    cy
+      .getByData(`card-image`)
       .should(`have.attr`, `src`)
       .and(`include`, `no-image.png`)
   })
@@ -61,7 +62,6 @@ function authorSuffixTests() {
           fullName: `Сергей Николенко`,
         },
       ],
-      language: `rus`,
     })
 
     cy.contains(`Александр Остервальдер и др.`)
@@ -98,7 +98,6 @@ function authorSuffixTests() {
           fullName: `Alexander Osterwalder`,
         },
       ],
-      language: `rus`,
     })
 
     cy.contains(`Alexander Osterwalder`)
@@ -109,8 +108,11 @@ function mountComponent({
   bookCoverUrl = `https://cdn.litres.ru/pub/c/cover/14363291.jpg`,
   title = `Test Title`,
   authors,
-  language,
-}: Partial<BookCardType> & { authors: BookCardType["authors"], language: BookCardType["language"], }) {
+  language = `rus`,
+}: Partial<BookCardType> & { 
+  authors: BookCardType["authors"], 
+  language?: BookCardType["language"], 
+}) {
   
   cy
     .mount(

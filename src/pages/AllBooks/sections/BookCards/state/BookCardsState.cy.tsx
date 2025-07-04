@@ -57,7 +57,6 @@ function initializationTests() {
 
     expect(booksCards.booksCards).to.deep.eq(booksCardsForInitialization)
   })
-
 }
 
 function createState({
