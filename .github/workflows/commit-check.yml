@@ -36,7 +36,7 @@ jobs:
     runs-on: ubuntu-22.04
     needs: check-lint
     container:
-      image: cypress/browsers:node-20.18.0-chrome-125.0.6422.141-1-ff-126.0.1-edge-125.0.2535.85-1
+      image: cypress/browsers:node-20.18.0-chrome-129.0.6668.89-1-ff-131.0.2-edge-129.0.2792.65-1
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -56,7 +56,7 @@ jobs:
 
   component-test:
     runs-on: ubuntu-22.04
-    container: cypress/browsers:node-20.18.0-chrome-125.0.6422.141-1-ff-126.0.1-edge-125.0.2535.85-1
+    container: cypress/browsers:node-20.18.0-chrome-129.0.6668.89-1-ff-131.0.2-edge-129.0.2792.65-1
     strategy:
       fail-fast: false
       matrix:
@@ -86,8 +86,6 @@ jobs:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
-          CYPRESS_LOG_LEVEL: debug
-          CYPRESS_SCREENSHOT_ON_RUN_FAILURE: true
 
   # this is needed to wait for the new docker image to be build and published to the registry
   # so that we can use the image to run ui of the needed commit related version as part of local-env
