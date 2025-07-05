@@ -1,4 +1,4 @@
-import { BooksPage } from "./pages/BooksPage"
+import { AllBooksPage } from "./pages/AllBooksPage"
 
 describe(`Books Smoke`, () => {
   beforeEach(`Authorize and cleanup`, () => {
@@ -7,15 +7,15 @@ describe(`Books Smoke`, () => {
 
   it(`
   GIVEN books flow
-  WHEN visit page
-  SHOULD see init text
+  WHEN visit all books page
+  SHOULD see it
   `, () => {
-    // visit books page
-    BooksPage.visit()
+    // visit all books page
+    AllBooksPage.visit()
 
-    // check if page contains init text
+    // check if page contains
     cy
       .getByData(`books-page`)
-      .should(`have.text`, `This is init books page`)
+      .should(`be.visible`)
   })
 })
