@@ -112,6 +112,8 @@ jobs:
           path: |
             cypress/screenshots/
             cypress/videos/
+            cypress/cypress-image-diff-html-report/
+            cypress/cypress-image-diff-screenshots/diff
 
   # this is needed to wait for the new docker image to be build and published to the registry
   # so that we can use the image to run ui of the needed commit related version as part of local-env
