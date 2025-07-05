@@ -87,7 +87,6 @@ jobs:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
           CYPRESS_LOG_LEVEL: debug
-          CYPRESS_VIDEO: true
           CYPRESS_SCREENSHOT_ON_RUN_FAILURE: true
 
   # this is needed to wait for the new docker image to be build and published to the registry
