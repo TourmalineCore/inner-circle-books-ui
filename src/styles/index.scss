@@ -1,8 +1,8 @@
-@use 'media';
+@use "media";
 @use "globals";
 @use "variables";
 @use "typography";
-@use "mixins";
+@use "fonts-mixin";
 
 // Theme
 @use "../theme/themeVariables";

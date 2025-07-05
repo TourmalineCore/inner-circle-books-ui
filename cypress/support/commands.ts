@@ -1,5 +1,6 @@
 /// <reference types="cypress" />
 import { createAuthService } from '@tourmalinecore/react-tc-auth'
+import compareSnapshotCommand from 'cypress-image-diff-js'
 
 Cypress.on(`uncaught:exception`, () => false)
 
@@ -16,6 +17,10 @@ Cypress.on(`uncaught:exception`, (err) => {
 })
 
 Cypress.Commands.add(`getByData`, (selector) => cy.get(`[data-cy=${selector}]`))
+Cypress.Screenshot.defaults({
+  capture: `viewport`,
+  scale: false,
+})
 
 export { }
 
@@ -54,3 +59,5 @@ Cypress.Commands.add(`authByApi`, () => {
       Cypress.env(`accessToken`, accessToken.value)
     })
 })
+
+compareSnapshotCommand()
