@@ -7,19 +7,30 @@ export const Button = ({
   className, 
   label, 
   isAccent,
+  isDisable = false,
+  isLoader = false,
 }: {
   onClick: () => unknown,
   className?: string, 
   label: string, 
   isAccent?: boolean,
+  isDisable?: boolean,
+  isLoader?: boolean,
 }) => (
   <button 
     type="button"
     onClick={onClick} 
     className={clsx(`button`, className, {
       'button__accent': isAccent,
+      'button__disable': isDisable,
     })}
+    disabled={isDisable}
   >
-    {label}
+    {
+      <>
+        {isLoader && <span className="button__loader"></span>}
+        {label}
+      </>
+    }
   </button>
 )

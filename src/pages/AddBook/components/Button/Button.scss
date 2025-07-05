@@ -4,31 +4,66 @@
 .button {
   @include f.text;
 
+  display: flex;
+  align-items: center;
   flex: 1;
+  justify-content: center;
   border-radius: 8px;
   width: 100%;
   height: 44px;
   background-color: v.$color-background-component-secondary;
+  cursor: pointer;
+
+  &__loader {
+    display: inline-block;
+    margin-right: 12px;
+    border-top: 1.5px solid v.$color-text-contrast;
+    border-right: 1.5px solid transparent;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    animation: rotation 1s linear infinite;
+  }
 
   &__accent {
     color: v.$color-text-contrast;
     background-color: v.$color-accent-violet;
 
-    &:hover {
+    &:hover:not(:disabled) {
       background-color: v.$color-background-component-hover;
     }
 
-    &:active {
+    &:active:not(:disabled) {
       background-color: v.$color-background-component-active;
     }
   }
 
-  &:hover {
+  &__disable {
+    color: v.$color-text-contrast;
+    background-color: v.$color-background-component-active;
+    cursor: not-allowed;
+
+    &:hover {
+      background-color: v.$color-background-component-active;
+    }
+  }
+
+  &:hover:not(:disabled) {
     background-color: v.$color-background-component-secondary-hover;
     transition: background-color 0.2s ease-in-out;
   }
 
-  &:active {
+  &:active:not(:disabled) {
     background-color: v.$color-background-component-secondary-active;
+  }
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
   }
 }
