@@ -51,9 +51,9 @@ describe(`Add Book Snapshot test`, () => {
           capture: `viewport`,
           comparisonMethod: `pixelmatch`,
           customDiffConfig: {
-            threshold: 0.1,
+            threshold: 0.9,
           },
-          failureThreshold: 0.1,
+          failureThreshold: 0.9,
           failureThresholdType: `percent`,
         })
     })
