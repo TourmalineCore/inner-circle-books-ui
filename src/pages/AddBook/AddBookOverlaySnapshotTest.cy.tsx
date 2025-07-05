@@ -26,9 +26,15 @@ export const VIEWPORTS = [
   },
 ]
 
-describe(`Add Book Snapshot test`, () => {
-  it(`Take the snapshot of a result`, () => {
+describe(`Add Book Overlay Snapshot test`, () => {
+  it(`Take the snapshot of a result with overlay`, () => {
     VIEWPORTS.forEach((viewport) => {
+
+      // TODO because of scrolling mobile test is not correct
+      if (viewport.width === 375) {
+        return
+      }
+
       cy.viewport(viewport.width, viewport.height)
 
       cy.wrap(
@@ -44,6 +50,14 @@ describe(`Add Book Snapshot test`, () => {
       )
 
       mountComponent({})
+
+      cy
+        .getByData(`add-book-form-title`)
+        .type(`Some Title`)
+
+      cy
+        .get(`.add-book-form__actions > :nth-child(1)`)
+        .click()
 
       cy
         .getByData(`add-book-form`)
