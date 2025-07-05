@@ -1,6 +1,8 @@
 import { VIEWPORTS } from "../../../../common/constant"
 import { BookCardsContent } from "./BookCardsContent"
 
+import config from "./../../../../../cypress-image-diff-config.json"
+
 describe(`Book Cards Snapshot test`, () => {
   it(`Take the snapshot of a result`, () => {
     VIEWPORTS.forEach((viewport) => {
@@ -24,6 +26,7 @@ describe(`Book Cards Snapshot test`, () => {
         .getByData(`books-list`)
         .compareSnapshot(`/${viewport.width}`, {
           capture: `viewport`,
+          customConfig: config,
         })
     })
   })

@@ -3,6 +3,8 @@ import { AddBookContent } from "./AddBookContent"
 import { AddBookState } from "./state/AddBookState"
 import { AddBookStateContext } from "./state/AddBookStateStateContext"
 
+import config from "./../../../cypress-image-diff-config.json"
+
 export const VIEWPORTS = [
   {
     width: 375,
@@ -49,6 +51,7 @@ describe(`Add Book Snapshot test`, () => {
         .getByData(`add-book-form`)
         .compareSnapshot(`/${viewport.width}`, {
           capture: `viewport`,
+          customConfig: config,
         })
     })
   })
@@ -89,6 +92,7 @@ describe(`Add Book Snapshot test`, () => {
         .getByData(`add-book-form`)
         .compareSnapshot(`/overlay${viewport.width}`, {
           capture: `viewport`,
+          customConfig: config,
         })
     })
   })
