@@ -8,8 +8,3 @@ declare global {
     }
   }
 }
-
-after(() => {
-  //custom task to generate report
-  cy.task(`generateReport`)
-})

@@ -22,8 +22,3 @@ declare global {
 }
 
 Cypress.Commands.add(`mount`, mount)
-
-after(() => {
-  //custom task to generate report
-  cy.task(`generateReport`)
-})
