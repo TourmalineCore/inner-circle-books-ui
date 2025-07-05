@@ -82,7 +82,12 @@ jobs:
           record: true
           parallel: true
           group: "Chrome component"
-          config: "ignoreTestFiles=**/*SnapshotTest.cy.tsx"
+          config: |
+            {
+              "component": {
+                "excludeSpecPattern": "**/*SnapshotTest.cy.tsx"
+              }
+            }
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
