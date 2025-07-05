@@ -59,4 +59,5 @@ Cypress.Commands.add(`authByApi`, () => {
       Cypress.env(`accessToken`, accessToken.value)
     })
 })
+
 compareSnapshotCommand()
