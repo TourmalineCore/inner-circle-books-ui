@@ -15,7 +15,7 @@ describe(`Books Smoke`, () => {
 
     // check if page contains
     cy
-      .getByData(`books-page`)
+      .getByData(`all-books-page`)
       .should(`be.visible`)
   })
 })

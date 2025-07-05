@@ -10,8 +10,10 @@ export function AllBooksPage() {
   )
 
   return (
-    <BookCardsStateContext.Provider value={bookCardsState}>
-      <BookCardsContainer />
-    </BookCardsStateContext.Provider>
+    <div data-cy="all-books-page">
+      <BookCardsStateContext.Provider value={bookCardsState}>
+        <BookCardsContainer />
+      </BookCardsStateContext.Provider>
+    </div>
   )
 }
