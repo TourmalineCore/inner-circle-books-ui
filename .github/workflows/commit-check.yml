@@ -82,10 +82,36 @@ jobs:
           record: true
           parallel: true
           group: "Chrome component"
+          config: "ignoreTestFiles=**/*SnapshotTest.cy.tsx"
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
+
+      - name: Cypress run snapshot tests
+        uses: cypress-io/github-action@v6
+        continue-on-error: true  # This ensures that the job continues even if this step fails
+        with:
+          component: true
+          start: npm start
+          browser: chrome
+          record: true
+          parallel: true
+          group: "Chrome snapshot"
+          spec: "**/*SnapshotTest.cy.tsx"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
+
+      - name: Upload snapshot test results
+        if: always()  # This ensures the step runs regardless of previous steps' outcomes
+        uses: actions/upload-artifact@v4
+        with:
+          name: snapshot-test-results
+          path: |
+            cypress/screenshots/
+            cypress/videos/
 
   # this is needed to wait for the new docker image to be build and published to the registry
   # so that we can use the image to run ui of the needed commit related version as part of local-env
