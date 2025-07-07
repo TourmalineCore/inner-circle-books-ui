@@ -74,7 +74,9 @@ function mountComponent({
     count: 1,
     language: `rus`,
     annotation: ``,
-    authors: [``],
+    authors: [{
+      fullName: ``,
+    }],
     bookCoverUrl: ``,
   },
 }: {
