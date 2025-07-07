@@ -106,14 +106,14 @@ export const AddBookContent = observer(({
               data-cy="add-book-form-counter"
               label="Number of Copies*"
               value={addBookState.count}
-              onChange={addBookState.setCount.bind(addBookState)}
+              onChange={(value) => addBookState.setCount(value)}
             />
 
             <RadioGroup
               data-cy="add-book-form-language"
               label="Language*"
               value={addBookState.language}
-              onChange={addBookState.setLanguage.bind(addBookState)}
+              onChange={(value) => addBookState.setLanguage(value)}
               options={[
                 {
                   value: `rus`,
@@ -146,9 +146,9 @@ export const AddBookContent = observer(({
             label="Authors*"
             data-cy="add-book-form-authors"
             values={addBookState.authors}
-            onChange={addBookState.setAuthor.bind(addBookState)}
-            onAdd={addBookState.addAuthor.bind(addBookState)}
-            onRemove={addBookState.removeAuthor.bind(addBookState)}
+            onChange={(index, value) => addBookState.setAuthor(index, value)}
+            onAdd={() => addBookState.addAuthor()}
+            onRemove={(index) => addBookState.removeAuthor(index)}
             placeholder="Enter author full name"
             error={addBookState.errors.authors}
           />
@@ -159,7 +159,7 @@ export const AddBookContent = observer(({
             data-cy="add-book-form-cover"
             label="Book Cover"
             url={addBookState.coverUrl}
-            onChange={addBookState.setCoverUrl.bind(addBookState)}
+            onChange={(url) => addBookState.setCoverUrl(url)}
           />
         </div>
 
