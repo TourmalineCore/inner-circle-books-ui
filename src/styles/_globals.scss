@@ -18,6 +18,7 @@ html {
 
 html,
 body {
+  overflow: hidden;
   margin: 0;
   padding: 0;
   font-family: Montserrat, Rubik, sans-serif;
@@ -26,7 +27,6 @@ body {
   color: var(--color-text);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow: hidden;
 }
 
 ul,
