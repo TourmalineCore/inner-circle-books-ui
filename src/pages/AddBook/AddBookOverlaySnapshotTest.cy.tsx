@@ -63,12 +63,6 @@ describe(`Add Book Overlay Snapshot test`, () => {
         .getByData(`add-book-form`)
         .compareSnapshot(`/${viewport.width}`, {
           capture: `viewport`,
-          comparisonMethod: `pixelmatch`,
-          customDiffConfig: {
-            threshold: 0.9,
-          },
-          failureThreshold: 0.9,
-          failureThresholdType: `percent`,
         })
     })
   })

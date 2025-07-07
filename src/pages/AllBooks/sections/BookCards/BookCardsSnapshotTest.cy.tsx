@@ -24,12 +24,6 @@ describe(`Book Cards Snapshot test`, () => {
         .getByData(`books-list`)
         .compareSnapshot(`/${viewport.width}`, {
           capture: `viewport`,
-          comparisonMethod: `pixelmatch`,
-          customDiffConfig: {
-            threshold: 0.9,
-          },
-          failureThreshold: 0.9,
-          failureThresholdType: `percent`,
         })
     })
   })
@@ -38,7 +32,7 @@ describe(`Book Cards Snapshot test`, () => {
 function mountComponent() {
   const card =
   {
-    bookCoverUrl: `https://cdn.litres.ru/pub/c/cover/14363291.jpg`,
+    bookCoverUrl: ``,
     title: `Разработка ценностных предложений. Как создавать товары и услуги, которые захотят купить потребители. Ваш первый шаг`,
     authors: [
       {
