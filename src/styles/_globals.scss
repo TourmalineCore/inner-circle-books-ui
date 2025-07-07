@@ -70,6 +70,10 @@ textarea {
 
 button {
   border: none;
+
+  &:focus {
+    outline: none;
+  }
 }
 
 .error {
