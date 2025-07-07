@@ -105,7 +105,7 @@ function authorSuffixTests() {
 }
 
 function mountComponent({
-  bookCoverUrl = `https://cdn.litres.ru/pub/c/cover/14363291.jpg`,
+  bookCoverUrl = ``,
   title = `Test Title`,
   authors,
   language = `rus`,

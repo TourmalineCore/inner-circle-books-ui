@@ -145,7 +145,7 @@ export const AddBookContent = observer(({
           <DynamicInputList
             label="Authors*"
             data-cy="add-book-form-authors"
-            values={addBookState.authors}
+            values={addBookState.authors.map(a => a.fullName)}
             onChange={(index, value) => addBookState.setAuthor(index, value)}
             onAdd={() => addBookState.addAuthor()}
             onRemove={(index) => addBookState.removeAuthor(index)}
@@ -158,7 +158,7 @@ export const AddBookContent = observer(({
           <ImagePreviewInput
             data-cy="add-book-form-cover"
             label="Book Cover"
-            url={addBookState.coverUrl}
+            url={addBookState.bookCoverUrl}
             onChange={(url) => addBookState.setCoverUrl(url)}
           />
         </div>

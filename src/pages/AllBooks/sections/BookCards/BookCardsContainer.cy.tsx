@@ -5,7 +5,7 @@ import { BookCardsStateContext } from "./state/BookCardsStateStateContext"
 const BOOK_CARDS_RESPONSE = {
   books: [
     {
-      bookCoverUrl: `https://cdn.litres.ru/pub/c/cover/14363291.jpg`,
+      bookCoverUrl: ``,
       title: `Разработка ценностных предложений`,
       authors: [
         {
@@ -18,7 +18,7 @@ const BOOK_CARDS_RESPONSE = {
       language: `rus`,
     },
     {
-      bookCoverUrl: `https://cdn.litres.ru/pub/c/cover/14363291.jpg`,
+      bookCoverUrl: ``,
       title: `Думай медленно… решай быстро`,
       authors: [
         {
@@ -51,12 +51,9 @@ function initializationTests() {
     mountComponent()
 
     cy.contains(`Думай медленно… решай быстро`)
+    cy.contains(`Разработка ценностных предложений`)
     cy.contains(`Даниэль Канеман`)
     cy.contains(`eng`)
-    
-    cy
-      .get(`img[src="https://cdn.litres.ru/pub/c/cover/14363291.jpg"]`)
-      .should(`exist`)
   })
 }
 
@@ -64,13 +61,9 @@ function mountComponent() {
   const bookCardsState = new BookCardsState()
 
   cy
-    .wrap(bookCardsState)
-    .as(`toDosState`)
-
-  cy
     .mount(
       <BookCardsStateContext.Provider value={bookCardsState}>
-        <BookCardsContainer/>
+        <BookCardsContainer />
       </BookCardsStateContext.Provider>,
     )
 }

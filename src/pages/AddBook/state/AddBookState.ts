@@ -7,8 +7,10 @@ export class AddBookState {
     count: 1,
     language: `rus`,
     annotation: ``,
-    authors: [``],
-    coverUrl: ``,
+    authors: [{
+      fullName: ``,
+    }],
+    bookCoverUrl: ``,
   }
 
   private _errors = {
@@ -27,16 +29,18 @@ export class AddBookState {
     language,
     annotation,
     authors,
-    coverUrl,
+    bookCoverUrl,
   }: AddBookType) {
     this._initBook.title = title
     this._initBook.count = count
     this._initBook.language = language
     this._initBook.annotation = annotation
-    this._initBook.authors = authors.length > 0 
-      ? authors 
-      : [``]
-    this._initBook.coverUrl = coverUrl
+    this._initBook.authors = authors.length > 0
+      ? authors
+      : [{
+        fullName: ``, 
+      }]
+    this._initBook.bookCoverUrl = bookCoverUrl
   }
 
   get title() {
@@ -59,8 +63,8 @@ export class AddBookState {
     return this._initBook.authors
   }
 
-  get coverUrl() {
-    return this._initBook.coverUrl
+  get bookCoverUrl() {
+    return this._initBook.bookCoverUrl
   }
 
   get errors() {
@@ -84,15 +88,17 @@ export class AddBookState {
   }
 
   setCoverUrl(value: string) {
-    this._initBook.coverUrl = value
+    this._initBook.bookCoverUrl = value
   }
 
   setAuthor(index: number, value: string) {
-    this._initBook.authors[index] = value
+    this._initBook.authors[index].fullName = value
   }
 
   addAuthor() {
-    this._initBook.authors.push(``)
+    this._initBook.authors.push({
+      fullName: ``, 
+    })
   }
 
   removeAuthor(index: number) {
@@ -104,8 +110,10 @@ export class AddBookState {
     this._initBook.count = 1
     this._initBook.language = `rus`
     this._initBook.annotation = ``
-    this._initBook.authors = [``]
-    this._initBook.coverUrl = ``
+    this._initBook.authors = [{
+      fullName: ``, 
+    }]
+    this._initBook.bookCoverUrl = ``
     this._errors = {
       title: false,
       annotation: false,
@@ -116,7 +124,7 @@ export class AddBookState {
   validate() {
     this._errors.title = this._initBook.title.trim() === ``
     this._errors.annotation = this._initBook.annotation.trim() === ``
-    this._errors.authors = this._initBook.authors.every((author) => author.trim() === ``)
+    this._errors.authors = this._initBook.authors.every(author => author.fullName.trim() === ``)
 
     return !Object.values(this._errors)
       .some(Boolean)
@@ -127,8 +135,8 @@ export class AddBookState {
       this._initBook.title !== `` ||
       this._initBook.count > 1 ||
       this._initBook.annotation !== `` ||
-      this._initBook.authors.some(author => author.trim() !== ``) ||
-      this._initBook.coverUrl !== ``
+      this._initBook.authors.some(author => author.fullName.trim() !== ``) ||
+      this._initBook.bookCoverUrl !== ``
     )
   }
 }

@@ -61,7 +61,7 @@ function mountComponent({
     language: `rus`,
     annotation: ``,
     authors: [``],
-    coverUrl: ``,
+    bookCoverUrl: ``,
   },
 }: {
   initialState?: AddBookType,

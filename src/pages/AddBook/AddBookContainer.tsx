@@ -23,14 +23,11 @@ export const AddBookContainer = observer(({
       title: addBookState.title,
       annotation: addBookState.annotation,
       authors: addBookState.authors
-        .filter(Boolean)
-        .map(fullName => ({
-          fullName, 
-        })),
+        .filter(author => author.fullName.trim() !== ``),
       language: addBookState.language === `rus` 
         ? `ru` 
         : `en`,
-      bookCoverUrl: addBookState.coverUrl,
+      bookCoverUrl: addBookState.bookCoverUrl,
     }
 
     await api.post(`/books`, payload)

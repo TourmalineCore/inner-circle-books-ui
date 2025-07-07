@@ -24,7 +24,7 @@ describe(`AddBookState`, () => {
       expect(state.count).to.eq(3)
       expect(state.language).to.eq(`eng`)
       expect(state.annotation).to.eq(`Some annotation`)
-      expect(state.coverUrl).to.eq(`http://image.com`)
+      expect(state.bookCoverUrl).to.eq(`http://image.com`)
     })
 
     it(`Should update an author by index`, () => {
@@ -33,7 +33,9 @@ describe(`AddBookState`, () => {
       state.setAuthor(0, `John Doe`)
 
       expect(state.authors).to.deep.eq([
-        `John Doe`,
+        {
+          fullName: `John Doe`, 
+        },
       ])
     })
 
@@ -43,8 +45,12 @@ describe(`AddBookState`, () => {
       state.addAuthor()
       
       expect(state.authors).to.deep.eq([
-        ``,
-        ``,
+        {
+          fullName: ``,
+        },
+        {
+          fullName: ``,
+        },
       ])
     })
 
@@ -57,7 +63,9 @@ describe(`AddBookState`, () => {
       state.removeAuthor(0)
 
       expect(state.authors).to.deep.eq([
-        `Second`,
+        {
+          fullName: `Second`,
+        },
       ])
     })
   })
@@ -118,7 +126,7 @@ describe(`AddBookState`, () => {
       expect(state.isFormDirty()).to.be.true
     })
 
-    it(`Should return true if coverUrl is changed`, () => {
+    it(`Should return true if bookCoverUrl is changed`, () => {
       const state = new AddBookState()
 
       state.setCoverUrl(`http://newimage.com`)
@@ -137,9 +145,11 @@ function checkExpectedInitialState({
   expect(state.count).to.eq(1)
   expect(state.language).to.eq(`rus`)
   expect(state.annotation).to.eq(``)
-  expect(state.coverUrl).to.eq(``)
+  expect(state.bookCoverUrl).to.eq(``)
   expect(state.authors).to.deep.eq([
-    ``,
+    {
+      fullName: ``, 
+    },
   ])
 }
 
