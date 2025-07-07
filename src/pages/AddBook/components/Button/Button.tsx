@@ -21,7 +21,10 @@ export const Button = ({
     type="button"
     onClick={onClick} 
     className={clsx(`button`, className, {
-      'button__accent': isAccent,
+      [isAccent 
+        ? `button__accent` 
+        : `button__secondary`
+      ]: true,
       'button__disable': isDisable,
     })}
     disabled={isDisable}
