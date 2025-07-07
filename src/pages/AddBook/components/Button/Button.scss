@@ -26,14 +26,14 @@
 
   &__accent {
     color: v.$color-text-contrast;
-    background-color: v.$color-accent-violet;
+    background-color: v.$color-background-component-accent;
 
     &:hover:not(:disabled) {
-      background-color: v.$color-background-component-hover;
+      background-color: v.$color-background-component-accent-hover;
     }
 
     &:active:not(:disabled) {
-      background-color: v.$color-background-component-active;
+      background-color: v.$color-background-component-accent-active;
     }
   }
 
@@ -52,11 +52,11 @@
 
   &__disable {
     color: v.$color-text-contrast;
-    background-color: v.$color-background-component-active;
+    background-color: v.$color-background-component-accent-active;
     cursor: not-allowed;
 
     &:hover {
-      background-color: v.$color-background-component-active;
+      background-color: v.$color-background-component-accent-active;
     }
   }
 }
