@@ -19,7 +19,7 @@ export class AddBookState {
     authors: false,
   }
 
-  private _isSubmitting = false
+  private _isSaving = false
 
   constructor() {
     makeAutoObservable(this)
@@ -73,8 +73,8 @@ export class AddBookState {
     return this._errors
   }
 
-  get isSubmitting() {
-    return this._isSubmitting
+  get isSaving() {
+    return this._isSaving
   }
 
   setTitle(value: string) {
@@ -127,7 +127,7 @@ export class AddBookState {
     }
   }
 
-  validate() {
+  validate() { //isvalid
     this._errors.title = this._initBook.title.trim() === ``
     this._errors.annotation = this._initBook.annotation.trim() === ``
     this._errors.authors = this._initBook.authors.every(author => author.fullName.trim() === ``)
@@ -135,8 +135,8 @@ export class AddBookState {
     return !Object.values(this._errors)
       .some(Boolean)
   }
-
-  isFormDirty = () => {
+  // in prop
+  isSomethingFilledWithinTheForm = () => {
     return (
       this._initBook.title !== `` ||
       this._initBook.count > 1 ||
@@ -146,7 +146,11 @@ export class AddBookState {
     )
   }
 
-  switchIsSubmitting() {
-    this._isSubmitting = !this._isSubmitting
+  setIsSaving() {
+    this._isSaving = true
+  }
+
+  setIsSaved() {
+    this._isSaving = false
   }
 }

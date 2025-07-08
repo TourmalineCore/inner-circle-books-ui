@@ -30,7 +30,7 @@ export const AddBookContent = observer(({
   ] = useState(false)
 
   const handleCancel = () => {
-    if (addBookState.isFormDirty()) {
+    if (addBookState.isSomethingFilledWithinTheForm()) {
       setShowModal(true)
     }
     else {
@@ -154,10 +154,10 @@ export const AddBookContent = observer(({
 
           <Button 
             onClick={onSubmit}
-            label={addBookState.isSubmitting ? `Adding` : `Add`}
+            label={addBookState.isSaving ? `Adding` : `Add`}
             isAccent
-            isDisable={addBookState.isSubmitting}
-            isLoader={addBookState.isSubmitting}
+            isDisable={addBookState.isSaving}
+            isLoader={addBookState.isSaving}
           />
         </div>
       </form>

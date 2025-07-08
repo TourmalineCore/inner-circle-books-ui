@@ -91,7 +91,7 @@ describe(`AddBookState`, () => {
     it(`Should return false for initial state`, () => {
       const state = new AddBookState()
 
-      expect(state.isFormDirty()).to.be.false
+      expect(state.isSomethingFilledWithinTheForm()).to.be.false
     })
 
     it(`Should return true if title is changed`, () => {
@@ -99,7 +99,7 @@ describe(`AddBookState`, () => {
 
       state.setTitle(`New Title`)
 
-      expect(state.isFormDirty()).to.be.true
+      expect(state.isSomethingFilledWithinTheForm()).to.be.true
     })
 
     it(`Should return true if count is changed`, () => {
@@ -107,7 +107,7 @@ describe(`AddBookState`, () => {
 
       state.setCount(2)
 
-      expect(state.isFormDirty()).to.be.true
+      expect(state.isSomethingFilledWithinTheForm()).to.be.true
     })
 
     it(`Should return true if annotation is changed`, () => {
@@ -115,7 +115,7 @@ describe(`AddBookState`, () => {
 
       state.setAnnotation(`New Annotation`)
 
-      expect(state.isFormDirty()).to.be.true
+      expect(state.isSomethingFilledWithinTheForm()).to.be.true
     })
 
     it(`Should return true if authors are added`, () => {
@@ -123,7 +123,7 @@ describe(`AddBookState`, () => {
 
       state.setAuthor(0, `John Doe`)
 
-      expect(state.isFormDirty()).to.be.true
+      expect(state.isSomethingFilledWithinTheForm()).to.be.true
     })
 
     it(`Should return true if bookCoverUrl is changed`, () => {
@@ -131,7 +131,7 @@ describe(`AddBookState`, () => {
 
       state.setCoverUrl(`http://newimage.com`)
       
-      expect(state.isFormDirty()).to.be.true
+      expect(state.isSomethingFilledWithinTheForm()).to.be.true
     })
   })
 
@@ -139,11 +139,11 @@ describe(`AddBookState`, () => {
     it(`Should change isSubmitting flag when trigger switchIsSubmitting`, () => {
       const state = new AddBookState()
 
-      expect(state.isSubmitting).to.be.false
-      state.switchIsSubmitting()
-      expect(state.isSubmitting).to.be.true
-      state.switchIsSubmitting()
-      expect(state.isSubmitting).to.be.false
+      expect(state.isSaving).to.be.false
+      state.setIsSaving()
+      expect(state.isSaving).to.be.true
+      state.setIsSaved()
+      expect(state.isSaving).to.be.false
     })
   })
 })
