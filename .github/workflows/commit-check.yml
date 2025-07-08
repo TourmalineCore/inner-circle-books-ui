@@ -88,13 +88,13 @@ jobs:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
 
-      - name: Upload videos of tests failed
+      - name: Upload screenshots of tests failed
         uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-videos
+          name: cypress-screenshots
           path: |
-            cypress/snapshots/**/*
+            cypress-image-diff-screenshots/**/*
             cypress-image-diff-html-report/**/*
 
 
