@@ -29,11 +29,6 @@ export const AddBookContent = observer(({
     setShowModal,
   ] = useState(false)
 
-  const [
-    isSubmitting,
-    setIsSubmitting,
-  ] = useState(false)
-
   const handleCancel = () => {
     if (addBookState.isFormDirty()) {
       setShowModal(true)
@@ -52,18 +47,6 @@ export const AddBookContent = observer(({
 
   const handleCloseModal = () => {
     setShowModal(false)
-  }
-
-  const handleSubmit = async () => {
-    setIsSubmitting(true)
-    try {
-      await onSubmit()
-
-      await new Promise(resolve => setTimeout(resolve, 2000))
-    }
-    finally {
-      setIsSubmitting(false)
-    }
   }
 
   return (
@@ -170,11 +153,11 @@ export const AddBookContent = observer(({
           />
 
           <Button 
-            onClick={handleSubmit}
-            label={isSubmitting ? `Adding` : `Add`}
+            onClick={onSubmit}
+            label={addBookState.isSubmitting ? `Adding` : `Add`}
             isAccent
-            isDisable={isSubmitting}
-            isLoader={isSubmitting}
+            isDisable={addBookState.isSubmitting}
+            isLoader={addBookState.isSubmitting}
           />
         </div>
       </form>

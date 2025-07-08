@@ -19,6 +19,8 @@ export class AddBookState {
     authors: false,
   }
 
+  private _isSubmitting = false
+
   constructor() {
     makeAutoObservable(this)
   }
@@ -69,6 +71,10 @@ export class AddBookState {
 
   get errors() {
     return this._errors
+  }
+
+  get isSubmitting() {
+    return this._isSubmitting
   }
 
   setTitle(value: string) {
@@ -138,5 +144,9 @@ export class AddBookState {
       this._initBook.authors.some(author => author.fullName.trim() !== ``) ||
       this._initBook.bookCoverUrl !== ``
     )
+  }
+
+  switchIsSubmitting() {
+    this._isSubmitting = !this._isSubmitting
   }
 }
