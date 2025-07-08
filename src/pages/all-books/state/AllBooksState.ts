@@ -1,6 +1,6 @@
 import { makeAutoObservable } from 'mobx'
 
-export class BookCardsState {
+export class AllBooksState {
   private _booksCards: BookCardType[] = []
 
   constructor() {

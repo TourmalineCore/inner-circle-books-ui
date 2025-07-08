@@ -1,5 +1,5 @@
-@use "../../../../styles/fonts-mixin" as f;
-@use "../../../../styles/variables" as v;
+@use "../../styles/fonts-mixin" as f;
+@use "../../styles/variables" as v;
 
 .button {
   @include f.text;

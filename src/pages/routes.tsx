@@ -1,5 +1,5 @@
-import { AddBookPage } from "./AddBook/AddBookPage"
-import { AllBooksPage } from "./AllBooks/AllBooksPage"
+import { AddBookPage } from "./add-book/AddBookPage"
+import { AllBooksPage } from "./all-books/AllBooksPage"
 
 const DEFAULT_PATH = `/books`
 

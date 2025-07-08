@@ -21,7 +21,7 @@ function imagesTest() {
     })
 
     cy
-      .getByData(`card-image`)
+      .getByData(`book-card-image`)
       .should(`have.attr`, `src`)
       .and(`include`, `no-image.png`)
   })
@@ -41,7 +41,7 @@ function imagesTest() {
     })
 
     cy
-      .getByData(`card-image`)
+      .getByData(`book-card-image`)
       .should(`have.attr`, `src`)
       .and(`include`, `no-image.png`)
   })

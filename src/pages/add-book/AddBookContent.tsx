@@ -5,14 +5,14 @@ import EnglishFlag from '../../assets/icons/English-flag.svg?react'
 import RussianFlag from '../../assets/icons/Russian-flag.svg?react'
 
 import { observer } from "mobx-react-lite"
-import { CounterInput } from './components/CounterInput/CounterInput'
-import { RadioGroup } from './components/RadioGroup/RadioGroup'
-import { DynamicInputList } from './components/DynamicInputList/DynamicInputList'
-import { ImagePreviewInput } from './components/ImagePreviewInput/ImagePreviewInput'
+import { CounterInput } from './components/counter-input/CounterInput'
+import { RadioGroup } from './components/radio-group/RadioGroup'
+import { DynamicInputList } from './components/dynamic-input-list/DynamicInputList'
+import { ImagePreviewInput } from './components/image-preview-input/ImagePreviewInput'
 import { useContext, useState } from 'react'
 import { AddBookStateContext } from './state/AddBookStateStateContext'
-import { Button } from './components/Button/Button'
-import { Overlay } from './components/Overlay/Overlay'
+import { Button } from '../../components/button/Button'
+import { Overlay } from './components/overlay/Overlay'
 
 export const AddBookContent = observer(({
   onSubmit,

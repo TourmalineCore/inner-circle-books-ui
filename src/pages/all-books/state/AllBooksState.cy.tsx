@@ -1,6 +1,6 @@
-import { BookCardsState } from "./BookCardsState"
+import { AllBooksState } from "./AllBooksState"
 
-describe(`BookCardsState`, () => {
+describe(`AllBooksState`, () => {
   describe(`Initialization`, initializationTests)
 })
 
@@ -11,10 +11,10 @@ function initializationTests() {
 	SHOULD return an empty array
 	`, () => {
     const {
-      booksCards,
+      allBooksState,
     } = createState()
 
-    expect(booksCards.booksCards).to.deep.eq([])
+    expect(allBooksState.booksCards).to.deep.eq([])
   })
 
   it(`
@@ -50,12 +50,12 @@ function initializationTests() {
     ]
 
     const {
-      booksCards,
+      allBooksState,
     } = createState({
       booksCardsForInitialization,
     })
 
-    expect(booksCards.booksCards).to.deep.eq(booksCardsForInitialization)
+    expect(allBooksState.booksCards).to.deep.eq(booksCardsForInitialization)
   })
 }
 
@@ -66,13 +66,13 @@ function createState({
 } = {
   booksCardsForInitialization: [],
 }) {
-  const booksCards = new BookCardsState()
+  const allBooksState = new AllBooksState()
 
-  booksCards.initialize({
+  allBooksState.initialize({
     booksCards: booksCardsForInitialization as BookCardType[],
   })
 
   return {
-    booksCards,
+    allBooksState,
   }
 }

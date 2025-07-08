@@ -1,6 +1,6 @@
 import './ModalWindow.scss'
 
-import { Button } from '../Button/Button'
+import { Button } from '../../../../components/button/Button'
 
 export const ModalWindow = ({
   onQuit,

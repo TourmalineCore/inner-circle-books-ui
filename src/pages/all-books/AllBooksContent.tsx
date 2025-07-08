@@ -1,8 +1,8 @@
 import { observer } from "mobx-react-lite"
-import { BooksList } from './components/BooksList/BooksList'
-import { Actions } from './components/Actions/Actions'
+import { BooksList } from './components/books-list/BooksList'
+import { Actions } from './components/actions/Actions'
 
-export const BookCardsContent = observer(({
+export const AllBooksContent = observer(({
   cards,
 }: {
   cards: BookCardType[],

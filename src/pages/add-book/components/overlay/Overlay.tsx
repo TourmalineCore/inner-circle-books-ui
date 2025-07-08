@@ -1,6 +1,6 @@
 import './Overlay.scss'
 
-import { ModalWindow } from '../ModalWindow/ModalWindow'
+import { ModalWindow } from '../modal-window/ModalWindow'
 
 export const Overlay = ({
   onQuit,

@@ -1,7 +1,7 @@
-import { VIEWPORTS } from "../../../../common/constant"
-import { BookCardsContent } from "./BookCardsContent"
+import { VIEWPORTS } from "../../common/constant"
+import { AllBooksContent } from "./AllBooksContent"
 
-describe(`Book Cards Snapshot test`, () => {
+describe(`All Books Snapshot test`, () => {
   it(`Take the snapshot of a result`, () => {
     VIEWPORTS.forEach((viewport) => {
       cy.viewport(viewport.width, viewport.height)
@@ -51,6 +51,6 @@ function mountComponent() {
 
   cy
     .mount(
-      <BookCardsContent cards={cards} />,
+      <AllBooksContent cards={cards} />,
     )
 }

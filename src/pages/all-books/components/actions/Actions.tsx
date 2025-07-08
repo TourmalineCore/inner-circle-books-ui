@@ -1,8 +1,8 @@
 import './Actions.scss'
 
 import { observer } from "mobx-react-lite"
-import { Button } from '../../../../../AddBook/components/Button/Button'
-import { addBookRoutes } from '../../../../../routes'
+import { Button } from '../../../../components/button/Button'
+import { addBookRoutes } from '../../../routes'
 
 export const Actions = observer(() => {
   return (

@@ -1,9 +1,9 @@
 import './BooksCard.scss'
 
-import NoImage from "../../../../../../assets/img/no-image.png"
+import NoImage from "../../../../assets/img/no-image.png"
 
 import { observer } from "mobx-react-lite"
-import { useImageValid } from '../../../../../../common/useImageValid'
+import { useImageValid } from '../../../../common/useImageValid'
 
 export const BookCard = observer(({
   bookCoverUrl,
@@ -23,8 +23,8 @@ export const BookCard = observer(({
 
   return (
     <div
-      className="card"
-      data-cy="card"
+      className="book-card"
+      data-cy="book-card"
     >
       <img
         src={isValidUrl 
@@ -32,21 +32,21 @@ export const BookCard = observer(({
           : NoImage
         }
         alt={title}
-        className="card__image"
-        data-cy="card-image"
+        className="book-card__image"
+        data-cy="book-card-image"
       />
 
-      <div className="card__about">
-        <div className="card__title">
+      <div className="book-card__about">
+        <div className="book-card__title">
           {title}
         </div>
 
-        <div className="card__wrap">
-          <div className="card__author">
+        <div className="book-card__wrap">
+          <div className="book-card__author">
             {firstAuthor} {suffix}
           </div>
 
-          <div className="card__language">
+          <div className="book-card__language">
             {language}
           </div>
         </div>

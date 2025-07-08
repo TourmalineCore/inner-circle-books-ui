@@ -1,8 +1,8 @@
-@use "../../../../../../styles/variables" as v;
-@use "../../../../../../styles/fonts-mixin" as f;
-@use "../../../../../../styles//media" as m;
+@use "../../../../styles/variables" as v;
+@use "../../../../styles/fonts-mixin" as f;
+@use "../../../../styles//media" as m;
 
-.card {
+.book-card {
   border: 1px solid v.$color-component-border;
   border-radius: 8px;
   padding: 16px;
