@@ -52,15 +52,15 @@ describe(`Add Book Overlay Snapshot test`, () => {
       mountComponent({})
 
       cy
-        .getByData(`add-book-form-title`)
+        .getByData(`add-book-title`)
         .type(`Some Title`)
 
       cy
-        .get(`.add-book-form__actions > :nth-child(1)`)
+        .get(`.add-book__actions > :nth-child(1)`)
         .click()
 
       cy
-        .getByData(`add-book-form`)
+        .getByData(`add-book`)
         .compareSnapshot(`/${viewport.width}`, {
           capture: `viewport`,
         })

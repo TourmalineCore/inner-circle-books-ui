@@ -40,11 +40,11 @@ function addBookFlowTests() {
     mountComponent()
 
     cy
-      .getByData(`add-book-form-title`)
+      .getByData(`add-book-title`)
       .type(`Новая книга`)
 
     cy
-      .getByData(`add-book-form-annotation`)
+      .getByData(`add-book-annotation`)
       .type(`Описание книги`)
 
     cy

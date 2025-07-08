@@ -46,7 +46,7 @@ describe(`Add Book Snapshot test`, () => {
       mountComponent({})
 
       cy
-        .getByData(`add-book-form`)
+        .getByData(`add-book`)
         .compareSnapshot(`/${viewport.width}`, {
           capture: `viewport`,
         })
