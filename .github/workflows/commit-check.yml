@@ -149,3 +149,5 @@ jobs:
           path: |
             cypress/videos/*.mp4
             cypress/screenshots/**/*.png
+            cypress/snapshots/**/*
+            cypress-image-diff-html-report/**/*
