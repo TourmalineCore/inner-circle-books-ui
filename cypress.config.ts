@@ -26,7 +26,8 @@ export default defineConfig({
     setupNodeEvents(on, config) {
       return getCompareSnapshotsPlugin(on, config)
     },
-    video: false,
+    video: true,
+    screenshotOnRunFailure: true,
     devServer: {
       framework: `react`,
       bundler: `vite`,
