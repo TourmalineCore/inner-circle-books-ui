@@ -11,9 +11,22 @@ export const AddBookContainer = observer(({
 }) => {
   const addBookState = useContext(AddBookStateContext)
 
+  //todo i want setIsSubmitting
+  const handleSubmit = async () => {
+    addBookState.switchIsSubmitting()
+    try {
+      await submitBookAsync()
+    }
+    finally {
+      addBookState.switchIsSubmitting()
+    }
+  }
+
   return (
-    <AddBookContent onSubmit={submitBookAsync}
-      goToBooksList={goToBooksList}/>
+    <AddBookContent 
+      onSubmit={handleSubmit}
+      goToBooksList={goToBooksList}
+    />
   )
 
   async function submitBookAsync() {

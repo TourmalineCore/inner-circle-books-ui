@@ -134,6 +134,18 @@ describe(`AddBookState`, () => {
       expect(state.isFormDirty()).to.be.true
     })
   })
+
+  describe(`switchIsSubmitting`, () => {
+    it(`Should change isSubmitting flag when trigger switchIsSubmitting`, () => {
+      const state = new AddBookState()
+
+      expect(state.isSubmitting).to.be.false
+      state.switchIsSubmitting()
+      expect(state.isSubmitting).to.be.true
+      state.switchIsSubmitting()
+      expect(state.isSubmitting).to.be.false
+    })
+  })
 })
 
 function checkExpectedInitialState({
