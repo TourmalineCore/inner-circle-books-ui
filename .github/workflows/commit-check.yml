@@ -78,10 +78,10 @@ jobs:
         with:
           component: true
           start: npm start
-          browser: chrome
+          browser: electron
           record: true
           parallel: true
-          group: "Chrome component"
+          group: "Electron component"
           headed: true
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
