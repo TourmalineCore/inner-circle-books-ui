@@ -4,23 +4,25 @@ import PlusIcon from '../../../../assets/icons/Plus.svg?react'
 import MinusIcon from '../../../../assets/icons/Minus.svg?react'
 
 import { useState, useEffect } from 'react'
+import clsx from 'clsx'
+
+export const MIN_VALUE: number = 1
+export const MAX_VALUE: number = 99
 
 export const CounterInput = ({
   label,
   value,
   onChange,
-  min = 1,
 }: {
   label: string,
   value: number,
   onChange: (val: number) => void,
-  min?: number,
 }) => {
   const [
     inputValue,
     setInputValue,
   ] = useState(value.toString())
- 
+
   useEffect(() => {
     setInputValue(value.toString())
   }, [
@@ -30,7 +32,8 @@ export const CounterInput = ({
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value
     
-    if (val === `` || /^\d+$/.test(val)) {
+    // Allow empty input or digits only, but limit to two digits
+    if (val === `` || (/^\d{0,2}$/.test(val))) {
       setInputValue(val)
     }
   }
@@ -39,13 +42,16 @@ export const CounterInput = ({
     const parsed = parseInt(inputValue, 10)
     
     if (!isNaN(parsed)) {
-      onChange(Math.max(min, parsed))
+      onChange(Math.max(MIN_VALUE, Math.min(parsed, MAX_VALUE)))
     }
     else {
-      setInputValue(min.toString())
-      onChange(min)
+      setInputValue(MIN_VALUE.toString())
+      onChange(MIN_VALUE)
     }
   }
+
+  const isMinusDisabled = inputValue === MIN_VALUE.toString()
+  const isPlusDisabled = inputValue === MAX_VALUE.toString()
 
   return (
     <div className="counter-input">
@@ -56,14 +62,19 @@ export const CounterInput = ({
       <div className="counter-input__controls">
         <button
           type="button"
-          onClick={() => onChange(Math.max(min, value - 1))}
-          className="counter-input__button"
+          className={clsx(`counter-input__button`, { 
+            'counter-input__button--disabled': isMinusDisabled,
+          })}
+          data-cy="counter-input-button-minus"
+          onClick={() => onChange(Math.max(MIN_VALUE, value - 1))}
+          disabled={isMinusDisabled}
         >
           <MinusIcon />
         </button>
 
         <input
           className="counter-input__value"
+          data-cy="counter-input-value"
           type="text"
           inputMode="numeric"
           value={inputValue}
@@ -73,8 +84,12 @@ export const CounterInput = ({
         
         <button
           type="button"
-          className="counter-input__button"
+          className={clsx(`counter-input__button`, { 
+            'counter-input__button--disabled': isPlusDisabled,
+          })}
+          data-cy="counter-input-button-plus"
           onClick={() => onChange(value + 1)}
+          disabled={isPlusDisabled}
         >
           <PlusIcon />
         </button>

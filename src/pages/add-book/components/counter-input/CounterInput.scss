@@ -29,6 +29,15 @@
     background: none;
     cursor: pointer;
 
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    svg path {
+      stroke: v.$color-icon-primary;
+    }
+
     &:hover {
       background-color: v.$color-background-component-secondary-hover;
       transition: background-color 0.2s ease-in-out;
@@ -37,15 +46,19 @@
     &:active {
       background-color: v.$color-background-component-secondary-active;
     }
-  }
 
-  &__button svg {
-    width: 20px;
-    height: 20px;
-  }
+    &--disabled {
+      cursor: not-allowed;
 
-  &__button svg path {
-    stroke: v.$color-icon-primary;
+      svg path {
+        stroke: v.$color-icon-secondary;
+      }
+
+      &:hover,
+      &:active {
+        background-color: inherit;
+      }
+    }
   }
 
   &__value {

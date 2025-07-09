@@ -81,9 +81,10 @@ function mountComponent(
 ) {
   const addBookState = new AddBookState()
 
-  cy.mount(
-    <AddBookStateContext.Provider value={addBookState}>
-      <AddBookContainer goToBooksList={onSuccess} />
-    </AddBookStateContext.Provider>,
-  )
+  cy
+    .mount(
+      <AddBookStateContext.Provider value={addBookState}>
+        <AddBookContainer goToBooksList={onSuccess} />
+      </AddBookStateContext.Provider>,
+    )
 }
