@@ -20,19 +20,19 @@ describe(`AddBookState`, () => {
         isSetAuthor: false,
       })
 
-      expect(state.title).to.eq(`My Book`)
-      expect(state.count).to.eq(3)
-      expect(state.language).to.eq(`eng`)
-      expect(state.annotation).to.eq(`Some annotation`)
-      expect(state.bookCoverUrl).to.eq(`http://image.com`)
+      expect(state.book.title).to.eq(`My Book`)
+      expect(state.book.count).to.eq(3)
+      expect(state.book.language).to.eq(`eng`)
+      expect(state.book.annotation).to.eq(`Some annotation`)
+      expect(state.book.bookCoverUrl).to.eq(`http://image.com`)
     })
 
     it(`Should update an author by index`, () => {
       const state = new AddBookState()
 
-      state.setAuthor(0, `John Doe`)
+      state.book.authors[0].fullName = `John Doe`
 
-      expect(state.authors).to.deep.eq([
+      expect(state.book.authors).to.deep.eq([
         {
           fullName: `John Doe`, 
         },
@@ -44,7 +44,7 @@ describe(`AddBookState`, () => {
 
       state.addAuthor()
       
-      expect(state.authors).to.deep.eq([
+      expect(state.book.authors).to.deep.eq([
         {
           fullName: ``,
         },
@@ -57,12 +57,13 @@ describe(`AddBookState`, () => {
     it(`Should remove an author by index`, () => {
       const state = new AddBookState()
 
-      state.setAuthor(0, `First`)
+      state.book.authors[0].fullName = `First`
       state.addAuthor()
-      state.setAuthor(1, `Second`)
+
+      state.book.authors[1].fullName = `Second`
       state.removeAuthor(0)
 
-      expect(state.authors).to.deep.eq([
+      expect(state.book.authors).to.deep.eq([
         {
           fullName: `Second`,
         },
@@ -97,7 +98,7 @@ describe(`AddBookState`, () => {
     it(`Should return true if title is changed`, () => {
       const state = new AddBookState()
 
-      state.setTitle(`New Title`)
+      state.book.title = `New Title`
 
       expect(state.isSomethingFilledWithinTheForm()).to.be.true
     })
@@ -105,7 +106,7 @@ describe(`AddBookState`, () => {
     it(`Should return true if count is changed`, () => {
       const state = new AddBookState()
 
-      state.setCount(2)
+      state.book.count = 2
 
       expect(state.isSomethingFilledWithinTheForm()).to.be.true
     })
@@ -113,7 +114,7 @@ describe(`AddBookState`, () => {
     it(`Should return true if annotation is changed`, () => {
       const state = new AddBookState()
 
-      state.setAnnotation(`New Annotation`)
+      state.book.annotation = `New Annotation`
 
       expect(state.isSomethingFilledWithinTheForm()).to.be.true
     })
@@ -121,15 +122,14 @@ describe(`AddBookState`, () => {
     it(`Should return true if authors are added`, () => {
       const state = new AddBookState()
 
-      state.setAuthor(0, `John Doe`)
-
+      state.book.authors[0].fullName = `John Doe`
       expect(state.isSomethingFilledWithinTheForm()).to.be.true
     })
 
     it(`Should return true if bookCoverUrl is changed`, () => {
       const state = new AddBookState()
 
-      state.setCoverUrl(`http://newimage.com`)
+      state.book.bookCoverUrl = `http://newimage.com`
       
       expect(state.isSomethingFilledWithinTheForm()).to.be.true
     })
@@ -153,12 +153,12 @@ function checkExpectedInitialState({
 }: {
   state: AddBookState,
 }) {
-  expect(state.title).to.eq(``)
-  expect(state.count).to.eq(1)
-  expect(state.language).to.eq(`rus`)
-  expect(state.annotation).to.eq(``)
-  expect(state.bookCoverUrl).to.eq(``)
-  expect(state.authors).to.deep.eq([
+  expect(state.book.title).to.eq(``)
+  expect(state.book.count).to.eq(1)
+  expect(state.book.language).to.eq(`rus`)
+  expect(state.book.annotation).to.eq(``)
+  expect(state.book.bookCoverUrl).to.eq(``)
+  expect(state.book.authors).to.deep.eq([
     {
       fullName: ``, 
     },
@@ -172,13 +172,13 @@ function setBookData({
   state: AddBookState,
   isSetAuthor: boolean,
 }) {
-  state.setTitle(`My Book`)
-  state.setCount(3)
-  state.setLanguage(`eng`)
-  state.setAnnotation(`Some annotation`)
-  state.setCoverUrl(`http://image.com`)
+  state.book.title = `My Book`
+  state.book.count = 3
+  state.book.language = `eng`
+  state.book.annotation = `Some annotation`
+  state.book.bookCoverUrl = `http://image.com`
 
   if (isSetAuthor) {
-    state.setAuthor(0, `John`)
+    state.book.authors[0].fullName = `John`
   }
 }

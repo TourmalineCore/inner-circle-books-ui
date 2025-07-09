@@ -1,22 +1,30 @@
 /* eslint-disable array-bracket-newline */
 import { makeAutoObservable } from 'mobx'
 
-export class AddBookState {
-  private _initBook = {
-    title: ``,
-    count: 1,
-    language: `rus`,
-    annotation: ``,
-    authors: [{
-      fullName: ``,
-    }],
-    bookCoverUrl: ``,
-  }
+const defaultBook: AddBookType = {
+  title: ``,
+  count: 1,
+  language: `rus`,
+  annotation: ``,
+  authors: [{
+    fullName: ``, 
+  }],
+  bookCoverUrl: ``,
+}
 
+const defaultErrors = {
+  title: false,
+  annotation: false,
+  authors: false,
+} 
+
+export class AddBookState {
+
+  private _book = {
+    ...defaultBook, 
+  }
   private _errors = {
-    title: false,
-    annotation: false,
-    authors: false,
+    ...defaultErrors, 
   }
 
   private _isSaving = false
@@ -25,48 +33,17 @@ export class AddBookState {
     makeAutoObservable(this)
   }
 
-  initialize({
-    title,
-    count,
-    language,
-    annotation,
-    authors,
-    bookCoverUrl,
-  }: AddBookType) {
-    this._initBook.title = title
-    this._initBook.count = count
-    this._initBook.language = language
-    this._initBook.annotation = annotation
-    this._initBook.authors = authors.length > 0
-      ? authors
-      : [{
+  initialize(book: AddBookType) {
+    this._book = {
+      ...book,
+      authors: book.authors.length > 0 ? book.authors : [{
         fullName: ``, 
-      }]
-    this._initBook.bookCoverUrl = bookCoverUrl
+      }],
+    }
   }
 
-  get title() {
-    return this._initBook.title
-  }
-
-  get count() {
-    return this._initBook.count
-  }
-
-  get language() {
-    return this._initBook.language
-  }
-
-  get annotation() {
-    return this._initBook.annotation
-  }
-
-  get authors() {
-    return this._initBook.authors
-  }
-
-  get bookCoverUrl() {
-    return this._initBook.bookCoverUrl
+  get book() {
+    return this._book
   }
 
   get errors() {
@@ -76,61 +53,30 @@ export class AddBookState {
   get isSaving() {
     return this._isSaving
   }
-
-  setTitle(value: string) {
-    this._initBook.title = value
-  }
-
-  setCount(value: number) {
-    this._initBook.count = value
-  }
-
-  setLanguage(value: string) {
-    this._initBook.language = value
-  }
-
-  setAnnotation(value: string) {
-    this._initBook.annotation = value
-  }
-
-  setCoverUrl(value: string) {
-    this._initBook.bookCoverUrl = value
-  }
-
-  setAuthor(index: number, value: string) {
-    this._initBook.authors[index].fullName = value
-  }
-
+  
   addAuthor() {
-    this._initBook.authors.push({
+    this._book.authors.push({
       fullName: ``, 
     })
   }
 
   removeAuthor(index: number) {
-    this._initBook.authors = this._initBook.authors.filter((_, i) => i !== index)
+    this._book.authors = this._book.authors.filter((_, i) => i !== index)
   }
 
   reset() {
-    this._initBook.title = ``
-    this._initBook.count = 1
-    this._initBook.language = `rus`
-    this._initBook.annotation = ``
-    this._initBook.authors = [{
-      fullName: ``, 
-    }]
-    this._initBook.bookCoverUrl = ``
+    this._book = {
+      ...defaultBook, 
+    }
     this._errors = {
-      title: false,
-      annotation: false,
-      authors: false,
+      ...defaultErrors, 
     }
   }
 
   validate() { //isvalid
-    this._errors.title = this._initBook.title.trim() === ``
-    this._errors.annotation = this._initBook.annotation.trim() === ``
-    this._errors.authors = this._initBook.authors.every(author => author.fullName.trim() === ``)
+    this._errors.title = this._book.title.trim() === ``
+    this._errors.annotation = this._book.annotation.trim() === ``
+    this._errors.authors = this._book.authors.every(author => author.fullName.trim() === ``)
 
     return !Object.values(this._errors)
       .some(Boolean)
@@ -138,11 +84,11 @@ export class AddBookState {
   // in prop
   isSomethingFilledWithinTheForm = () => {
     return (
-      this._initBook.title !== `` ||
-      this._initBook.count > 1 ||
-      this._initBook.annotation !== `` ||
-      this._initBook.authors.some(author => author.fullName.trim() !== ``) ||
-      this._initBook.bookCoverUrl !== ``
+      this._book.title !== `` ||
+      this._book.count > 1 ||
+      this._book.annotation !== `` ||
+      this._book.authors.some(author => author.fullName.trim() !== ``) ||
+      this._book.bookCoverUrl !== ``
     )
   }
 

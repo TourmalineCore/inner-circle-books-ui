@@ -75,9 +75,11 @@ export const AddBookContent = observer(({
             Title*
             <textarea
               data-cy="add-book-title"
-              value={addBookState.title}
+              value={addBookState.book.title}
               placeholder="Enter the title of the book"
-              onChange={(e) => addBookState.setTitle(e.target.value)}
+              onChange={(e) => {
+                addBookState.book.title = e.target.value
+              }}
               className={`add-book__textarea add-book__title ${addBookState.errors.title 
                 ? `error` 
                 : ``}`}
@@ -88,15 +90,17 @@ export const AddBookContent = observer(({
             <CounterInput
               data-cy="add-book-counter"
               label="Number of Copies*"
-              value={addBookState.count}
-              onChange={(value) => addBookState.setCount(value)}
+              value={addBookState.book.count}
+              onChange={(value) => {
+                addBookState.book.count = value
+              }}
             />
 
             <RadioGroup
               data-cy="add-book-language"
               label="Language*"
-              value={addBookState.language}
-              onChange={(value) => addBookState.setLanguage(value)}
+              value={addBookState.book.language}
+              onChange={(value) => addBookState.book.language = value}
               options={[
                 {
                   value: `rus`,
@@ -116,9 +120,9 @@ export const AddBookContent = observer(({
             Annotation*
             <textarea
               data-cy="add-book-annotation"
-              value={addBookState.annotation}
+              value={addBookState.book.annotation}
               placeholder="Enter the annotation from the title page of the book"
-              onChange={(e) => addBookState.setAnnotation(e.target.value)}
+              onChange={(e) => addBookState.book.annotation = e.target.value}
               className={`add-book__textarea add-book__annotation ${addBookState.errors.annotation 
                 ? `error` 
                 : ``}`}
@@ -128,10 +132,18 @@ export const AddBookContent = observer(({
           <DynamicInputList
             label="Authors*"
             data-cy="add-book-authors"
-            values={addBookState.authors.map(a => a.fullName)}
-            onChange={(index, value) => addBookState.setAuthor(index, value)}
-            onAdd={() => addBookState.addAuthor()}
-            onRemove={(index) => addBookState.removeAuthor(index)}
+            values={addBookState.book.authors.map(a => a.fullName)}
+            onChange={(index, value) => {
+              addBookState.book.authors[index].fullName = value
+            }}
+            onAdd={() => {
+              addBookState.book.authors.push({
+                fullName: ``, 
+              })
+            }}
+            onRemove={(index) => {
+              addBookState.book.authors.splice(index, 1)
+            }}
             placeholder="Enter author full name"
             error={addBookState.errors.authors}
           />
@@ -141,8 +153,8 @@ export const AddBookContent = observer(({
           <ImagePreviewInput
             data-cy="add-book-cover"
             label="Book Cover"
-            url={addBookState.bookCoverUrl}
-            onChange={(url) => addBookState.setCoverUrl(url)}
+            url={addBookState.book.bookCoverUrl}
+            onChange={(url) => addBookState.book.bookCoverUrl = url}
           />
         </div>
 
