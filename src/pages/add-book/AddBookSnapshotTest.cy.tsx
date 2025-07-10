@@ -43,7 +43,10 @@ describe(`Add Book Snapshot test`, () => {
         }),
       )
 
-      mountComponent({})
+      mountComponent()
+
+  cy.document().its("fonts.status").should("equal", "loaded")
+
 
       cy
         .getByData(`add-book`)
@@ -67,7 +70,7 @@ function mountComponent({
   },
 }: {
   initialState?: AddBookType,
-} ) {
+} = {}) {
   const addBookState = new AddBookState()
   
   addBookState.initialize(initialState)

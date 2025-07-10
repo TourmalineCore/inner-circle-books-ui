@@ -20,6 +20,10 @@ describe(`All Books Snapshot test`, () => {
 
       mountComponent()
 
+  cy.document().its("fonts.status").should("equal", "loaded")
+
+
+
       cy
         .getByData(`books-list`)
         .compareSnapshot(`/${viewport.width}`, {
