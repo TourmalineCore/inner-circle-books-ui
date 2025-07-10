@@ -1,4 +1,4 @@
-import { AddBookContainer } from "../../AddBookContainer"
+import { AddBookContent } from "../../AddBookContent"
 import { AddBookState } from "../../state/AddBookState"
 import { AddBookStateContext } from "../../state/AddBookStateStateContext"
 import { MAX_VALUE, MIN_VALUE } from "./CounterInput"
@@ -131,21 +131,15 @@ describe(`CounterInput`, () => {
 function mountComponent() {
   const addBookState = new AddBookState()
 
-  // TODO: 
-  // test doesn't work with CounterInput 
-  // but works with AddBookContainer, its weird behavior
-  // need to fix it
+  // Test doesn't work using CounterInput because of nested state, 
+  // so we'll test it using AddBookContent
   cy
     .mount(
       <AddBookStateContext.Provider value={addBookState}>
-
-        {/* <CounterInput
-          label="Number of Copies*"
-          value={addBookState.count}
-          onChange={(value) => addBookState.setCount(value)}
-        /> */}
-
-        <AddBookContainer goToBooksList={()=>{}} />
+        <AddBookContent 
+          onSubmit={()=>{}}
+          goToBooksList={()=>{}} 
+        />
       </AddBookStateContext.Provider >,
     )
 }
