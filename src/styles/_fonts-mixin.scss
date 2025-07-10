@@ -1,3 +1,27 @@
+@font-face {
+  src: url("/fonts/Inter-Medium.woff") format("woff");
+  font-family: Inter;
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  src: url("/fonts/Inter-SemiBold.woff") format("woff");
+  font-family: Inter;
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  src: url("/fonts/Inter-Regular.woff") format("woff");
+  font-family: Inter;
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 @mixin text {
   font-family: Inter, sans-serif;
   font-weight: 400;

@@ -21,9 +21,8 @@ describe(`All Books Snapshot test`, () => {
       mountComponent()
 
       cy
-        .document()
-        .its(`fonts.status`)
-        .should(`equal`, `loaded`)
+        .window()
+        .then((win) => win.document.fonts.ready)
 
       cy
         .getByData(`books-list`)

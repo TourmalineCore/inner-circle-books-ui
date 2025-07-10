@@ -46,6 +46,10 @@ describe(`Add Book Snapshot test`, () => {
       mountComponent()
 
       cy
+        .window()
+        .then((win) => win.document.fonts.ready)
+
+      cy
         .document()
         .its(`fonts.status`)
         .should(`equal`, `loaded`)
