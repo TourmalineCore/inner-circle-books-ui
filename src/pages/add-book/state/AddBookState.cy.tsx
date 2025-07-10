@@ -34,16 +34,16 @@ function settersTests() {
       addBookState,
     })
 
-    expect(addBookState.book.title).to.eq(`My Book`)
-    expect(addBookState.book.count).to.eq(3)
-    expect(addBookState.book.language).to.eq(`eng`)
-    expect(addBookState.book.annotation).to.eq(`Some annotation`)
-    expect(addBookState.book.authors).to.deep.eq([
+    expect(addBookState.title).to.eq(`My Book`)
+    expect(addBookState.count).to.eq(3)
+    expect(addBookState.language).to.eq(`eng`)
+    expect(addBookState.annotation).to.eq(`Some annotation`)
+    expect(addBookState.authors).to.deep.eq([
       {
         fullName: `John`, 
       },
     ])
-    expect(addBookState.book.bookCoverUrl).to.eq(`http://image.com`)
+    expect(addBookState.bookCoverUrl).to.eq(`http://image.com`)
   })
 
   it(`
@@ -55,7 +55,7 @@ function settersTests() {
 
     addBookState.addAuthor()
       
-    expect(addBookState.book.authors).to.deep.eq([
+    expect(addBookState.authors).to.deep.eq([
       {
         fullName: ``,
       },
@@ -72,12 +72,12 @@ function settersTests() {
   `, () => {
     const addBookState = new AddBookState()
 
-    addBookState.book.authors[0].fullName = `First`
+    addBookState.authors[0].fullName = `First`
     addBookState.addAuthor()
-    addBookState.book.authors[1].fullName = `Second`
+    addBookState.authors[1].fullName = `Second`
     addBookState.removeAuthor(0)
 
-    expect(addBookState.book.authors).to.deep.eq([
+    expect(addBookState.authors).to.deep.eq([
       {
         fullName: `Second`,
       },
@@ -123,8 +123,8 @@ function somethingFilledWithinTheFormTests() {
   `, () => {
     const addBookState = new AddBookState()
 
-    addBookState.book.title = `New Title`
-    
+    addBookState.setTitle(`New Title`)
+
     expect(addBookState.isSomethingFilledWithinTheForm()).to.be.true
   })
 
@@ -135,7 +135,7 @@ function somethingFilledWithinTheFormTests() {
   `, () => {
     const addBookState = new AddBookState()
 
-    addBookState.book.count = 2
+    addBookState.setCount(2)
 
     expect(addBookState.isSomethingFilledWithinTheForm()).to.be.true
   })
@@ -147,7 +147,7 @@ function somethingFilledWithinTheFormTests() {
   `, () => {
     const addBookState = new AddBookState()
 
-    addBookState.book.annotation = `New Annotation`
+    addBookState.setAnnotation(`New Annotation`)
 
     expect(addBookState.isSomethingFilledWithinTheForm()).to.be.true
   })
@@ -159,7 +159,7 @@ function somethingFilledWithinTheFormTests() {
   `, () => {
     const addBookState = new AddBookState()
 
-    addBookState.book.authors[0].fullName = `John Doe`
+    addBookState.setAuthor(0, `John Doe`)
 
     expect(addBookState.isSomethingFilledWithinTheForm()).to.be.true
   })
@@ -171,7 +171,7 @@ function somethingFilledWithinTheFormTests() {
   `, () => {
     const addBookState = new AddBookState()
 
-    addBookState.book.bookCoverUrl = `http://newimage.com`
+    addBookState.setCoverUrl(`http://newimage.com`)
       
     expect(addBookState.isSomethingFilledWithinTheForm()).to.be.true
   })
@@ -200,12 +200,12 @@ function checkExpectedInitialState({
 }: { 
   addBookState: AddBookState, 
 }) {
-  expect(addBookState.book.title).to.eq(``)
-  expect(addBookState.book.count).to.eq(1)
-  expect(addBookState.book.language).to.eq(`rus`)
-  expect(addBookState.book.annotation).to.eq(``)
-  expect(addBookState.book.bookCoverUrl).to.eq(``)
-  expect(addBookState.book.authors).to.deep.eq([
+  expect(addBookState.title).to.eq(``)
+  expect(addBookState.count).to.eq(1)
+  expect(addBookState.language).to.eq(`rus`)
+  expect(addBookState.annotation).to.eq(``)
+  expect(addBookState.bookCoverUrl).to.eq(``)
+  expect(addBookState.authors).to.deep.eq([
     {
       fullName: ``, 
     },
@@ -217,10 +217,10 @@ function setBookData({
 }: {
   addBookState: AddBookState,
 }) {
-  addBookState.book.title = `My Book`
-  addBookState.book.count = 3
-  addBookState.book.language = `eng`
-  addBookState.book.annotation = `Some annotation`
-  addBookState.book.authors[0].fullName = `John`
-  addBookState.book.bookCoverUrl = `http://image.com`
+  addBookState.setTitle(`My Book`)
+  addBookState.setCount(3)
+  addBookState.setLanguage(`eng`)
+  addBookState.setAnnotation(`Some annotation`)
+  addBookState.setAuthor(0, `John`)
+  addBookState.setCoverUrl(`http://image.com`)
 }
