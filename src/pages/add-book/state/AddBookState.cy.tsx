@@ -1,164 +1,211 @@
 import { AddBookState } from './AddBookState'
 
 describe(`AddBookState`, () => {
-  describe(`Initial state`, () => {
-    it(`Should have default values`, () => {
-      const state = new AddBookState()
-
-      checkExpectedInitialState({
-        state,
-      })
-    })
-  })
-
-  describe(`Setters`, () => {
-    it(`Should set book data without author`, () => {
-      const state = new AddBookState()
-
-      setBookData({
-        state,
-        isSetAuthor: false,
-      })
-
-      expect(state.book.title).to.eq(`My Book`)
-      expect(state.book.count).to.eq(3)
-      expect(state.book.language).to.eq(`eng`)
-      expect(state.book.annotation).to.eq(`Some annotation`)
-      expect(state.book.bookCoverUrl).to.eq(`http://image.com`)
-    })
-
-    it(`Should update an author by index`, () => {
-      const state = new AddBookState()
-
-      state.book.authors[0].fullName = `John Doe`
-
-      expect(state.book.authors).to.deep.eq([
-        {
-          fullName: `John Doe`, 
-        },
-      ])
-    })
-
-    it(`Should add a new empty author`, () => {
-      const state = new AddBookState()
-
-      state.addAuthor()
-      
-      expect(state.book.authors).to.deep.eq([
-        {
-          fullName: ``,
-        },
-        {
-          fullName: ``,
-        },
-      ])
-    })
-
-    it(`Should remove an author by index`, () => {
-      const state = new AddBookState()
-
-      state.book.authors[0].fullName = `First`
-      state.addAuthor()
-
-      state.book.authors[1].fullName = `Second`
-      state.removeAuthor(0)
-
-      expect(state.book.authors).to.deep.eq([
-        {
-          fullName: `Second`,
-        },
-      ])
-    })
-  })
-
-  describe(`Reset`, () => {
-    it(`Should reset all fields to default`, () => {
-      const state = new AddBookState()
-      
-      setBookData({
-        state,
-        isSetAuthor: true,
-      })
-
-      state.reset()
-
-      checkExpectedInitialState({
-        state,
-      })
-    })
-  })
-
-  describe(`isFormDirty`, () => {
-    it(`Should return false for initial state`, () => {
-      const state = new AddBookState()
-
-      expect(state.isSomethingFilledWithinTheForm()).to.be.false
-    })
-
-    it(`Should return true if title is changed`, () => {
-      const state = new AddBookState()
-
-      state.book.title = `New Title`
-
-      expect(state.isSomethingFilledWithinTheForm()).to.be.true
-    })
-
-    it(`Should return true if count is changed`, () => {
-      const state = new AddBookState()
-
-      state.book.count = 2
-
-      expect(state.isSomethingFilledWithinTheForm()).to.be.true
-    })
-
-    it(`Should return true if annotation is changed`, () => {
-      const state = new AddBookState()
-
-      state.book.annotation = `New Annotation`
-
-      expect(state.isSomethingFilledWithinTheForm()).to.be.true
-    })
-
-    it(`Should return true if authors are added`, () => {
-      const state = new AddBookState()
-
-      state.book.authors[0].fullName = `John Doe`
-      expect(state.isSomethingFilledWithinTheForm()).to.be.true
-    })
-
-    it(`Should return true if bookCoverUrl is changed`, () => {
-      const state = new AddBookState()
-
-      state.book.bookCoverUrl = `http://newimage.com`
-      
-      expect(state.isSomethingFilledWithinTheForm()).to.be.true
-    })
-  })
-
-  describe(`switchIsSubmitting`, () => {
-    it(`Should change isSubmitting flag when trigger switchIsSubmitting`, () => {
-      const state = new AddBookState()
-
-      expect(state.isSaving).to.be.false
-      state.setIsSaving()
-      expect(state.isSaving).to.be.true
-      state.setIsSaved()
-      expect(state.isSaving).to.be.false
-    })
-  })
+  describe(`Initialization`, initializationTest)
+  describe(`Setters`, settersTests)
+  describe(`Reset`, resetTest)
+  describe(`Something filled with in the form`, somethingFilledWithinTheFormTests)
+  describe(`Saving flag`, savingTest)
 })
 
+function initializationTest() {
+  it(`
+  GIVEN a new AddBookState
+  WHEN initialize
+  SHOULD have default book values
+  `, () => {
+    const addBookState = new AddBookState()
+
+    checkExpectedInitialState({
+      addBookState,
+    })
+  })
+}
+
+function settersTests() {
+  it(`
+  GIVEN a new AddBookState
+  WHEN book data is set
+  SHOULD reflect new values in the book object
+  `, () => {
+    const addBookState = new AddBookState()
+
+    setBookData({
+      addBookState,
+    })
+
+    expect(addBookState.book.title).to.eq(`My Book`)
+    expect(addBookState.book.count).to.eq(3)
+    expect(addBookState.book.language).to.eq(`eng`)
+    expect(addBookState.book.annotation).to.eq(`Some annotation`)
+    expect(addBookState.book.authors).to.deep.eq([
+      {
+        fullName: `John`, 
+      },
+    ])
+    expect(addBookState.book.bookCoverUrl).to.eq(`http://image.com`)
+  })
+
+  it(`
+  GIVEN a book with one author
+  WHEN addAuthor is called
+  SHOULD append a new empty author
+  `, () => {
+    const addBookState = new AddBookState()
+
+    addBookState.addAuthor()
+      
+    expect(addBookState.book.authors).to.deep.eq([
+      {
+        fullName: ``,
+      },
+      {
+        fullName: ``,
+      },
+    ])
+  })
+
+  it(`
+  GIVEN a book with two authors
+  WHEN removeAuthor is called with index 0
+  SHOULD remove the first author
+  `, () => {
+    const addBookState = new AddBookState()
+
+    addBookState.book.authors[0].fullName = `First`
+    addBookState.addAuthor()
+    addBookState.book.authors[1].fullName = `Second`
+    addBookState.removeAuthor(0)
+
+    expect(addBookState.book.authors).to.deep.eq([
+      {
+        fullName: `Second`,
+      },
+    ])
+  })
+}
+
+function resetTest() {
+  it(`
+  GIVEN a filled form
+  WHEN reset is called
+  SHOULD reset book data to default values
+  `, () => {
+    const addBookState = new AddBookState()
+      
+    setBookData({
+      addBookState,
+    })
+
+    addBookState.reset()
+
+    checkExpectedInitialState({
+      addBookState,
+    })
+  })
+}
+
+function somethingFilledWithinTheFormTests() {
+  it(`
+  GIVEN a new instance
+  WHEN no fields are modified
+  SHOULD return false for isSomethingFilledWithinTheForm
+  `, () => {
+    const addBookState = new AddBookState()
+
+    expect(addBookState.isSomethingFilledWithinTheForm()).to.be.false
+  })
+
+  it(`
+  GIVEN a new instance
+  WHEN title was modified
+  SHOULD return true for isSomethingFilledWithinTheForm
+  `, () => {
+    const addBookState = new AddBookState()
+
+    addBookState.book.title = `New Title`
+    
+    expect(addBookState.isSomethingFilledWithinTheForm()).to.be.true
+  })
+
+  it(`
+  GIVEN a new instance
+  WHEN count was modified
+  SHOULD return true for isSomethingFilledWithinTheForm
+  `, () => {
+    const addBookState = new AddBookState()
+
+    addBookState.book.count = 2
+
+    expect(addBookState.isSomethingFilledWithinTheForm()).to.be.true
+  })
+
+  it(`
+  GIVEN a new instance
+  WHEN annotation was modified
+  SHOULD return true for isSomethingFilledWithinTheForm
+  `, () => {
+    const addBookState = new AddBookState()
+
+    addBookState.book.annotation = `New Annotation`
+
+    expect(addBookState.isSomethingFilledWithinTheForm()).to.be.true
+  })
+
+  it(`
+  GIVEN a new instance
+  WHEN author was modified
+  SHOULD return true for isSomethingFilledWithinTheForm
+  `, () => {
+    const addBookState = new AddBookState()
+
+    addBookState.book.authors[0].fullName = `John Doe`
+
+    expect(addBookState.isSomethingFilledWithinTheForm()).to.be.true
+  })
+
+  it(`
+  GIVEN a new instance
+  WHEN bookCoverUrl was modified
+  SHOULD return true for isSomethingFilledWithinTheForm
+  `, () => {
+    const addBookState = new AddBookState()
+
+    addBookState.book.bookCoverUrl = `http://newimage.com`
+      
+    expect(addBookState.isSomethingFilledWithinTheForm()).to.be.true
+  })
+}
+
+function savingTest() {
+  it(`
+  GIVEN initial isSaving = false
+  WHEN setIsSaving and setIsSaved are triggered
+  SHOULD toggle isSaving to true and then back to false
+  `, () => {
+    const addBookState = new AddBookState()
+
+    expect(addBookState.isSaving).to.be.false
+
+    addBookState.setIsSaving()
+    expect(addBookState.isSaving).to.be.true
+
+    addBookState.setIsSaved()
+    expect(addBookState.isSaving).to.be.false
+  })
+}
+
 function checkExpectedInitialState({
-  state,
-}: {
-  state: AddBookState,
+  addBookState, 
+}: { 
+  addBookState: AddBookState, 
 }) {
-  expect(state.book.title).to.eq(``)
-  expect(state.book.count).to.eq(1)
-  expect(state.book.language).to.eq(`rus`)
-  expect(state.book.annotation).to.eq(``)
-  expect(state.book.bookCoverUrl).to.eq(``)
-  expect(state.book.authors).to.deep.eq([
+  expect(addBookState.book.title).to.eq(``)
+  expect(addBookState.book.count).to.eq(1)
+  expect(addBookState.book.language).to.eq(`rus`)
+  expect(addBookState.book.annotation).to.eq(``)
+  expect(addBookState.book.bookCoverUrl).to.eq(``)
+  expect(addBookState.book.authors).to.deep.eq([
     {
       fullName: ``, 
     },
@@ -166,19 +213,14 @@ function checkExpectedInitialState({
 }
 
 function setBookData({
-  state,
-  isSetAuthor,
+  addBookState,
 }: {
-  state: AddBookState,
-  isSetAuthor: boolean,
+  addBookState: AddBookState,
 }) {
-  state.book.title = `My Book`
-  state.book.count = 3
-  state.book.language = `eng`
-  state.book.annotation = `Some annotation`
-  state.book.bookCoverUrl = `http://image.com`
-
-  if (isSetAuthor) {
-    state.book.authors[0].fullName = `John`
-  }
+  addBookState.book.title = `My Book`
+  addBookState.book.count = 3
+  addBookState.book.language = `eng`
+  addBookState.book.annotation = `Some annotation`
+  addBookState.book.authors[0].fullName = `John`
+  addBookState.book.bookCoverUrl = `http://image.com`
 }
