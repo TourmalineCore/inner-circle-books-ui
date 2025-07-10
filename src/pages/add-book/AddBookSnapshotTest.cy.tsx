@@ -45,8 +45,10 @@ describe(`Add Book Snapshot test`, () => {
 
       mountComponent()
 
-  cy.document().its("fonts.status").should("equal", "loaded")
-
+      cy
+        .document()
+        .its(`fonts.status`)
+        .should(`equal`, `loaded`)
 
       cy
         .getByData(`add-book`)
