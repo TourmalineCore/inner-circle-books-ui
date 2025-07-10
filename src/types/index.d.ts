@@ -17,3 +17,13 @@ type AddBookType = {
   authors: AuthorType[],
   bookCoverUrl: string,
 }
+
+type BookType = {
+  id: number,
+  title: string,
+  annotation: string,
+  count: number,
+  language: string,
+  authors: AuthorType[],
+  bookCoverUrl: string,
+}
