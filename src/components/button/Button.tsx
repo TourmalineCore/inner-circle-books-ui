@@ -9,13 +9,15 @@ export const Button = ({
   isAccent,
   isDisable = false,
   isLoader = false,
+  isMobile = false,
 }: {
   onClick: () => unknown,
   className?: string, 
-  label: string, 
+  label: string | React.ReactNode, 
   isAccent?: boolean,
   isDisable?: boolean,
   isLoader?: boolean,
+  isMobile?: boolean,
 }) => (
   <button 
     type="button"
@@ -26,6 +28,7 @@ export const Button = ({
         : `button__secondary`
       ]: true,
       'button__disable': isDisable,
+      'button__mobile': isMobile,
     })}
     disabled={isDisable}
   >
