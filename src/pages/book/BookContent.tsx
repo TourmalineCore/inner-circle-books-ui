@@ -1,39 +1,59 @@
 import './BookContent.scss'
 
+import NoImage from "../../assets/img/no-image.png"
+
 import { observer } from "mobx-react-lite"
 import { useContext } from 'react'
 import { BookStateContext } from './state/BookStateStateContext'
-import { Button } from '../AddBook/components/Button/Button'
+import { Button } from '../../components/button/Button'
+import { useImageValid } from '../../common/useImageValid'
+import clsx from 'clsx'
 
 export const BookContent = observer(() => {
 
   const bookState = useContext(BookStateContext)
 
-  const {
-    title,
-    annotation,
-    count,
-    language,
-    // authors,
-    bookCoverUrl,
-  } = bookState
-
+  const isValidUrl = useImageValid(bookState.bookCoverUrl)
+  
   return (
     <div 
       className="book"
       data-cy="book"
     >
-      <div>{bookCoverUrl}</div>
+      <img
+        src={isValidUrl 
+          ? bookState.bookCoverUrl 
+          : NoImage
+        }
+        alt="Preview"
+        className={clsx(`book__cover`, { 
+          'book__cover--no-image': !isValidUrl,
+        })}
+      />
 
       <header className='book__title'>
-        {title}
+        {bookState.title}
       </header>
 
-      <div className='book_characteristics'>
-        {/* <div className='book_authors'>{authors}</div> */}
-        <div className='book__count'>{count}</div>
-        <div className='book__language'>{language}</div>
-      </div>
+      <ul className='book_characteristics'>
+        <li className='book_field'>
+          Author:
+          <span className='book_value'>
+            {bookState.authors
+              .map(author => author.fullName)
+              .join(`, `)}
+          </span>
+
+        </li>
+        <li className='book_field'>
+          Language: 
+          <span className='book_value'>
+            {bookState.language === `rus` 
+              ? `Russian` 
+              : `English`}
+          </span>
+        </li>
+      </ul>
       
       <Button 
         onClick={() => {}}
@@ -42,7 +62,8 @@ export const BookContent = observer(() => {
         isAccent
       />
 
-      <div className='book__annotation'>{annotation}</div>
+      <h5 className='book__section-name'>Annotation</h5>
+      <div>{bookState.annotation}</div>
     </div>
   )
 })

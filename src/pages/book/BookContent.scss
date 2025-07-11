@@ -1,0 +1,13 @@
+.book {
+  &__preview,
+  &__preview--no-image {
+    border-radius: 8px;
+    width: 100%;
+    height: 510px;
+    object-fit: contain;
+
+    &--no-image {
+      object-fit: cover;
+    }
+  }
+}

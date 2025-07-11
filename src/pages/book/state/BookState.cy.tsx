@@ -3,17 +3,19 @@ import { BookState } from './BookState'
 const bookState = new BookState()
 
 bookState.initialize({
-  id: 1,
-  title: `Разработка ценностных предложений`,
-  annotation: `Аннотация`,
-  count: 1,
-  language: `rus`,
-  authors: [
-    {
-      fullName: `Алекс Остервальдер`,
-    },
-  ],
-  bookCoverUrl: `https://example.jpg`,
+  loadedBook: {
+    id: 1,
+    title: `Разработка ценностных предложений`,
+    annotation: `Аннотация`,
+    count: 1,
+    language: `rus`,
+    authors: [
+      {
+        fullName: `Алекс Остервальдер`,
+      },
+    ],
+    bookCoverUrl: `https://example.jpg`,
+  },
 })
 
 describe(`BookState`, () => {

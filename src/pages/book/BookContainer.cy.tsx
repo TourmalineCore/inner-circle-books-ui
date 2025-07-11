@@ -4,9 +4,9 @@ import { BookStateContext } from "./state/BookStateStateContext"
 
 const BOOK_RESPONSE = {
   id: 1,
-  title: `Разработка ценностных предложений`,
-  annotation: `annotation`,
-  bookCoverUrl: `https://cdn.litres.ru/pub/c/cover/14363291.jpg`,
+  title: `ChatGPT мастер подсказок или как создавать сильные промты для нейросети`,
+  annotation: `Уже сейчас нейросети выполняют тысячи контент-задач в разных сферах. От слоганов, статей и постов до учебных программ, выступлений и подбора креативных идей. Умение грамотно «общаться» с ИИ все чаще становится серьезным и порой даже главным карьерным или личным бонусом. Именно развитию навыков работы с ChatGPT и другими контентными ИИ (промт-инжиниринг) и посвящена эта книга. В ней даны правила и «фишки», показаны схемы и неочевидные моменты, которые должен знать сильный промтер. Также добавлены пошаговые мастер-классы создания промтов (подсказок) на основе некоторых маркетинговых и информационных типов контента.`,
+  bookCoverUrl: `https://cdn.litres.ru/pub/c/cover_415/70413274.webp`,
   authors: [
     {
       fullName: `Алекс Остервальдер`,
@@ -38,12 +38,14 @@ function initializationTests() {
   `, () => {
     mountComponent()
 
-    cy.contains(`Думай медленно… решай быстро`)
-    cy.contains(`Даниэль Канеман`)
-    cy.contains(`rus`)
+    cy.contains(`Разработка ценностных предложений`)
+    cy.contains(`annotation`)
+    cy.contains(`Russian`)
+    cy.contains(`Алекс Остервальдер`)
+    cy.contains(`Сергей Николенко`)
     
     cy
-      .get(`img[src="https://cdn.litres.ru/pub/c/cover/14363291.jpg"]`)
+      .get(`img[src="https://cdn.litres.ru/pub/c/cover_415/70413274.webp"]`)
       .should(`exist`)
   })
 }
