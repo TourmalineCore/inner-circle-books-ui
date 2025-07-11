@@ -35,19 +35,19 @@ export const BookContent = observer(() => {
         {bookState.title}
       </header>
 
-      <ul className='book_characteristics'>
-        <li className='book_field'>
+      <ul className='book__characteristics'>
+        <li className='book__field'>
           Author:
-          <span className='book_value'>
+          <span className='book__value'>
             {bookState.authors
               .map(author => author.fullName)
               .join(`, `)}
           </span>
 
         </li>
-        <li className='book_field'>
+        <li className='book__field'>
           Language: 
-          <span className='book_value'>
+          <span className='book__value'>
             {bookState.language === `rus` 
               ? `Russian` 
               : `English`}
