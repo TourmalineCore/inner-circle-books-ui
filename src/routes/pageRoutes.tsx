@@ -8,12 +8,11 @@ export function getPageRoutes(accessPermissions: Map<any, boolean>) {
     Component: () => JSX.Element,
   }[] = []
 
-  // TODO fix permissions when add them to layout
-  if (accessPermissions.get(`ViewContacts`)) { 
+  if (accessPermissions.get(`CanViewBooks`)) { 
     routes.push(...allBooksRoutes)
   }
 
-  if (accessPermissions.get(`ViewContacts`)) {
+  if (accessPermissions.get(`CanManageBooks`)) {
     routes.push(...addBookRoutes)
   }
 
