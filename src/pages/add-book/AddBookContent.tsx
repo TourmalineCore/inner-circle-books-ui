@@ -74,11 +74,12 @@ export const AddBookContent = observer(({
           <label className="add-book__label">
             Title*
             <textarea
+              required
               data-cy="add-book-title"
               value={addBookState.title}
               placeholder="Enter the title of the book"
               onChange={(e) => addBookState.setTitle(e.target.value)}
-              className={`add-book__textarea add-book__title ${addBookState.errors.title 
+              className={`add-book__textarea add-book__title ${addBookState.errors.title && addBookState.isTriedToSubmit
                 ? `error` 
                 : ``}`}
             />
@@ -119,7 +120,7 @@ export const AddBookContent = observer(({
               value={addBookState.annotation}
               placeholder="Enter the annotation from the title page of the book"
               onChange={(e) => addBookState.setAnnotation(e.target.value)}
-              className={`add-book__textarea add-book__annotation ${addBookState.errors.annotation 
+              className={`add-book__textarea add-book__annotation ${addBookState.errors.annotation && addBookState.isTriedToSubmit
                 ? `error` 
                 : ``}`}
             />
@@ -141,7 +142,7 @@ export const AddBookContent = observer(({
               addBookState.authors.splice(index, 1)
             }}
             placeholder="Enter author full name"
-            error={addBookState.errors.authors}
+            error={addBookState.errors.authors && addBookState.isTriedToSubmit}
           />
         </div>
 

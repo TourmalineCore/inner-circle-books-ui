@@ -1,5 +1,17 @@
-/* eslint-disable array-bracket-newline */
 import { makeAutoObservable } from 'mobx'
+
+const defaultBook: AddBookType = {
+  title: ``,
+  count: 1,
+  language: `rus`,
+  annotation: ``,
+  authors: [
+    {
+      fullName: ``, 
+    },
+  ],
+  bookCoverUrl: ``,
+}
 
 export class AddBookState {
   private _book = {
@@ -7,19 +19,16 @@ export class AddBookState {
     count: 1,
     language: `rus`,
     annotation: ``,
-    authors: [{
-      fullName: ``,
-    }],
+    authors: [
+      {
+        fullName: ``,
+      },
+    ],
     bookCoverUrl: ``,
   }
 
-  private _errors = {
-    title: false,
-    annotation: false,
-    authors: false,
-  }
-
-  private _isSaving = false
+  private _isSaving = false    
+  private _isTriedToSubmit = false  
 
   constructor() {
     makeAutoObservable(this)
@@ -39,9 +48,11 @@ export class AddBookState {
     this._book.annotation = annotation
     this._book.authors = authors.length > 0
       ? authors
-      : [{
-        fullName: ``, 
-      }]
+      : [
+        {
+          fullName: ``, 
+        },
+      ]
     this._book.bookCoverUrl = bookCoverUrl
   }
 
@@ -69,14 +80,6 @@ export class AddBookState {
     return this._book.bookCoverUrl
   }
 
-  get errors() {
-    return this._errors
-  }
-
-  get isSaving() {
-    return this._isSaving
-  }
-
   setTitle(value: string) {
     this._book.title = value
   }
@@ -98,45 +101,73 @@ export class AddBookState {
   }
 
   setAuthor(index: number, value: string) {
-    this._book.authors[index].fullName = value
+    this._book.authors = this._book.authors.map((author, i) =>
+      i === index ? {
+        ...author,
+        fullName: value, 
+      } : author,
+    )
   }
 
   addAuthor() {
-    this._book.authors.push({
-      fullName: ``, 
-    })
+    this._book.authors = [
+      ...this._book.authors,
+      {
+        fullName: ``, 
+      },
+    ]
   }
 
   removeAuthor(index: number) {
-    this._book.authors = this._book.authors.filter((_, i) => i !== index)
+    this._book.authors = this._book.authors.filter((_author, i) => i !== index)
   }
 
-  reset() {
-    this._book.title = ``
-    this._book.count = 1
-    this._book.language = `rus`
-    this._book.annotation = ``
-    this._book.authors = [{
-      fullName: ``, 
-    }]
-    this._book.bookCoverUrl = ``
-    this._errors = {
-      title: false,
-      annotation: false,
-      authors: false,
+  get isSaving() {
+    return this._isSaving
+  }
+
+  get isTriedToSubmit() {
+    return this._isTriedToSubmit
+  }
+
+  get isTitleValid() {
+    return this._book.title.trim() !== ``
+  }
+
+  get isAnnotationValid() {
+    return this._book.annotation.trim() !== ``
+  }
+
+  get isAuthorsFieldValid() {
+    return this._book.authors.some(author => author.fullName.trim() !== ``)
+  }
+
+  get isValid() {
+    return (
+      this.isTitleValid &&
+      this.isAnnotationValid &&
+      this.isAuthorsFieldValid
+    )
+  }
+
+  get errors() {
+    return {
+      title: !this.isTitleValid,
+      annotation: !this.isAnnotationValid,
+      authors: !this.isAuthorsFieldValid,
     }
   }
 
-  validate() { //isvalid
-    this._errors.title = this._book.title.trim() === ``
-    this._errors.annotation = this._book.annotation.trim() === ``
-    this._errors.authors = this._book.authors.every(author => author.fullName.trim() === ``)
-
-    return !Object.values(this._errors)
-      .some(Boolean)
+  reset() {
+    this._book = {
+      ...defaultBook,
+      authors: defaultBook.authors.map(a => ({
+        ...a, 
+      })),
+    }
   }
-  // in prop
-  isSomethingFilledWithinTheForm = () => {
+
+  isSomethingFilledWithinTheForm() {
     return (
       this._book.title !== `` ||
       this._book.count > 1 ||
@@ -152,5 +183,9 @@ export class AddBookState {
 
   setIsSaved() {
     this._isSaving = false
+  }
+  
+  setIsTriedToSubmit(newValue: boolean) {
+    this._isTriedToSubmit = newValue
   }
 }

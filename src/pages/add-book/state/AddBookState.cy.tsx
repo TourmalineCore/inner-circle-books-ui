@@ -4,6 +4,7 @@ describe(`AddBookState`, () => {
   describe(`Initialization`, initializationTest)
   describe(`Setters`, settersTests)
   describe(`Reset`, resetTest)
+  describe(`Validation`, validationTests)
   describe(`Something filled with in the form`, somethingFilledWithinTheFormTests)
   describe(`Saving flag`, savingTest)
 })
@@ -105,6 +106,72 @@ function resetTest() {
   })
 }
 
+function validationTests() {
+  it(`
+  GIVEN an empty title
+  WHEN isValid is accessed
+  SHOULD return false and set title error to true
+  `, () => {
+    const addBookState = new AddBookState()
+
+    addBookState.setAnnotation(`Annotation`)
+    addBookState.setAuthor(0, `Author`)
+
+    expect(addBookState.isValid).to.be.false
+    expect(addBookState.errors.title).to.be.true
+    expect(addBookState.errors.annotation).to.be.false
+    expect(addBookState.errors.authors).to.be.false
+  })
+
+  it(`
+  GIVEN an empty annotation
+  WHEN isValid is accessed
+  SHOULD return false and set annotation error to true
+  `, () => {
+    const addBookState = new AddBookState()
+
+    addBookState.setTitle(`Title`)
+    addBookState.setAuthor(0, `Author`)
+
+    expect(addBookState.isValid).to.be.false
+    expect(addBookState.errors.annotation).to.be.true
+  })
+
+  it(`
+  GIVEN all authors are empty
+  WHEN isValid is accessed
+  SHOULD return false and set authors error to true
+  `, () => {
+    const addBookState = new AddBookState()
+
+    addBookState.setTitle(`Title`)
+    addBookState.setAnnotation(`Annotation`)
+    addBookState.addAuthor
+
+    expect(addBookState.isValid).to.be.false
+    expect(addBookState.errors.authors).to.be.true
+  })
+
+  it(`
+  GIVEN valid title, annotation, and author
+  WHEN isValid is accessed
+  SHOULD return true and all errors should be false
+  `, () => {
+    const addBookState = new AddBookState()
+
+    addBookState.setTitle(`Title`)
+    addBookState.setAnnotation(`Annotation`)
+    addBookState.setAuthor(0, `Author`)
+
+    expect(addBookState.isValid).to.be.true
+    expect(addBookState.errors).to.deep.equal({
+      title: false,
+      annotation: false,
+      authors: false,
+    })
+  })
+}
+
 function somethingFilledWithinTheFormTests() {
   it(`
   GIVEN a new instance
@@ -189,9 +256,22 @@ function savingTest() {
 
     addBookState.setIsSaving()
     expect(addBookState.isSaving).to.be.true
-
+    
     addBookState.setIsSaved()
     expect(addBookState.isSaving).to.be.false
+  })
+
+  it(`
+  GIVEN initial isTriedToSubmit = false
+  WHEN setIsTriedToSubmit(true)
+  SHOULD change value to true
+  `, () => {
+    const addBookState = new AddBookState()
+
+    expect(addBookState.isTriedToSubmit).to.be.false
+
+    addBookState.setIsTriedToSubmit(true)
+    expect(addBookState.isTriedToSubmit).to.be.true
   })
 }
 
