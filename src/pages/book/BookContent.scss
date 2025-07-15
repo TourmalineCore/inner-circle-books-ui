@@ -1,7 +1,10 @@
 @use "../../styles/fonts-mixin" as f;
 @use "../../styles/variables" as v;
+@use "../../styles/media" as m;
 
 .book {
+  display: grid;
+
   &__title {
     @include f.h3;
 
@@ -12,6 +15,8 @@
     @include f.text;
 
     display: grid;
+    margin-top: 16px;
+    margin-bottom: 32px;
     gap: 8px;
   }
 
@@ -24,8 +29,26 @@
     color: v.$color-text-primary;
   }
 
+  &__section-name {
+    @include f.h5;
+
+    margin: 32px 0 16px;
+  }
+
+  &__annotation {
+    @include f.text;
+  }
+
+  &__take-button {
+    @include m.tablet {
+      max-width: 111px;
+    }
+  }
+
   &__cover,
   &__cover--no-image {
+    display: block;
+    border: 1px solid v.$color-component-border;
     border-radius: 8px;
     width: 100%;
     height: 510px;
@@ -34,5 +57,24 @@
     &--no-image {
       object-fit: cover;
     }
+  }
+
+  @include m.tablet-xl {
+    margin: 0 auto;
+    max-width: 976px;
+    gap: 20px;
+    grid-template-areas: "left right";
+    grid-template-columns: 354px 1fr;
+  }
+
+  @include m.desktop {
+    padding: 24px;
+    max-width: 1032px;
+    grid-template-columns: 401px 1fr;
+  }
+
+  @include m.desktop-xl {
+    max-width: 1180px;
+    grid-template-columns: 430px 1fr;
   }
 }
