@@ -14,18 +14,7 @@ const defaultBook: AddBookType = {
 }
 
 export class AddBookState {
-  private _book = {
-    title: ``,
-    count: 1,
-    language: `rus`,
-    annotation: ``,
-    authors: [
-      {
-        fullName: ``,
-      },
-    ],
-    bookCoverUrl: ``,
-  }
+  private _book: AddBookType = defaultBook
 
   private _isSaving = false    
   private _isTriedToSubmit = false  
@@ -80,32 +69,60 @@ export class AddBookState {
     return this._book.bookCoverUrl
   }
 
-  setTitle(value: string) {
+  setTitle({
+    value,
+  }: {
+    value: string,
+  }) {
     this._book.title = value
   }
 
-  setCount(value: number) {
+  setCount({
+    value,
+  }: {
+    value: number,
+  }) {
     this._book.count = value
   }
 
-  setLanguage(value: string) {
+  setLanguage({
+    value,
+  }: {
+    value: string,
+  }) {
     this._book.language = value
   }
 
-  setAnnotation(value: string) {
+  setAnnotation({
+    value,
+  }: {
+    value: string,
+  }) {
     this._book.annotation = value
   }
 
-  setCoverUrl(value: string) {
+  setCoverUrl({
+    value,
+  }: {
+    value: string,
+  }) {
     this._book.bookCoverUrl = value
   }
 
-  setAuthor(index: number, value: string) {
+  setAuthor({
+    index, 
+    value,
+  }: {
+    index: number, 
+    value: string,
+  }) {
     this._book.authors = this._book.authors.map((author, i) =>
-      i === index ? {
-        ...author,
-        fullName: value, 
-      } : author,
+      i === index 
+        ? {
+          ...author,
+          fullName: value, 
+        } 
+        : author,
     )
   }
 
@@ -118,7 +135,11 @@ export class AddBookState {
     ]
   }
 
-  removeAuthor(index: number) {
+  removeAuthor({
+    index,
+  }: {
+    index: number,
+  }) {
     this._book.authors = this._book.authors.filter((_author, i) => i !== index)
   }
 
@@ -161,8 +182,8 @@ export class AddBookState {
   reset() {
     this._book = {
       ...defaultBook,
-      authors: defaultBook.authors.map(a => ({
-        ...a, 
+      authors: defaultBook.authors.map(author => ({
+        ...author, 
       })),
     }
   }
@@ -185,7 +206,11 @@ export class AddBookState {
     this._isSaving = false
   }
   
-  setIsTriedToSubmit(newValue: boolean) {
-    this._isTriedToSubmit = newValue
+  setIsTriedToSubmit() {
+    this._isTriedToSubmit = true
+  }
+
+  resetIsTriedToSubmit() {
+    this._isTriedToSubmit = false
   }
 }

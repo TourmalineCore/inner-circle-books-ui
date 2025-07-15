@@ -35,13 +35,13 @@ function settersTests() {
       addBookState,
     })
 
-    expect(addBookState.title).to.eq(`My Book`)
+    expect(addBookState.title).to.eq(`Title`)
     expect(addBookState.count).to.eq(3)
     expect(addBookState.language).to.eq(`eng`)
-    expect(addBookState.annotation).to.eq(`Some annotation`)
+    expect(addBookState.annotation).to.eq(`Annotation`)
     expect(addBookState.authors).to.deep.eq([
       {
-        fullName: `John`, 
+        fullName: `Author`, 
       },
     ])
     expect(addBookState.bookCoverUrl).to.eq(`http://image.com`)
@@ -76,7 +76,9 @@ function settersTests() {
     addBookState.authors[0].fullName = `First`
     addBookState.addAuthor()
     addBookState.authors[1].fullName = `Second`
-    addBookState.removeAuthor(0)
+    addBookState.removeAuthor({
+      index: 0,
+    })
 
     expect(addBookState.authors).to.deep.eq([
       {
@@ -114,8 +116,13 @@ function validationTests() {
   `, () => {
     const addBookState = new AddBookState()
 
-    addBookState.setAnnotation(`Annotation`)
-    addBookState.setAuthor(0, `Author`)
+    addBookState.setAnnotation({
+      value: `Annotation`,
+    })
+    addBookState.setAuthor({
+      index: 0,
+      value: `Author`,
+    })
 
     expect(addBookState.isValid).to.be.false
     expect(addBookState.errors.title).to.be.true
@@ -130,8 +137,13 @@ function validationTests() {
   `, () => {
     const addBookState = new AddBookState()
 
-    addBookState.setTitle(`Title`)
-    addBookState.setAuthor(0, `Author`)
+    addBookState.setTitle({
+      value: `Title`,
+    })
+    addBookState.setAuthor({
+      index: 0,
+      value: `Author`,
+    })
 
     expect(addBookState.isValid).to.be.false
     expect(addBookState.errors.annotation).to.be.true
@@ -144,8 +156,12 @@ function validationTests() {
   `, () => {
     const addBookState = new AddBookState()
 
-    addBookState.setTitle(`Title`)
-    addBookState.setAnnotation(`Annotation`)
+    addBookState.setTitle({
+      value: `Title`,
+    })
+    addBookState.setAnnotation({
+      value: `Annotation`,
+    })
     addBookState.addAuthor
 
     expect(addBookState.isValid).to.be.false
@@ -159,9 +175,16 @@ function validationTests() {
   `, () => {
     const addBookState = new AddBookState()
 
-    addBookState.setTitle(`Title`)
-    addBookState.setAnnotation(`Annotation`)
-    addBookState.setAuthor(0, `Author`)
+    addBookState.setTitle({
+      value: `Title`,
+    })
+    addBookState.setAnnotation({
+      value: `Annotation`,
+    })
+    addBookState.setAuthor({
+      index: 0,
+      value: `Author`,
+    })
 
     expect(addBookState.isValid).to.be.true
     expect(addBookState.errors).to.deep.equal({
@@ -190,7 +213,9 @@ function somethingFilledWithinTheFormTests() {
   `, () => {
     const addBookState = new AddBookState()
 
-    addBookState.setTitle(`New Title`)
+    addBookState.setTitle({
+      value: `Title`,
+    })
 
     expect(addBookState.isSomethingFilledWithinTheForm()).to.be.true
   })
@@ -202,7 +227,9 @@ function somethingFilledWithinTheFormTests() {
   `, () => {
     const addBookState = new AddBookState()
 
-    addBookState.setCount(2)
+    addBookState.setCount({
+      value: 3,
+    })
 
     expect(addBookState.isSomethingFilledWithinTheForm()).to.be.true
   })
@@ -214,7 +241,9 @@ function somethingFilledWithinTheFormTests() {
   `, () => {
     const addBookState = new AddBookState()
 
-    addBookState.setAnnotation(`New Annotation`)
+    addBookState.setAnnotation({
+      value: `Annotation`,
+    })
 
     expect(addBookState.isSomethingFilledWithinTheForm()).to.be.true
   })
@@ -226,7 +255,10 @@ function somethingFilledWithinTheFormTests() {
   `, () => {
     const addBookState = new AddBookState()
 
-    addBookState.setAuthor(0, `John Doe`)
+    addBookState.setAuthor({
+      index: 0,
+      value: `Author`,
+    })
 
     expect(addBookState.isSomethingFilledWithinTheForm()).to.be.true
   })
@@ -238,7 +270,9 @@ function somethingFilledWithinTheFormTests() {
   `, () => {
     const addBookState = new AddBookState()
 
-    addBookState.setCoverUrl(`http://newimage.com`)
+    addBookState.setCoverUrl({
+      value: `http://image.com`,
+    })
       
     expect(addBookState.isSomethingFilledWithinTheForm()).to.be.true
   })
@@ -263,15 +297,20 @@ function savingTest() {
 
   it(`
   GIVEN initial isTriedToSubmit = false
-  WHEN setIsTriedToSubmit(true)
+  WHEN setIsTriedToSubmit()
   SHOULD change value to true
+  WHEN resetIsTriedToSubmit()
+  SHOULD change value to false
   `, () => {
     const addBookState = new AddBookState()
 
     expect(addBookState.isTriedToSubmit).to.be.false
 
-    addBookState.setIsTriedToSubmit(true)
+    addBookState.setIsTriedToSubmit()
     expect(addBookState.isTriedToSubmit).to.be.true
+
+    addBookState.resetIsTriedToSubmit()
+    expect(addBookState.isTriedToSubmit).to.be.false
   })
 }
 
@@ -297,10 +336,23 @@ function setBookData({
 }: {
   addBookState: AddBookState,
 }) {
-  addBookState.setTitle(`My Book`)
-  addBookState.setCount(3)
-  addBookState.setLanguage(`eng`)
-  addBookState.setAnnotation(`Some annotation`)
-  addBookState.setAuthor(0, `John`)
-  addBookState.setCoverUrl(`http://image.com`)
+  addBookState.setTitle({
+    value: `Title`,
+  })
+  addBookState.setCount({
+    value: 3,
+  })
+  addBookState.setLanguage({
+    value: `eng`,
+  })
+  addBookState.setAnnotation({
+    value: `Annotation`,
+  })
+  addBookState.setAuthor({
+    index: 0,
+    value: `Author`,
+  })
+  addBookState.setCoverUrl({
+    value: `http://image.com`,
+  })
 }

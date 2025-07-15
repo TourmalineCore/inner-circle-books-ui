@@ -30,7 +30,7 @@ export const AddBookContainer = observer(({
   )
 
   async function submitBookAsync() {
-    addBookState.setIsTriedToSubmit(true)
+    addBookState.setIsTriedToSubmit()
 
     if (!addBookState.isValid) return
 
@@ -46,7 +46,8 @@ export const AddBookContainer = observer(({
     }
 
     await api.post(`/books`, payload)
-    addBookState.setIsTriedToSubmit(false)
+
+    addBookState.resetIsTriedToSubmit()
 
     goToBooksList()
   }
