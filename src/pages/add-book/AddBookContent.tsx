@@ -21,7 +21,6 @@ export const AddBookContent = observer(({
   onSubmit: () => void,
   goToBooksList: () => void,
 }) => {
-
   const addBookState = useContext(AddBookStateContext)
   
   const [
@@ -79,7 +78,7 @@ export const AddBookContent = observer(({
               value={addBookState.title}
               placeholder="Enter the title of the book"
               onChange={(e) => addBookState.setTitle({
-                value: e.target.value,
+                title: e.target.value,
               })}
               className={`add-book__textarea add-book__title ${addBookState.errors.title && addBookState.isTriedToSubmit
                 ? `error` 
@@ -92,8 +91,8 @@ export const AddBookContent = observer(({
               data-cy="add-book-counter"
               label="Number of Copies*"
               value={addBookState.count}
-              onChange={(value) => addBookState.setCount({
-                value,
+              onChange={(count) => addBookState.setCount({
+                count,
               })}
             />
 
@@ -101,8 +100,8 @@ export const AddBookContent = observer(({
               data-cy="add-book-language"
               label="Language*"
               value={addBookState.language}
-              onChange={(value) => addBookState.setLanguage({
-                value,
+              onChange={(language) => addBookState.setLanguage({
+                language,
               })}
               options={[
                 {
@@ -126,7 +125,7 @@ export const AddBookContent = observer(({
               value={addBookState.annotation}
               placeholder="Enter the annotation from the title page of the book"
               onChange={(e) => addBookState.setAnnotation({
-                value: e.target.value,
+                annotation: e.target.value,
               })}
               className={`add-book__textarea add-book__annotation ${addBookState.errors.annotation && addBookState.isTriedToSubmit
                 ? `error` 
@@ -137,11 +136,11 @@ export const AddBookContent = observer(({
           <DynamicInputList
             label="Authors*"
             data-cy="add-book-authors"
-            values={addBookState.authors.map(a => a.fullName)}
-            onChange={(index, value) => {
+            values={addBookState.authors.map(author => author.fullName)}
+            onChange={(index, author) => {
               addBookState.setAuthor({
                 index,
-                value,
+                author,
               })
             }}
             onAdd={() => {
@@ -162,8 +161,8 @@ export const AddBookContent = observer(({
             data-cy="add-book-cover"
             label="Book Cover"
             url={addBookState.bookCoverUrl}
-            onChange={(url) => addBookState.setCoverUrl({
-              value: url,
+            onChange={(bookCoverUrl) => addBookState.setBookCoverUrl({
+              bookCoverUrl,
             })}
           />
         </div>

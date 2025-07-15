@@ -70,59 +70,59 @@ export class AddBookState {
   }
 
   setTitle({
-    value,
+    title,
   }: {
-    value: string,
+    title: string,
   }) {
-    this._book.title = value
+    this._book.title = title
   }
 
   setCount({
-    value,
+    count,
   }: {
-    value: number,
+    count: number,
   }) {
-    this._book.count = value
+    this._book.count = count
   }
 
   setLanguage({
-    value,
+    language,
   }: {
-    value: string,
+    language: string,
   }) {
-    this._book.language = value
+    this._book.language = language
   }
 
   setAnnotation({
-    value,
+    annotation,
   }: {
-    value: string,
+    annotation: string,
   }) {
-    this._book.annotation = value
+    this._book.annotation = annotation
   }
 
-  setCoverUrl({
-    value,
+  setBookCoverUrl({
+    bookCoverUrl,
   }: {
-    value: string,
+    bookCoverUrl: string,
   }) {
-    this._book.bookCoverUrl = value
+    this._book.bookCoverUrl = bookCoverUrl
   }
 
   setAuthor({
     index, 
-    value,
+    author,
   }: {
     index: number, 
-    value: string,
+    author: string,
   }) {
-    this._book.authors = this._book.authors.map((author, i) =>
+    this._book.authors = this._book.authors.map((authors, i) =>
       i === index 
         ? {
-          ...author,
-          fullName: value, 
+          ...authors,
+          fullName: author, 
         } 
-        : author,
+        : authors,
     )
   }
 
