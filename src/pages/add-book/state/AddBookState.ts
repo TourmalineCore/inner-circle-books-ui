@@ -1,4 +1,5 @@
 import { makeAutoObservable } from 'mobx'
+import isEqual from 'lodash.isequal'
 
 const EMPTY_BOOK: AddBookType = {
   title: ``,
@@ -51,15 +52,14 @@ export class AddBookState {
     return (
       this.isTitleValid &&
       this.isAnnotationValid &&
-      this.isAuthorsFieldValid
-    )
+      this.isAuthorsFieldValid )
   }
 
   get errors() {
     return {
-      title: !this.isTitleValid,
-      annotation: !this.isAnnotationValid,
-      authors: !this.isAuthorsFieldValid,
+      isTitleError: !this.isTitleValid && this._isTriedToSubmit,
+      isAnnotationError: !this.isAnnotationValid && this._isTriedToSubmit,
+      isAuthorsError: !this.isAuthorsFieldValid && this._isTriedToSubmit,
     }
   }
 
@@ -143,26 +143,12 @@ export class AddBookState {
       .filter((_author, i) => i !== index)
   }
 
-  //structuredClone()
   reset() {
-    this._book = {
-      ...EMPTY_BOOK,
-      authors: EMPTY_BOOK
-        .authors
-        .map(author => ({
-          ...author, 
-        })),
-    }
+    this._book = structuredClone(EMPTY_BOOK)
   }
 
-  isSomethingFilledWithinTheForm() { //deepequal
-    return (
-      this._book.title !== `` ||
-      this._book.count > 1 ||
-      this._book.annotation !== `` ||
-      this._book.authors.some(author => author.fullName.trim() !== ``) ||
-      this._book.bookCoverUrl !== ``
-    )
+  isSomethingFilledWithinTheForm() { 
+    return !isEqual(this._book, EMPTY_BOOK)
   }
 
   setIsSaving() {

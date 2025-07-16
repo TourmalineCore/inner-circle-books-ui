@@ -35,10 +35,13 @@ export const AddBookContainer = observer(({
     if (!addBookState.isValid) return
 
     const payload = {
-      title: addBookState.book.title,
-      annotation: addBookState.book.annotation,
+      title: addBookState.book.title.trim(),
+      annotation: addBookState.book.annotation.trim(),
       authors: addBookState.book.authors
-        .filter(author => author.fullName.trim() !== ``),
+        .map(author => ({
+          fullName: author.fullName.trim(),
+        }))
+        .filter(author => author.fullName !== ``),
       language: addBookState.book.language === `rus` 
         ? `ru` 
         : `en`,

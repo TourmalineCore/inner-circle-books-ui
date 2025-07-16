@@ -80,7 +80,7 @@ export const AddBookContent = observer(({
               onChange={(e) => addBookState.setTitle({
                 title: e.target.value,
               })}
-              className={`add-book__textarea add-book__title ${addBookState.errors.title && addBookState.isTriedToSubmit
+              className={`add-book__textarea add-book__title ${addBookState.errors.isTitleError
                 ? `error` 
                 : ``}`}
             />
@@ -127,7 +127,7 @@ export const AddBookContent = observer(({
               onChange={(e) => addBookState.setAnnotation({
                 annotation: e.target.value,
               })}
-              className={`add-book__textarea add-book__annotation ${addBookState.errors.annotation && addBookState.isTriedToSubmit
+              className={`add-book__textarea add-book__annotation ${addBookState.errors.isAnnotationError
                 ? `error` 
                 : ``}`}
             />
@@ -152,7 +152,7 @@ export const AddBookContent = observer(({
               })
             }}
             placeholder="Enter author full name"
-            error={addBookState.errors.authors && addBookState.isTriedToSubmit}
+            error={addBookState.errors.isAuthorsError}
           />
         </div>
 

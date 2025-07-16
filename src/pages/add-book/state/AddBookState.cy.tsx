@@ -124,10 +124,12 @@ function validationTests() {
       authorFullName: `Author`,
     })
 
+    addBookState.setIsTriedToSubmit()
+
     expect(addBookState.isValid).to.be.false
-    expect(addBookState.errors.title).to.be.true
-    expect(addBookState.errors.annotation).to.be.false
-    expect(addBookState.errors.authors).to.be.false
+    expect(addBookState.errors.isTitleError).to.be.true
+    expect(addBookState.errors.isAnnotationError).to.be.false
+    expect(addBookState.errors.isAuthorsError).to.be.false
   })
 
   it(`
@@ -145,8 +147,10 @@ function validationTests() {
       authorFullName: `Author`,
     })
 
+    addBookState.setIsTriedToSubmit()
+
     expect(addBookState.isValid).to.be.false
-    expect(addBookState.errors.annotation).to.be.true
+    expect(addBookState.errors.isAnnotationError).to.be.true
   })
 
   it(`
@@ -164,8 +168,10 @@ function validationTests() {
     })
     addBookState.addAuthor
 
+    addBookState.setIsTriedToSubmit()
+
     expect(addBookState.isValid).to.be.false
-    expect(addBookState.errors.authors).to.be.true
+    expect(addBookState.errors.isAuthorsError).to.be.true
   })
 
   it(`
@@ -185,12 +191,14 @@ function validationTests() {
       index: 0,
       authorFullName: `Author`,
     })
+    
+    addBookState.setIsTriedToSubmit()
 
     expect(addBookState.isValid).to.be.true
     expect(addBookState.errors).to.deep.equal({
-      title: false,
-      annotation: false,
-      authors: false,
+      isTitleError: false,
+      isAnnotationError: false,
+      isAuthorsError: false,
     })
   })
 }
