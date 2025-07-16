@@ -1,6 +1,6 @@
 import { makeAutoObservable } from 'mobx'
 
-const defaultBook: AddBookType = {
+const EMPTY_BOOK: AddBookType = {
   title: ``,
   count: 1,
   language: `rus`,
@@ -14,7 +14,7 @@ const defaultBook: AddBookType = {
 }
 
 export class AddBookState {
-  private _book: AddBookType = defaultBook
+  private _book: AddBookType = EMPTY_BOOK
 
   private _isSaving = false    
   private _isTriedToSubmit = false  
@@ -23,50 +23,44 @@ export class AddBookState {
     makeAutoObservable(this)
   }
 
-  initialize({
-    title,
-    count,
-    language,
-    annotation,
-    authors,
-    bookCoverUrl,
-  }: AddBookType) {
-    this._book.title = title
-    this._book.count = count
-    this._book.language = language
-    this._book.annotation = annotation
-    this._book.authors = authors.length > 0
-      ? authors
-      : [
-        {
-          fullName: ``, 
-        },
-      ]
-    this._book.bookCoverUrl = bookCoverUrl
+  get book() {
+    return this._book
   }
 
-  get title() {
-    return this._book.title
+  get isSaving() {
+    return this._isSaving
   }
 
-  get count() {
-    return this._book.count
+  get isTriedToSubmit() {
+    return this._isTriedToSubmit
   }
 
-  get language() {
-    return this._book.language
+  get isTitleValid() {
+    return this._book.title !== ``
   }
 
-  get annotation() {
-    return this._book.annotation
+  get isAnnotationValid() {
+    return this._book.annotation !== ``
   }
 
-  get authors() {
-    return this._book.authors
+  get isAuthorsFieldValid() {
+    return this._book.authors.some(author => author.fullName !== ``)
   }
 
-  get bookCoverUrl() {
-    return this._book.bookCoverUrl
+  get isValid() {
+    return (
+      this.isTitleValid &&
+      this.isAnnotationValid &&
+      this.isAuthorsFieldValid
+    )
+  }
+
+  get errors() {
+    return {
+      title: !this.isTitleValid,
+      annotation: !this.isAnnotationValid,
+      authors: !this.isAuthorsFieldValid,
+    }
   }
 
   setTitle({
@@ -111,19 +105,22 @@ export class AddBookState {
 
   setAuthor({
     index, 
-    author,
+    authorFullName,
   }: {
     index: number, 
-    author: string,
+    authorFullName: string,
   }) {
-    this._book.authors = this._book.authors.map((authors, i) =>
-      i === index 
-        ? {
-          ...authors,
-          fullName: author, 
-        } 
-        : authors,
-    )
+    this._book.authors = this
+      ._book
+      .authors
+      .map((authors, i) =>
+        i === index 
+          ? {
+            ...authors,
+            fullName: authorFullName, 
+          } 
+          : authors,
+      )
   }
 
   addAuthor() {
@@ -140,55 +137,25 @@ export class AddBookState {
   }: {
     index: number,
   }) {
-    this._book.authors = this._book.authors.filter((_author, i) => i !== index)
+    this._book.authors = this
+      ._book
+      .authors
+      .filter((_author, i) => i !== index)
   }
 
-  get isSaving() {
-    return this._isSaving
-  }
-
-  get isTriedToSubmit() {
-    return this._isTriedToSubmit
-  }
-
-  get isTitleValid() {
-    return this._book.title.trim() !== ``
-  }
-
-  get isAnnotationValid() {
-    return this._book.annotation.trim() !== ``
-  }
-
-  get isAuthorsFieldValid() {
-    return this._book.authors.some(author => author.fullName.trim() !== ``)
-  }
-
-  get isValid() {
-    return (
-      this.isTitleValid &&
-      this.isAnnotationValid &&
-      this.isAuthorsFieldValid
-    )
-  }
-
-  get errors() {
-    return {
-      title: !this.isTitleValid,
-      annotation: !this.isAnnotationValid,
-      authors: !this.isAuthorsFieldValid,
-    }
-  }
-
+  //structuredClone()
   reset() {
     this._book = {
-      ...defaultBook,
-      authors: defaultBook.authors.map(author => ({
-        ...author, 
-      })),
+      ...EMPTY_BOOK,
+      authors: EMPTY_BOOK
+        .authors
+        .map(author => ({
+          ...author, 
+        })),
     }
   }
 
-  isSomethingFilledWithinTheForm() {
+  isSomethingFilledWithinTheForm() { //deepequal
     return (
       this._book.title !== `` ||
       this._book.count > 1 ||

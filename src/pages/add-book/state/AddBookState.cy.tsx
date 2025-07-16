@@ -35,16 +35,16 @@ function settersTests() {
       addBookState,
     })
 
-    expect(addBookState.title).to.eq(`Title`)
-    expect(addBookState.count).to.eq(3)
-    expect(addBookState.language).to.eq(`eng`)
-    expect(addBookState.annotation).to.eq(`Annotation`)
-    expect(addBookState.authors).to.deep.eq([
+    expect(addBookState.book.title).to.eq(`Title`)
+    expect(addBookState.book.count).to.eq(3)
+    expect(addBookState.book.language).to.eq(`eng`)
+    expect(addBookState.book.annotation).to.eq(`Annotation`)
+    expect(addBookState.book.authors).to.deep.eq([
       {
         fullName: `Author`, 
       },
     ])
-    expect(addBookState.bookCoverUrl).to.eq(`http://image.com`)
+    expect(addBookState.book.bookCoverUrl).to.eq(`http://image.com`)
   })
 
   it(`
@@ -56,7 +56,7 @@ function settersTests() {
 
     addBookState.addAuthor()
       
-    expect(addBookState.authors).to.deep.eq([
+    expect(addBookState.book.authors).to.deep.eq([
       {
         fullName: ``,
       },
@@ -73,14 +73,14 @@ function settersTests() {
   `, () => {
     const addBookState = new AddBookState()
 
-    addBookState.authors[0].fullName = `First`
+    addBookState.book.authors[0].fullName = `First`
     addBookState.addAuthor()
-    addBookState.authors[1].fullName = `Second`
+    addBookState.book.authors[1].fullName = `Second`
     addBookState.removeAuthor({
       index: 0,
     })
 
-    expect(addBookState.authors).to.deep.eq([
+    expect(addBookState.book.authors).to.deep.eq([
       {
         fullName: `Second`,
       },
@@ -121,7 +121,7 @@ function validationTests() {
     })
     addBookState.setAuthor({
       index: 0,
-      author: `Author`,
+      authorFullName: `Author`,
     })
 
     expect(addBookState.isValid).to.be.false
@@ -142,7 +142,7 @@ function validationTests() {
     })
     addBookState.setAuthor({
       index: 0,
-      author: `Author`,
+      authorFullName: `Author`,
     })
 
     expect(addBookState.isValid).to.be.false
@@ -183,7 +183,7 @@ function validationTests() {
     })
     addBookState.setAuthor({
       index: 0,
-      author: `Author`,
+      authorFullName: `Author`,
     })
 
     expect(addBookState.isValid).to.be.true
@@ -257,7 +257,7 @@ function somethingFilledWithinTheFormTests() {
 
     addBookState.setAuthor({
       index: 0,
-      author: `Author`,
+      authorFullName: `Author`,
     })
 
     expect(addBookState.isSomethingFilledWithinTheForm()).to.be.true
@@ -319,12 +319,12 @@ function checkExpectedInitialState({
 }: { 
   addBookState: AddBookState, 
 }) {
-  expect(addBookState.title).to.eq(``)
-  expect(addBookState.count).to.eq(1)
-  expect(addBookState.language).to.eq(`rus`)
-  expect(addBookState.annotation).to.eq(``)
-  expect(addBookState.bookCoverUrl).to.eq(``)
-  expect(addBookState.authors).to.deep.eq([
+  expect(addBookState.book.title).to.eq(``)
+  expect(addBookState.book.count).to.eq(1)
+  expect(addBookState.book.language).to.eq(`rus`)
+  expect(addBookState.book.annotation).to.eq(``)
+  expect(addBookState.book.bookCoverUrl).to.eq(``)
+  expect(addBookState.book.authors).to.deep.eq([
     {
       fullName: ``, 
     },
@@ -350,7 +350,7 @@ function setBookData({
   })
   addBookState.setAuthor({
     index: 0,
-    author: `Author`,
+    authorFullName: `Author`,
   })
   addBookState.setBookCoverUrl({
     bookCoverUrl: `http://image.com`,
