@@ -30,9 +30,14 @@ export const AddBookContainer = observer(({
   )
 
   async function submitBookAsync() {
+    // check if I could press submit
+
     addBookState.setIsTriedToSubmit()
 
-    if (!addBookState.isValid) return
+    if (!addBookState.isValid) {
+      addBookState.resetIsTriedToSubmit()
+      return // never get to reset
+    }
 
     const payload = {
       title: addBookState.book.title.trim(),
@@ -48,8 +53,11 @@ export const AddBookContainer = observer(({
       bookCoverUrl: addBookState.book.bookCoverUrl,
     }
 
+    // try finally block
+    // set is saving in progress and then reset it when it was complete (success or fail)
     await api.post(`/books`, payload)
 
+    // shouldn't reset tried to submit after it was tried
     addBookState.resetIsTriedToSubmit()
 
     goToBooksList()

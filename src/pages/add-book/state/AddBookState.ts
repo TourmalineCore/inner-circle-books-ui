@@ -45,7 +45,10 @@ export class AddBookState {
   }
 
   get isAuthorsFieldValid() {
-    return this._book.authors.some(author => author.fullName !== ``)
+    return this
+      ._book
+      .authors
+      .some(author => author.fullName !== ``)
   }
 
   get isValid() {
