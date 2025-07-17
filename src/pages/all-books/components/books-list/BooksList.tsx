@@ -21,18 +21,22 @@ export const BooksList = observer(({
             >
               {
                 cards.map(({
+                  id,
                   bookCoverUrl,
                   title,
                   authors,
                   language,
-                }, index) => (
-                  <li key={index}>
-                    <BookCard
-                      bookCoverUrl={bookCoverUrl}
-                      title={title}
-                      authors={authors}
-                      language={language}
-                    />
+                }) => (
+                  <li key={id}>
+                    <button onClick={() => window.location.href = `/books/${id}`}
+                      className="books-list__link">
+                      <BookCard
+                        bookCoverUrl={bookCoverUrl}
+                        title={title}
+                        authors={authors}
+                        language={language}
+                      />
+                    </button>
                   </li>
                 ))}
             </ul>

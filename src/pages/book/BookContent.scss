@@ -1,14 +1,20 @@
+/* stylelint-disable declaration-property-value-disallowed-list */
 @use "../../styles/fonts-mixin" as f;
 @use "../../styles/variables" as v;
 @use "../../styles/media" as m;
 
 .book {
   display: grid;
+  margin: 0 auto;
 
   &__title {
     @include f.h3;
 
     margin-top: 20px;
+
+    @include m.tablet-xl {
+      margin-top: 0;
+    }
   }
 
   &__characteristics {
@@ -18,6 +24,10 @@
     margin-top: 16px;
     margin-bottom: 32px;
     gap: 8px;
+
+    @include m.desktop-xl {
+      margin-bottom: 0;
+    }
   }
 
   &__field {
@@ -40,8 +50,21 @@
   }
 
   &__take-button {
+    min-height: 44px;
+
     @include m.tablet {
       max-width: 111px;
+    }
+  }
+
+  &__wrap {
+    display: flex;
+    flex-direction: column;
+
+    @include m.desktop-xl {
+      align-items: end;
+      flex-direction: row;
+      justify-content: space-between;
     }
   }
 
@@ -60,21 +83,17 @@
   }
 
   @include m.tablet-xl {
-    margin: 0 auto;
-    max-width: 976px;
     gap: 20px;
     grid-template-areas: "left right";
     grid-template-columns: 354px 1fr;
   }
 
   @include m.desktop {
-    padding: 24px;
-    max-width: 1032px;
-    grid-template-columns: 401px 1fr;
+    grid-template-columns: 402px 1fr;
   }
 
   @include m.desktop-xl {
-    max-width: 1180px;
-    grid-template-columns: 430px 1fr;
+    max-width: 1540px;
+    grid-template-columns: 428px 1fr;
   }
 }

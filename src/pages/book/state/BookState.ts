@@ -1,4 +1,3 @@
-/* eslint-disable array-bracket-newline */
 import { makeAutoObservable } from 'mobx'
 
 export class BookState {

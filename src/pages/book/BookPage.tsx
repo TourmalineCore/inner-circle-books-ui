@@ -4,13 +4,13 @@ import { BookStateContext } from "./state/BookStateStateContext"
 import { BookState } from "./state/BookState"
 
 export function BookPage() {
-  const addBookState = useMemo(
+  const bookState = useMemo(
     () => new BookState(),
     [],
   )
 
   return (
-    <BookStateContext.Provider value={addBookState}>
+    <BookStateContext.Provider value={bookState}>
       <BookContainer />
     </BookStateContext.Provider>
   )

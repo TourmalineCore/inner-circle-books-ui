@@ -54,7 +54,7 @@ function mountComponent() {
           fullName: `Арина Сычева`,
         },
       ],
-      bookCoverUrl: `https://cdn.litres.ru/pub/c/cover_415/70413274.webp`,
+      bookCoverUrl: ``,
     },
   })
 

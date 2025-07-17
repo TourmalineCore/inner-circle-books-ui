@@ -36,34 +36,34 @@ export const BookContent = observer(() => {
         <header className='book__title'>
           {bookState.title}
         </header>
-
-        <ul className='book__characteristics'>
-          <li className='book__field'>
+        <div className='book__wrap'>
+          <ul className='book__characteristics'>
+            <li className='book__field'>
           Author
-            <span className='book__value'>
-              {bookState.authors
-                .map(author => author.fullName)
-                .join(`, `)}
-            </span>
+              <span className='book__value'>
+                {bookState.authors
+                  .map(author => author.fullName)
+                  .join(`, `)}
+              </span>
 
-          </li>
-          <li className='book__field'>
+            </li>
+            <li className='book__field'>
           Language
-            <span className='book__value'>
-              {bookState.language === `rus` 
-                ? `Russian` 
-                : `English`}
-            </span>
-          </li>
-        </ul>
+              <span className='book__value'>
+                {bookState.language === `rus` 
+                  ? `Russian` 
+                  : `English`}
+              </span>
+            </li>
+          </ul>
       
-        <Button 
-          onClick={() => {}}
-          label="Take Book"
-          className='book__take-button'
-          isAccent
-        />
-
+          <Button 
+            onClick={() => {}}
+            label="Take Book"
+            className='book__take-button'
+            isAccent
+          />
+        </div>
         <h5 className='book__section-name'>Annotation</h5>
         <div className='book__annotation'>{bookState.annotation}</div>
       </div>

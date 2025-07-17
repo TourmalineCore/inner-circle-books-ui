@@ -3,6 +3,7 @@ type AuthorType = {
 }
 
 type BookCardType = {
+  id?: number,
   title: string,
   language: string,
   authors: AuthorType[],
