@@ -11,55 +11,44 @@ export const AddBookContainer = observer(({
 }) => {
   const addBookState = useContext(AddBookStateContext)
 
-  const handleSubmit = async () => {
-
-    addBookState.setIsSaving()
-    try {
-      await submitBookAsync()
-    }
-    finally {
-      addBookState.setIsSaved()
-    }
-  }
-
   return (
     <AddBookContent 
-      onSubmit={handleSubmit}
+      onSubmit={submitBookAsync}
       goToBooksList={goToBooksList}
     />
   )
 
   async function submitBookAsync() {
-    // check if I could press submit
-
+    addBookState.setIsSaving()
     addBookState.setIsTriedToSubmit()
 
     if (!addBookState.isValid) {
       addBookState.resetIsTriedToSubmit()
-      return // never get to reset
+      return
     }
 
-    const payload = {
-      title: addBookState.book.title.trim(),
-      annotation: addBookState.book.annotation.trim(),
-      authors: addBookState.book.authors
-        .map(author => ({
-          fullName: author.fullName.trim(),
-        }))
-        .filter(author => author.fullName !== ``),
-      language: addBookState.book.language === `rus` 
-        ? `ru` 
-        : `en`,
-      bookCoverUrl: addBookState.book.bookCoverUrl,
+    try {
+      await api.post(`/books`, 
+        {
+          title: addBookState.book.title.trim(),
+          annotation: addBookState.book.annotation.trim(),
+          authors: addBookState.book.authors
+            .map(author => ({
+              fullName: author.fullName.trim(),
+            }))
+            .filter(author => author.fullName !== ``),
+          language: addBookState.book.language === `rus` 
+            ? `ru` 
+            : `en`,
+          bookCoverUrl: addBookState.book.bookCoverUrl,
+        },
+      )
+
+      goToBooksList()
     }
-
-    // try finally block
-    // set is saving in progress and then reset it when it was complete (success or fail)
-    await api.post(`/books`, payload)
-
-    // shouldn't reset tried to submit after it was tried
-    addBookState.resetIsTriedToSubmit()
-
-    goToBooksList()
+    finally {
+      addBookState.setIsSaved()
+      addBookState.resetIsTriedToSubmit()
+    }
   }
 })

@@ -8,7 +8,7 @@ const EMPTY_BOOK: AddBookType = {
   annotation: ``,
   authors: [
     {
-      fullName: ``, 
+      fullName: ``,
     },
   ],
   bookCoverUrl: ``,
@@ -55,7 +55,8 @@ export class AddBookState {
     return (
       this.isTitleValid &&
       this.isAnnotationValid &&
-      this.isAuthorsFieldValid )
+      this.isAuthorsFieldValid
+    )
   }
 
   get errors() {
