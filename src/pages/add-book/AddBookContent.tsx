@@ -21,7 +21,6 @@ export const AddBookContent = observer(({
   onSubmit: () => void,
   goToBooksList: () => void,
 }) => {
-
   const addBookState = useContext(AddBookStateContext)
   
   const [
@@ -74,11 +73,14 @@ export const AddBookContent = observer(({
           <label className="add-book__label">
             Title*
             <textarea
+              required
               data-cy="add-book-title"
-              value={addBookState.title}
+              value={addBookState.book.title}
               placeholder="Enter the title of the book"
-              onChange={(e) => addBookState.setTitle(e.target.value)}
-              className={`add-book__textarea add-book__title ${addBookState.errors.title 
+              onChange={(e) => addBookState.setTitle({
+                title: e.target.value,
+              })}
+              className={`add-book__textarea add-book__title ${addBookState.errors.isTitleError
                 ? `error` 
                 : ``}`}
             />
@@ -88,15 +90,19 @@ export const AddBookContent = observer(({
             <CounterInput
               data-cy="add-book-counter"
               label="Number of Copies*"
-              value={addBookState.count}
-              onChange={(value) => addBookState.setCount(value)}
+              value={addBookState.book.count}
+              onChange={(count) => addBookState.setCount({
+                count,
+              })}
             />
 
             <RadioGroup
               data-cy="add-book-language"
               label="Language*"
-              value={addBookState.language}
-              onChange={(value) => addBookState.setLanguage(value)}
+              value={addBookState.book.language}
+              onChange={(language) => addBookState.setLanguage({
+                language,
+              })}
               options={[
                 {
                   value: `rus`,
@@ -116,10 +122,12 @@ export const AddBookContent = observer(({
             Annotation*
             <textarea
               data-cy="add-book-annotation"
-              value={addBookState.annotation}
+              value={addBookState.book.annotation}
               placeholder="Enter the annotation from the title page of the book"
-              onChange={(e) => addBookState.setAnnotation(e.target.value)}
-              className={`add-book__textarea add-book__annotation ${addBookState.errors.annotation 
+              onChange={(e) => addBookState.setAnnotation({
+                annotation: e.target.value,
+              })}
+              className={`add-book__textarea add-book__annotation ${addBookState.errors.isAnnotationError
                 ? `error` 
                 : ``}`}
             />
@@ -128,20 +136,23 @@ export const AddBookContent = observer(({
           <DynamicInputList
             label="Authors*"
             data-cy="add-book-authors"
-            values={addBookState.authors.map(a => a.fullName)}
-            onChange={(index, value) => {
-              addBookState.authors[index].fullName = value
-            }}
-            onAdd={() => {
-              addBookState.authors.push({
-                fullName: ``, 
+            values={addBookState.book.authors.map(author => author.fullName)}
+            onChange={(index, author) => {
+              addBookState.setAuthor({
+                index,
+                authorFullName: author,
               })
             }}
+            onAdd={() => {
+              addBookState.addAuthor()
+            }}
             onRemove={(index) => {
-              addBookState.authors.splice(index, 1)
+              addBookState.removeAuthor({
+                index,
+              })
             }}
             placeholder="Enter author full name"
-            error={addBookState.errors.authors}
+            error={addBookState.errors.isAuthorsError}
           />
         </div>
 
@@ -149,8 +160,10 @@ export const AddBookContent = observer(({
           <ImagePreviewInput
             data-cy="add-book-cover"
             label="Book Cover"
-            url={addBookState.bookCoverUrl}
-            onChange={(url) => addBookState.setCoverUrl(url)}
+            url={addBookState.book.bookCoverUrl}
+            onChange={(bookCoverUrl) => addBookState.setBookCoverUrl({
+              bookCoverUrl,
+            })}
           />
         </div>
 
@@ -162,7 +175,9 @@ export const AddBookContent = observer(({
 
           <Button 
             onClick={onSubmit}
-            label={addBookState.isSaving ? `Adding` : `Add`}
+            label={addBookState.isSaving 
+              ? `Adding` 
+              : `Add`}
             isAccent
             isDisable={addBookState.isSaving}
             isLoader={addBookState.isSaving}
