@@ -36,7 +36,7 @@ function settersTests() {
 
     expect(addBookState.book.title).to.eq(`My Book`)
     expect(addBookState.book.count).to.eq(3)
-    expect(addBookState.book.language).to.eq(`eng`)
+    expect(addBookState.book.language).to.eq(`en`)
     expect(addBookState.book.annotation).to.eq(`Some annotation`)
     expect(addBookState.book.authors).to.deep.eq([
       {
@@ -202,7 +202,7 @@ function checkExpectedInitialState({
 }) {
   expect(addBookState.book.title).to.eq(``)
   expect(addBookState.book.count).to.eq(1)
-  expect(addBookState.book.language).to.eq(`rus`)
+  expect(addBookState.book.language).to.eq(`ru`)
   expect(addBookState.book.annotation).to.eq(``)
   expect(addBookState.book.bookCoverUrl).to.eq(``)
   expect(addBookState.book.authors).to.deep.eq([
@@ -219,7 +219,7 @@ function setBookData({
 }) {
   addBookState.book.title = `My Book`
   addBookState.book.count = 3
-  addBookState.book.language = `eng`
+  addBookState.book.language = `en`
   addBookState.book.annotation = `Some annotation`
   addBookState.book.authors[0].fullName = `John`
   addBookState.book.bookCoverUrl = `http://image.com`

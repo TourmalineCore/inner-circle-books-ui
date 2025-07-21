@@ -14,7 +14,7 @@ export const BookCard = observer(({
   const firstAuthor = authors[0]?.fullName
   const suffix = authors.length > 1 
     ? (
-      language === `rus` 
+      language === `ru` 
         ? `и др.` 
         : `and etc.`
     ) 

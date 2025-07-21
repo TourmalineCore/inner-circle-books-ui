@@ -15,7 +15,7 @@ const BOOK_CARDS_RESPONSE = {
           fullName: `Сергей Николенко`,
         },
       ],
-      language: `rus`,
+      language: `ru`,
     },
     {
       bookCoverUrl: ``,
@@ -25,7 +25,7 @@ const BOOK_CARDS_RESPONSE = {
           fullName: `Даниэль Канеман`,
         },
       ],
-      language: `eng`,
+      language: `en`,
     },
   ],
 }
@@ -53,7 +53,7 @@ function initializationTests() {
     cy.contains(`Думай медленно… решай быстро`)
     cy.contains(`Разработка ценностных предложений`)
     cy.contains(`Даниэль Канеман`)
-    cy.contains(`eng`)
+    cy.contains(`en`)
   })
 }
 

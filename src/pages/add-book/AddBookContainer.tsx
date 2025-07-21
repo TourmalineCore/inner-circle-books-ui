@@ -36,9 +36,7 @@ export const AddBookContainer = observer(({
       annotation: addBookState.book.annotation,
       authors: addBookState.book.authors
         .filter(author => author.fullName.trim() !== ``),
-      language: addBookState.book.language === `rus` 
-        ? `ru` 
-        : `en`,
+      language: addBookState.book.language,
       bookCoverUrl: addBookState.book.bookCoverUrl,
     }
 

@@ -5,7 +5,7 @@ const defaultBook: BookType = {
   title: ``,
   annotation: ``,
   count: 1,
-  language: `rus`,
+  language: `ru`,
   authors: [
     {
       fullName: ``, 
