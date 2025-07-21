@@ -16,11 +16,6 @@
     gap: 20px;
   }
 
-  &__button {
-    text-align: start;
-    background-color: v.$color-background-primary;
-  }
-
   @include m.tablet {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
