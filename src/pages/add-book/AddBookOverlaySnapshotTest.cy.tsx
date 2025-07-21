@@ -76,7 +76,7 @@ function mountComponent({
   initialState = {
     title: ``,
     count: 1,
-    language: `rus`,
+    language: `ru`,
     annotation: ``,
     authors: [{
       fullName: ``,

@@ -16,7 +16,7 @@ const BOOK_RESPONSE = {
       fullName: `Сергей Николенко`,
     },
   ],
-  language: `rus`,
+  language: `ru`,
 }
 
 describe(`BookContainer`, () => {

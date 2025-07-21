@@ -8,7 +8,7 @@ bookState.initialize({
     title: `Разработка ценностных предложений`,
     annotation: `Аннотация`,
     count: 1,
-    language: `rus`,
+    language: `ru`,
     authors: [
       {
         fullName: `Алекс Остервальдер`,
@@ -25,7 +25,7 @@ describe(`BookState`, () => {
       expect(bookState.book.title).to.eq(`Разработка ценностных предложений`)
       expect(bookState.book.annotation).to.eq(`Аннотация`)
       expect(bookState.book.count).to.eq(1)
-      expect(bookState.book.language).to.eq(`rus`)
+      expect(bookState.book.language).to.eq(`ru`)
       expect(bookState.book.authors).to.deep.eq([
         {
           fullName: `Алекс Остервальдер`, 

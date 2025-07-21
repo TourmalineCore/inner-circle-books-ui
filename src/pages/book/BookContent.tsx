@@ -64,7 +64,7 @@ export const BookContent = observer(() => {
               Language
               <span className='book__value'>
                 {
-                  language === `rus` 
+                  language === `ru` 
                     ? `Russian` 
                     : `English`
                 }

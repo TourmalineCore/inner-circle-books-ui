@@ -103,12 +103,12 @@ export const AddBookContent = observer(({
               onChange={(value) => addBookState.book.language = value}
               options={[
                 {
-                  value: `rus`,
+                  value: `ru`,
                   label: `Russian`,
                   icon: <RussianFlag />, 
                 },
                 {
-                  value: `eng`,
+                  value: `en`,
                   label: `English`,
                   icon: <EnglishFlag />, 
                 },

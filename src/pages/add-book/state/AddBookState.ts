@@ -4,7 +4,7 @@ import { makeAutoObservable } from 'mobx'
 const defaultBook: AddBookType = {
   title: ``,
   count: 1,
-  language: `rus`,
+  language: `ru`,
   annotation: ``,
   authors: [{
     fullName: ``, 

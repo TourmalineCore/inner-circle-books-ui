@@ -31,18 +31,17 @@ export const AddBookContainer = observer(({
   async function submitBookAsync() {
     if (!addBookState.validate()) return
 
-    const payload = {
-      title: addBookState.book.title,
-      annotation: addBookState.book.annotation,
-      authors: addBookState.book.authors
-        .filter(author => author.fullName.trim() !== ``),
-      language: addBookState.book.language === `rus` 
-        ? `ru` 
-        : `en`,
-      bookCoverUrl: addBookState.book.bookCoverUrl,
-    }
+    const {
+      title, annotation, authors,language, bookCoverUrl,
+    } = addBookState.book
 
-    await api.post(`/books`, payload)
+    await api.post(`/books`, {
+      title,
+      annotation,
+      authors: authors.filter(author => author.fullName.trim() !== ``),
+      language,
+      bookCoverUrl,
+    })
 
     goToBooksList()
   }
