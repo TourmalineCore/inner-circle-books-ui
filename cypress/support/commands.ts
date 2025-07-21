@@ -60,4 +60,35 @@ Cypress.Commands.add(`authByApi`, () => {
     })
 })
 
+Cypress.Commands.add(`removeBooks`, () => {
+  cy.request<{ 
+    books: BookCardType[], 
+  }>({
+    method: `GET`,
+    url: `${Cypress.env(`API_ROOT`)}${Cypress.env(`LINK_TO_BOOKS_SERVICE`)}`,
+    headers: {
+      Authorization: `Bearer ${Cypress.env(`accessToken`)}`,
+    },
+  })
+    .then(({
+      body,
+    }) => {
+      const booksToDelete = body.books.filter(({
+        title,
+      }) => title.startsWith(`[E2E-SMOKE]`))
+
+      booksToDelete.forEach(({
+        id,
+      }) => {
+        cy.request({
+          method: `DELETE`,
+          url: `${Cypress.env(`API_ROOT`)}${Cypress.env(`LINK_TO_BOOKS_SERVICE`)}/${id}/hard-delete`,
+          headers: {
+            Authorization: `Bearer ${Cypress.env(`accessToken`)}`,
+          },
+        })
+      })
+    })
+})
+
 compareSnapshotCommand()

@@ -53,7 +53,7 @@ function addBookFlowTests() {
 
     cy
       .get(`.image-preview-input__input`)
-      .type(`https://my.cdn/book.jpg`)
+      .type(`https://book.jpg`)
 
     cy
       .contains(`English`)
