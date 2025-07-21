@@ -8,6 +8,7 @@
   padding: 16px;
   height: 100%;
   background-color: v.$color-background-primary;
+  transition: box-shadow 0.2s ease;
 
   &__title {
     @include f.subhead1-medium;
