@@ -28,8 +28,10 @@ export const BooksList = observer(({
                   language,
                 }) => (
                   <li key={id}>
-                    <button onClick={() => window.location.href = `/books/${id}`}
-                      className="books-list__link">
+                    <button 
+                      onClick={() => window.location.href = `/books/${id}`}
+                      className="books-list__button"
+                    >
                       <BookCard
                         bookCoverUrl={bookCoverUrl}
                         title={title}

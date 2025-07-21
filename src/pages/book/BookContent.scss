@@ -1,4 +1,3 @@
-/* stylelint-disable declaration-property-value-disallowed-list */
 @use "../../styles/fonts-mixin" as f;
 @use "../../styles/variables" as v;
 @use "../../styles/media" as m;
@@ -62,7 +61,7 @@
     flex-direction: column;
 
     @include m.desktop-xl {
-      align-items: end;
+      align-items: flex-end;
       flex-direction: row;
       justify-content: space-between;
     }

@@ -22,17 +22,17 @@ describe(`BookState`, () => {
   describe(`Initialize`, () => {
     it(`Should have initialized values`, () => {
     
-      expect(bookState.id).to.eq(1)
-      expect(bookState.title).to.eq(`Разработка ценностных предложений`)
-      expect(bookState.annotation).to.eq(`Аннотация`)
-      expect(bookState.count).to.eq(1)
-      expect(bookState.language).to.eq(`rus`)
-      expect(bookState.authors).to.deep.eq([
+      expect(bookState.book.id).to.eq(1)
+      expect(bookState.book.title).to.eq(`Разработка ценностных предложений`)
+      expect(bookState.book.annotation).to.eq(`Аннотация`)
+      expect(bookState.book.count).to.eq(1)
+      expect(bookState.book.language).to.eq(`rus`)
+      expect(bookState.book.authors).to.deep.eq([
         {
           fullName: `Алекс Остервальдер`, 
         },
       ])
-      expect(bookState.bookCoverUrl).to.eq(`https://example.jpg`)
+      expect(bookState.book.bookCoverUrl).to.eq(`https://example.jpg`)
     })
   })
 })
