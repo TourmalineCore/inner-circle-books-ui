@@ -4,6 +4,7 @@ describe(`AddBookState`, () => {
   describe(`Initialization`, initializationTest)
   describe(`Setters`, settersTests)
   describe(`Reset`, resetTest)
+  describe(`Validation`, validationTests)
   describe(`Something filled with in the form`, somethingFilledWithinTheFormTests)
   describe(`Saving flag`, savingTest)
 })
@@ -34,13 +35,13 @@ function settersTests() {
       addBookState,
     })
 
-    expect(addBookState.book.title).to.eq(`My Book`)
+    expect(addBookState.book.title).to.eq(`Title`)
     expect(addBookState.book.count).to.eq(3)
     expect(addBookState.book.language).to.eq(`en`)
-    expect(addBookState.book.annotation).to.eq(`Some annotation`)
+    expect(addBookState.book.annotation).to.eq(`Annotation`)
     expect(addBookState.book.authors).to.deep.eq([
       {
-        fullName: `John`, 
+        fullName: `Author`, 
       },
     ])
     expect(addBookState.book.bookCoverUrl).to.eq(`http://image.com`)
@@ -75,7 +76,9 @@ function settersTests() {
     addBookState.book.authors[0].fullName = `First`
     addBookState.addAuthor()
     addBookState.book.authors[1].fullName = `Second`
-    addBookState.removeAuthor(0)
+    addBookState.removeAuthor({
+      index: 0,
+    })
 
     expect(addBookState.book.authors).to.deep.eq([
       {
@@ -105,6 +108,101 @@ function resetTest() {
   })
 }
 
+function validationTests() {
+  it(`
+  GIVEN an empty title
+  WHEN isValid is accessed
+  SHOULD return false and set title error to true
+  `, () => {
+    const addBookState = new AddBookState()
+
+    addBookState.setAnnotation({
+      annotation: `Annotation`,
+    })
+    addBookState.setAuthor({
+      index: 0,
+      authorFullName: `Author`,
+    })
+
+    addBookState.setIsTriedToSubmit()
+
+    expect(addBookState.isValid).to.be.false
+    expect(addBookState.errors.isTitleError).to.be.true
+    expect(addBookState.errors.isAnnotationError).to.be.false
+    expect(addBookState.errors.isAuthorsError).to.be.false
+  })
+
+  it(`
+  GIVEN an empty annotation
+  WHEN isValid is accessed
+  SHOULD return false and set annotation error to true
+  `, () => {
+    const addBookState = new AddBookState()
+
+    addBookState.setTitle({
+      title: `Title`,
+    })
+    addBookState.setAuthor({
+      index: 0,
+      authorFullName: `Author`,
+    })
+
+    addBookState.setIsTriedToSubmit()
+
+    expect(addBookState.isValid).to.be.false
+    expect(addBookState.errors.isAnnotationError).to.be.true
+  })
+
+  it(`
+  GIVEN all authors are empty
+  WHEN isValid is accessed
+  SHOULD return false and set authors error to true
+  `, () => {
+    const addBookState = new AddBookState()
+
+    addBookState.setTitle({
+      title: `Title`,
+    })
+    addBookState.setAnnotation({
+      annotation: `Annotation`,
+    })
+    addBookState.addAuthor
+
+    addBookState.setIsTriedToSubmit()
+
+    expect(addBookState.isValid).to.be.false
+    expect(addBookState.errors.isAuthorsError).to.be.true
+  })
+
+  it(`
+  GIVEN valid title, annotation, and author
+  WHEN isValid is accessed
+  SHOULD return true and all errors should be false
+  `, () => {
+    const addBookState = new AddBookState()
+
+    addBookState.setTitle({
+      title: `Title`,
+    })
+    addBookState.setAnnotation({
+      annotation: `Annotation`,
+    })
+    addBookState.setAuthor({
+      index: 0,
+      authorFullName: `Author`,
+    })
+    
+    addBookState.setIsTriedToSubmit()
+
+    expect(addBookState.isValid).to.be.true
+    expect(addBookState.errors).to.deep.equal({
+      isTitleError: false,
+      isAnnotationError: false,
+      isAuthorsError: false,
+    })
+  })
+}
+
 function somethingFilledWithinTheFormTests() {
   it(`
   GIVEN a new instance
@@ -123,8 +221,10 @@ function somethingFilledWithinTheFormTests() {
   `, () => {
     const addBookState = new AddBookState()
 
-    addBookState.book.title = `New Title`
-    
+    addBookState.setTitle({
+      title: `Title`,
+    })
+
     expect(addBookState.isSomethingFilledWithinTheForm()).to.be.true
   })
 
@@ -135,7 +235,9 @@ function somethingFilledWithinTheFormTests() {
   `, () => {
     const addBookState = new AddBookState()
 
-    addBookState.book.count = 2
+    addBookState.setCount({
+      count: 3,
+    })
 
     expect(addBookState.isSomethingFilledWithinTheForm()).to.be.true
   })
@@ -147,7 +249,9 @@ function somethingFilledWithinTheFormTests() {
   `, () => {
     const addBookState = new AddBookState()
 
-    addBookState.book.annotation = `New Annotation`
+    addBookState.setAnnotation({
+      annotation: `Annotation`,
+    })
 
     expect(addBookState.isSomethingFilledWithinTheForm()).to.be.true
   })
@@ -159,7 +263,10 @@ function somethingFilledWithinTheFormTests() {
   `, () => {
     const addBookState = new AddBookState()
 
-    addBookState.book.authors[0].fullName = `John Doe`
+    addBookState.setAuthor({
+      index: 0,
+      authorFullName: `Author`,
+    })
 
     expect(addBookState.isSomethingFilledWithinTheForm()).to.be.true
   })
@@ -171,7 +278,9 @@ function somethingFilledWithinTheFormTests() {
   `, () => {
     const addBookState = new AddBookState()
 
-    addBookState.book.bookCoverUrl = `http://newimage.com`
+    addBookState.setBookCoverUrl({
+      bookCoverUrl: `http://image.com`,
+    })
       
     expect(addBookState.isSomethingFilledWithinTheForm()).to.be.true
   })
@@ -189,9 +298,27 @@ function savingTest() {
 
     addBookState.setIsSaving()
     expect(addBookState.isSaving).to.be.true
-
+    
     addBookState.setIsSaved()
     expect(addBookState.isSaving).to.be.false
+  })
+
+  it(`
+  GIVEN initial isTriedToSubmit = false
+  WHEN setIsTriedToSubmit()
+  SHOULD change value to true
+  WHEN resetIsTriedToSubmit()
+  SHOULD change value to false
+  `, () => {
+    const addBookState = new AddBookState()
+
+    expect(addBookState.isTriedToSubmit).to.be.false
+
+    addBookState.setIsTriedToSubmit()
+    expect(addBookState.isTriedToSubmit).to.be.true
+
+    addBookState.resetIsTriedToSubmit()
+    expect(addBookState.isTriedToSubmit).to.be.false
   })
 }
 
@@ -217,10 +344,23 @@ function setBookData({
 }: {
   addBookState: AddBookState,
 }) {
-  addBookState.book.title = `My Book`
-  addBookState.book.count = 3
-  addBookState.book.language = `en`
-  addBookState.book.annotation = `Some annotation`
-  addBookState.book.authors[0].fullName = `John`
-  addBookState.book.bookCoverUrl = `http://image.com`
+  addBookState.setTitle({
+    title: `Title`,
+  })
+  addBookState.setCount({
+    count: 3,
+  })
+  addBookState.setLanguage({
+    language: `en`,
+  })
+  addBookState.setAnnotation({
+    annotation: `Annotation`,
+  })
+  addBookState.setAuthor({
+    index: 0,
+    authorFullName: `Author`,
+  })
+  addBookState.setBookCoverUrl({
+    bookCoverUrl: `http://image.com`,
+  })
 }

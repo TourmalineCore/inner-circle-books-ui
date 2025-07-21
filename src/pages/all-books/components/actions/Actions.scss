@@ -1,3 +1,5 @@
+@use "../../../../styles/media" as m;
+
 .actions {
   display: flex;
   justify-content: flex-end;
@@ -6,6 +8,10 @@
   height: 44px;
 
   &__button {
-    width: 138px;
+    width: 44px;
+
+    @include m.tablet-xl {
+      width: 138px;
+    }
   }
 }

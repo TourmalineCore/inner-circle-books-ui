@@ -1,4 +1,3 @@
-/* eslint-disable array-bracket-newline */
 import { AddBookContent } from "./AddBookContent"
 import { AddBookState } from "./state/AddBookState"
 import { AddBookStateContext } from "./state/AddBookStateStateContext"
@@ -63,24 +62,9 @@ describe(`Add Book Snapshot test`, () => {
   })
 })
 
-function mountComponent({
-  initialState = {
-    title: ``,
-    count: 1,
-    language: `ru`,
-    annotation: ``,
-    authors: [{
-      fullName: ``,
-    }],
-    bookCoverUrl: ``,
-  },
-}: {
-  initialState?: AddBookType,
-} = {}) {
+function mountComponent() {
   const addBookState = new AddBookState()
   
-  addBookState.initialize(initialState)
-
   cy
     .wrap(addBookState)
     .as(`addBookState`)

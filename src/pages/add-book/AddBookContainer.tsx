@@ -11,38 +11,46 @@ export const AddBookContainer = observer(({
 }) => {
   const addBookState = useContext(AddBookStateContext)
 
-  const handleSubmit = async () => {
-    addBookState.setIsSaving()
-    try {
-      await submitBookAsync()
-    }
-    finally {
-      addBookState.setIsSaved()
-    }
-  }
-
   return (
     <AddBookContent 
-      onSubmit={handleSubmit}
+      onSubmit={submitBookAsync}
       goToBooksList={goToBooksList}
     />
   )
 
   async function submitBookAsync() {
-    if (!addBookState.validate()) return
+    addBookState.setIsSaving()
+    addBookState.setIsTriedToSubmit()
 
     const {
       title, annotation, authors,language, bookCoverUrl,
     } = addBookState.book
 
-    await api.post(`/books`, {
-      title,
-      annotation,
-      authors: authors.filter(author => author.fullName.trim() !== ``),
-      language,
-      bookCoverUrl,
-    })
+    if (!addBookState.isValid) {
+      addBookState.resetIsTriedToSubmit()
+      return
+    }
 
-    goToBooksList()
+    try {
+      await api.post(`/books`, 
+        {
+          title: title.trim(),
+          annotation: annotation.trim(),
+          authors: authors
+            .map(author => ({
+              fullName: author.fullName.trim(),
+            }))
+            .filter(author => author.fullName !== ``),
+          language,
+          bookCoverUrl: bookCoverUrl.trim(),
+        },
+      )
+
+      goToBooksList()
+    }
+    finally {
+      addBookState.setIsSaved()
+      addBookState.resetIsTriedToSubmit()
+    }
   }
 })
