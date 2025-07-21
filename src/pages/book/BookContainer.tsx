@@ -3,17 +3,16 @@ import { observer } from "mobx-react-lite"
 import { BookContent } from "./BookContent"
 import { BookStateContext } from "./state/BookStateStateContext"
 import { api } from "../../common/api"
-import { useParams} from "react-router-dom"
+import { useLocation} from "react-router-dom"
 
 export const BookContainer = observer(() => {
-  const {
-    id, 
-  } = useParams()
+
   const bookState = useContext(BookStateContext)
+  const location = useLocation()
+  const pathnameParts = location.pathname.split(`/`)
+  const id = pathnameParts[2]
 
   useEffect(() => {
-    // eslint-disable-next-line no-console
-    console.log(`id`, id)
     async function loadBookAsync() {
       const {
         data,
