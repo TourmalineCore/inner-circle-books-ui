@@ -6,10 +6,11 @@ import { api } from "../../common/api"
 import { useLocation} from "react-router-dom"
 
 export const BookContainer = observer(() => {
-
   const bookState = useContext(BookStateContext)
   const location = useLocation()
-  const pathnameParts = location.pathname.split(`/`)
+  const pathnameParts = location
+    .pathname
+    .split(`/`)
   const id = pathnameParts[2]
 
   useEffect(() => {

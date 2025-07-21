@@ -21,7 +21,6 @@ bookState.initialize({
 describe(`BookState`, () => {
   describe(`Initialize`, () => {
     it(`Should have initialized values`, () => {
-    
       expect(bookState.book.id).to.eq(1)
       expect(bookState.book.title).to.eq(`Разработка ценностных предложений`)
       expect(bookState.book.annotation).to.eq(`Аннотация`)

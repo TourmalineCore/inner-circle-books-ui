@@ -3,6 +3,7 @@ import { AllBooksPage } from "./all-books/AllBooksPage"
 import { BookPage } from "./book/BookPage"
 
 const DEFAULT_PATH = `/books`
+
 export const allBooksRoutes = [
   {
     path: DEFAULT_PATH,
