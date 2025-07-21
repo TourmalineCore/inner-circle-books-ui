@@ -6,10 +6,10 @@ import { observer } from "mobx-react-lite"
 import { useImageValid } from '../../../../common/useImageValid'
 
 export const BookCard = observer(({
-  bookCoverUrl,
   title,
-  authors,
   language,
+  authors,
+  bookCoverUrl,
 }: BookCardType) => {
   const firstAuthor = authors[0]?.fullName
   const suffix = authors.length > 1 

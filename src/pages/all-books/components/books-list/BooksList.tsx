@@ -22,10 +22,10 @@ export const BooksList = observer(({
               {
                 cards.map(({
                   id,
-                  bookCoverUrl,
                   title,
-                  authors,
                   language,
+                  authors,
+                  bookCoverUrl,
                 }) => (
                   <li key={id}>
                     <a 
@@ -33,10 +33,10 @@ export const BooksList = observer(({
                       className="books-list__link"
                     >
                       <BookCard
-                        bookCoverUrl={bookCoverUrl}
                         title={title}
-                        authors={authors}
                         language={language}
+                        authors={authors}
+                        bookCoverUrl={bookCoverUrl}
                       />
                     </a>
                   </li>

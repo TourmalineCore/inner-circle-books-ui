@@ -7,7 +7,7 @@ const BOOK_RESPONSE = {
   id: 1,
   title: `ChatGPT мастер подсказок или как создавать сильные промты для нейросети`,
   annotation: `annotation`,
-  bookCoverUrl: ``,
+  language: `ru`,
   authors: [
     {
       fullName: `Алекс Остервальдер`,
@@ -16,7 +16,7 @@ const BOOK_RESPONSE = {
       fullName: `Сергей Николенко`,
     },
   ],
-  language: `ru`,
+  bookCoverUrl: ``,
 }
 
 describe(`BookContainer`, () => {

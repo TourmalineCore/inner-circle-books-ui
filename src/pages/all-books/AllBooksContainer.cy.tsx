@@ -5,8 +5,8 @@ import { AllBooksStateContext } from "./state/AllBooksStateStateContext"
 const BOOK_CARDS_RESPONSE = {
   books: [
     {
-      bookCoverUrl: ``,
       title: `Разработка ценностных предложений`,
+      language: `ru`,
       authors: [
         {
           fullName: `Алекс Остервальдер`,
@@ -15,17 +15,17 @@ const BOOK_CARDS_RESPONSE = {
           fullName: `Сергей Николенко`,
         },
       ],
-      language: `ru`,
+      bookCoverUrl: ``,
     },
     {
-      bookCoverUrl: ``,
       title: `Думай медленно… решай быстро`,
+      language: `en`,
       authors: [
         {
           fullName: `Даниэль Канеман`,
         },
       ],
-      language: `en`,
+      bookCoverUrl: ``,
     },
   ],
 }
@@ -52,8 +52,8 @@ function initializationTests() {
 
     cy.contains(`Думай медленно… решай быстро`)
     cy.contains(`Разработка ценностных предложений`)
-    cy.contains(`Даниэль Канеман`)
     cy.contains(`en`)
+    cy.contains(`Даниэль Канеман`)
   })
 }
 

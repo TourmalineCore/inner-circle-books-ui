@@ -5,12 +5,12 @@ import { AddBookStateContext } from "./state/AddBookStateStateContext"
 const BOOK = {
   title: `Новая книга`,
   annotation: `Описание книги`,
+  language: `en`,
   authors: [
     {
       fullName: `Имя Автора`, 
     },
   ],
-  language: `en`,
   bookCoverUrl: `https://my.cdn/book.jpg`,
 }
       

@@ -3,9 +3,9 @@ import isEqual from 'lodash.isequal'
 
 const EMPTY_BOOK: AddBookType = {
   title: ``,
+  annotation: ``,
   count: 1,
   language: `ru`,
-  annotation: ``,
   authors: [
     {
       fullName: ``,
@@ -75,6 +75,14 @@ export class AddBookState {
     this._book.title = title
   }
 
+  setAnnotation({
+    annotation,
+  }: {
+    annotation: string,
+  }) {
+    this._book.annotation = annotation
+  }
+
   setCount({
     count,
   }: {
@@ -89,14 +97,6 @@ export class AddBookState {
     language: string,
   }) {
     this._book.language = language
-  }
-
-  setAnnotation({
-    annotation,
-  }: {
-    annotation: string,
-  }) {
-    this._book.annotation = annotation
   }
 
   setBookCoverUrl({

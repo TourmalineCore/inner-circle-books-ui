@@ -15,11 +15,11 @@ export const BookContent = observer(() => {
   } = useContext(BookStateContext)
 
   const {
-    title, 
-    authors, 
-    language, 
+    title,
+    annotation,
+    language,
+    authors,
     bookCoverUrl,
-    annotation, 
   } = book
 
   const isValidUrl = useImageValid(bookCoverUrl)

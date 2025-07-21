@@ -23,7 +23,11 @@ export const AddBookContainer = observer(({
     addBookState.setIsTriedToSubmit()
 
     const {
-      title, annotation, authors,language, bookCoverUrl,
+      title,
+      annotation,
+      language,
+      authors,
+      bookCoverUrl,
     } = addBookState.book
 
     if (!addBookState.isValid) {
@@ -36,12 +40,12 @@ export const AddBookContainer = observer(({
         {
           title: title.trim(),
           annotation: annotation.trim(),
+          language,
           authors: authors
             .map(author => ({
               fullName: author.fullName.trim(),
             }))
             .filter(author => author.fullName !== ``),
-          language,
           bookCoverUrl: bookCoverUrl.trim(),
         },
       )

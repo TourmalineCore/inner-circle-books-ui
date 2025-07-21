@@ -36,8 +36,8 @@ describe(`All Books Snapshot test`, () => {
 function mountComponent() {
   const card =
   {
-    bookCoverUrl: ``,
     title: `Разработка ценностных предложений. Как создавать товары и услуги, которые захотят купить потребители. Ваш первый шаг`,
+    language: `ru`,
     authors: [
       {
         fullName: `Алекс Остервальдер`,
@@ -46,7 +46,7 @@ function mountComponent() {
         fullName: `Сергей Николенко`,
       },
     ],
-    language: `ru`,
+    bookCoverUrl: ``,
   }
 
   const cards = Array.from({

@@ -12,12 +12,12 @@ function imagesTest() {
   SHOULD render the default image
   `, () => {
     mountComponent({
-      bookCoverUrl: ``,
       authors: [
         {
           fullName: `Александр Остервальдер`,
         },
       ],
+      bookCoverUrl: ``,
     })
 
     cy
@@ -32,12 +32,12 @@ function imagesTest() {
   SHOULD render the default image
   `, () => {
     mountComponent({
-      bookCoverUrl: `https://this-does-not-exist.invalid/image.jpg`,
       authors: [
         {
           fullName: `Александр Остервальдер`,
         },
       ],
+      bookCoverUrl: `https://this-does-not-exist.invalid/image.jpg`,
     })
 
     cy
@@ -73,6 +73,7 @@ function authorSuffixTests() {
   SHOULD see "and etc." after first author
   `, () => {
     mountComponent({
+      language: `en`,
       authors: [
         {
           fullName: `Alexander Osterwalder`,
@@ -81,7 +82,6 @@ function authorSuffixTests() {
           fullName: `Yves Pigneur`,
         },
       ],
-      language: `en`,
     })
 
     cy.contains(`Alexander Osterwalder and etc.`)
@@ -105,10 +105,10 @@ function authorSuffixTests() {
 }
 
 function mountComponent({
-  bookCoverUrl = ``,
   title = `Test Title`,
-  authors,
   language = `ru`,
+  authors,
+  bookCoverUrl = ``,
 }: Partial<BookCardType> & { 
   authors: BookCardType["authors"], 
   language?: BookCardType["language"], 
@@ -117,10 +117,10 @@ function mountComponent({
   cy
     .mount(
       <BookCard
-        bookCoverUrl={bookCoverUrl}
         title={title}
-        authors={authors}
         language={language}
+        authors={authors}
+        bookCoverUrl={bookCoverUrl}
       />,
     )
 }

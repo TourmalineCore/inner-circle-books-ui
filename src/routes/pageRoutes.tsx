@@ -16,7 +16,7 @@ export function getPageRoutes(accessPermissions: Map<any, boolean>) {
     routes.push(...addBookRoutes)
   }
   
-  if (accessPermissions.get(`ViewContacts`)) {
+  if (accessPermissions.get(`CanViewBooks`)) {
     routes.push(...bookRoutes)
   }
 

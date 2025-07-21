@@ -22,6 +22,15 @@ export const AddBookContent = observer(({
   goToBooksList: () => void,
 }) => {
   const addBookState = useContext(AddBookStateContext)
+
+  const {
+    title,
+    annotation,
+    count,
+    language,
+    authors,
+    bookCoverUrl,
+  } = addBookState.book
   
   const [
     showModal,
@@ -75,7 +84,7 @@ export const AddBookContent = observer(({
             <textarea
               required
               data-cy="add-book-title"
-              value={addBookState.book.title}
+              value={title}
               placeholder="Enter the title of the book"
               onChange={(e) => addBookState.setTitle({
                 title: e.target.value,
@@ -90,7 +99,7 @@ export const AddBookContent = observer(({
             <CounterInput
               data-cy="add-book-counter"
               label="Number of Copies*"
-              value={addBookState.book.count}
+              value={count}
               onChange={(count) => addBookState.setCount({
                 count,
               })}
@@ -99,7 +108,7 @@ export const AddBookContent = observer(({
             <RadioGroup
               data-cy="add-book-language"
               label="Language*"
-              value={addBookState.book.language}
+              value={language}
               onChange={(language) => addBookState.setLanguage({
                 language,
               })}
@@ -122,7 +131,7 @@ export const AddBookContent = observer(({
             Annotation*
             <textarea
               data-cy="add-book-annotation"
-              value={addBookState.book.annotation}
+              value={annotation}
               placeholder="Enter the annotation from the title page of the book"
               onChange={(e) => addBookState.setAnnotation({
                 annotation: e.target.value,
@@ -136,7 +145,7 @@ export const AddBookContent = observer(({
           <DynamicInputList
             label="Authors*"
             data-cy="add-book-authors"
-            values={addBookState.book.authors.map(author => author.fullName)}
+            values={authors.map(author => author.fullName)}
             onChange={(index, author) => {
               addBookState.setAuthor({
                 index,
@@ -160,7 +169,7 @@ export const AddBookContent = observer(({
           <ImagePreviewInput
             data-cy="add-book-cover"
             label="Book Cover"
-            url={addBookState.book.bookCoverUrl}
+            url={bookCoverUrl}
             onChange={(bookCoverUrl) => addBookState.setBookCoverUrl({
               bookCoverUrl,
             })}

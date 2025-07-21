@@ -36,9 +36,9 @@ function settersTests() {
     })
 
     expect(addBookState.book.title).to.eq(`Title`)
+    expect(addBookState.book.annotation).to.eq(`Annotation`)
     expect(addBookState.book.count).to.eq(3)
     expect(addBookState.book.language).to.eq(`en`)
-    expect(addBookState.book.annotation).to.eq(`Annotation`)
     expect(addBookState.book.authors).to.deep.eq([
       {
         fullName: `Author`, 
@@ -328,15 +328,15 @@ function checkExpectedInitialState({
   addBookState: AddBookState, 
 }) {
   expect(addBookState.book.title).to.eq(``)
+  expect(addBookState.book.annotation).to.eq(``)
   expect(addBookState.book.count).to.eq(1)
   expect(addBookState.book.language).to.eq(`ru`)
-  expect(addBookState.book.annotation).to.eq(``)
-  expect(addBookState.book.bookCoverUrl).to.eq(``)
   expect(addBookState.book.authors).to.deep.eq([
     {
       fullName: ``, 
     },
   ])
+  expect(addBookState.book.bookCoverUrl).to.eq(``)
 }
 
 function setBookData({
@@ -347,14 +347,14 @@ function setBookData({
   addBookState.setTitle({
     title: `Title`,
   })
+  addBookState.setAnnotation({
+    annotation: `Annotation`,
+  })
   addBookState.setCount({
     count: 3,
   })
   addBookState.setLanguage({
     language: `en`,
-  })
-  addBookState.setAnnotation({
-    annotation: `Annotation`,
   })
   addBookState.setAuthor({
     index: 0,
