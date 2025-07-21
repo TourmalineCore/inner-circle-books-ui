@@ -8,6 +8,7 @@ import App from './App'
 
 import { ThemeProvider } from './theme/themeContext'
 import { authService } from './common/authService'
+import { BrowserRouter } from 'react-router-dom'
 import { refreshTokenAndSubscribe } from './common/api/refreshByInterval'
 
 async function initApp() {
@@ -19,7 +20,9 @@ async function initApp() {
       <React.StrictMode>
         <authService.AuthProvider>
           <ThemeProvider>
-            <App />
+            <BrowserRouter>
+              <App />
+            </BrowserRouter>
           </ThemeProvider>
         </authService.AuthProvider>
       </React.StrictMode >,
