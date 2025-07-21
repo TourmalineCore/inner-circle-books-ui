@@ -1,0 +1,98 @@
+@use "../../styles/fonts-mixin" as f;
+@use "../../styles/variables" as v;
+@use "../../styles/media" as m;
+
+.book {
+  display: grid;
+  margin: 0 auto;
+
+  &__title {
+    @include f.h3;
+
+    margin-top: 20px;
+
+    @include m.tablet-xl {
+      margin-top: 0;
+    }
+  }
+
+  &__characteristics {
+    @include f.text;
+
+    display: grid;
+    margin-top: 16px;
+    margin-bottom: 32px;
+    gap: 8px;
+
+    @include m.desktop-xl {
+      margin-bottom: 0;
+    }
+  }
+
+  &__field {
+    color: v.$color-text-secondary;
+  }
+
+  &__value {
+    margin-left: 8px;
+    color: v.$color-text-primary;
+  }
+
+  &__section-name {
+    @include f.h5;
+
+    margin: 32px 0 16px;
+  }
+
+  &__annotation {
+    @include f.text;
+  }
+
+  &__take-button {
+    min-height: 44px;
+
+    @include m.tablet {
+      max-width: 111px;
+    }
+  }
+
+  &__wrap {
+    display: flex;
+    flex-direction: column;
+
+    @include m.desktop-xl {
+      align-items: flex-end;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
+
+  &__cover,
+  &__cover--no-image {
+    display: block;
+    border: 1px solid v.$color-component-border;
+    border-radius: 8px;
+    width: 100%;
+    height: 510px;
+    object-fit: contain;
+
+    &--no-image {
+      object-fit: cover;
+    }
+  }
+
+  @include m.tablet-xl {
+    gap: 20px;
+    grid-template-areas: "left right";
+    grid-template-columns: 354px 1fr;
+  }
+
+  @include m.desktop {
+    grid-template-columns: 402px 1fr;
+  }
+
+  @include m.desktop-xl {
+    max-width: 1540px;
+    grid-template-columns: 428px 1fr;
+  }
+}

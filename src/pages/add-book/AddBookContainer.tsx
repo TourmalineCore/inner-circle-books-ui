@@ -22,6 +22,10 @@ export const AddBookContainer = observer(({
     addBookState.setIsSaving()
     addBookState.setIsTriedToSubmit()
 
+    const {
+      title, annotation, authors,language, bookCoverUrl,
+    } = addBookState.book
+
     if (!addBookState.isValid) {
       addBookState.resetIsTriedToSubmit()
       return
@@ -30,17 +34,15 @@ export const AddBookContainer = observer(({
     try {
       await api.post(`/books`, 
         {
-          title: addBookState.book.title.trim(),
-          annotation: addBookState.book.annotation.trim(),
-          authors: addBookState.book.authors
+          title: title.trim(),
+          annotation: annotation.trim(),
+          authors: authors
             .map(author => ({
               fullName: author.fullName.trim(),
             }))
             .filter(author => author.fullName !== ``),
-          language: addBookState.book.language === `rus` 
-            ? `ru` 
-            : `en`,
-          bookCoverUrl: addBookState.book.bookCoverUrl,
+          language,
+          bookCoverUrl: bookCoverUrl.trim(),
         },
       )
 

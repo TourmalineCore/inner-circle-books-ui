@@ -19,8 +19,10 @@ html {
 html,
 body {
   @include f.text;
+
   margin: 0;
   padding: 0;
+  color: v.$color-text-primary;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -37,6 +39,7 @@ ol {
 }
 
 a {
+  text-decoration: none;
   color: inherit;
 }
 

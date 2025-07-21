@@ -80,6 +80,10 @@
     }
   }
 
+  &:hover {
+    box-shadow: 0 0 32px v.$color-shadow-modal;
+  }
+
   @include m.tablet {
     padding: 0;
     padding-bottom: 16px;

@@ -46,7 +46,7 @@ function mountComponent() {
         fullName: `Сергей Николенко`,
       },
     ],
-    language: `rus`,
+    language: `ru`,
   }
 
   const cards = Array.from({

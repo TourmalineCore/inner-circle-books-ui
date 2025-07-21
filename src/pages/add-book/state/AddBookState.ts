@@ -4,7 +4,7 @@ import isEqual from 'lodash.isequal'
 const EMPTY_BOOK: AddBookType = {
   title: ``,
   count: 1,
-  language: `rus`,
+  language: `ru`,
   annotation: ``,
   authors: [
     {

@@ -105,12 +105,12 @@ export const AddBookContent = observer(({
               })}
               options={[
                 {
-                  value: `rus`,
+                  value: `ru`,
                   label: `Russian`,
                   icon: <RussianFlag />, 
                 },
                 {
-                  value: `eng`,
+                  value: `en`,
                   label: `English`,
                   icon: <EnglishFlag />, 
                 },

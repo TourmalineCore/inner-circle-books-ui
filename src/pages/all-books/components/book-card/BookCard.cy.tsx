@@ -49,7 +49,7 @@ function imagesTest() {
 
 function authorSuffixTests() {
   it(`
-  GIVEN 2 authors and language = rus
+  GIVEN 2 authors and language = ru
   WHEN render the component
   SHOULD see "и др." after first author
   `, () => {
@@ -68,7 +68,7 @@ function authorSuffixTests() {
   })
 
   it(`
-  GIVEN 2 authors and language = eng
+  GIVEN 2 authors and language = en
   WHEN render the component
   SHOULD see "and etc." after first author
   `, () => {
@@ -81,7 +81,7 @@ function authorSuffixTests() {
           fullName: `Yves Pigneur`,
         },
       ],
-      language: `eng`,
+      language: `en`,
     })
 
     cy.contains(`Alexander Osterwalder and etc.`)
@@ -108,7 +108,7 @@ function mountComponent({
   bookCoverUrl = ``,
   title = `Test Title`,
   authors,
-  language = `rus`,
+  language = `ru`,
 }: Partial<BookCardType> & { 
   authors: BookCardType["authors"], 
   language?: BookCardType["language"], 
