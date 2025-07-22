@@ -144,7 +144,7 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           wait-on: "http://localhost:30090"
-          browser: chrome
+          browser: electron
           config-file: cypress.config.local-env.ts
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
