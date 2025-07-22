@@ -124,7 +124,6 @@ describe(`CounterInput`, () => {
     cy
       .getByData(`counter-input-value`)
       .should(`have.value`, `12`) 
-
   })
 })
 

@@ -16,7 +16,11 @@ export const CounterInput = ({
 }: {
   label: string,
   value: number,
-  onChange: (val: number) => unknown,
+  onChange: ({
+    val,
+  }: {
+    val: number,
+  }) => unknown,
 }) => {
   const [
     inputValue,
@@ -42,11 +46,15 @@ export const CounterInput = ({
     const parsed = parseInt(inputValue, 10)
     
     if (!isNaN(parsed)) {
-      onChange(Math.max(MIN_VALUE, Math.min(parsed, MAX_VALUE)))
+      onChange({
+        val: Math.max(MIN_VALUE, Math.min(parsed, MAX_VALUE)),
+      })
     }
     else {
       setInputValue(MIN_VALUE.toString())
-      onChange(MIN_VALUE)
+      onChange({
+        val: MIN_VALUE,
+      })
     }
   }
 
@@ -66,7 +74,9 @@ export const CounterInput = ({
             'counter-input__button--disabled': isMinusDisabled,
           })}
           data-cy="counter-input-button-minus"
-          onClick={() => onChange(Math.max(MIN_VALUE, value - 1))}
+          onClick={() => onChange({
+            val: Math.max(MIN_VALUE, value - 1),
+          })}
           disabled={isMinusDisabled}
         >
           <MinusIcon />
@@ -88,7 +98,9 @@ export const CounterInput = ({
             'counter-input__button--disabled': isPlusDisabled,
           })}
           data-cy="counter-input-button-plus"
-          onClick={() => onChange(value + 1)}
+          onClick={() => onChange({
+            val: value + 1,
+          })}
           disabled={isPlusDisabled}
         >
           <PlusIcon />

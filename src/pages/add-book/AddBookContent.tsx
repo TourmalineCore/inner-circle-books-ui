@@ -100,8 +100,10 @@ export const AddBookContent = observer(({
               data-cy="add-book-counter"
               label="Number of Copies*"
               value={count}
-              onChange={(count) => addBookState.setCount({
-                count,
+              onChange={({
+                val,
+              }) => addBookState.setCount({
+                count: val,
               })}
             />
 
