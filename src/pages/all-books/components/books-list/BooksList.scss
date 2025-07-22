@@ -1,0 +1,35 @@
+@use "../../../../styles/media" as m;
+@use "../../../../styles/variables" as v;
+@use "../../../../styles/fonts-mixin" as f;
+
+.books-list {
+  display: grid;
+  gap: 18px;
+
+  &__empty {
+    @include f.subhead1-medium;
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+  }
+
+  @include m.tablet {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @include m.tablet-xl {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  @include m.desktop {
+    gap: 20px;
+  }
+
+  @include m.desktop-xl {
+    gap: 18px;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+}

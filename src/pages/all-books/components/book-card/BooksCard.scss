@@ -1,0 +1,92 @@
+@use "../../../../styles/media" as m;
+@use "../../../../styles/variables" as v;
+@use "../../../../styles/fonts-mixin" as f;
+
+.book-card {
+  border: 1px solid v.$color-component-border;
+  border-radius: 8px;
+  padding: 16px;
+  height: 100%;
+  background-color: v.$color-background-primary;
+  transition: box-shadow 0.2s ease;
+
+  &__title {
+    @include f.subhead1-medium;
+
+    margin-bottom: 4px;
+    color: v.$color-text-primary;
+
+    @include m.tablet {
+      margin-bottom: 8px;
+    }
+
+    @include m.tablet-xl {
+      margin-bottom: 4px;
+    }
+
+    @include m.desktop {
+      margin-bottom: 8px;
+    }
+  }
+
+  &__author {
+    @include f.text;
+
+    color: v.$color-text-secondary;
+  }
+
+  &__language {
+    @include f.subhead1-medium;
+
+    text-transform: uppercase;
+    color: v.$color-text-primary;
+  }
+
+  &__image {
+    display: block;
+    margin: 0 auto 12px;
+    height: 144px;
+    max-width: 100%;
+    object-fit: contain;
+
+    @include m.tablet {
+      height: 348px;
+    }
+  }
+
+  &__about {
+    @include m.tablet {
+      padding: 0 16px;
+    }
+  }
+
+  &__wrap {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 16px;
+
+    @include m.tablet {
+      flex-direction: row;
+    }
+
+    @include m.tablet-xl {
+      flex-direction: column;
+    }
+
+    @include m.desktop {
+      flex-direction: row;
+      gap: 0;
+    }
+  }
+
+  &:hover {
+    box-shadow: 0 0 32px v.$color-shadow-modal;
+  }
+
+  @include m.tablet {
+    padding: 0;
+    padding-bottom: 16px;
+  }
+}

@@ -1,0 +1,80 @@
+@use "../../../../styles/media" as m;
+@use "../../../../styles/variables" as v;
+@use "../../../../styles/fonts-mixin" as f;
+
+.counter-input {
+  &__label {
+    @include f.text;
+
+    white-space: nowrap;
+  }
+
+  &__controls {
+    display: flex;
+    align-items: center;
+    margin-top: 6px;
+    gap: 5px;
+
+    @include m.tablet {
+      margin-top: 7px;
+    }
+  }
+
+  &__button {
+    display: flex;
+    align-items: center;
+    border: none;
+    border-radius: 12px;
+    padding: 12px;
+    background: none;
+    cursor: pointer;
+
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    svg path {
+      stroke: v.$color-icon-primary;
+    }
+
+    &:hover {
+      background-color: v.$color-background-component-secondary-hover;
+      transition: background-color 0.2s ease-in-out;
+    }
+
+    &:active {
+      background-color: v.$color-background-component-secondary-active;
+    }
+
+    &--disabled {
+      cursor: not-allowed;
+
+      svg path {
+        stroke: v.$color-icon-secondary;
+      }
+
+      &:hover,
+      &:active {
+        background-color: inherit;
+      }
+    }
+  }
+
+  &__value {
+    @include f.text;
+
+    border: 1px solid v.$color-component-border;
+    border-radius: 8px;
+    padding: 8px;
+    width: 44px;
+    height: 44px;
+    text-align: center;
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      margin: 0;
+      appearance: none;
+    }
+  }
+}

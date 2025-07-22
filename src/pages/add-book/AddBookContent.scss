@@ -1,0 +1,162 @@
+@use "../../styles/media" as m;
+@use "../../styles/variables" as v;
+@use "../../styles/fonts-mixin" as f;
+
+.add-book {
+  display: grid;
+  gap: 23px;
+
+  &__actions {
+    display: flex;
+    width: 100%;
+    height: 44px;
+    gap: 8px;
+
+    @include m.tablet {
+      margin: 0 auto;
+      max-width: 328px;
+    }
+
+    @include m.tablet-xl {
+      grid-area: actions;
+    }
+  }
+
+  &__header {
+    @include f.h6;
+
+    display: flex;
+    align-items: center;
+    color: v.$color-text-primary;
+    gap: 19px;
+
+    @include m.tablet {
+      @include f.h5;
+    }
+
+    @include m.tablet-xl {
+      grid-area: header;
+    }
+
+    @include m.desktop-xl {
+      @include f.h4;
+    }
+  }
+
+  &__icon {
+    @include m.tablet {
+      width: 48px;
+      height: 48px;
+    }
+
+    @include m.desktop-xl {
+      width: 65px;
+      height: 65px;
+    }
+  }
+
+  &__label {
+    @include f.text;
+
+    @include m.tablet {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  &__textarea {
+    margin-top: 8px;
+    resize: none;
+  }
+
+  &__title {
+    height: 100px;
+
+    @include m.tablet {
+      height: 80px;
+      max-width: 611px;
+    }
+
+    @include m.desktop-xl {
+      height: 96px;
+    }
+  }
+
+  &__annotation {
+    height: 280px;
+
+    @include m.tablet {
+      height: 212px;
+      max-width: 611px;
+    }
+
+    @include m.desktop-xl {
+      height: 268px;
+    }
+  }
+
+  &__wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 23px;
+
+    @include m.tablet {
+      flex-direction: row;
+      gap: 25px;
+    }
+  }
+
+  &__left {
+    display: flex;
+    flex-direction: column;
+    gap: 23px;
+
+    @include m.tablet-xl {
+      grid-area: left;
+    }
+  }
+
+  &__right {
+    display: flex;
+    flex-direction: column;
+    gap: 23px;
+
+    @include m.tablet-xl {
+      grid-area: right;
+    }
+  }
+
+  &__left,
+  &__right {
+    display: flex;
+    flex-direction: column;
+    gap: 23px;
+
+    @include m.tablet-xl {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+  }
+
+  @include m.tablet-xl {
+    margin: 0 auto;
+    max-width: 976px;
+    grid-template-areas:
+      "header header"
+      "left right"
+      "actions actions";
+    grid-template-columns: 354px 1fr;
+  }
+
+  @include m.desktop {
+    padding: 24px;
+    max-width: 1032px;
+    grid-template-columns: 401px 1fr;
+  }
+
+  @include m.desktop-xl {
+    max-width: 1180px;
+    grid-template-columns: 430px 1fr;
+  }
+}

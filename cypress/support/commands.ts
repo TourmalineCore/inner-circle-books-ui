@@ -1,5 +1,6 @@
 /// <reference types="cypress" />
 import { createAuthService } from '@tourmalinecore/react-tc-auth'
+import compareSnapshotCommand from 'cypress-image-diff-js'
 
 Cypress.on(`uncaught:exception`, () => false)
 
@@ -16,6 +17,10 @@ Cypress.on(`uncaught:exception`, (err) => {
 })
 
 Cypress.Commands.add(`getByData`, (selector) => cy.get(`[data-cy=${selector}]`))
+Cypress.Screenshot.defaults({
+  capture: `viewport`,
+  scale: false,
+})
 
 export { }
 
@@ -54,3 +59,36 @@ Cypress.Commands.add(`authByApi`, () => {
       Cypress.env(`accessToken`, accessToken.value)
     })
 })
+
+Cypress.Commands.add(`removeBooks`, () => {
+  cy.request<{ 
+    books: BookCardType[], 
+  }>({
+    method: `GET`,
+    url: `${Cypress.env(`API_ROOT`)}${Cypress.env(`LINK_TO_BOOKS_SERVICE`)}`,
+    headers: {
+      Authorization: `Bearer ${Cypress.env(`accessToken`)}`,
+    },
+  })
+    .then(({
+      body,
+    }) => {
+      const booksToDelete = body.books.filter(({
+        title,
+      }) => title.startsWith(`[E2E-SMOKE]`))
+
+      booksToDelete.forEach(({
+        id,
+      }) => {
+        cy.request({
+          method: `DELETE`,
+          url: `${Cypress.env(`API_ROOT`)}${Cypress.env(`LINK_TO_BOOKS_SERVICE`)}/${id}/hard-delete`,
+          headers: {
+            Authorization: `Bearer ${Cypress.env(`accessToken`)}`,
+          },
+        })
+      })
+    })
+})
+
+compareSnapshotCommand()
