@@ -15,9 +15,19 @@ export const DynamicInputList = observer(({
   error,
 }: {
   values: string[],
-  onChange: (index: number, value: string) => unknown,
+  onChange: ({
+    index, 
+    authorFullName,
+  }: {
+    index: number, 
+    authorFullName: string,
+  }) => unknown,
   onAdd: () => unknown,
-  onRemove: (index: number) => unknown,
+  onRemove: ({
+    index,
+  }: {
+    index: number,
+  }) => unknown,
   label: string,
   placeholder: string,
   error?: boolean,
@@ -36,7 +46,10 @@ export const DynamicInputList = observer(({
             <input
               type="text"
               value={val}
-              onChange={(e) => onChange(i, e.target.value)}
+              onChange={(e) => onChange({
+                index: i,
+                authorFullName: e.target.value,
+              })}
               placeholder={placeholder}
               className={`dynamic-input-list__input ${error 
                 ? `error` 
@@ -48,7 +61,9 @@ export const DynamicInputList = observer(({
                 <button
                   type="button"
                   className="dynamic-input-list__remove"
-                  onClick={() => onRemove(i)}
+                  onClick={() => onRemove({
+                    index: i,
+                  })}
                 >
                   <CancelIcon />
                 </button>

@@ -101,9 +101,9 @@ export const AddBookContent = observer(({
               label="Number of Copies*"
               value={count}
               onChange={({
-                val,
+                count,
               }) => addBookState.setCount({
-                count: val,
+                count,
               })}
             />
 
@@ -112,9 +112,9 @@ export const AddBookContent = observer(({
               label="Language*"
               value={language}
               onChange={({
-                value,
+                language,
               }) => addBookState.setLanguage({
-                language: value,
+                language,
               })}
               options={[
                 {
@@ -150,16 +150,21 @@ export const AddBookContent = observer(({
             label="Authors*"
             data-cy="add-book-authors"
             values={authors.map(author => author.fullName)}
-            onChange={(index, author) => {
+            onChange={({
+              index, 
+              authorFullName,
+            }) => {
               addBookState.setAuthor({
                 index,
-                authorFullName: author,
+                authorFullName,
               })
             }}
             onAdd={() => {
               addBookState.addAuthor()
             }}
-            onRemove={(index) => {
+            onRemove={({
+              index,
+            }) => {
               addBookState.removeAuthor({
                 index,
               })
@@ -175,9 +180,9 @@ export const AddBookContent = observer(({
             label="Book Cover"
             url={bookCoverUrl}
             onChange={({
-              value,
+              bookCoverUrl,
             }) => addBookState.setBookCoverUrl({
-              bookCoverUrl: value,
+              bookCoverUrl,
             })}
           />
         </div>
