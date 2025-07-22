@@ -111,8 +111,10 @@ export const AddBookContent = observer(({
               data-cy="add-book-language"
               label="Language*"
               value={language}
-              onChange={(language) => addBookState.setLanguage({
-                language,
+              onChange={({
+                value,
+              }) => addBookState.setLanguage({
+                language: value,
               })}
               options={[
                 {

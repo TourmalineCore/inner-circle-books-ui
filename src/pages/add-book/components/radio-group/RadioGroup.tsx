@@ -15,7 +15,11 @@ export const RadioGroup = ({
   label: string,
   value: string,
   options: Option[],
-  onChange: (value: string) => unknown,
+  onChange: ({
+    value,
+  }: {
+    value: string,
+  }) => unknown,
 }) => (
   <div className="radio-group">
     <span className="radio-group__label">
@@ -40,7 +44,9 @@ export const RadioGroup = ({
               name={label}
               value={val}
               checked={value === val}
-              onChange={() => onChange(val)}
+              onChange={() => onChange({
+                value: val,
+              })}
             />
             <span className="radio-group__text">
               {optionLabel}
