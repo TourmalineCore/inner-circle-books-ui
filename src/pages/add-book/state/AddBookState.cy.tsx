@@ -35,16 +35,16 @@ function settersTests() {
       addBookState,
     })
 
-    expect(addBookState.book.title).to.eq(`Title`)
-    expect(addBookState.book.annotation).to.eq(`Annotation`)
+    expect(addBookState.book.title).to.eq(`Разработка ценностных предложений`)
+    expect(addBookState.book.annotation).to.eq(`Аннотация`)
     expect(addBookState.book.count).to.eq(3)
     expect(addBookState.book.language).to.eq(`en`)
     expect(addBookState.book.authors).to.deep.eq([
       {
-        fullName: `Author`, 
+        fullName: `Алекс Остервальдер`, 
       },
     ])
-    expect(addBookState.book.bookCoverUrl).to.eq(`http://image.com`)
+    expect(addBookState.book.bookCoverUrl).to.eq(`https://book.jpg`)
   })
 
   it(`
@@ -73,16 +73,16 @@ function settersTests() {
   `, () => {
     const addBookState = new AddBookState()
 
-    addBookState.book.authors[0].fullName = `First`
+    addBookState.book.authors[0].fullName = `Алекс Остервальдер`
     addBookState.addAuthor()
-    addBookState.book.authors[1].fullName = `Second`
+    addBookState.book.authors[1].fullName = `Сергей Николенко`
     addBookState.removeAuthor({
       index: 0,
     })
 
     expect(addBookState.book.authors).to.deep.eq([
       {
-        fullName: `Second`,
+        fullName: `Сергей Николенко`,
       },
     ])
   })
@@ -117,11 +117,11 @@ function validationTests() {
     const addBookState = new AddBookState()
 
     addBookState.setAnnotation({
-      annotation: `Annotation`,
+      annotation: `Аннотация`,
     })
     addBookState.setAuthor({
       index: 0,
-      authorFullName: `Author`,
+      authorFullName: `Алекс Остервальдер`,
     })
 
     addBookState.setIsTriedToSubmit()
@@ -140,11 +140,11 @@ function validationTests() {
     const addBookState = new AddBookState()
 
     addBookState.setTitle({
-      title: `Title`,
+      title: `Разработка ценностных предложений`,
     })
     addBookState.setAuthor({
       index: 0,
-      authorFullName: `Author`,
+      authorFullName: `Алекс Остервальдер`,
     })
 
     addBookState.setIsTriedToSubmit()
@@ -161,10 +161,10 @@ function validationTests() {
     const addBookState = new AddBookState()
 
     addBookState.setTitle({
-      title: `Title`,
+      title: `Разработка ценностных предложений`,
     })
     addBookState.setAnnotation({
-      annotation: `Annotation`,
+      annotation: `Аннотация`,
     })
     addBookState.addAuthor
 
@@ -182,14 +182,14 @@ function validationTests() {
     const addBookState = new AddBookState()
 
     addBookState.setTitle({
-      title: `Title`,
+      title: `Разработка ценностных предложений`,
     })
     addBookState.setAnnotation({
-      annotation: `Annotation`,
+      annotation: `Аннотация`,
     })
     addBookState.setAuthor({
       index: 0,
-      authorFullName: `Author`,
+      authorFullName: `Алекс Остервальдер`,
     })
     
     addBookState.setIsTriedToSubmit()
@@ -222,7 +222,7 @@ function somethingFilledWithinTheFormTests() {
     const addBookState = new AddBookState()
 
     addBookState.setTitle({
-      title: `Title`,
+      title: `Разработка ценностных предложений`,
     })
 
     expect(addBookState.isSomethingFilledWithinTheForm()).to.be.true
@@ -250,7 +250,7 @@ function somethingFilledWithinTheFormTests() {
     const addBookState = new AddBookState()
 
     addBookState.setAnnotation({
-      annotation: `Annotation`,
+      annotation: `Аннотация`,
     })
 
     expect(addBookState.isSomethingFilledWithinTheForm()).to.be.true
@@ -265,7 +265,7 @@ function somethingFilledWithinTheFormTests() {
 
     addBookState.setAuthor({
       index: 0,
-      authorFullName: `Author`,
+      authorFullName: `Алекс Остервальдер`,
     })
 
     expect(addBookState.isSomethingFilledWithinTheForm()).to.be.true
@@ -279,7 +279,7 @@ function somethingFilledWithinTheFormTests() {
     const addBookState = new AddBookState()
 
     addBookState.setBookCoverUrl({
-      bookCoverUrl: `http://image.com`,
+      bookCoverUrl: `https://book.jpg`,
     })
       
     expect(addBookState.isSomethingFilledWithinTheForm()).to.be.true
@@ -345,10 +345,10 @@ function setBookData({
   addBookState: AddBookState,
 }) {
   addBookState.setTitle({
-    title: `Title`,
+    title: `Разработка ценностных предложений`,
   })
   addBookState.setAnnotation({
-    annotation: `Annotation`,
+    annotation: `Аннотация`,
   })
   addBookState.setCount({
     count: 3,
@@ -358,9 +358,9 @@ function setBookData({
   })
   addBookState.setAuthor({
     index: 0,
-    authorFullName: `Author`,
+    authorFullName: `Алекс Остервальдер`,
   })
   addBookState.setBookCoverUrl({
-    bookCoverUrl: `http://image.com`,
+    bookCoverUrl: `https://book.jpg`,
   })
 }

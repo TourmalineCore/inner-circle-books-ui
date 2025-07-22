@@ -36,7 +36,7 @@ describe(`All Books Snapshot test`, () => {
 function mountComponent() {
   const card =
   {
-    title: `Разработка ценностных предложений. Как создавать товары и услуги, которые захотят купить потребители. Ваш первый шаг`,
+    title: `Разработка ценностных предложений`,
     language: `ru`,
     authors: [
       {

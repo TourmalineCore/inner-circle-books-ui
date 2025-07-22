@@ -26,23 +26,23 @@ function initializationTests() {
       {
         id: 1,
         title: `First Fizz`,
-        annotation: `Some text`,
+        annotation: `Annotation`,
         language: `English`,
         authors: [
           {
-            fullName: `Author A`, 
+            fullName: `Алекс Остервальдер`, 
           },
         ],
         bookCoverUrl: `url-1`,
       },
       {
         id: 2,
-        title: `Second Buzz`,
-        annotation: `Another text`,
-        language: `French`,
+        title: `Разработка ценностных предложений`,
+        annotation: `Аннотация`,
+        language: `Russian`,
         authors: [
           {
-            fullName: `Author B`, 
+            fullName: `Сергей Николенко`, 
           },
         ],
         bookCoverUrl: `url-2`,

@@ -14,7 +14,7 @@ bookState.initialize({
         fullName: `Алекс Остервальдер`,
       },
     ],
-    bookCoverUrl: `https://example.jpg`,
+    bookCoverUrl: `https://book.jpg`,
   },
 })
 
@@ -31,7 +31,7 @@ describe(`BookState`, () => {
           fullName: `Алекс Остервальдер`, 
         },
       ])
-      expect(bookState.book.bookCoverUrl).to.eq(`https://example.jpg`)
+      expect(bookState.book.bookCoverUrl).to.eq(`https://book.jpg`)
     })
   })
 })

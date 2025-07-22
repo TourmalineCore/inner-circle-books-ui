@@ -3,12 +3,12 @@ import { AddBookState } from "./state/AddBookState"
 import { AddBookStateContext } from "./state/AddBookStateStateContext"
 
 const BOOK = {
-  title: `Новая книга`,
-  annotation: `Описание книги`,
+  title: `Разработка ценностных предложений`,
+  annotation: `Аннотация`,
   language: `en`,
   authors: [
     {
-      fullName: `Имя Автора`, 
+      fullName: `Алекс Остервальдер`, 
     },
   ],
   bookCoverUrl: `https://book.jpg`,
@@ -41,15 +41,15 @@ function addBookFlowTests() {
 
     cy
       .getByData(`add-book-title`)
-      .type(`Новая книга`)
+      .type(`Разработка ценностных предложений`)
 
     cy
       .getByData(`add-book-annotation`)
-      .type(`Описание книги`)
+      .type(`Аннотация`)
 
     cy
       .get(`.dynamic-input-list`)
-      .type(`Имя Автора`)
+      .type(`Алекс Остервальдер`)
 
     cy
       .get(`.image-preview-input__input`)

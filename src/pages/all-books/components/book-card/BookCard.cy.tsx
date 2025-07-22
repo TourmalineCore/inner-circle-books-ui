@@ -37,7 +37,7 @@ function imagesTest() {
           fullName: `Александр Остервальдер`,
         },
       ],
-      bookCoverUrl: `https://this-does-not-exist.invalid/image.jpg`,
+      bookCoverUrl: `https://book.jpg`,
     })
 
     cy

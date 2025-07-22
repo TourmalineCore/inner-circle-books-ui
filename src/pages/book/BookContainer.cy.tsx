@@ -5,8 +5,8 @@ import { BookStateContext } from "./state/BookStateStateContext"
 
 const BOOK_RESPONSE = {
   id: 1,
-  title: `ChatGPT мастер подсказок или как создавать сильные промты для нейросети`,
-  annotation: `annotation`,
+  title: `Разработка ценностных предложений`,
+  annotation: `Аннотация`,
   language: `ru`,
   authors: [
     {
@@ -39,8 +39,8 @@ function initializationTests() {
   `, () => {
     mountComponent()
 
-    cy.contains(`ChatGPT мастер подсказок или как создавать сильные промты для нейросети`)
-    cy.contains(`annotation`)
+    cy.contains(`Разработка ценностных предложений`)
+    cy.contains(`Аннотация`)
     cy.contains(`Russian`)
     cy.contains(`Алекс Остервальдер`)
     cy.contains(`Сергей Николенко`)
