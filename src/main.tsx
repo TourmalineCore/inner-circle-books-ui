@@ -10,7 +10,6 @@ import { ThemeProvider } from './theme/themeContext'
 import { authService } from './common/authService'
 import { BrowserRouter } from 'react-router-dom'
 import { refreshTokenAndSubscribe } from './common/api/refreshByInterval'
-import { BrowserRouter } from 'react-router-dom'
 
 async function initApp() {
   await refreshTokenAndSubscribe()
