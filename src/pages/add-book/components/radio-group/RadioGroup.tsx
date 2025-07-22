@@ -15,7 +15,7 @@ export const RadioGroup = ({
   label: string,
   value: string,
   options: Option[],
-  onChange: (value: string) => void,
+  onChange: (value: string) => unknown,
 }) => (
   <div className="radio-group">
     <span className="radio-group__label">

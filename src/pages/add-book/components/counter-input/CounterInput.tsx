@@ -16,7 +16,7 @@ export const CounterInput = ({
 }: {
   label: string,
   value: number,
-  onChange: (val: number) => void,
+  onChange: (val: number) => unknown,
 }) => {
   const [
     inputValue,

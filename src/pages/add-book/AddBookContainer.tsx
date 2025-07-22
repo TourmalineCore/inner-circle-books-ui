@@ -7,7 +7,7 @@ import { api } from "../../common/api"
 export const AddBookContainer = observer(({
   goToBooksList, 
 }: { 
-  goToBooksList: () => void, 
+  goToBooksList: () => unknown, 
 }) => {
   const addBookState = useContext(AddBookStateContext)
 

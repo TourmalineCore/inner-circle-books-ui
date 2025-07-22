@@ -18,8 +18,8 @@ export const AddBookContent = observer(({
   onSubmit,
   goToBooksList,
 }:{
-  onSubmit: () => void,
-  goToBooksList: () => void,
+  onSubmit: () => unknown,
+  goToBooksList: () => unknown,
 }) => {
   const addBookState = useContext(AddBookStateContext)
 

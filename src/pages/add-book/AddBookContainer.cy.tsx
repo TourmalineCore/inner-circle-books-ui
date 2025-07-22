@@ -70,7 +70,6 @@ function addBookFlowTests() {
 
     cy.get(`@onSuccess`)
       .should(`have.been.called`)
-
   })
 }
 

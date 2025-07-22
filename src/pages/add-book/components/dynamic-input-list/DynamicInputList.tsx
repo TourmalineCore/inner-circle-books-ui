@@ -15,9 +15,9 @@ export const DynamicInputList = observer(({
   error,
 }: {
   values: string[],
-  onChange: (index: number, value: string) => void,
-  onAdd: () => void,
-  onRemove: (index: number) => void,
+  onChange: (index: number, value: string) => unknown,
+  onAdd: () => unknown,
+  onRemove: (index: number) => unknown,
   label: string,
   placeholder: string,
   error?: boolean,

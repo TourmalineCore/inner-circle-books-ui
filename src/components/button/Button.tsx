@@ -34,7 +34,9 @@ export const Button = ({
   >
     {
       <>
-        {isLoader && <span className="button__loader"></span>}
+        {
+          isLoader && <span className="button__loader" />
+        }
         {label}
       </>
     }

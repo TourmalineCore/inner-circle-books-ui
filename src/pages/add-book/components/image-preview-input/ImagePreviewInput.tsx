@@ -12,7 +12,7 @@ export const ImagePreviewInput = ({
 }: {
   label: string,
   url: string,
-  onChange: (value: string) => void,
+  onChange: (value: string) => unknown,
 }) => {
   const isValidUrl = useImageValid(url)
 
