@@ -172,8 +172,10 @@ export const AddBookContent = observer(({
             data-cy="add-book-cover"
             label="Book Cover"
             url={bookCoverUrl}
-            onChange={(bookCoverUrl) => addBookState.setBookCoverUrl({
-              bookCoverUrl,
+            onChange={({
+              value,
+            }) => addBookState.setBookCoverUrl({
+              bookCoverUrl: value,
             })}
           />
         </div>
