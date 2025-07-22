@@ -11,7 +11,7 @@ const BOOK = {
       fullName: `Имя Автора`, 
     },
   ],
-  bookCoverUrl: `https://my.cdn/book.jpg`,
+  bookCoverUrl: `https://book.jpg`,
 }
       
 describe(`AddBookContainer`, () => {
