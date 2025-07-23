@@ -1,6 +1,7 @@
 import './BookContent.scss'
 
 import NoImage from "../../assets/img/no-image.png"
+import ViewQRIcon from "../../assets/icons/View-qr.svg?react"
 
 import { observer } from "mobx-react-lite"
 import { useContext } from 'react'
@@ -39,6 +40,16 @@ export const BookContent = observer(() => {
           className={clsx(`book__cover`, { 
             'book__cover--no-image': !isValidUrl,
           })}
+        />
+
+        <Button
+          onClick={() => {}}
+          label={
+            <>
+              <ViewQRIcon /> View QR Code
+            </>
+          }
+          isOutline
         />
       </div>
 
