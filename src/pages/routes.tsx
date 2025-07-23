@@ -27,3 +27,11 @@ export const bookRoutes = [
     Component: BookPage,
   },
 ]
+
+export const scanQRRoutes = [
+  {
+    path: `${DEFAULT_PATH}/scan`,
+    breadcrumb: `Scan QR`,
+    Component: AddBookPage,
+  },
+]

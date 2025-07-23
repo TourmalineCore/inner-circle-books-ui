@@ -6,11 +6,20 @@
   margin-bottom: 24px;
   width: 100%;
   height: 44px;
+  gap: 8px;
 
-  &__button {
+  &__scan-button {
     width: 44px;
 
-    @include m.tablet-xl {
+    @include m.tablet {
+      width: 129px;
+    }
+  }
+
+  &__add-button {
+    width: 44px;
+
+    @include m.desktop {
       width: 138px;
     }
   }
