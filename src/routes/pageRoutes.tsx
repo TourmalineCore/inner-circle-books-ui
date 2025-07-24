@@ -1,4 +1,4 @@
-import { addBookRoutes, allBooksRoutes, bookRoutes } from '../pages/routes'
+import { addBookRoutes, allBooksRoutes, bookRoutes, scanQRRoutes } from '../pages/routes'
 import { BreadcrumbComponentProps } from 'use-react-router-breadcrumbs'
 
 export function getPageRoutes(accessPermissions: Map<any, boolean>) {
@@ -18,6 +18,10 @@ export function getPageRoutes(accessPermissions: Map<any, boolean>) {
   
   if (accessPermissions.get(`CanViewBooks`)) {
     routes.push(...bookRoutes)
+  }
+
+  if (accessPermissions.get(`CanViewBooks`)) {
+    routes.push(...scanQRRoutes)
   }
 
   return routes

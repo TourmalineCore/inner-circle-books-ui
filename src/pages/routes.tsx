@@ -1,6 +1,7 @@
 import { AddBookPage } from "./add-book/AddBookPage"
 import { AllBooksPage } from "./all-books/AllBooksPage"
 import { BookPage } from "./book/BookPage"
+import { ScanPage } from "./scan/ScanPage"
 
 const DEFAULT_PATH = `/books`
 
@@ -32,6 +33,6 @@ export const scanQRRoutes = [
   {
     path: `${DEFAULT_PATH}/scan`,
     breadcrumb: `Scan QR`,
-    Component: AddBookPage,
+    Component: ScanPage,
   },
 ]
