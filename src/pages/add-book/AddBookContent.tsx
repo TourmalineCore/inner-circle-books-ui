@@ -12,7 +12,7 @@ import { ImagePreviewInput } from './components/image-preview-input/ImagePreview
 import { useContext, useState } from 'react'
 import { AddBookStateContext } from './state/AddBookStateStateContext'
 import { Button } from '../../components/button/Button'
-import { Overlay } from './components/overlay/Overlay'
+import { Overlay } from '../../components/overlay/Overlay'
 
 export const AddBookContent = observer(({
   onSubmit,

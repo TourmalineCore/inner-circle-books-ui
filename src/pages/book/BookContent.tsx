@@ -9,6 +9,7 @@ import { BookStateContext } from './state/BookStateStateContext'
 import { Button } from '../../components/button/Button'
 import { useImageValid } from '../../common/useImageValid'
 import clsx from 'clsx'
+import { ModalQRForm } from './components/modal-qr-form/ModalQRForm'
 
 export const BookContent = observer(() => {
   const {
@@ -98,6 +99,11 @@ export const BookContent = observer(() => {
           {annotation}
         </div>
       </div>
+
+      <ModalQRForm 
+        onPrint={() => {}}
+        onCloseModal={() => {}}
+      />
     </div>
   )
 })

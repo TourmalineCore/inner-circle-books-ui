@@ -15,7 +15,9 @@ const EMPTY_BOOK: AddBookType = {
 }
 
 export class AddBookState {
-  private _book: AddBookType = EMPTY_BOOK
+  private _book: AddBookType = {
+    ...EMPTY_BOOK, 
+  }
 
   private _isSaving = false    
   private _isTriedToSubmit = false  

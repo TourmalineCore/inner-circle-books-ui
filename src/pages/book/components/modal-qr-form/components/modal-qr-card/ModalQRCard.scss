@@ -1,0 +1,77 @@
+@use "../../../../../../styles/media" as m;
+@use "../../../../../../styles/variables" as v;
+@use "../../../../../../styles/fonts-mixin" as f;
+
+@mixin modal-qr-card-common {
+  display: flex;
+  margin-bottom: 18px;
+  border: 1px solid v.$color-component-border-active;
+  border-radius: 8px;
+  padding: 16px;
+  width: 311px;
+  height: auto;
+  text-align: start;
+  background-color: v.$color-background-modal;
+  gap: 12px;
+
+  &__content {
+    display: flex;
+    gap: 16px;
+  }
+
+  &__copy-text {
+    @include f.subhead1-medium;
+
+    white-space: nowrap;
+  }
+
+  &__qr-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  &__qr {
+    width: 64px;
+    height: 64px;
+    background-color: v.$color-background-modal;
+  }
+
+  @include m.tablet {
+    width: 386px;
+  }
+}
+
+.modal-qr-card {
+  @include modal-qr-card-common;
+
+  cursor: pointer;
+
+  &__title {
+    @include f.subhead2;
+
+    width: 163px;
+  }
+
+  @include m.tablet {
+    &__title {
+      width: 238px;
+    }
+  }
+}
+
+.modal-qr-card-without-checkbox {
+  @include modal-qr-card-common;
+
+  &__title {
+    @include f.subhead2;
+
+    width: 199px;
+  }
+
+  @include m.tablet {
+    &__title {
+      width: 274px;
+    }
+  }
+}
