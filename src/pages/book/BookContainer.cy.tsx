@@ -3,7 +3,7 @@ import { BookContainer } from "./BookContainer"
 import { BookState } from "./state/BookState"
 import { BookStateContext } from "./state/BookStateStateContext"
 
-const BOOK_RESPONSE = {
+const BOOK_RESPONSE: BookType = {
   id: 1,
   title: `Разработка ценностных предложений`,
   annotation: `Аннотация`,
@@ -17,6 +17,14 @@ const BOOK_RESPONSE = {
     },
   ],
   bookCoverUrl: ``,
+  bookCopies: [
+    {
+      bookCopyId: 11,
+    },
+    {
+      bookCopyId: 12,
+    },
+  ],
 }
 
 describe(`BookContainer`, () => {
@@ -26,6 +34,8 @@ describe(`BookContainer`, () => {
       `*/books/1`,
       BOOK_RESPONSE,
     )
+
+    cy.viewport(375, 768)
   })
 
   describe(`Initialization`, initializationTests)

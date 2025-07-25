@@ -28,7 +28,7 @@ describe(`Books Smoke`, () => {
       .should(`be.visible`)
 
     cy
-      .get(`.button`)
+      .get(`.actions__add-button > .button`)
       .click()
 
     cy

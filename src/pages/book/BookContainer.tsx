@@ -21,6 +21,23 @@ export const BookContainer = observer(() => {
 
       bookState.initialize({
         loadedBook: data,
+        mockBookCopies: [
+          {
+            bookCopyId: 11,
+          },
+          {
+            bookCopyId: 12,
+          },
+          {
+            bookCopyId: 13,
+          },
+          {
+            bookCopyId: 14,
+          },
+          {
+            bookCopyId: 15,
+          },
+        ],
       })
     }
 

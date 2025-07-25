@@ -70,6 +70,19 @@
       background-color: v.$color-background-component-accent-active;
     }
   }
+
+  &__outline {
+    border: 1px solid v.$color-border-primary;
+    background-color: v.$color-background-primary;
+
+    &:hover {
+      background-color: v.$color-background-component-tertiary-hover;
+    }
+
+    &:active {
+      background-color: v.$color-background-component-tertiary-active;
+    }
+  }
 }
 
 @keyframes rotation {

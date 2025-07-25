@@ -1,6 +1,7 @@
 import './BookContent.scss'
 
 import NoImage from "../../assets/img/no-image.png"
+import ViewQRIcon from "../../assets/icons/View-qr.svg?react"
 
 import { observer } from "mobx-react-lite"
 import { useContext } from 'react'
@@ -8,6 +9,7 @@ import { BookStateContext } from './state/BookStateStateContext'
 import { Button } from '../../components/button/Button'
 import { useImageValid } from '../../common/useImageValid'
 import clsx from 'clsx'
+import { ModalQRForm } from './components/modal-qr-form/ModalQRForm'
 
 export const BookContent = observer(() => {
   const {
@@ -39,6 +41,16 @@ export const BookContent = observer(() => {
           className={clsx(`book__cover`, { 
             'book__cover--no-image': !isValidUrl,
           })}
+        />
+
+        <Button
+          onClick={() => {}}
+          label={
+            <>
+              <ViewQRIcon /> View QR Code
+            </>
+          }
+          isOutline
         />
       </div>
 
@@ -87,6 +99,11 @@ export const BookContent = observer(() => {
           {annotation}
         </div>
       </div>
+
+      <ModalQRForm 
+        onPrint={() => {}}
+        onCloseModal={() => {}}
+      />
     </div>
   )
 })
