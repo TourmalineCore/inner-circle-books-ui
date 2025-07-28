@@ -99,11 +99,6 @@ export const BookContent = observer(() => {
           {annotation}
         </div>
       </div>
-
-      <ModalQRForm 
-        onPrint={() => {}}
-        onCloseModal={() => {}}
-      />
     </div>
   )
 })

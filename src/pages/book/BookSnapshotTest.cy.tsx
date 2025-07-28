@@ -62,10 +62,6 @@ function mountComponent() {
   })
 
   cy
-    .wrap(bookState)
-    .as(`toDosState`)
-
-  cy
     .mount(
       <BookStateContext.Provider value={bookState}>
         <BookContent/>

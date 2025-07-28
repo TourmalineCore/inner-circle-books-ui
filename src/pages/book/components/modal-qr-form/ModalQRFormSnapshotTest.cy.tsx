@@ -1,46 +1,171 @@
-// import { VIEWPORTS } from "../../../../common/constant"
+import { BookState } from "../../state/BookState"
+import { BookStateContext } from "../../state/BookStateStateContext"
+import { ModalQRForm } from "./ModalQRForm"
 
-// describe(`Modal QR Form Snapshot test`, () => {
-//   it(`Take the snapshot of a result`, () => {
-//     VIEWPORTS.forEach((viewport) => {
-//       cy.viewport(viewport.width, viewport.height)
+export const VIEWPORTS = [
+  {
+    width: 375,
+    height: 555,
+  },
+  {
+    width: 1024,
+    height: 612,
+  },
+  {
+    width: 1920,
+    height: 664,
+  },
+]
 
-//       cy.wrap(
-//         Cypress.automation(`remote:debugger:protocol`, {
-//           command: `Emulation.setDeviceMetricsOverride`,
-//           params: {
-//             width: viewport.width,
-//             height: viewport.height,
-//             deviceScaleFactor: 1,
-//             mobile: false,
-//           },
-//         }),
-//       )
+export const VIEWPORTS_FOR_ONE = [
+  {
+    width: 375,
+    height: 320,
+  },
+  {
+    width: 1920,
+    height: 324,
+  },
+]
 
-//       mountComponent()
+describe(`Modal QR Form Snapshot test`, () => {
+  it(`Take the snapshot of a result with several copies`, () => {
+    VIEWPORTS.forEach((viewport) => {
+      cy.viewport(viewport.width, viewport.height)
 
-//       cy
-//         .window()
-//         .then((win) => win.document.fonts.ready)
+      cy.wrap(
+        Cypress.automation(`remote:debugger:protocol`, {
+          command: `Emulation.setDeviceMetricsOverride`,
+          params: {
+            width: viewport.width,
+            height: viewport.height,
+            deviceScaleFactor: 1,
+            mobile: false,
+          },
+        }),
+      )
 
-//       cy
-//         .getByData(`modal-qr-form`)
-//         .compareSnapshot(`/${viewport.width}`, {
-//           capture: `viewport`,
-//         })
-//     })
-//   })
-// })
+      mountComponentForSeveralCopies()
 
-// function mountComponent() {
+      cy
+        .window()
+        .then((win) => win.document.fonts.ready)
 
-//   const BOOK = {
-//     title: `ChatGPT мастер подсказок или как создавать сильные промты  для нейросети`,
+      cy
+        .getByData(`modal-qr-form`)
+        .compareSnapshot(`/${viewport.width}`, {
+          capture: `viewport`,
+        })
+    })
+  })
 
-//   }
+  it(`Take the snapshot of a result with one copy`, () => {
+    VIEWPORTS_FOR_ONE.forEach((viewport) => {
+      cy.viewport(viewport.width, viewport.height)
 
-//   cy
-//     .mount(
-//       <BookContent />,
-//     )
-// }
+      cy.wrap(
+        Cypress.automation(`remote:debugger:protocol`, {
+          command: `Emulation.setDeviceMetricsOverride`,
+          params: {
+            width: viewport.width,
+            height: viewport.height,
+            deviceScaleFactor: 1,
+            mobile: false,
+          },
+        }),
+      )
+
+      mountComponentForOneCopy()
+
+      cy
+        .window()
+        .then((win) => win.document.fonts.ready)
+
+      cy
+        .getByData(`modal-qr-form`)
+        .compareSnapshot(`/one${viewport.width}`, {
+          capture: `viewport`,
+        })
+    })
+  })
+})
+
+function mountComponentForSeveralCopies() {
+  const bookState = new BookState()
+    
+  bookState.initialize({
+    loadedBook: {
+      id: 1,
+      title: `ChatGPT мастер подсказок или как создавать сильные промты  для нейросети`,
+      annotation: ``,
+      language: `ru`,
+      authors: [
+        {
+          fullName: ``,
+        },
+      ],
+      bookCoverUrl: ``,
+      bookCopies: [
+        {
+          bookCopyId: 11,
+        },
+        {
+          bookCopyId: 12,
+        },
+        {
+          bookCopyId: 13,
+        },
+        {
+          bookCopyId: 14,
+        },
+        {
+          bookCopyId: 15,
+        },
+      ],
+    },
+  })
+    
+  cy
+    .mount(
+      <BookStateContext.Provider value={bookState}>
+        <ModalQRForm
+          onPrint={() => {}}
+          onCloseModal={() => {}}
+        />,
+      </BookStateContext.Provider>,
+    )
+}
+
+function mountComponentForOneCopy() {
+  const bookState = new BookState()
+    
+  bookState.initialize({
+    loadedBook: {
+      id: 1,
+      title: `ChatGPT мастер подсказок или как создавать сильные промты  для нейросети`,
+      annotation: ``,
+      language: `ru`,
+      authors: [
+        {
+          fullName: ``,
+        },
+      ],
+      bookCoverUrl: ``,
+      bookCopies: [
+        {
+          bookCopyId: 11,
+        },
+      ],
+    },
+  })
+    
+  cy
+    .mount(
+      <BookStateContext.Provider value={bookState}>
+        <ModalQRForm
+          onPrint={() => {}}
+          onCloseModal={() => {}}
+        />,
+      </BookStateContext.Provider>,
+    )
+}

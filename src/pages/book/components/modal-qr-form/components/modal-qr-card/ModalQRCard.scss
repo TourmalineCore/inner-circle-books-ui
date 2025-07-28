@@ -4,12 +4,12 @@
 
 @mixin modal-qr-card-common {
   display: flex;
-  margin-bottom: 18px;
+  margin-bottom: 16px;
   border: 1px solid v.$color-component-border-active;
   border-radius: 8px;
   padding: 16px;
   width: 311px;
-  height: auto;
+  height: max-content;
   text-align: start;
   background-color: v.$color-background-modal;
   gap: 12px;
@@ -50,7 +50,7 @@
   &__title {
     @include f.subhead2;
 
-    width: 163px;
+    width: 162px;
   }
 
   @include m.tablet {
@@ -66,7 +66,7 @@
   &__title {
     @include f.subhead2;
 
-    width: 199px;
+    width: 200px;
   }
 
   @include m.tablet {

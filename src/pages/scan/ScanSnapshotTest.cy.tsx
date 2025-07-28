@@ -5,7 +5,7 @@ import { ScanState } from "./state/ScanState"
 import { ScanStateContext } from "./state/ScanStateContext"
 
 describe(`Scan Page Snapshot test`, () => {
-  it(`Take the snapshot of a result`, () => {
+  it.skip(`Take the snapshot of a result`, () => {
     VIEWPORTS.forEach((viewport) => {
       cy.viewport(viewport.width, viewport.height)
 

@@ -10,36 +10,7 @@ import { ModalQRCard } from './components/modal-qr-card/ModalQRCard'
 import { useContext } from 'react'
 import { BookStateContext } from '../../state/BookStateStateContext'
 import { observer } from 'mobx-react-lite'
-
-const MOCK_BOOK = {
-  id: 1,
-  title: `ChatGPT мастер подсказок или как создавать сильные промты  для нейросети`,
-  annotation: `annotation`,
-  language: `ru`,
-  authors: [
-    {
-      fullName: `authors`, 
-    },
-  ],
-  bookCoverUrl: ``,
-  bookCopies: [
-    {
-      bookCopyId: 11,
-    },
-    {
-      bookCopyId: 12,
-    },
-    {
-      bookCopyId: 13,
-    },
-    {
-      bookCopyId: 14,
-    },
-    {
-      bookCopyId: 15,
-    },
-  ],
-}
+import clsx from 'clsx'
 
 export const ModalQRForm = observer(({
   onPrint,
@@ -55,7 +26,9 @@ export const ModalQRForm = observer(({
       className="modal-qr-form"
       data-cy="modal-qr-form"
     >
-      <div className='modal-qr-form__content'>
+      <div className={clsx('modal-qr-form__content', {
+          'modal-qr-form__content--has-single-item': bookState.count === 1,
+      })}>
         <button
           type="button"
           className="modal-qr-form__close-button"
@@ -89,15 +62,17 @@ export const ModalQRForm = observer(({
           </button>
         }
 
-        <div className="modal-qr-form__cards">
+      <div className={clsx('modal-qr-form__cards', {
+          'modal-qr-form__cards--has-single-item': bookState.count === 1,
+      })}>
           {
-            MOCK_BOOK.bookCopies.map(({
+            bookState.book.bookCopies.map(({
               bookCopyId,
             }, index) => (
               <ModalQRCard
                 index={index + 1}
-                title={MOCK_BOOK.title}
-                bookId={MOCK_BOOK.id}
+                title={bookState.book.title}
+                bookId={bookState.book.id}
                 bookCopyId={bookCopyId}
               />
             ))

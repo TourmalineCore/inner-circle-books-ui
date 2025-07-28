@@ -64,10 +64,6 @@ describe(`Add Book Snapshot test`, () => {
 
 function mountComponent() {
   const addBookState = new AddBookState()
-  
-  cy
-    .wrap(addBookState)
-    .as(`addBookState`)
 
   cy
     .mount(
