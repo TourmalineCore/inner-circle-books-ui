@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { BrowserMultiFormatReader, DecodeHintType } from "@zxing/library"
 import { useMemo } from "react"
 import { DEFAULT_TIME_BETWEEN_DECODING_ATTEMPTS } from "./constants"

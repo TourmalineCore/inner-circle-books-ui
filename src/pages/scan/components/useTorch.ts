@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import {useCallback, useEffect, useRef, useState} from "react"
 
 interface UseTorchOptions {

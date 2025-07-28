@@ -26,8 +26,8 @@ export const ModalQRForm = observer(({
       className="modal-qr-form"
       data-cy="modal-qr-form"
     >
-      <div className={clsx('modal-qr-form__content', {
-          'modal-qr-form__content--has-single-item': bookState.count === 1,
+      <div className={clsx(`modal-qr-form__content`, {
+        'modal-qr-form__content--has-single-item': bookState.count === 1,
       })}>
         <button
           type="button"
@@ -62,9 +62,9 @@ export const ModalQRForm = observer(({
           </button>
         }
 
-      <div className={clsx('modal-qr-form__cards', {
+        <div className={clsx(`modal-qr-form__cards`, {
           'modal-qr-form__cards--has-single-item': bookState.count === 1,
-      })}>
+        })}>
           {
             bookState.book.bookCopies.map(({
               bookCopyId,
