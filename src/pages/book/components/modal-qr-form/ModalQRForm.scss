@@ -6,7 +6,8 @@
   position: fixed;
   left: 0;
   right: 0;
-  bottom: 56px;
+  bottom: 0;
+  margin-bottom: 56px; // because of mobile sidebar panel
   border-radius: 12px 12px 0 0;
   width: 100%;
   height: max-content;
@@ -106,6 +107,7 @@
     border-radius: 12px;
     width: max-content;
     animation: unset;
+    margin-bottom: 0;
   }
 
   &--closing {
