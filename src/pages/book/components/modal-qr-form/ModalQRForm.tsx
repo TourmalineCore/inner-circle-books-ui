@@ -11,6 +11,7 @@ import { useContext, useState } from 'react'
 import { BookStateContext } from '../../state/BookStateStateContext'
 import { observer } from 'mobx-react-lite'
 import clsx from 'clsx'
+import { useMediaQuery } from 'react-responsive'
 
 export const ModalQRForm = observer(({
   onPrint,
@@ -21,6 +22,10 @@ export const ModalQRForm = observer(({
 }) => {
   const bookState = useContext(BookStateContext)
 
+  const isMobile = useMediaQuery({
+    maxWidth: 767,
+  })
+
   const [
     isClosing,
     setIsClosing,
@@ -28,7 +33,14 @@ export const ModalQRForm = observer(({
 
   const handleClose = () => {
     setIsClosing(true)
-    setTimeout(onCloseModal, 400) // Close after end of animation
+    bookState.resetSelectedCopies()
+
+    if (isMobile) {
+      setTimeout(onCloseModal, 400) // Close after end of animation
+    }
+    else {
+      onCloseModal()
+    }
   }
   
   return (

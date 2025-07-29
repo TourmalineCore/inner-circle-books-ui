@@ -171,4 +171,20 @@ describe(`BookState`, () => {
     
     expect(bookState.areAllCopiesSelected).to.be.false
   })
+
+  it(`
+  GIVEN the BookState
+  WHEN resetSelectedCopies
+  SHOULD reset the selected copies to default state
+  `, () => {
+    bookState.resetSelectedCopies()
+
+    expect(bookState.areAllCopiesSelected).to.be.true
+    expect(bookState.isBookCopySelected({
+      bookCopyId: 1, 
+    })).to.be.true
+    expect(bookState.isBookCopySelected({
+      bookCopyId: 2, 
+    })).to.be.true
+  })
 })
