@@ -89,14 +89,6 @@ describe(`BookState`, () => {
   `, () => {
     expect(bookState.isBookCopySelected({
       bookCopyId: 1, 
-    })).to.be.false
-
-    bookState.toggleBookCopyChecked({
-      bookCopyId: 1, 
-    })
-
-    expect(bookState.isBookCopySelected({
-      bookCopyId: 1, 
     })).to.be.true
 
     bookState.toggleBookCopyChecked({
@@ -106,6 +98,14 @@ describe(`BookState`, () => {
     expect(bookState.isBookCopySelected({
       bookCopyId: 1, 
     })).to.be.false
+
+    bookState.toggleBookCopyChecked({
+      bookCopyId: 1, 
+    })
+
+    expect(bookState.isBookCopySelected({
+      bookCopyId: 1, 
+    })).to.be.true
   })
 
   it(`

@@ -40,9 +40,15 @@ export class BookState {
   }) {
     this._book = loadedBook
 
+    // TODO remove when fix request
     if (mockBookCopies) {
       this._book.bookCopies = mockBookCopies
     }
+
+    // Initialize all copies as selected
+    this._book.bookCopies.forEach(bookCopy => {
+      this._selectedCopies[bookCopy.bookCopyId] = true
+    })
   }
 
   get book() {
