@@ -104,10 +104,10 @@
 
   @include m.tablet {
     position: relative;
+    margin-bottom: 0;
     border-radius: 12px;
     width: max-content;
     animation: unset;
-    margin-bottom: 0;
   }
 
   &--closing {
