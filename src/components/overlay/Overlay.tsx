@@ -1,15 +1,15 @@
 import './Overlay.scss'
 
 import { ModalWindow } from '../../pages/add-book/components/modal-window/ModalWindow'
-// import { ModalQRForm } from '../../pages/book/components/modal-qr-form/ModalQRForm'
+import { ModalQRForm } from '../../pages/book/components/modal-qr-form/ModalQRForm'
 
 export const Overlay = ({
   onQuit,
-  // onPrint,
+  onPrint,
   onCloseModal,
 }: {
   onQuit?: () => unknown,
-  // onPrint?: () => unknown,
+  onPrint?: () => unknown,
   onCloseModal: () => unknown,
 }) => (
   <div className="overlay">
@@ -21,13 +21,13 @@ export const Overlay = ({
         />
       )
     }
-    {/* {
+    {
       onPrint && (
         <ModalQRForm
           onPrint={onPrint}
-          // onCloseModal={onCloseModal}
+          onCloseModal={onCloseModal}
         />
       )
-    } */}
+    }
   </div>
 )

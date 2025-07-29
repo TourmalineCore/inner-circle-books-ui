@@ -7,7 +7,7 @@ import CheckboxOffIcon from '../../../../assets/icons/Checkbox-off.svg?react'
 
 import { Button } from '../../../../components/button/Button'
 import { ModalQRCard } from './components/modal-qr-card/ModalQRCard'
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { BookStateContext } from '../../state/BookStateStateContext'
 import { observer } from 'mobx-react-lite'
 import clsx from 'clsx'
@@ -21,9 +21,21 @@ export const ModalQRForm = observer(({
 }) => {
   const bookState = useContext(BookStateContext)
 
+  const [
+    isClosing,
+    setIsClosing,
+  ] = useState(false)
+
+  const handleClose = () => {
+    setIsClosing(true)
+    setTimeout(onCloseModal, 400) // Close after end of animation
+  }
+  
   return (
     <div 
-      className="modal-qr-form"
+      className={clsx(`modal-qr-form`, {
+        'modal-qr-form--closing': isClosing,
+      })}
       data-cy="modal-qr-form"
     >
       <div className={clsx(`modal-qr-form__content`, {
@@ -32,7 +44,7 @@ export const ModalQRForm = observer(({
         <button
           type="button"
           className="modal-qr-form__close-button"
-          onClick={onCloseModal}
+          onClick={handleClose}
         >
           <CancelIcon />
         </button>
