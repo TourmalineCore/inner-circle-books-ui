@@ -30,14 +30,14 @@ export const VIEWPORTS_FOR_ONE = [
 
 describe(`Modal QR Form Snapshot test`, () => {
   beforeEach(() => {
-    const style = document.createElement('style');
+    const style = document.createElement(`style`)
     style.innerHTML = `
       .modal-qr-form {
         margin-bottom: 0 !important;
       }
-    `;
-    document.head.appendChild(style);
-  });
+    `
+    document.head.appendChild(style)
+  })
 
   it(`Take the snapshot of a result with several copies`, () => {
     VIEWPORTS.forEach((viewport) => {
