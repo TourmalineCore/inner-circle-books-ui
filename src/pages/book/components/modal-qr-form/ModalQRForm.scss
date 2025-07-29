@@ -100,11 +100,8 @@
   }
 
   @include m.tablet {
-    position: fixed;
-    left: 50%;
-    top: 50%;
+    position: relative;
     border-radius: 12px;
-    transform: translate(-50%, -50%);
   }
 
   &--closing {
