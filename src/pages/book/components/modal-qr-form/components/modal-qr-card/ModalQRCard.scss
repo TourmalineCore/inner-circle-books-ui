@@ -8,7 +8,7 @@
   border: 1px solid v.$color-component-border-active;
   border-radius: 8px;
   padding: 16px;
-  width: 311px;
+  width: 100%;
   height: max-content;
   text-align: start;
   background-color: v.$color-background-modal;
@@ -16,6 +16,8 @@
 
   &__content {
     display: flex;
+    justify-content: space-between;
+    width: 100%;
     gap: 16px;
   }
 
@@ -37,20 +39,24 @@
     background-color: v.$color-background-modal;
   }
 
+  &__title {
+    @include f.subhead2;
+
+    width: 100%;
+  }
+
   @include m.tablet {
     width: 386px;
   }
 }
 
 .modal-qr-card {
-  cursor: pointer;
-
   @include modal-qr-card-common;
 
-  &__title {
-    @include f.subhead2;
+  cursor: pointer;
 
-    width: 162px;
+  &__title {
+    min-width: 162px;
   }
 
   @include m.tablet {
@@ -64,9 +70,7 @@
   @include modal-qr-card-common;
 
   &__title {
-    @include f.subhead2;
-
-    width: 200px;
+    min-width: 200px;
   }
 
   @include m.tablet {
