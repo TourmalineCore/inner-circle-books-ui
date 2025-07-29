@@ -64,12 +64,13 @@ describe(`Books Smoke`, () => {
       .click()
 
     cy
-      .getByData(`books-list`)
-      .children()
+      .get(`[data-cy=book-card]`)
+      .filter((_, element) => {
+        return Cypress.$(element)
+          .text()
+          .includes(`[E2E-SMOKE] Новая книга`)
+      })
       .should(`have.length`, 1)
-
-    cy
-      .getByData(`book-card`)
       .click()
 
     cy
