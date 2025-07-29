@@ -11,3 +11,7 @@
   background-color: v.$color-background-overlay;
   inset: 0;
 }
+
+body.overlay-open {
+  overflow: hidden; // disable scrolling
+}
