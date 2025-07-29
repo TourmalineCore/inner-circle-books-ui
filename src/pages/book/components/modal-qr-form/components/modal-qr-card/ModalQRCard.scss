@@ -43,9 +43,9 @@
 }
 
 .modal-qr-card {
-  @include modal-qr-card-common;
-
   cursor: pointer;
+
+  @include modal-qr-card-common;
 
   &__title {
     @include f.subhead2;
