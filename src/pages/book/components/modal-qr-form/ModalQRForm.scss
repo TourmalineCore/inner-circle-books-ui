@@ -102,6 +102,11 @@
   @include m.tablet {
     position: relative;
     border-radius: 12px;
+    animation: unset;
+
+    &--closing {
+      animation: unset;
+    }
   }
 
   &--closing {
