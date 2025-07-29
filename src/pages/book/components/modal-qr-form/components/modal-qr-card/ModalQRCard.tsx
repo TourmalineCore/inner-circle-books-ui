@@ -9,6 +9,7 @@ import QRCode from "react-qr-code"
 import { observer } from 'mobx-react-lite'
 import { useContext } from 'react'
 import { BookStateContext } from '../../../../state/BookStateStateContext'
+import clsx from 'clsx'
 
 export const ModalQRCard = observer(({
   index,
@@ -28,7 +29,11 @@ export const ModalQRCard = observer(({
       <button
         type="button"
         key={index}
-        className="modal-qr-card"
+        className={clsx(`modal-qr-card`, { 
+          'modal-qr-card--selected': bookState.isBookCopySelected({
+            bookCopyId, 
+          }),
+        })}
         onClick={() => bookState.toggleBookCopyChecked({
           bookCopyId,
         })}

@@ -5,7 +5,7 @@
 @mixin modal-qr-card-common {
   display: flex;
   margin-bottom: 16px;
-  border: 1px solid v.$color-component-border-active;
+  border: 1px solid v.$color-component-border;
   border-radius: 8px;
   padding: 16px;
   width: 100%;
@@ -59,9 +59,21 @@
     min-width: 162px;
   }
 
+  &:hover {
+    border: 1px solid v.$color-component-border-hover;
+  }
+
   @include m.tablet {
     &__title {
       width: 238px;
+    }
+  }
+
+  &--selected {
+    border: 1px solid v.$color-component-border-active;
+
+    &:hover {
+      border: 1px solid v.$color-component-border-active;
     }
   }
 }
