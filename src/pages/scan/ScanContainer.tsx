@@ -1,25 +1,26 @@
 import { observer } from "mobx-react-lite"
 import { ScanStateContext } from "./state/ScanStateContext"
 import { useContext, useEffect } from "react"
-import { CameraScanner } from "./components/CameraScanner"
+import { ScanContent } from "./ScanContent"
 
 export const ScanContainer = observer(() => {
   const scanState = useContext(ScanStateContext)
 
   useEffect(() => {
-    scanState.getInfoScan(null)
+    scanState.resetScanUrl()
   }, [])
 
   return (
-    <CameraScanner
-      getInfoScanLoad={getInfoScanLoad}
-      scanUrlState={scanState}
-    />
-
+    <ScanContent onUrlDetected={navigateToDetectedUrl} />
   )
-  async function getInfoScanLoad(results: string) {
-    if (results) {
-      window.location.href =(`${results}`)
-    }
-  }
 })
+
+async function navigateToDetectedUrl({
+  url,
+}: {
+    url: string,
+  }) {
+  if (url) {
+    window.location.href = url
+  }
+}

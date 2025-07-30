@@ -4,18 +4,20 @@ import { ScanState } from "./state/ScanState"
 import { ScanStateContext } from "./state/ScanStateContext"
 
 describe(`ScanContainer`, () => {
-
   describe(`Initialization`, initializationTests)
 })
 
 function initializationTests() {
   it(`
-  GIVEN scan data from network
+  GIVEN scan page
   WHEN render the component
   SHOULD see it
   `, () => {
     mountComponent()
-   
+
+    cy
+      .getByData(`scan`)
+      .should(`exist`)
   })
 }
 
@@ -26,7 +28,7 @@ function mountComponent() {
     .mount(
       <MemoryRouter 
         initialEntries={[
-          `/scans/1`,
+          `/scan`,
         ]}>
         <ScanStateContext.Provider value={scanState}>
           <ScanContainer />

@@ -5,7 +5,7 @@ import ScanIcon from '../../../../assets/icons/Scan.svg?react'
 
 import { observer } from "mobx-react-lite"
 import { Button } from '../../../../components/button/Button'
-import { addBookRoutes, scanQRRoutes } from '../../../routes'
+import { addBookRoutes, scanRoutes } from '../../../routes'
 import { useMediaQuery } from 'react-responsive'
 
 export const Actions = observer(() => {
@@ -21,7 +21,7 @@ export const Actions = observer(() => {
     <div className='actions'>
       <div className='actions__scan-button'>
         <Button
-          onClick={() => window.location.href = scanQRRoutes[0].path}
+          onClick={() => window.location.href = scanRoutes[0].path}
           label={
             isScanButtonMobile 
               ? (

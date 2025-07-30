@@ -3,5 +3,8 @@
 @use "../../styles/fonts-mixin" as f;
 
 .scan {
-
+  &__video {
+    display: block;
+    width: 100%;
+  }
 }

@@ -1,11 +1,14 @@
-import {DecodeContinuouslyCallback,
-  DecodeHintType,
-  Result} from "@zxing/library"
-import {useCallback, useEffect, useRef, useState} from "react"
-import { DEFAULT_CONSTRAINTS } from "./constants"
+import { DecodeContinuouslyCallback, DecodeHintType, Result} from "@zxing/library"
+import { useCallback, useEffect, useRef, useState } from "react"
 import { useBrowserMultiFormatReader } from "./useBrowserMultiFormatReader"
 import { useTorch } from "./useTorch"
-import { deepCompareObjects } from "./utils"
+
+const DEFAULT_CONSTRAINTS: MediaStreamConstraints = {
+  audio: false,
+  video: {
+    facingMode: `environment`, 
+  },
+}
 
 export interface UseZxingOptions {
   paused?: boolean,
@@ -39,15 +42,18 @@ export const useZxing = (
     onResult = () => {},
     onError = () => {},
   } = options
+
   const deviceId = isUseZxingOptionsWithDeviceId(options)
     ? options.deviceId
     : undefined
+
   const [
     constraints,
     setConstraints,
-  ] = useState(
-    isUseZxingOptionsWithDeviceId(options) ? undefined : options.constraints,
-  )
+  ] = useState(isUseZxingOptionsWithDeviceId(options) 
+    ? undefined 
+    : options.constraints)
+
   const resultHandlerRef = useRef(onResult)
   const errorHandlerRef = useRef(onError)
   const ref = useRef<HTMLVideoElement>(null)
@@ -58,7 +64,8 @@ export const useZxing = (
   })
 
   const {
-    init: torchInit, ...torch 
+    init: torchInit, 
+    ...torch 
   } = useTorch({
     resetStream: async () => {
       stopDecoding()
@@ -118,10 +125,8 @@ export const useZxing = (
   ])
 
   useEffect(() => {
-    const isConstraintsValueSame = deepCompareObjects(
-      constraints,
-      (options as UseZxingOptionsWithConstraints).constraints,
-    )
+    const isConstraintsValueSame = JSON.stringify(constraints) === JSON.stringify((options as UseZxingOptionsWithConstraints).constraints)
+    
     if (!isConstraintsValueSame) {
       setConstraints((options as UseZxingOptionsWithConstraints).constraints)
     }

@@ -29,10 +29,10 @@ export const bookRoutes = [
   },
 ]
 
-export const scanQRRoutes = [
+export const scanRoutes = [
   {
     path: `${DEFAULT_PATH}/scan`,
-    breadcrumb: `Scan QR`,
+    breadcrumb: `Scanning QR Code`,
     Component: ScanPage,
   },
 ]

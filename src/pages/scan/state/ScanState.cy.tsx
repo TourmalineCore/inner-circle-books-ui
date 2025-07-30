@@ -1,5 +1,7 @@
 import { ScanState } from "./ScanState"
 
+const scanState = new ScanState()
+    
 describe(`ScanState`, () => {
   describe(`Initialization`, initializationTests)
   describe(`Set and Get`, setAndGetTests)
@@ -11,8 +13,6 @@ function initializationTests() {
   WHEN get scanUrl
   SHOULD return null
   `, () => {
-    const scanState = new ScanState()
-
     expect(scanState.scanUrl).to.equal(null)
   })
 }
@@ -20,26 +20,22 @@ function initializationTests() {
 function setAndGetTests() {
   it(`
   GIVEN ScanState
-  WHEN call getInfoScan with a URL
+  WHEN call setScanUrl with a URL
   SHOULD update scanUrl
   `, () => {
-    const scanState = new ScanState()
+    scanState.setScanUrl({
+      url: `http://example.com`,
+    })
 
-    scanState.getInfoScan(`http://example.com/scan.png`)
-
-    expect(scanState.scanUrl).to.equal(`http://example.com/scan.png`)
+    expect(scanState.scanUrl).to.equal(`http://example.com`)
   })
 
   it(`
   GIVEN ScanState with a URL
-  WHEN call getInfoScan with null
+  WHEN call resetScanUrl
   SHOULD reset scanUrl to null
   `, () => {
-    
-    const scanState = new ScanState()
-
-    scanState.getInfoScan(`http://example.com/scan.png`)
-    scanState.getInfoScan(null)
+    scanState.resetScanUrl()
 
     expect(scanState.scanUrl).to.equal(null)
   })

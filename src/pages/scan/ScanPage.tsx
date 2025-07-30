@@ -11,7 +11,7 @@ export function ScanPage() {
 
   return (
     <ScanStateContext.Provider value={scanState}>
-      <ScanContainer data-cy="scan"/>
+      <ScanContainer />
     </ScanStateContext.Provider>
   )
 }

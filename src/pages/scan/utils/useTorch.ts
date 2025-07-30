@@ -1,20 +1,20 @@
 import {useCallback, useEffect, useRef, useState} from "react"
 
-interface UseTorchOptions {
-  resetStream: () => void,
-}
-
 export const useTorch = ({
   resetStream, 
-}: UseTorchOptions) => {
+}: {
+  resetStream: () => unknown,
+}) => {
   const [
     isOn,
     setIsOn,
   ] = useState(false)
+
   const [
     isAvailable,
     setIsAvailable,
   ] = useState<boolean | null>(null)
+
   const videoTrackRef = useRef<MediaStreamTrack | null>(null)
   const resetStreamRef = useRef(resetStream)
 
@@ -29,11 +29,12 @@ export const useTorch = ({
 
   const on = useCallback(async () => {
     if (!videoTrackRef.current || !isAvailable) return
+
     await videoTrackRef.current.applyConstraints({
       advanced: [
-{
-  torch: true, 
-} as any,
+        {
+          torch: true, 
+        } as any,
       ],
     })
     setIsOn(true)

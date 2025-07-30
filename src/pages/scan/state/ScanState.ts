@@ -11,7 +11,15 @@ export class ScanState {
     return this._scanUrl
   }
 
-  getInfoScan(info: string | null) {
-    this._scanUrl = info
+  setScanUrl({
+    url,
+  }: {
+    url: string,
+  }) {
+    this._scanUrl = url
+  }
+
+  resetScanUrl() {
+    this._scanUrl = null
   }
 }
