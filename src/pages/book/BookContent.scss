@@ -70,6 +70,7 @@
   &__cover,
   &__cover--no-image {
     display: block;
+    margin-bottom: 16px;
     border: 1px solid v.$color-component-border;
     border-radius: 8px;
     width: 100%;

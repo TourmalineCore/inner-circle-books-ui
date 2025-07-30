@@ -3,7 +3,7 @@ import { BookContainer } from "./BookContainer"
 import { BookState } from "./state/BookState"
 import { BookStateContext } from "./state/BookStateStateContext"
 
-const BOOK_RESPONSE = {
+const BOOK_RESPONSE: BookType = {
   id: 1,
   title: `Разработка ценностных предложений`,
   annotation: `Аннотация`,
@@ -17,6 +17,14 @@ const BOOK_RESPONSE = {
     },
   ],
   bookCoverUrl: ``,
+  bookCopies: [
+    {
+      bookCopyId: 14,
+    },
+    {
+      bookCopyId: 15,
+    },
+  ],
 }
 
 describe(`BookContainer`, () => {
@@ -26,6 +34,8 @@ describe(`BookContainer`, () => {
       `*/books/1`,
       BOOK_RESPONSE,
     )
+
+    cy.viewport(1024, 768)
   })
 
   describe(`Initialization`, initializationTests)
@@ -44,6 +54,21 @@ function initializationTests() {
     cy.contains(`Russian`)
     cy.contains(`Алекс Остервальдер`)
     cy.contains(`Сергей Николенко`)
+    cy.contains(`2`)
+  })
+
+  it(`
+  GIVEN book data from network
+  WHEN the "View QR Code" button is clicked
+  SHOULD open the overlay modal
+  `, () => {
+    mountComponent()
+
+    cy.contains(`View QR Code`)
+      .click()
+
+    cy.getByData(`modal-qr-form`)
+      .should(`be.visible`)
   })
 }
 

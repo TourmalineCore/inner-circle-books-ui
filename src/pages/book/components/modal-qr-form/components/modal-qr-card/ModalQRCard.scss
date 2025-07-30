@@ -1,0 +1,93 @@
+@use "../../../../../../styles/media" as m;
+@use "../../../../../../styles/variables" as v;
+@use "../../../../../../styles/fonts-mixin" as f;
+
+@mixin modal-qr-card-common {
+  display: flex;
+  margin-bottom: 16px;
+  border: 1px solid v.$color-component-border;
+  border-radius: 8px;
+  padding: 16px;
+  width: 100%;
+  height: max-content;
+  text-align: start;
+  background-color: v.$color-background-modal;
+  gap: 12px;
+
+  &__content {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    gap: 16px;
+  }
+
+  &__copy-text {
+    @include f.subhead1-medium;
+
+    white-space: nowrap;
+  }
+
+  &__qr-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  &__qr {
+    width: 64px;
+    height: 64px;
+    background-color: v.$color-background-modal;
+  }
+
+  &__title {
+    @include f.subhead2;
+
+    width: 100%;
+  }
+
+  @include m.tablet {
+    width: 386px;
+  }
+}
+
+.modal-qr-card {
+  @include modal-qr-card-common;
+
+  cursor: pointer;
+
+  &__title {
+    min-width: 162px;
+  }
+
+  &:hover {
+    border: 1px solid v.$color-component-border-hover;
+  }
+
+  @include m.tablet {
+    &__title {
+      width: 238px;
+    }
+  }
+
+  &--selected {
+    border: 1px solid v.$color-component-border-active;
+
+    &:hover {
+      border: 1px solid v.$color-component-border-active;
+    }
+  }
+}
+
+.modal-qr-card-without-checkbox {
+  @include modal-qr-card-common;
+
+  &__title {
+    min-width: 200px;
+  }
+
+  @include m.tablet {
+    &__title {
+      width: 274px;
+    }
+  }
+}

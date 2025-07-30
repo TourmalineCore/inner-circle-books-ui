@@ -10,6 +10,7 @@ export const Button = ({
   isDisable = false,
   isLoader = false,
   isMobile = false,
+  isOutline = false,
 }: {
   onClick: () => unknown,
   className?: string, 
@@ -18,17 +19,17 @@ export const Button = ({
   isDisable?: boolean,
   isLoader?: boolean,
   isMobile?: boolean,
+  isOutline?: boolean,
 }) => (
   <button 
     type="button"
     onClick={onClick} 
     className={clsx(`button`, className, {
-      [isAccent 
-        ? `button__accent` 
-        : `button__secondary`
-      ]: true,
+      'button__accent': isAccent === true,
+      'button__secondary': isAccent === false,
       'button__disable': isDisable,
       'button__mobile': isMobile,
+      'button__outline': isOutline,
     })}
     disabled={isDisable}
   >
