@@ -12,8 +12,10 @@ import { useImageValid } from '../../common/useImageValid'
 import { Overlay } from '../../components/overlay/Overlay'
 
 export const BookContent = observer(() => {
-  const bookState = useContext(BookStateContext);
-  const { book } = bookState;
+  const bookState = useContext(BookStateContext)
+  const {
+    book, 
+  } = bookState 
 
   const {
     title,
