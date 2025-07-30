@@ -12,9 +12,8 @@ import { useImageValid } from '../../common/useImageValid'
 import { Overlay } from '../../components/overlay/Overlay'
 
 export const BookContent = observer(() => {
-  const {
-    book,
-  } = useContext(BookStateContext)
+  const bookState = useContext(BookStateContext);
+  const { book } = bookState;
 
   const {
     title,
@@ -22,7 +21,6 @@ export const BookContent = observer(() => {
     language,
     authors,
     bookCoverUrl,
-    bookCopies,
   } = book
 
   const isValidUrl = useImageValid(bookCoverUrl)
@@ -96,7 +94,7 @@ export const BookContent = observer(() => {
                 Number of Copies
                 <span className='book__value'>
                   {
-                    bookCopies.length
+                    bookState.count
                   }
                 </span>
               </li>

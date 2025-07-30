@@ -57,6 +57,9 @@ function mountComponent() {
         {
           bookCopyId: 1,
         },
+        {
+          bookCopyId: 2,
+        },
       ],
     },
   })
