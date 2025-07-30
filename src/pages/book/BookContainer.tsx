@@ -23,15 +23,6 @@ export const BookContainer = observer(() => {
         loadedBook: data,
         mockBookCopies: [
           {
-            bookCopyId: 11,
-          },
-          {
-            bookCopyId: 12,
-          },
-          {
-            bookCopyId: 13,
-          },
-          {
             bookCopyId: 14,
           },
           {

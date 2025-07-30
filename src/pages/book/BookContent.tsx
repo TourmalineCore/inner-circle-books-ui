@@ -22,6 +22,7 @@ export const BookContent = observer(() => {
     language,
     authors,
     bookCoverUrl,
+    bookCopies,
   } = book
 
   const isValidUrl = useImageValid(bookCoverUrl)
@@ -87,6 +88,15 @@ export const BookContent = observer(() => {
                     authors
                       .map(author => author.fullName)
                       .join(`, `)
+                  }
+                </span>
+              </li>
+
+              <li className='book__field'>
+                Number of Copies
+                <span className='book__value'>
+                  {
+                    bookCopies.length
                   }
                 </span>
               </li>

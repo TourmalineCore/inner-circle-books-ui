@@ -104,8 +104,10 @@ export class BookState {
   resetSelectedCopies() {
     this._selectedCopies = {}
 
-    this._book.bookCopies.forEach((bookCopy) => {
-      this._selectedCopies[bookCopy.bookCopyId] = true
-    })
+    this._book
+      .bookCopies
+      .forEach((bookCopy) => {
+        this._selectedCopies[bookCopy.bookCopyId] = true
+      })
   }
 }

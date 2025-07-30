@@ -16,11 +16,17 @@ export const Overlay = ({
 
   useEffect(() => {
     // Add class to body when overlay is opened for add style to disable scroll under overlay
-    document.body.classList.add(`overlay-open`)
+    document
+      .body
+      .classList
+      .add(`overlay-open`)
 
     // Remove class from body when component unmounts
     return () => {
-      document.body.classList.remove(`overlay-open`)
+      document
+        .body
+        .classList
+        .remove(`overlay-open`)
     }
   }, [])
 
