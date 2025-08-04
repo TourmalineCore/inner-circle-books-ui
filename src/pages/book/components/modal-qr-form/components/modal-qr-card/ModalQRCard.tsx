@@ -31,11 +31,11 @@ export const ModalQRCard = observer(({
         key={index}
         className={clsx(`modal-qr-card`, { 
           'modal-qr-card--selected': bookState.isBookCopySelected({
-            bookCopyId, 
+            id: bookCopyId, 
           }),
         })}
         onClick={() => bookState.toggleBookCopyChecked({
-          bookCopyId,
+          id: bookCopyId,
         })}
       >
         <div
@@ -43,7 +43,7 @@ export const ModalQRCard = observer(({
         >
           {
             bookState.isBookCopySelected({
-              bookCopyId,
+              id: bookCopyId,
             }) 
               ? <CheckboxOnIcon /> 
               : <CheckboxOffIcon />

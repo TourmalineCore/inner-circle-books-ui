@@ -25,7 +25,7 @@ export const BooksList = observer(({
                   title,
                   language,
                   authors,
-                  bookCoverUrl,
+                  coverUrl,
                 }) => (
                   <li key={id}>
                     <a 
@@ -36,7 +36,7 @@ export const BooksList = observer(({
                         title={title}
                         language={language}
                         authors={authors}
-                        bookCoverUrl={bookCoverUrl}
+                        coverUrl={coverUrl}
                       />
                     </a>
                   </li>

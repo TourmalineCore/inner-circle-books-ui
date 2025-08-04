@@ -10,11 +10,9 @@ const EMPTY_BOOK: BookType = {
       fullName: ``, 
     },
   ],
-  bookCoverUrl: ``,
-  bookCopies: [
-    {
-      bookCopyId: 1,
-    },
+  coverUrl: ``,
+  copiesIds: [
+    1,
   ],
 }
 
@@ -33,22 +31,17 @@ export class BookState {
 
   initialize({
     loadedBook,
-    mockBookCopies,
   }: {
     loadedBook: BookType,
-    mockBookCopies?: BookCopyType[],
   }) {
     this._book = loadedBook
 
-    // TODO remove when fix request
-    if (mockBookCopies) {
-      this._book.bookCopies = mockBookCopies
-    }
-
     // Initialize all copies as selected
-    this._book.bookCopies.forEach(bookCopy => {
-      this._selectedCopies[bookCopy.bookCopyId] = true
-    })
+    this._book
+      .copiesIds
+      .forEach((bookCopyId) => {
+        this._selectedCopies[bookCopyId] = true
+      })
   }
 
   get book() {
@@ -57,24 +50,24 @@ export class BookState {
 
   get count() {
     return this._book
-      .bookCopies
+      .copiesIds
       .length
   }
 
   get areAllCopiesSelected() {
     return this._book
-      .bookCopies
-      .every(bookCopy =>
-        this._selectedCopies[bookCopy.bookCopyId] === true, 
+      .copiesIds
+      .every((bookCopyId) =>
+        this._selectedCopies[bookCopyId] === true, 
       )
   }
 
   toggleBookCopyChecked({
-    bookCopyId,
+    id,
   }: {
-    bookCopyId: number,
+    id: number,
   }) {
-    this._selectedCopies[bookCopyId] = !this._selectedCopies[bookCopyId]
+    this._selectedCopies[id] = !this._selectedCopies[id]
   }
 
   toggleSelectAllCopies({
@@ -86,28 +79,28 @@ export class BookState {
 
     if (checked) {
       this._book
-        .bookCopies
-        .forEach(bookCopy => {
-          this._selectedCopies[bookCopy.bookCopyId] = true
+        .copiesIds
+        .forEach((bookCopyId) => {
+          this._selectedCopies[bookCopyId] = true
         })
     }
   }
 
   isBookCopySelected({
-    bookCopyId,
+    id,
   }: {
-    bookCopyId: number,
+    id: number,
   }) {
-    return !!this._selectedCopies[bookCopyId]
+    return !!this._selectedCopies[id]
   }
 
   resetSelectedCopies() {
     this._selectedCopies = {}
 
     this._book
-      .bookCopies
-      .forEach((bookCopy) => {
-        this._selectedCopies[bookCopy.bookCopyId] = true
+      .copiesIds
+      .forEach((bookCopyId) => {
+        this._selectedCopies[bookCopyId] = true
       })
   }
 }

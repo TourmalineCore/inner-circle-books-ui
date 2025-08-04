@@ -22,10 +22,10 @@ export const BookContent = observer(() => {
     annotation,
     language,
     authors,
-    bookCoverUrl,
+    coverUrl,
   } = book
 
-  const isValidUrl = useImageValid(bookCoverUrl)
+  const isValidUrl = useImageValid(coverUrl)
 
   const [
     showModal,
@@ -54,7 +54,7 @@ export const BookContent = observer(() => {
         <div className='book__left'>
           <img
             src={isValidUrl 
-              ? bookCoverUrl 
+              ? coverUrl 
               : NoImage
             }
             alt="Preview"

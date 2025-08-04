@@ -9,7 +9,7 @@ export const BookCard = observer(({
   title,
   language,
   authors,
-  bookCoverUrl,
+  coverUrl,
 }: BookCardType) => {
   const firstAuthor = authors[0]?.fullName
   const suffix = authors.length > 1 
@@ -19,7 +19,7 @@ export const BookCard = observer(({
         : `and etc.`
     ) 
     : ``
-  const isValidUrl = useImageValid(bookCoverUrl)
+  const isValidUrl = useImageValid(coverUrl)
 
   return (
     <div
@@ -28,7 +28,7 @@ export const BookCard = observer(({
     >
       <img
         src={isValidUrl 
-          ? bookCoverUrl 
+          ? coverUrl 
           : NoImage
         }
         alt={title}

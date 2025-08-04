@@ -11,7 +11,8 @@ const BOOK = {
       fullName: `Алекс Остервальдер`, 
     },
   ],
-  bookCoverUrl: `https://book.jpg`,
+  coverUrl: `https://book.jpg`,
+  countOfCopies: 2,
 }
       
 describe(`AddBookContainer`, () => {
@@ -46,6 +47,10 @@ function addBookFlowTests() {
     cy
       .getByData(`add-book-annotation`)
       .type(`Аннотация`)
+
+    cy
+      .getByData(`add-book-counter`)
+      .type(`2`)
 
     cy
       .get(`.dynamic-input-list`)

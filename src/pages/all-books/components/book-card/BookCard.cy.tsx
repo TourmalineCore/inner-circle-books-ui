@@ -17,7 +17,7 @@ function imagesTest() {
           fullName: `Александр Остервальдер`,
         },
       ],
-      bookCoverUrl: ``,
+      coverUrl: ``,
     })
 
     cy
@@ -37,7 +37,7 @@ function imagesTest() {
           fullName: `Александр Остервальдер`,
         },
       ],
-      bookCoverUrl: `https://book.jpg`,
+      coverUrl: `https://book.jpg`,
     })
 
     cy
@@ -108,7 +108,7 @@ function mountComponent({
   title = `Test Title`,
   language = `ru`,
   authors,
-  bookCoverUrl = ``,
+  coverUrl = ``,
 }: Partial<BookCardType> & { 
   authors: BookCardType["authors"], 
   language?: BookCardType["language"], 
@@ -120,7 +120,7 @@ function mountComponent({
         title={title}
         language={language}
         authors={authors}
-        bookCoverUrl={bookCoverUrl}
+        coverUrl={coverUrl}
       />,
     )
 }

@@ -26,10 +26,10 @@ export const AddBookContent = observer(({
   const {
     title,
     annotation,
-    count,
+    countOfCopies,
     language,
     authors,
-    bookCoverUrl,
+    coverUrl,
   } = addBookState.book
   
   const [
@@ -99,11 +99,11 @@ export const AddBookContent = observer(({
             <CounterInput
               data-cy="add-book-counter"
               label="Number of Copies*"
-              value={count}
+              value={countOfCopies}
               onChange={({
-                count,
+                countOfCopies,
               }) => addBookState.setCount({
-                count,
+                countOfCopies,
               })}
             />
 
@@ -178,11 +178,11 @@ export const AddBookContent = observer(({
           <ImagePreviewInput
             data-cy="add-book-cover"
             label="Book Cover"
-            url={bookCoverUrl}
+            url={coverUrl}
             onChange={({
-              bookCoverUrl,
+              coverUrl,
             }) => addBookState.setBookCoverUrl({
-              bookCoverUrl,
+              coverUrl,
             })}
           />
         </div>

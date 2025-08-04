@@ -114,23 +114,13 @@ function mountComponentForSeveralCopies() {
           fullName: ``,
         },
       ],
-      bookCoverUrl: ``,
-      bookCopies: [
-        {
-          bookCopyId: 11,
-        },
-        {
-          bookCopyId: 12,
-        },
-        {
-          bookCopyId: 13,
-        },
-        {
-          bookCopyId: 14,
-        },
-        {
-          bookCopyId: 15,
-        },
+      coverUrl: ``,
+      copiesIds: [
+        11,
+        12,
+        13,
+        14,
+        15,
       ],
     },
   })
@@ -160,11 +150,9 @@ function mountComponentForOneCopy() {
           fullName: ``,
         },
       ],
-      bookCoverUrl: ``,
-      bookCopies: [
-        {
-          bookCopyId: 11,
-        },
+      coverUrl: ``,
+      copiesIds: [
+        11,
       ],
     },
   })

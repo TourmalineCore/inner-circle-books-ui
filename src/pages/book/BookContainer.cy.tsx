@@ -16,14 +16,10 @@ const BOOK_RESPONSE: BookType = {
       fullName: `Сергей Николенко`,
     },
   ],
-  bookCoverUrl: ``,
-  bookCopies: [
-    {
-      bookCopyId: 14,
-    },
-    {
-      bookCopyId: 15,
-    },
+  coverUrl: ``,
+  copiesIds: [
+    14,
+    15,
   ],
 }
 

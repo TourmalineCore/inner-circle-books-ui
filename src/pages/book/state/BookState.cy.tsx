@@ -1,8 +1,13 @@
 import { BookState } from './BookState'
 
-const bookState = new BookState()
-
 describe(`BookState`, () => {
+  describe(`Initialization`, initializationTests)
+  describe(`Book Data`, bookDataTests)
+})
+
+function initializationTests() {
+  const bookState = new BookState()
+  
   it(`
   GIVEN a BookState
   WHEN initialize
@@ -17,19 +22,19 @@ describe(`BookState`, () => {
         fullName: ``, 
       },
     ])
-    expect(bookState.book.bookCoverUrl).to.eq(``)
-    expect(bookState.book.bookCopies).to.deep.eq([
-      {
-        bookCopyId: 1,
-      },
+    expect(bookState.book.coverUrl).to.eq(``)
+    expect(bookState.book.copiesIds).to.deep.eq([
+      1,
     ])
   })
+}
 
-  it(`
-  GIVEN the BookState
-  WHEN set book data
-  SHOULD reflect new values in the book object
-  `, () => {
+function bookDataTests() {
+  let bookState: BookState
+  
+  beforeEach(() => {
+    bookState = new BookState()
+
     bookState.initialize({
       loadedBook: {
         id: 1,
@@ -38,21 +43,23 @@ describe(`BookState`, () => {
         language: `ru`,
         authors: [
           {
-            fullName: `Алекс Остервальдер`,
+            fullName: `Алекс Остервальдер`, 
           },
         ],
-        bookCoverUrl: `https://book.jpg`,
-        bookCopies: [
-          {
-            bookCopyId: 1,
-          },
-          {
-            bookCopyId: 2,
-          },
+        coverUrl: `https://book.jpg`,
+        copiesIds: [
+          1,
+          2,
         ],
       },
     })
+  })
 
+  it(`
+  GIVEN the BookState
+  WHEN set book data
+  SHOULD reflect new values in the book object
+  `, () => {
     expect(bookState.book.id).to.eq(1)
     expect(bookState.book.title).to.eq(`Разработка ценностных предложений`)
     expect(bookState.book.annotation).to.eq(`Аннотация`)
@@ -62,14 +69,10 @@ describe(`BookState`, () => {
         fullName: `Алекс Остервальдер`, 
       },
     ])
-    expect(bookState.book.bookCoverUrl).to.eq(`https://book.jpg`)
-    expect(bookState.book.bookCopies).to.deep.eq([
-      {
-        bookCopyId: 1,
-      },
-      {
-        bookCopyId: 2,
-      },
+    expect(bookState.book.coverUrl).to.eq(`https://book.jpg`)
+    expect(bookState.book.copiesIds).to.deep.eq([
+      1,
+      2,
     ])
   })
 
@@ -88,23 +91,23 @@ describe(`BookState`, () => {
   SHOULD toggle the selected state of a book copy
   `, () => {
     expect(bookState.isBookCopySelected({
-      bookCopyId: 1, 
+      id: 1, 
     })).to.be.true
 
     bookState.toggleBookCopyChecked({
-      bookCopyId: 1, 
+      id: 1, 
     })
 
     expect(bookState.isBookCopySelected({
-      bookCopyId: 1, 
+      id: 1, 
     })).to.be.false
 
     bookState.toggleBookCopyChecked({
-      bookCopyId: 1, 
+      id: 1, 
     })
 
     expect(bookState.isBookCopySelected({
-      bookCopyId: 1, 
+      id: 1, 
     })).to.be.true
   })
 
@@ -120,11 +123,11 @@ describe(`BookState`, () => {
     expect(bookState.areAllCopiesSelected).to.be.true
 
     expect(bookState.isBookCopySelected({
-      bookCopyId: 1, 
+      id: 1, 
     })).to.be.true
 
     expect(bookState.isBookCopySelected({
-      bookCopyId: 2, 
+      id: 2, 
     })).to.be.true
   })
 
@@ -140,11 +143,11 @@ describe(`BookState`, () => {
     expect(bookState.areAllCopiesSelected).to.be.false
 
     expect(bookState.isBookCopySelected({
-      bookCopyId: 1, 
+      id: 1, 
     })).to.be.false
 
     expect(bookState.isBookCopySelected({
-      bookCopyId: 2, 
+      id: 2, 
     })).to.be.false
   })
 
@@ -166,7 +169,7 @@ describe(`BookState`, () => {
   SHOULD return false if not all copies are selected
   `, () => {
     bookState.toggleBookCopyChecked({
-      bookCopyId: 1, 
+      id: 1, 
     })
     
     expect(bookState.areAllCopiesSelected).to.be.false
@@ -181,10 +184,10 @@ describe(`BookState`, () => {
 
     expect(bookState.areAllCopiesSelected).to.be.true
     expect(bookState.isBookCopySelected({
-      bookCopyId: 1, 
+      id: 1, 
     })).to.be.true
     expect(bookState.isBookCopySelected({
-      bookCopyId: 2, 
+      id: 2, 
     })).to.be.true
   })
-})
+}

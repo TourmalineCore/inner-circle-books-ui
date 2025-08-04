@@ -52,14 +52,10 @@ function mountComponent() {
           fullName: `Арина Сычева`,
         },
       ],
-      bookCoverUrl: ``,
-      bookCopies: [
-        {
-          bookCopyId: 1,
-        },
-        {
-          bookCopyId: 2,
-        },
+      coverUrl: ``,
+      copiesIds: [
+        1,
+        2,
       ],
     },
   })
