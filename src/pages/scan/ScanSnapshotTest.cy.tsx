@@ -1,4 +1,3 @@
-import { MemoryRouter } from "react-router-dom"
 import { VIEWPORTS } from "../../common/constant"
 import { ScanPage } from "./ScanPage"
 import { ScanState } from "./state/ScanState"
@@ -41,13 +40,8 @@ function mountComponent() {
   
   cy
     .mount(
-      <MemoryRouter 
-        initialEntries={[
-          `/scans/1`,
-        ]}>
-        <ScanStateContext.Provider value={scanState}>
-          <ScanPage/>
-        </ScanStateContext.Provider>,
-      </MemoryRouter>,
+      <ScanStateContext.Provider value={scanState}>
+        <ScanPage/>
+      </ScanStateContext.Provider>,
     )
 }

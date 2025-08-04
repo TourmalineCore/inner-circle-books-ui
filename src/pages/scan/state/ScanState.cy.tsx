@@ -1,6 +1,4 @@
 import { ScanState } from "./ScanState"
-
-const scanState = new ScanState()
     
 describe(`ScanState`, () => {
   describe(`Initialization`, initializationTests)
@@ -8,6 +6,8 @@ describe(`ScanState`, () => {
 })
 
 function initializationTests() {
+  const scanState = new ScanState()
+
   it(`
   GIVEN initial ScanState
   WHEN get scanUrl
@@ -18,6 +18,12 @@ function initializationTests() {
 }
 
 function setAndGetTests() {
+  let scanState: ScanState
+
+  beforeEach(() => {
+    scanState = new ScanState()
+  })
+
   it(`
   GIVEN ScanState
   WHEN call setScanUrl with a URL
