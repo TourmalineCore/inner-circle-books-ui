@@ -49,7 +49,8 @@ function addBookFlowTests() {
       .type(`Аннотация`)
 
     cy
-      .getByData(`add-book-counter`)
+      .getByData(`counter-input-value`)
+      .clear()
       .type(`2`)
 
     cy
