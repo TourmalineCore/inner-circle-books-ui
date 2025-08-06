@@ -14,7 +14,7 @@ import { Overlay } from '../../components/overlay/Overlay'
 export const BookContent = observer(() => {
   const bookState = useContext(BookStateContext)
   const {
-    book, 
+    book,
   } = bookState 
 
   const {
