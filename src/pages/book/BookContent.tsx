@@ -39,7 +39,7 @@ export const BookContent = observer(() => {
   const [
     showModalCalendar,
     setShowModalCalendar,
-  ] = useState(true)
+  ] = useState(false)
 
   const currentDate = new Date()
   currentDate.setMonth(currentDate.getMonth() + 3)
