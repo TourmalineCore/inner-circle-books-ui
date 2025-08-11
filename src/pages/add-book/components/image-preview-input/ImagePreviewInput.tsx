@@ -13,9 +13,9 @@ export const ImagePreviewInput = ({
   label: string,
   url: string,
   onChange: ({
-    bookCoverUrl,
+    coverUrl,
   }: {
-    bookCoverUrl: string,
+    coverUrl: string,
   }) => unknown,
 }) => {
   const isValidUrl = useImageValid(url)
@@ -33,7 +33,7 @@ export const ImagePreviewInput = ({
           placeholder="Enter the URL to the book cover"
           value={url}
           onChange={(e) => onChange({
-            bookCoverUrl: e.target.value,
+            coverUrl: e.target.value,
           })}
         />
       </div>

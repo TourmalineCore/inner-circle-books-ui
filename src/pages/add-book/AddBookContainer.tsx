@@ -25,9 +25,10 @@ export const AddBookContainer = observer(({
     const {
       title,
       annotation,
+      countOfCopies,
       language,
       authors,
-      bookCoverUrl,
+      coverUrl,
     } = addBookState.book
 
     if (!addBookState.isValid) {
@@ -46,7 +47,8 @@ export const AddBookContainer = observer(({
               fullName: author.fullName.trim(),
             }))
             .filter(author => author.fullName !== ``),
-          bookCoverUrl: bookCoverUrl.trim(),
+          coverUrl: coverUrl.trim(),
+          countOfCopies,
         },
       )
 

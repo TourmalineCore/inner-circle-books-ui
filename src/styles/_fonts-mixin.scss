@@ -36,6 +36,13 @@
   line-height: 20px;
 }
 
+@mixin subhead2 {
+  font-family: Inter, sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 20px;
+}
+
 @mixin h3 {
   font-family: Inter, sans-serif;
   font-weight: 600;

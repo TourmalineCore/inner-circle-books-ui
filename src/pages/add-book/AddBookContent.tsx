@@ -12,7 +12,7 @@ import { ImagePreviewInput } from './components/image-preview-input/ImagePreview
 import { useContext, useState } from 'react'
 import { AddBookStateContext } from './state/AddBookStateStateContext'
 import { Button } from '../../components/button/Button'
-import { Overlay } from './components/overlay/Overlay'
+import { Overlay } from '../../components/overlay/Overlay'
 
 export const AddBookContent = observer(({
   onSubmit,
@@ -26,10 +26,10 @@ export const AddBookContent = observer(({
   const {
     title,
     annotation,
-    count,
+    countOfCopies,
     language,
     authors,
-    bookCoverUrl,
+    coverUrl,
   } = addBookState.book
   
   const [
@@ -99,11 +99,11 @@ export const AddBookContent = observer(({
             <CounterInput
               data-cy="add-book-counter"
               label="Number of Copies*"
-              value={count}
+              value={countOfCopies}
               onChange={({
-                count,
+                count: countOfCopies,
               }) => addBookState.setCount({
-                count,
+                countOfCopies,
               })}
             />
 
@@ -178,11 +178,11 @@ export const AddBookContent = observer(({
           <ImagePreviewInput
             data-cy="add-book-cover"
             label="Book Cover"
-            url={bookCoverUrl}
+            url={coverUrl}
             onChange={({
-              bookCoverUrl,
-            }) => addBookState.setBookCoverUrl({
-              bookCoverUrl,
+              coverUrl,
+            }) => addBookState.setCoverUrl({
+              coverUrl,
             })}
           />
         </div>

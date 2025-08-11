@@ -33,7 +33,7 @@ function initializationTests() {
             fullName: `Алекс Остервальдер`, 
           },
         ],
-        bookCoverUrl: `url-1`,
+        coverUrl: `url-1`,
       },
       {
         id: 2,
@@ -45,7 +45,7 @@ function initializationTests() {
             fullName: `Сергей Николенко`, 
           },
         ],
-        bookCoverUrl: `url-2`,
+        coverUrl: `url-2`,
       },
     ]
 

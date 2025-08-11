@@ -15,7 +15,7 @@ const BOOK_CARDS_RESPONSE = {
           fullName: `Сергей Николенко`,
         },
       ],
-      bookCoverUrl: ``,
+      coverUrl: ``,
     },
     {
       title: `Думай медленно… решай быстро`,
@@ -25,7 +25,7 @@ const BOOK_CARDS_RESPONSE = {
           fullName: `Даниэль Канеман`,
         },
       ],
-      bookCoverUrl: ``,
+      coverUrl: ``,
     },
   ],
 }

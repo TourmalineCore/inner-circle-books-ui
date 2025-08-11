@@ -1,4 +1,4 @@
-@use "../../../../styles/variables" as v;
+@use "../../styles/variables" as v;
 
 .overlay {
   position: fixed;
@@ -10,4 +10,8 @@
   height: 100%;
   background-color: v.$color-background-overlay;
   inset: 0;
+}
+
+body.overlay-open {
+  overflow: hidden; // disable scrolling
 }

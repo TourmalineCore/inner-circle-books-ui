@@ -28,7 +28,7 @@ describe(`Books Smoke`, () => {
       .should(`be.visible`)
 
     cy
-      .get(`.button`)
+      .get(`.actions__add-button > .button`)
       .click()
 
     cy
@@ -64,12 +64,13 @@ describe(`Books Smoke`, () => {
       .click()
 
     cy
-      .getByData(`books-list`)
-      .children()
-      .should(`have.length`, 1)
-
-    cy
       .getByData(`book-card`)
+      .filter((_, element) => {
+        return Cypress.$(element)
+          .text()
+          .includes(`[E2E-SMOKE] Новая книга`)
+      })
+      .should(`have.length`, 1)
       .click()
 
     cy

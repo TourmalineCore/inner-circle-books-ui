@@ -46,7 +46,7 @@ function mountComponent() {
         fullName: `Сергей Николенко`,
       },
     ],
-    bookCoverUrl: ``,
+    coverUrl: ``,
   }
 
   const cards = Array.from({
