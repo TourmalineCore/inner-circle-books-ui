@@ -58,7 +58,7 @@ function bookDataTests() {
   it(`
   GIVEN the BookState
   WHEN set book data
-  SHOULD reflect new values in the book object
+  SHOULD display new values in the book object
   `, () => {
     expect(bookState.book.id).to.eq(1)
     expect(bookState.book.title).to.eq(`Разработка ценностных предложений`)

@@ -64,7 +64,7 @@ describe(`Books Smoke`, () => {
       .click()
 
     cy
-      .get(`[data-cy=book-card]`)
+      .getByData(`book-card`)
       .filter((_, element) => {
         return Cypress.$(element)
           .text()

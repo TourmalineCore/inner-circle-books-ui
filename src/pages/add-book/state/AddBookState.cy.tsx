@@ -33,7 +33,7 @@ function settersTests() {
   it(`
   GIVEN a new AddBookState
   WHEN book data is set
-  SHOULD reflect new values in the book object
+  SHOULD display new values in the book object
   `, () => {
     setBookData({
       addBookState,
@@ -270,7 +270,7 @@ function somethingFilledWithinTheFormTests() {
   WHEN coverUrl was modified
   SHOULD return true for isSomethingFilledWithinTheForm
   `, () => {
-    addBookState.setBookCoverUrl({
+    addBookState.setCoverUrl({
       coverUrl: `https://book.jpg`,
     })
       
@@ -354,7 +354,7 @@ function setBookData({
     index: 0,
     authorFullName: `Алекс Остервальдер`,
   })
-  addBookState.setBookCoverUrl({
+  addBookState.setCoverUrl({
     coverUrl: `https://book.jpg`,
   })
 }

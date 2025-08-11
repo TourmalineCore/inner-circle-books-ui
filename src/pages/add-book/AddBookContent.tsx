@@ -101,7 +101,7 @@ export const AddBookContent = observer(({
               label="Number of Copies*"
               value={countOfCopies}
               onChange={({
-                countOfCopies,
+                count: countOfCopies,
               }) => addBookState.setCount({
                 countOfCopies,
               })}
@@ -181,7 +181,7 @@ export const AddBookContent = observer(({
             url={coverUrl}
             onChange={({
               coverUrl,
-            }) => addBookState.setBookCoverUrl({
+            }) => addBookState.setCoverUrl({
               coverUrl,
             })}
           />

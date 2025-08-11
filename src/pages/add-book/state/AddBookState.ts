@@ -101,7 +101,7 @@ export class AddBookState {
     this._book.language = language
   }
 
-  setBookCoverUrl({
+  setCoverUrl({
     coverUrl,
   }: {
     coverUrl: string,
