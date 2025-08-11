@@ -58,7 +58,7 @@ function bookDataTests() {
   it(`
   GIVEN the BookState
   WHEN set book data
-  SHOULD reflect new values in the book object
+  SHOULD display new values in the book object
   `, () => {
     expect(bookState.book.id).to.eq(1)
     expect(bookState.book.title).to.eq(`Разработка ценностных предложений`)
@@ -113,28 +113,10 @@ function bookDataTests() {
 
   it(`
   GIVEN the BookState
-  WHEN toggleSelectAllCopies with true
-  SHOULD select all book copies
-  `, () => {
-    bookState.toggleSelectAllCopies({
-      checked: true, 
-    })
-
-    expect(bookState.areAllCopiesSelected).to.be.true
-
-    expect(bookState.isBookCopySelected({
-      id: 1, 
-    })).to.be.true
-
-    expect(bookState.isBookCopySelected({
-      id: 2, 
-    })).to.be.true
-  })
-
-  it(`
-  GIVEN the BookState
   WHEN toggleSelectAllCopies with false
   SHOULD deselect all book copies
+  WHEN toggleSelectAllCopies with true
+  SHOULD select all book copies
   `, () => {
     bookState.toggleSelectAllCopies({
       checked: false, 
@@ -149,6 +131,20 @@ function bookDataTests() {
     expect(bookState.isBookCopySelected({
       id: 2, 
     })).to.be.false
+
+    bookState.toggleSelectAllCopies({
+      checked: true, 
+    })
+
+    expect(bookState.areAllCopiesSelected).to.be.true
+
+    expect(bookState.isBookCopySelected({
+      id: 1, 
+    })).to.be.true
+
+    expect(bookState.isBookCopySelected({
+      id: 2, 
+    })).to.be.true
   })
 
   it(`

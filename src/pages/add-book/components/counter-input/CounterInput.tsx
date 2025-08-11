@@ -17,9 +17,9 @@ export const CounterInput = ({
   label: string,
   value: number,
   onChange: ({
-    countOfCopies,
+    count,
   }: {
-    countOfCopies: number,
+    count: number,
   }) => unknown,
 }) => {
   const [
@@ -47,13 +47,13 @@ export const CounterInput = ({
     
     if (!isNaN(parsed)) {
       onChange({
-        countOfCopies: Math.max(MIN_VALUE, Math.min(parsed, MAX_VALUE)),
+        count: Math.max(MIN_VALUE, Math.min(parsed, MAX_VALUE)),
       })
     }
     else {
       setInputValue(MIN_VALUE.toString())
       onChange({
-        countOfCopies: MIN_VALUE,
+        count: MIN_VALUE,
       })
     }
   }
@@ -75,7 +75,7 @@ export const CounterInput = ({
           })}
           data-cy="counter-input-button-minus"
           onClick={() => onChange({
-            countOfCopies: Math.max(MIN_VALUE, value - 1),
+            count: Math.max(MIN_VALUE, value - 1),
           })}
           disabled={isMinusDisabled}
         >
@@ -99,7 +99,7 @@ export const CounterInput = ({
           })}
           data-cy="counter-input-button-plus"
           onClick={() => onChange({
-            countOfCopies: value + 1,
+            count: value + 1,
           })}
           disabled={isPlusDisabled}
         >

@@ -29,6 +29,7 @@ export const VIEWPORTS_FOR_ONE = [
 ]
 
 describe(`Modal QR Form Snapshot test`, () => {
+  // We added margin for the mobile sidebar panel, but it is not needed in the test
   beforeEach(() => {
     const style = document.createElement(`style`)
     style.innerHTML = `
