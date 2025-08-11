@@ -13,36 +13,86 @@ import { Overlay } from '../../components/overlay/Overlay'
 
 export const BookContent = observer(() => {
   const bookState = useContext(BookStateContext)
-  const {
-    book, 
-  } = bookState 
 
   const {
-    title,
-    annotation,
-    language,
-    authors,
-    coverUrl,
-  } = book
+    book: {
+      title,
+      annotation,
+      language,
+      authors,
+      coverUrl,
+    },
+  } = bookState
 
   const isValidUrl = useImageValid(coverUrl)
+
+  const [
+    showModalQRForm,
+    setShowModalQRForm,
+  ] = useState(false)
 
   const [
     showModal,
     setShowModal,
   ] = useState(false)
-  
-  const handleCloseModal = () => {
-    setShowModal(false)
-  }
-  
+
+  const [
+    showModalCalendar,
+    setShowModalCalendar,
+  ] = useState(true)
+
+  const currentDate = new Date()
+  currentDate.setMonth(currentDate.getMonth() + 3)
+
+  // formate date to DD.MM.YYYY format
+  const day = String(currentDate.getDate())
+    .padStart(2, `0`)
+  const month = String(currentDate.getMonth() + 1)
+    .padStart(2, `0`)
+  const year = currentDate.getFullYear()
+
   return (
     <>
       {
+        showModalQRForm && (
+          <Overlay 
+            onClick={() => {}}
+            modalName='modalQRForm'
+            onCloseModal={() => setShowModalQRForm(false)}
+          />
+        )
+      }
+
+      {
         showModal && (
           <Overlay 
-            onPrint={() => {}}
-            onCloseModal={handleCloseModal}
+            data-cy="book-modal"
+            onClick={() => {}}
+            onCloseModal={() => setShowModal(false)}
+            modalName='modal'
+            title="When you are Going to&nbsp;Return Book to&nbsp;the Library?"
+            text={
+              <>
+                You can choose the date in the next step or the date{` `}
+                <span className='text-accent'>
+                  {day}.{month}.{year}
+                </span>
+                {` `}will be selected automatically
+              </>
+            }
+            buttonLabel="Choose the Return Date"
+            accentButtonLabel="Take Book"
+            hasCloseButton
+          />
+        )
+      }
+
+      {
+        showModalCalendar && (
+          <Overlay 
+            onClick={() => {}}
+            modalName='modalCalendar'
+            onCloseModal={() => setShowModalCalendar(false)}
           />
         )
       }
@@ -64,7 +114,7 @@ export const BookContent = observer(() => {
           />
 
           <Button
-            onClick={() => setShowModal(true)}
+            onClick={() => setShowModalQRForm(true)}
             label={
               <>
                 <ViewQRIcon /> View QR Code
@@ -114,7 +164,7 @@ export const BookContent = observer(() => {
             </ul>
         
             <Button 
-              onClick={() => {}}
+              onClick={() => () => setShowModal(true)}
               label="Take Book"
               className='book__take-button'
               isAccent

@@ -1,0 +1,222 @@
+@use "../../../../../styles/media" as m;
+@use "../../../../../styles/variables" as v;
+@use "../../../../../styles/fonts-mixin" as f;
+
+.react-datepicker {
+  @include f.text;
+
+  border: 1px solid v.$color-component-border;
+  border-radius: 12px;
+  height: 412px;
+
+  &__day-names {
+    margin: 0;
+    padding: 0 12px 8px;
+
+    @include m.tablet {
+      padding: 0 20px 8px;
+    }
+  }
+
+  &__day-name {
+    margin: 0 4px;
+    width: 36px;
+    height: 24px;
+    color: v.$color-text-secondary;
+
+    @include m.tablet {
+      width: 45px;
+    }
+  }
+
+  &__month {
+    margin: 0;
+    padding: 0 12px;
+
+    @include m.tablet {
+      padding: 0 20px;
+    }
+  }
+
+  &__week {
+    padding-bottom: 16px;
+  }
+
+  &__day {
+    position: relative; // for &--in-selecting-range position
+    margin: 0;
+    border-radius: 8px;
+    width: 36px;
+    line-height: 36px;
+
+    &:not(:last-child) {
+      margin-right: 8px;
+    }
+
+    &:hover {
+      border-radius: 8px;
+      background-color: v.$color-background-component-secondary-hover !important;
+    }
+
+    @include m.tablet {
+      width: 44px;
+      line-height: 44px;
+    }
+
+    &--disabled {
+      color: v.$color-text-secondary;
+
+      &:hover {
+        background-color: v.$color-background-modal !important;
+      }
+    }
+
+    &--outside-month {
+      visibility: hidden;
+    }
+
+    // color of period during hover
+    &--in-selecting-range {
+      color: v.$color-text-primary;
+      background-color: v.$color-background-modal !important;
+
+      &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        /* stylelint-disable-next-line order/properties-order */
+        border: 1px dashed v.$color-border-accent-hover;
+        border-radius: 8px;
+        pointer-events: none; // to avoid interfering with clicks
+      }
+    }
+
+    &--today {
+      font-weight: 400;
+      color: v.$color-text-contrast;
+      background-color: v.$color-background-component-accent !important;
+
+      &:hover {
+        background-color: v.$color-background-component-accent !important;
+      }
+    }
+
+    &--range-start {
+      color: v.$color-text-contrast !important;
+      background-color: v.$color-background-component-accent !important;
+
+      &:hover {
+        color: v.$color-text-contrast !important;
+        background-color: v.$color-background-component-accent !important;
+      }
+    }
+
+    &--range-end {
+      color: v.$color-text-contrast !important;
+      background-color: v.$color-background-component-accent !important;
+
+      &:hover {
+        color: v.$color-text-primary !important;
+        background-color: v.$color-background-component-accent !important;
+      }
+    }
+
+    &--keyboard-selected {
+      background-color: inherit !important;
+
+      &:hover {
+        background-color: v.$color-background-component-secondary-active !important;
+      }
+    }
+
+    // styles for the last date of the period has priority
+    &--range-end.react-datepicker__day--keyboard-selected {
+      background-color: v.$color-background-component-accent !important;
+
+      &:hover {
+        color: v.$color-text-contrast !important;
+        background-color: v.$color-background-component-accent !important;
+      }
+    }
+
+    // color of period after click
+    &--in-range {
+      color: v.$color-text-primary;
+      background-color: v.$color-background-component-secondary-active !important;
+
+      &:hover {
+        background-color: v.$color-background-component-secondary-active !important;
+      }
+    }
+
+    // specific styles for dates in period for keyboard-selected
+    &--in-range.react-datepicker__day--keyboard-selected:not(&--range-end) {
+      background-color: v.$color-background-component-secondary-active !important;
+
+      &:hover {
+        background-color: v.$color-background-component-secondary-active !important;
+      }
+    }
+
+    // styles for the first date of the period has priority
+    &--range-start.react-datepicker__day--in-range {
+      background-color: v.$color-background-component-accent !important;
+
+      &:hover {
+        background-color: v.$color-background-component-accent !important;
+      }
+    }
+  }
+
+  &__header {
+    border-bottom: 0;
+    padding: 0;
+    background-color: v.$color-background-modal;
+  }
+
+  &__header:not(.react-datepicker__header--has-time-select) {
+    border-radius: 12px;
+  }
+
+  &__navigation {
+    top: 12px;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    @include m.tablet {
+      padding: 22px; // ??
+    }
+
+    &--previous {
+      left: 12px;
+      background-image: url("../../../../../assets/icons/Arrow-previous.svg?react");
+
+      .react-datepicker__navigation-icon::before {
+        content: none;
+      }
+    }
+
+    &--next {
+      right: 12px;
+      background-image: url("../../../../../assets/icons/Arrow-next.svg?react");
+
+      .react-datepicker__navigation-icon::before {
+        content: none;
+      }
+    }
+  }
+
+  &__current-month {
+    @include f.h5;
+
+    padding: 20px 48px 32px;
+
+    @include m.tablet {
+      padding: 16px 16px 24px; // ??
+    }
+  }
+
+  @include m.tablet {
+    height: 468px;
+  }
+}

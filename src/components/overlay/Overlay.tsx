@@ -1,17 +1,28 @@
 import './Overlay.scss'
 
-import { ModalWindow } from '../../pages/add-book/components/modal-window/ModalWindow'
+import { ModalWindow } from '../modal-window/ModalWindow'
 import { ModalQRForm } from '../../pages/book/components/modal-qr-form/ModalQRForm'
 import { useEffect } from 'react'
+import { ModalCalendar } from '../../pages/book/components/modal-calendar/ModalCalendar'
 
 export const Overlay = ({
-  onQuit,
-  onPrint,
+  onClick,
   onCloseModal,
+  modalName,
+  title,
+  text,
+  buttonLabel,
+  accentButtonLabel,
+  hasCloseButton = false,
 }: {
-  onQuit?: () => unknown,
-  onPrint?: () => unknown,
+  onClick: () => unknown,
   onCloseModal: () => unknown,
+  modalName: string,
+  title?: string,
+  text?: string | React.ReactNode,
+  buttonLabel?: string,
+  accentButtonLabel?: string,
+  hasCloseButton?: boolean,
 }) => {
 
   useEffect(() => {
@@ -33,17 +44,34 @@ export const Overlay = ({
   return (
     <div className="overlay">
       {
-        onQuit && (
+        modalName == `modal` && (
           <ModalWindow 
-            onQuit={onQuit}
+            onQuit={onClick}
+            onCloseModal={onCloseModal}
+            title={title!}
+            text={text!}
+            buttonLabel={buttonLabel!}
+            accentButtonLabel={accentButtonLabel!}
+            hasCloseButton={hasCloseButton} 
+          />
+        )
+      }
+
+      {
+        modalName == `modalQRForm` && (
+          <ModalQRForm
+            onPrint={onClick}
             onCloseModal={onCloseModal}
           />
         )
       }
+
       {
-        onPrint && (
-          <ModalQRForm
-            onPrint={onPrint}
+        modalName == `modalCalendar` && (
+          <ModalCalendar
+            // onSelect={onClick}
+            // onReturn={onClick}
+            onPrint={() => {}}
             onCloseModal={onCloseModal}
           />
         )

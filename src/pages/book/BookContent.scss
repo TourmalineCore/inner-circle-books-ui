@@ -2,6 +2,10 @@
 @use "../../styles/variables" as v;
 @use "../../styles/fonts-mixin" as f;
 
+.text-accent {
+  @include f.text-semibold;
+}
+
 .book {
   display: grid;
   margin: 0 auto;
