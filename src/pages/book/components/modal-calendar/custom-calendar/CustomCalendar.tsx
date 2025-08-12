@@ -44,9 +44,16 @@ export const CustomCalendar = observer(() => {
       endDate={endDate}
       selectsRange
       inline
-      monthsShown={isMobile ? 1 : 2}
+      monthsShown={
+        isMobile 
+          ? 1 
+          : 2
+      }
       formatWeekDay={(nameOfDay) => nameOfDay.substring(0, 3)}
       minDate={minDate}
+      excludeDates={[ // disable today click
+        startDate, 
+      ]}
     />
   )
 })
