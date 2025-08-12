@@ -1,3 +1,4 @@
+/* stylelint-disable @stylistic/max-line-length */
 @use "../../../../../styles/media" as m;
 @use "../../../../../styles/variables" as v;
 @use "../../../../../styles/fonts-mixin" as f;
@@ -63,7 +64,7 @@
       line-height: 44px;
     }
 
-    &--001 {
+    &--001.react-datepicker__day--in-range {
       box-shadow: 0 0 0 0 v.$color-background-component-secondary-active, 0 0 0 0 v.$color-background-modal !important;
     }
 
@@ -107,7 +108,7 @@
 
     // color of period after click
     &--in-range {
-      box-shadow: -19px 0 0 0 v.$color-background-component-secondary-active, 10px 0 0 0 v.$color-background-component-secondary-active;
+      box-shadow: -20px 0 0 0 v.$color-background-component-secondary-active, 0 0 0 0 v.$color-background-component-secondary-active;
       color: v.$color-text-primary;
       background-color: v.$color-background-component-secondary-active !important;
 
@@ -117,7 +118,7 @@
 
       // remove left background indent for Sundays in the selected period
       &:nth-child(7n) {
-        box-shadow: -10px 0 0 0 v.$color-background-component-secondary-active, 0 0 0 0 v.$color-background-modal !important;
+        box-shadow: -20px 0 0 0 v.$color-background-component-secondary-active, 0 0 0 0 v.$color-background-modal;
       }
 
       // remove right background indent for Saturdays in the selected period
@@ -139,7 +140,7 @@
     }
 
     &--range-end {
-      box-shadow: -22px 0 0 0 v.$color-background-component-secondary-active, 0 0 0 0 v.$color-background-component-secondary-active !important;
+      box-shadow: -20px 0 0 0 v.$color-background-component-secondary-active, 0 0 0 0 v.$color-background-component-secondary-active !important;
       color: v.$color-text-contrast !important;
       background-color: v.$color-background-component-accent !important;
 
