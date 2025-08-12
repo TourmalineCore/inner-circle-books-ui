@@ -110,6 +110,16 @@
       &:hover {
         background-color: v.$color-background-component-secondary-active !important;
       }
+
+      // remove left background indent for Sundays in the selected period
+      &:nth-child(7n) {
+        box-shadow: -10px 0 0 0 v.$color-background-component-secondary-active, 0 0 0 0 v.$color-background-modal !important;
+      }
+
+      // remove right background indent for Saturdays in the selected period
+      &:nth-child(7n + 1) {
+        box-shadow: 0 0 0 0 v.$color-background-modal, 10px 0 0 0 v.$color-background-component-secondary-active !important;
+      }
     }
 
     &--range-start {
