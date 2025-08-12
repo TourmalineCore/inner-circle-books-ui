@@ -101,7 +101,20 @@
       }
     }
 
+    // color of period after click
+    &--in-range {
+      box-shadow: -10px 0 0 0 v.$color-background-component-secondary-active, 10px 0 0 0 v.$color-background-component-secondary-active;
+      color: v.$color-text-primary;
+      background-color: v.$color-background-component-secondary-active !important;
+
+      &:hover {
+        background-color: v.$color-background-component-secondary-active !important;
+      }
+    }
+
     &--range-start {
+      z-index: 1;
+      box-shadow: 0 0 0 0 v.$color-background-component-secondary-active, 10px 0 0 0 v.$color-background-component-secondary-active !important;
       color: v.$color-text-contrast !important;
       background-color: v.$color-background-component-accent !important;
 
@@ -112,6 +125,7 @@
     }
 
     &--range-end {
+      box-shadow: -10px 0 0 0 v.$color-background-component-secondary-active, 0 0 0 0 v.$color-background-component-secondary-active !important;
       color: v.$color-text-contrast !important;
       background-color: v.$color-background-component-accent !important;
 
@@ -136,16 +150,6 @@
       &:hover {
         color: v.$color-text-contrast !important;
         background-color: v.$color-background-component-accent !important;
-      }
-    }
-
-    // color of period after click
-    &--in-range {
-      color: v.$color-text-primary;
-      background-color: v.$color-background-component-secondary-active !important;
-
-      &:hover {
-        background-color: v.$color-background-component-secondary-active !important;
       }
     }
 
