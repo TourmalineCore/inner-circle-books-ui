@@ -29,9 +29,6 @@ export const CustomCalendar = observer(() => {
     }
   }
 
-  const minDate = new Date()
-  minDate.setMonth(minDate.getMonth())
-
   const isMobile = useMediaQuery({
     maxWidth: 767,
   })
@@ -50,7 +47,7 @@ export const CustomCalendar = observer(() => {
           : 2
       }
       formatWeekDay={(nameOfDay) => nameOfDay.substring(0, 3)}
-      minDate={minDate}
+      minDate={startDate}
       excludeDates={[ // disable today click
         startDate, 
       ]}
