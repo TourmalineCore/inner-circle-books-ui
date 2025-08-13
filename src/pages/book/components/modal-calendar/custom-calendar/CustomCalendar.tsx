@@ -48,9 +48,6 @@ export const CustomCalendar = observer(() => {
       }
       formatWeekDay={(nameOfDay) => nameOfDay.substring(0, 3)}
       minDate={startDate}
-      excludeDates={[ // disable today click
-        startDate, 
-      ]}
     />
   )
 })
