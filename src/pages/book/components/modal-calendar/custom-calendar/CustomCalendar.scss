@@ -77,6 +77,24 @@
         pointer-events: none; // to avoid interfering with clicks
         inset: 0 -3px;
       }
+
+      // add left border for Sundays
+      &:nth-child(7n) {
+        &::before {
+          right: 0;
+          border-right: 1px dashed v.$color-border-accent-hover;
+          border-radius: 0 8px 8px 0;
+        }
+      }
+
+      // add right border for Saturdays
+      &:nth-child(7n + 1) {
+        &::before {
+          left: 0;
+          border-left: 1px dashed v.$color-border-accent-hover;
+          border-radius: 8px 0 0 8px;
+        }
+      }
     }
 
     &--selecting-range-start {
@@ -97,6 +115,14 @@
 
     &--001.react-datepicker__day--in-range {
       box-shadow: 0 0 0 0 v.$color-background-component-secondary-active, 0 0 0 0 v.$color-background-modal !important;
+    }
+
+    &--001.react-datepicker__day--in-selecting-range {
+      &::before {
+        left: 0;
+        border-left: 1px dashed v.$color-border-accent-hover;
+        border-radius: 8px 0 0 8px;
+      }
     }
 
     &--disabled {
@@ -131,12 +157,12 @@
         background-color: v.$color-background-component-secondary-active !important;
       }
 
-      // remove left background indent for Sundays in the selected period
+      // remove left background indent for Sundays
       &:nth-child(7n) {
         box-shadow: -20px 0 0 0 v.$color-background-component-secondary-active, 0 0 0 0 v.$color-background-modal;
       }
 
-      // remove right background indent for Saturdays in the selected period
+      // remove right background indent for Saturdays
       &:nth-child(7n + 1) {
         box-shadow: 0 0 0 0 v.$color-background-modal, 0 0 0 0 v.$color-background-component-secondary-active !important;
       }
