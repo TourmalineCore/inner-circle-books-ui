@@ -6,7 +6,8 @@ import { Button } from '../button/Button'
 import clsx from 'clsx'
 
 export const ModalWindow = ({
-  onQuit,
+  onAccentButtonAction,
+  onButtonAction,
   onCloseModal,
   title,
   text,
@@ -14,7 +15,8 @@ export const ModalWindow = ({
   accentButtonLabel,
   hasCloseButton = false,
 }: {
-  onQuit: () => unknown,
+  onAccentButtonAction: () => unknown,
+  onButtonAction: () => unknown,
   onCloseModal: () => unknown,
   title: string,
   text: string | React.ReactNode,
@@ -48,12 +50,12 @@ export const ModalWindow = ({
 
     <div className="modal-window__actions"> 
       <Button 
-        onClick={onCloseModal}
+        onClick={onButtonAction}
         label={buttonLabel}
       />
     
       <Button 
-        onClick={onQuit}
+        onClick={onAccentButtonAction}
         label={accentButtonLabel}
         isAccent
       />

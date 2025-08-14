@@ -6,7 +6,8 @@ import { useEffect } from 'react'
 import { ModalCalendar } from '../../pages/book/components/modal-calendar/ModalCalendar'
 
 export const Overlay = ({
-  onClick,
+  onAccentButtonAction,
+  onButtonAction,
   onCloseModal,
   modalName,
   title,
@@ -15,8 +16,9 @@ export const Overlay = ({
   accentButtonLabel,
   hasCloseButton = false,
 }: {
-  onClick: () => unknown,
-  onCloseModal: () => unknown,
+  onAccentButtonAction: () => unknown,
+  onButtonAction?: () => unknown,
+  onCloseModal?: () => unknown,
   modalName: string,
   title?: string,
   text?: string | React.ReactNode,
@@ -46,8 +48,9 @@ export const Overlay = ({
       {
         modalName == `modal` && (
           <ModalWindow 
-            onQuit={onClick}
-            onCloseModal={onCloseModal}
+            onAccentButtonAction={onAccentButtonAction}
+            onButtonAction={onButtonAction!}
+            onCloseModal={onCloseModal!}
             title={title!}
             text={text!}
             buttonLabel={buttonLabel!}
@@ -60,8 +63,8 @@ export const Overlay = ({
       {
         modalName == `modalQRForm` && (
           <ModalQRForm
-            onPrint={onClick}
-            onCloseModal={onCloseModal}
+            onPrint={onAccentButtonAction}
+            onCloseModal={onCloseModal!}
           />
         )
       }
@@ -69,10 +72,9 @@ export const Overlay = ({
       {
         modalName == `modalCalendar` && (
           <ModalCalendar
-            // onSelect={onClick}
-            // onReturn={onClick}
-            onPrint={() => {}}
-            onCloseModal={onCloseModal}
+            onAccentButtonAction={onAccentButtonAction}
+            onButtonAction={onButtonAction!}
+            onCloseModal={onCloseModal!}
           />
         )
       }

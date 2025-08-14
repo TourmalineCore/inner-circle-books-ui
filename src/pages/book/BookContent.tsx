@@ -56,7 +56,7 @@ export const BookContent = observer(() => {
       {
         showModalQRForm && (
           <Overlay 
-            onClick={() => {}}
+            onAccentButtonAction={() => {}} // TODO: change when add print flow
             modalName='modalQRForm'
             onCloseModal={() => setShowModalQRForm(false)}
           />
@@ -67,7 +67,8 @@ export const BookContent = observer(() => {
         showModal && (
           <Overlay 
             data-cy="book-modal"
-            onClick={() => {}}
+            onAccentButtonAction={() => {}} // TODO: change when add take book request
+            onButtonAction={() => setShowModalCalendar(true)}
             onCloseModal={() => setShowModal(false)}
             modalName='modal'
             title="When you are Going to&nbsp;Return Book to&nbsp;the Library?"
@@ -90,9 +91,13 @@ export const BookContent = observer(() => {
       {
         showModalCalendar && (
           <Overlay 
-            onClick={() => {}}
+            onAccentButtonAction={() => {}} // TODO: change when add take book request
+            onButtonAction={() => setShowModalCalendar(false)}
+            onCloseModal={() => {
+              setShowModalCalendar(false)
+              setShowModal(false)
+            }}
             modalName='modalCalendar'
-            onCloseModal={() => setShowModalCalendar(false)}
           />
         )
       }
@@ -164,7 +169,7 @@ export const BookContent = observer(() => {
             </ul>
         
             <Button 
-              onClick={() => () => setShowModal(true)}
+              onClick={() => setShowModal(true)}
               label="Take Book"
               className='book__take-button'
               isAccent

@@ -11,10 +11,12 @@ import clsx from 'clsx'
 import { CustomCalendar } from './custom-calendar/CustomCalendar'
 
 export const ModalCalendar = observer(({
-  onPrint,
+  onAccentButtonAction,
+  onButtonAction,
   onCloseModal,
 }: {
-  onPrint: () => unknown,
+  onAccentButtonAction: () => unknown,
+  onButtonAction: () => unknown,
   onCloseModal: () => unknown,
 }) => {
   const bookState = useContext(BookStateContext)
@@ -63,12 +65,12 @@ export const ModalCalendar = observer(({
 
       <div className="modal-calendar__actions"> 
         <Button 
-          onClick={() => {}}
+          onClick={onButtonAction}
           label="Back"
         />
     
         <Button 
-          onClick={() => onPrint}
+          onClick={onAccentButtonAction}
           label="Take Book"
           className='modal-calendar__accent-button'
           isAccent
