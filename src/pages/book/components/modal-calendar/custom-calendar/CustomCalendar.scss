@@ -59,6 +59,15 @@
       background-color: v.$color-background-component-secondary-hover !important;
     }
 
+    &.last-day-of-month.react-datepicker__day--in-selecting-range {
+      &::before {
+        right: 0;
+        border-right: 1px dashed v.$color-border-accent-hover;
+        border-top-right-radius: 8px;
+        border-bottom-right-radius: 8px;
+      }
+    }
+
     @include m.tablet {
       width: 44px;
       line-height: 44px;
