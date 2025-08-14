@@ -52,8 +52,8 @@ function mountComponent() {
     .mount(
       <BookStateContext.Provider value={bookState}>
         <ModalWindow
-          onQuit={() => {}}
-          onCloseModal={() => {}}
+          onAccentButtonAction={() => {}}
+          onButtonAction={() => {}}
           title="Do You Want to Quit this&nbsp;Page?"
           text="The data you have entered will not&nbsp;be saved"
           buttonLabel="No, Stay Here"

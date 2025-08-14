@@ -17,7 +17,7 @@ export const ModalWindow = ({
 }: {
   onAccentButtonAction: () => unknown,
   onButtonAction: () => unknown,
-  onCloseModal: () => unknown,
+  onCloseModal?: () => unknown,
   title: string,
   text: string | React.ReactNode,
   buttonLabel: string,

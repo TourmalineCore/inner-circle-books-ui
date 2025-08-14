@@ -63,7 +63,8 @@ function mountComponent() {
     .mount(
       <BookStateContext.Provider value={bookState}>
         <ModalCalendar
-          onPrint={() => {}}
+          onAccentButtonAction={() => {}}
+          onButtonAction={() => {}}
           onCloseModal={() => {}}
         />,
       </BookStateContext.Provider>,

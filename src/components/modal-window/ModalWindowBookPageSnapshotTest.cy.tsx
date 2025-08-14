@@ -53,7 +53,8 @@ function mountComponent() {
     .mount(
       <BookStateContext.Provider value={bookState}>
         <ModalWindow
-          onQuit={() => {}}
+          onAccentButtonAction={() => {}}
+          onButtonAction={() => {}}
           onCloseModal={() => {}}
           title="When you are Going to&nbsp;Return Book to&nbsp;the Library?"
           text={
