@@ -150,6 +150,18 @@
       }
     }
 
+    // styles for one selected day (when start and end date are the same)
+    &--range-start.react-datepicker__day--range-end {
+      box-shadow: none !important;
+      color: v.$color-text-contrast !important;
+      background-color: v.$color-background-component-accent !important;
+
+      &:hover {
+        color: v.$color-text-contrast !important;
+        background-color: v.$color-background-component-accent !important;
+      }
+    }
+
     // color of period after click
     &--in-range {
       box-shadow: -20px 0 0 0 v.$color-background-component-secondary-active, 0 0 0 0 v.$color-background-component-secondary-active;
