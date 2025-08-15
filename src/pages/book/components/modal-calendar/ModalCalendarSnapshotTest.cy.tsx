@@ -14,18 +14,24 @@ export const VIEWPORTS = [
 ]
 
 describe(`Modal Calendar Snapshot test`, () => {
+  // here is a problem with bottom padding
   beforeEach(() => {
     const style = document.createElement(`style`)
     style.innerHTML = `
       .modal-calendar {
-        margin-bottom: 0 !important;
-        padding-bottom: 0 !important;
+        top: 0 !important;
       }
     `
     document.head.appendChild(style)
   })
 
   it(`Take the snapshot of a result with several copies`, () => {
+    // we use Date now in component so we set it here for test
+    const now = new Date(`2025-08-10`)
+      .getTime()
+
+    cy.clock(now)
+  
     VIEWPORTS.forEach((viewport) => {
       cy.viewport(viewport.width, viewport.height)
 
