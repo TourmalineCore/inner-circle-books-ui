@@ -51,7 +51,7 @@
     @include m.tablet {
       flex-direction: row;
       width: 190px;
-      height: 44px;
+      min-height: 44px;
     }
   }
 
