@@ -2,9 +2,11 @@ import './BookContent.scss'
 
 import NoImage from "../../assets/img/no-image.png"
 import ViewQRIcon from "../../assets/icons/View-qr.svg?react"
+import InfoIcon from "../../assets/icons/Info.svg?react"
 
 import clsx from 'clsx'
 import { observer } from "mobx-react-lite"
+import { useSearchParams } from 'react-router-dom'
 import { useContext, useState } from 'react'
 import { BookStateContext } from './state/BookStateStateContext'
 import { Button } from '../../components/button/Button'
@@ -50,6 +52,11 @@ export const BookContent = observer(() => {
   const month = String(currentDate.getMonth() + 1)
     .padStart(2, `0`)
   const year = currentDate.getFullYear()
+
+  const [
+    searchParams,
+  ] = useSearchParams()
+  const copyId = searchParams.get(`copyId`)
 
   return (
     <>
@@ -168,12 +175,23 @@ export const BookContent = observer(() => {
               </li>
             </ul>
         
-            <Button 
-              onClick={() => setShowModal(true)}
-              label="Take Book"
-              className='book__take-button'
-              isAccent
-            />
+            {
+              copyId ? (
+                <Button
+                  onClick={() => setShowModal(true)}
+                  label="Take Book"
+                  className='book__take-button'
+                  isAccent
+                />
+              ) : (
+                <div className="book__take-info">
+                  <InfoIcon />
+                  <p className="book__take-info--text">
+                    You can take book after scanning the QR code on book cover
+                  </p>
+                </div>
+              )
+            }
           </div>
 
           <h5 className='book__section-name'>

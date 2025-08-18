@@ -60,6 +60,37 @@
     }
   }
 
+  &__take-info {
+    display: flex;
+    justify-content: flex-start;
+    gap: 8px;
+
+    svg {
+      flex-shrink: 0;
+      width: 24px;
+      height: 24px;
+    }
+
+    svg path {
+      stroke: v.$color-icon-secondary;
+    }
+
+    &--text {
+      @include f.text;
+
+      margin: 0;
+      color: v.$color-text-secondary;
+
+      @include m.tablet {
+        width: 356px;
+      }
+
+      @include m.tablet-xl {
+        width: 280px;
+      }
+    }
+  }
+
   &__wrap {
     display: flex;
     flex-direction: column;
