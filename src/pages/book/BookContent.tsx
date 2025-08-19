@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import './BookContent.scss'
 
 import NoImage from "../../assets/img/no-image.png"
