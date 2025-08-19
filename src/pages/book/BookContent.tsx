@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import './BookContent.scss'
 
 import NoImage from "../../assets/img/no-image.png"
@@ -7,7 +8,7 @@ import InfoIcon from "../../assets/icons/Info.svg?react"
 import clsx from 'clsx'
 import { observer } from "mobx-react-lite"
 import { useSearchParams } from 'react-router-dom'
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { BookStateContext } from './state/BookStateStateContext'
 import { Button } from '../../components/button/Button'
 import { useImageValid } from '../../common/useImageValid'
@@ -23,6 +24,7 @@ export const BookContent = observer(() => {
       language,
       authors,
       coverUrl,
+      copiesIds,
     },
   } = bookState
 
@@ -57,6 +59,23 @@ export const BookContent = observer(() => {
     searchParams,
   ] = useSearchParams()
   const copyId = searchParams.get(`copyId`)
+
+  const [
+    isValidCopyId,
+    setIsValidCopyId,
+  ] = useState(false)
+
+  useEffect(() => {
+    // if copyId isn't passed or is not a number or is not in copiesIds
+    if (!copyId || isNaN(Number(copyId)) || !copiesIds.includes(Number(copyId))) {
+      return
+    }
+
+    setIsValidCopyId(true)
+  }, [
+    copyId,
+    copiesIds,
+  ])
 
   return (
     <>
@@ -111,7 +130,7 @@ export const BookContent = observer(() => {
 
       <div 
         className="book"
-        data-cy="book"
+        data-cy="book-page"
       >
         <div className='book__left'>
           <img
@@ -174,23 +193,36 @@ export const BookContent = observer(() => {
                 </span>
               </li>
             </ul>
-        
+
             {
-              copyId ? (
-                <Button
-                  onClick={() => setShowModal(true)}
-                  label="Take Book"
-                  className='book__take-button'
-                  isAccent
-                />
-              ) : (
-                <div className="book__take-info">
-                  <InfoIcon />
-                  <p className="book__take-info--text">
-                    You can take book after scanning the QR code on book cover
-                  </p>
-                </div>
-              )
+              isValidCopyId 
+                ? (
+                  <Button
+                    onClick={() => setShowModal(true)}
+                    label="Take Book"
+                    className='book__take-button'
+                    isAccent
+                  />
+                ) 
+                : (
+                  copyId 
+                    ? (
+                      <div className="book__take-info">
+                        <InfoIcon />
+                        <p className="book__take-info--text">
+                          Copy of book doesn't exist, check the correctness of the QR code
+                        </p>
+                      </div>
+                    ) 
+                    : (
+                      <div className="book__take-info">
+                        <InfoIcon />
+                        <p className="book__take-info--text">
+                          You can take book after scanning the QR code on book cover
+                        </p>
+                      </div>
+                    )
+                )
             }
           </div>
 

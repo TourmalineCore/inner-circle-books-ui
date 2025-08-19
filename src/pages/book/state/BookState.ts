@@ -11,9 +11,7 @@ const EMPTY_BOOK: BookType = {
     },
   ],
   coverUrl: ``,
-  copiesIds: [
-    1,
-  ],
+  copiesIds: [],
 }
 
 export class BookState {

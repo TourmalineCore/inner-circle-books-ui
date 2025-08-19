@@ -1,3 +1,4 @@
+import { MemoryRouter } from "react-router-dom"
 import { VIEWPORTS } from "../../common/constant"
 import { BookContent } from "./BookContent"
 import { BookState } from "./state/BookState"
@@ -27,7 +28,7 @@ describe(`Book Page Snapshot test`, () => {
         .then((win) => win.document.fonts.ready)
 
       cy
-        .getByData(`book`)
+        .getByData(`book-page`)
         .compareSnapshot(`/${viewport.width}`, {
           capture: `viewport`,
         })
@@ -62,8 +63,13 @@ function mountComponent() {
 
   cy
     .mount(
-      <BookStateContext.Provider value={bookState}>
-        <BookContent/>
-      </BookStateContext.Provider>,
+      <MemoryRouter 
+        initialEntries={[
+          `/books/1`,
+        ]}>
+        <BookStateContext.Provider value={bookState}>
+          <BookContent/>
+        </BookStateContext.Provider>
+      </MemoryRouter>,
     )
 }

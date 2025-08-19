@@ -23,9 +23,7 @@ function initializationTests() {
       },
     ])
     expect(bookState.book.coverUrl).to.eq(``)
-    expect(bookState.book.copiesIds).to.deep.eq([
-      1,
-    ])
+    expect(bookState.book.copiesIds).to.deep.eq([])
   })
 }
 
