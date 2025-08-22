@@ -2,27 +2,27 @@ import { ScanContainer } from "./ScanContainer"
 import { ScanState } from "./state/ScanState"
 import { ScanStateContext } from "./state/ScanStateContext"
 
+const scanState = new ScanState()
+    
 describe(`ScanContainer`, () => {
-  describe(`Initialization`, initializationTests)
-})
-
-function initializationTests() {
   it(`
-  GIVEN scan page
-  WHEN render the component
-  SHOULD see it
+  GIVEN scan container
+  WHEN mounted
+  SHOULD reset scan url
   `, () => {
+    cy
+      .spy(scanState, `resetScanUrl`)
+      .as(`resetScanUrl`)
+
     mountComponent()
 
     cy
-      .getByData(`scan`)
-      .should(`exist`)
+      .get(`@resetScanUrl`)
+      .should(`have.been.calledOnce`)
   })
-}
+})
 
 function mountComponent() {
-  const scanState = new ScanState()
-
   cy
     .mount(
       <ScanStateContext.Provider value={scanState}>

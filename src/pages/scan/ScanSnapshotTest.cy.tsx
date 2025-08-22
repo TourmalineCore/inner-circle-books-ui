@@ -4,7 +4,17 @@ import { ScanState } from "./state/ScanState"
 import { ScanStateContext } from "./state/ScanStateContext"
 
 describe(`Scan Page Snapshot test`, () => {
-  it.skip(`Take the snapshot of a result`, () => {
+  beforeEach(() => {
+    cy
+      .window()
+      .then((win) => {
+        cy
+          .stub(win.navigator.mediaDevices, `getUserMedia`)
+          .resolves(new MediaStream()) // for disable camera
+      })
+  })
+
+  it(`Take the snapshot of a result`, () => {
     VIEWPORTS.forEach((viewport) => {
       cy.viewport(viewport.width, viewport.height)
 

@@ -1,3 +1,5 @@
+import './ScanPage.scss'
+
 import { useMemo } from "react"
 import { ScanContainer } from "./ScanContainer"
 import { ScanStateContext } from "./state/ScanStateContext"
@@ -10,8 +12,13 @@ export function ScanPage() {
   )
 
   return (
-    <ScanStateContext.Provider value={scanState}>
-      <ScanContainer />
-    </ScanStateContext.Provider>
+    <div
+      className="scan-page"
+      data-cy='scan'
+    >
+      <ScanStateContext.Provider value={scanState}>
+        <ScanContainer />
+      </ScanStateContext.Provider>
+    </div>
   )
 }
