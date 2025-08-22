@@ -11,10 +11,7 @@ export const ScanContainer = observer(() => {
   }, [])
 
   return (
-    <ScanContent 
-      data-cy="scan"
-      onUrlDetected={navigateToDetectedUrl} 
-    />
+    <ScanContent onUrlDetected={navigateToDetectedUrl} />
   )
 })
 

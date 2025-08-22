@@ -33,11 +33,11 @@ function mountComponent({
     url: string, 
   }) => unknown,
 } = {}) {
-  const scanUrl = new ScanState()
+  const scanState = new ScanState()
 
   cy
     .mount(
-      <ScanStateContext.Provider value={scanUrl}>
+      <ScanStateContext.Provider value={scanState}>
         <ScanContent onUrlDetected={onUrlDetected} />
       </ScanStateContext.Provider>,
     )

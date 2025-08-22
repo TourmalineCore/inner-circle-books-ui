@@ -12,9 +12,9 @@ export function ScanPage() {
   )
 
   return (
-    <div 
-      data-cy='scan'
+    <div
       className="scan-page"
+      data-cy='scan'
     >
       <ScanStateContext.Provider value={scanState}>
         <ScanContainer />

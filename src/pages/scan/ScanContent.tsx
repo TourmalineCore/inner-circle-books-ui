@@ -25,14 +25,12 @@ export const ScanContent = observer(({
   })
 
   return (
-    <div
-      className='scan'
-    >
+    <div className='scan'>
       <img
+        className="scan__image"
         data-cy='scan-image'
         src= {Scan}
         alt="Point the QR code from the book at your computer's camera"
-        className="scan__image"
       />
       <video
         className="scan__video"

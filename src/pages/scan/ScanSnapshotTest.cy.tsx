@@ -5,10 +5,12 @@ import { ScanStateContext } from "./state/ScanStateContext"
 
 describe(`Scan Page Snapshot test`, () => {
   beforeEach(() => {
-    cy.window()
+    cy
+      .window()
       .then((win) => {
-        cy.stub(win.navigator.mediaDevices, `getUserMedia`)
-          .resolves(new MediaStream()) //for disable camera
+        cy
+          .stub(win.navigator.mediaDevices, `getUserMedia`)
+          .resolves(new MediaStream()) // for disable camera
       })
   })
 
