@@ -191,6 +191,7 @@ export const AddBookContent = observer(({
           <Button 
             onClick={handleCancel}
             label="Cancel"
+            isAccent={false}
           />
 
           <Button 

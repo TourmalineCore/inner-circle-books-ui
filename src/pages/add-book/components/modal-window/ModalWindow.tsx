@@ -22,6 +22,7 @@ export const ModalWindow = ({
       <Button 
         onClick={onCloseModal}
         label="No, Stay Here"
+        isAccent={false}
       />
     
       <Button 

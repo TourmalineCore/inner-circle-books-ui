@@ -68,6 +68,7 @@ textarea {
 }
 
 button {
+  color: v.$color-text-primary;
   border: none;
 
   &:focus {
