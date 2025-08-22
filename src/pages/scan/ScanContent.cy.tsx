@@ -4,7 +4,6 @@ import { ScanStateContext } from "./state/ScanStateContext"
 
 describe(`ScanContent`, () => {
   describe(`Initialization`, initializationTests)
-  describe(`Url Detection`, urlDetectionTests)
 })
 
 function initializationTests() {
@@ -16,34 +15,12 @@ function initializationTests() {
     mountComponent()
 
     cy
-      .contains(`Чтобы отсканировать штрихкод, наведите на него камеру`)
-      .should(`be.visible`)
-
+      .getByData(`scan-image`)
+      .should(`exist`)
+      
     cy
       .getByData(`scan-video`)
       .should(`exist`)
-  })
-}
-
-function urlDetectionTests() {
-  it.skip(`
-  GIVEN a detected url
-  WHEN the qr code is scanned
-  SHOULD call onUrlDetected with the correct URL
-  `, () => {
-    const testUrl = `http://example.com`
-
-    const onUrlDetected = cy.stub()
-      .as(`onUrlDetected`)
-
-    mountComponent({
-      onUrlDetected, 
-    })
-
-    cy.get(`@onUrlDetected`)
-      .should(`have.been.calledWith`, {
-        url: testUrl, 
-      })
   })
 }
 

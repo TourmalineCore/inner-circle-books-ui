@@ -29,6 +29,7 @@ export const ScanContent = observer(({
       className='scan'
     >
       <img
+        data-cy='scan-image'
         src= {Scan}
         alt="Point the QR code from the book at your computer's camera"
         className="scan__image"
