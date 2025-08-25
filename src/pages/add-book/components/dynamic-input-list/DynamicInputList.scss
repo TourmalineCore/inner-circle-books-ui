@@ -13,6 +13,7 @@
     display: flex;
     flex-direction: column;
     margin-top: 6px;
+    margin-bottom: 8px;
 
     @include m.tablet-xl {
       margin-top: 9px;
@@ -27,7 +28,6 @@
   &__input {
     @include f.text;
 
-    margin-bottom: 8px;
     border: 1px solid v.$color-component-border;
     border-radius: 8px;
     padding: 11px;
@@ -49,8 +49,9 @@
     transform: translateY(-50%);
 
     svg {
-      width: 16px;
-      height: 16px;
+      display: block;
+      width: 20px;
+      height: 20px;
       stroke: v.$color-icon-alternative;
     }
 
@@ -84,6 +85,7 @@
 
     &:active {
       background-color: v.$color-background-component-secondary-active;
+      transition: background-color 0.2s ease-in-out;
     }
   }
 }
