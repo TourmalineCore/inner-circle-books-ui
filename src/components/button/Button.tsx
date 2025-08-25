@@ -6,7 +6,7 @@ export const Button = ({
   onClick,
   className, 
   label, 
-  isAccent,
+  isAccent = false,
   isDisable = false,
   isLoader = false,
   isMobile = false,

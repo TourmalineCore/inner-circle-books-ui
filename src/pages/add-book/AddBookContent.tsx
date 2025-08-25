@@ -63,8 +63,13 @@ export const AddBookContent = observer(({
         showModal && (
           <Overlay 
             data-cy="add-book-overlay"
-            onQuit={handleConfirmQuit}
-            onCloseModal={handleCloseModal}
+            onAccentButtonAction={handleConfirmQuit}
+            onButtonAction={handleCloseModal}
+            modalName='modal'
+            title="Do You Want to Quit this&nbsp;Page?"
+            text="The data you have entered will not&nbsp;be saved"
+            buttonLabel="No, Stay Here"
+            accentButtonLabel="Yes, Quit"
           />
         )
       }
@@ -191,7 +196,6 @@ export const AddBookContent = observer(({
           <Button 
             onClick={handleCancel}
             label="Cancel"
-            isAccent={false}
           />
 
           <Button 
