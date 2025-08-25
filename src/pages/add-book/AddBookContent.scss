@@ -79,6 +79,7 @@
 
     @include m.desktop-xl {
       height: 96px;
+      max-width: 730px;
     }
   }
 
@@ -92,6 +93,7 @@
 
     @include m.desktop-xl {
       height: 268px;
+      max-width: 730px;
     }
   }
 
@@ -150,7 +152,6 @@
   }
 
   @include m.desktop {
-    padding: 24px;
     max-width: 1032px;
     grid-template-columns: 401px 1fr;
   }
