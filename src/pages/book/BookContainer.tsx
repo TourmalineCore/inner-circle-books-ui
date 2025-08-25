@@ -5,7 +5,11 @@ import { BookStateContext } from "./state/BookStateStateContext"
 import { api } from "../../common/api"
 import { useLocation} from "react-router-dom"
 
-export const BookContainer = observer(() => {
+export const BookContainer = observer(({
+  goToBookPage,
+}: {
+  goToBookPage: () => unknown,
+}) => {
   const bookState = useContext(BookStateContext)
   const location = useLocation()
   const pathnameParts = location
@@ -30,6 +34,28 @@ export const BookContainer = observer(() => {
   ])
 
   return (
-    <BookContent />
+    <BookContent onTake={takeBookAsync}/>
   )
+
+  async function takeBookAsync({
+    bookCopyId,
+    sсheduledReturnDate,
+  }: TakeBookType) {
+    bookState.setIsTriedToSubmit()
+
+    try {
+      await api.post<TakeBookType>(
+        `/books/take`,
+        {
+          bookCopyId,
+          sсheduledReturnDate,
+        },
+      )
+
+      goToBookPage()
+    }
+    finally {
+      bookState.resetIsTriedToSubmit()
+    }
+  }
 })

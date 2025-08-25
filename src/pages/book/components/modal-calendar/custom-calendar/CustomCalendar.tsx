@@ -5,29 +5,16 @@ import { observer } from 'mobx-react-lite'
 import DatePicker from 'react-datepicker'
 import { useMediaQuery } from 'react-responsive'
 
-export const CustomCalendar = observer(() => {
+export const CustomCalendar = observer(({
+  endCalendarDate,
+  onChangeCalendar,
+}: {
+  endCalendarDate: Date | null,
+  onChangeCalendar: (dates: [Date, Date]) => unknown,
+}) => {
   const [
     startDate,
   ] = useState(new Date())
-
-  const [
-    endDate,
-    setEndDate,
-  ] = useState(null)
-
-  const onChange = (dates: any) => {
-    const [
-      start,
-      end,
-    ] = dates
-
-    if (end === null) {
-      setEndDate(start)
-    }
-    else {
-      setEndDate(end)
-    }
-  }
 
   const isMobile = useMediaQuery({
     maxWidth: 767,
@@ -50,9 +37,9 @@ export const CustomCalendar = observer(() => {
   return (
     <DatePicker
       selected={startDate}
-      onChange={onChange}
+      onChange={onChangeCalendar}
       startDate={startDate}
-      endDate={endDate}
+      endDate={endCalendarDate}
       selectsRange
       inline
       monthsShown={

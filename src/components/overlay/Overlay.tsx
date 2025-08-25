@@ -15,6 +15,8 @@ export const Overlay = ({
   buttonLabel,
   accentButtonLabel,
   hasCloseButton = false,
+  endCalendarDate,
+  onChangeCalendar,
 }: {
   onAccentButtonAction: () => unknown,
   onButtonAction?: () => unknown,
@@ -25,6 +27,8 @@ export const Overlay = ({
   buttonLabel?: string,
   accentButtonLabel?: string,
   hasCloseButton?: boolean,
+  endCalendarDate?: Date | null,
+  onChangeCalendar?: (dates: [Date, Date]) => unknown,
 }) => {
 
   useEffect(() => {
@@ -75,6 +79,8 @@ export const Overlay = ({
             onAccentButtonAction={onAccentButtonAction}
             onButtonAction={onButtonAction!}
             onCloseModal={onCloseModal!}
+            endCalendarDate={endCalendarDate!}
+            onChangeCalendar={onChangeCalendar!}
           />
         )
       }

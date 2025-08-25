@@ -3,6 +3,7 @@ import { BookState } from './BookState'
 describe(`BookState`, () => {
   describe(`Initialization`, initializationTests)
   describe(`Book Data`, bookDataTests)
+  describe(`Is Tried To Submit`, isTriedToSubmitTest)
 })
 
 function initializationTests() {
@@ -183,5 +184,25 @@ function bookDataTests() {
     expect(bookState.isBookCopySelected({
       id: 2, 
     })).to.be.true
+  })
+}
+
+function isTriedToSubmitTest() {
+  const bookState = new BookState()
+
+  it(`
+  GIVEN initial isTriedToSubmit = false
+  WHEN setIsTriedToSubmit()
+  SHOULD change value to true
+  WHEN resetIsTriedToSubmit()
+  SHOULD change value to false
+  `, () => {
+    expect(bookState.isTriedToSubmit).to.be.false
+
+    bookState.setIsTriedToSubmit()
+    expect(bookState.isTriedToSubmit).to.be.true
+
+    bookState.resetIsTriedToSubmit()
+    expect(bookState.isTriedToSubmit).to.be.false
   })
 }

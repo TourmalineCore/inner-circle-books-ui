@@ -19,3 +19,8 @@ type BookType = {
   coverUrl: string,
   copiesIds: number[],
 }
+
+type TakeBookType = {
+  bookCopyId: number,
+  sсheduledReturnDate: string,
+}

@@ -23,6 +23,8 @@ export class BookState {
     [key: number]: boolean, 
   } = {}
 
+  private _isTriedToSubmit = false
+
   constructor() {
     makeAutoObservable(this)
   }
@@ -58,6 +60,10 @@ export class BookState {
       .every((bookCopyId) =>
         this._selectedCopies[bookCopyId] === true, 
       )
+  }
+
+  get isTriedToSubmit() {
+    return this._isTriedToSubmit
   }
 
   toggleBookCopyChecked({
@@ -100,5 +106,13 @@ export class BookState {
       .forEach((bookCopyId) => {
         this._selectedCopies[bookCopyId] = true
       })
+  }
+
+  setIsTriedToSubmit() {
+    this._isTriedToSubmit = true
+  }
+
+  resetIsTriedToSubmit() {
+    this._isTriedToSubmit = false
   }
 }

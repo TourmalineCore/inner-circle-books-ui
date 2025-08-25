@@ -14,10 +14,14 @@ export const ModalCalendar = observer(({
   onAccentButtonAction,
   onButtonAction,
   onCloseModal,
+  endCalendarDate,
+  onChangeCalendar,
 }: {
   onAccentButtonAction: () => unknown,
   onButtonAction: () => unknown,
   onCloseModal: () => unknown,
+  endCalendarDate: Date | null,
+  onChangeCalendar: (dates: [Date, Date]) => unknown,
 }) => {
   const bookState = useContext(BookStateContext)
 
@@ -61,7 +65,10 @@ export const ModalCalendar = observer(({
           Choose the Date When you are Going to Return this Book
       </div>
 
-      <CustomCalendar />
+      <CustomCalendar   
+        endCalendarDate={endCalendarDate}
+        onChangeCalendar={onChangeCalendar}
+      />
 
       <div className="modal-calendar__actions"> 
         <Button 

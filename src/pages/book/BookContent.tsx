@@ -13,7 +13,15 @@ import { Button } from '../../components/button/Button'
 import { useImageValid } from '../../common/useImageValid'
 import { Overlay } from '../../components/overlay/Overlay'
 
-export const BookContent = observer(() => {
+export const BookContent = observer(({
+  onTake,
+}: {
+  onTake: ({
+    bookCopyId, 
+    sсheduledReturnDate, 
+  }: TakeBookType,
+  ) => unknown,
+}) => {
   const bookState = useContext(BookStateContext)
 
   const {
@@ -54,6 +62,7 @@ export const BookContent = observer(() => {
     .padStart(2, `0`)
   const year = currentDate.getFullYear()
 
+  // copyId
   const [
     searchParams,
   ] = useSearchParams()
@@ -76,6 +85,26 @@ export const BookContent = observer(() => {
     copiesIds,
   ])
 
+  // CustomCalendar props
+  const [
+    endCalendarDate,
+    setEndCalendarDate,
+  ] = useState<Date | null>(null)
+
+  const onChangeCalendar = (dates: [Date, Date]) => {
+    const [
+      start,
+      end,
+    ] = dates
+
+    if (end === null) {
+      setEndCalendarDate(start)
+    }
+    else {
+      setEndCalendarDate(end)
+    }
+  }
+
   return (
     <>
       {
@@ -92,7 +121,15 @@ export const BookContent = observer(() => {
         showModal && (
           <Overlay 
             data-cy="book-modal"
-            onAccentButtonAction={() => {}} // TODO: change when add take book request
+            onAccentButtonAction={() => {
+              onTake({
+                bookCopyId: Number(copyId),
+                sсheduledReturnDate: currentDate
+                  .toISOString()
+                  .slice(0, 10),
+              })
+              setShowModal(false) // TODO
+            }}
             onButtonAction={() => setShowModalCalendar(true)}
             onCloseModal={() => setShowModal(false)}
             modalName='modal'
@@ -116,13 +153,23 @@ export const BookContent = observer(() => {
       {
         showModalCalendar && (
           <Overlay 
-            onAccentButtonAction={() => {}} // TODO: change when add take book request
+            onAccentButtonAction={() => {
+              onTake({
+                bookCopyId: Number(copyId),
+                sсheduledReturnDate: endCalendarDate!
+                  .toISOString()
+                  .slice(0, 10),
+              })
+              setShowModalCalendar(false) // TODO
+            }}
             onButtonAction={() => setShowModalCalendar(false)}
             onCloseModal={() => {
               setShowModalCalendar(false)
               setShowModal(false)
             }}
             modalName='modalCalendar'
+            endCalendarDate={endCalendarDate}
+            onChangeCalendar={onChangeCalendar}
           />
         )
       }
