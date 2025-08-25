@@ -72,6 +72,8 @@ function mountComponent() {
           onAccentButtonAction={() => {}}
           onButtonAction={() => {}}
           onCloseModal={() => {}}
+          endCalendarDate={null}
+          onChangeCalendar={() => {}}
         />,
       </BookStateContext.Provider>,
     )
