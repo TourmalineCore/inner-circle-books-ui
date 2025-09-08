@@ -54,7 +54,7 @@ function mountComponent() {
         },
       ],
       coverUrl: ``,
-      copiesIds: [
+      bookCopiesIds: [
         1,
         2,
       ],

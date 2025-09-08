@@ -11,7 +11,7 @@ const EMPTY_BOOK: BookType = {
     },
   ],
   coverUrl: ``,
-  copiesIds: [],
+  bookCopiesIds: [],
 }
 
 export class BookState {
@@ -38,7 +38,7 @@ export class BookState {
 
     // Initialize all copies as selected
     this._book
-      .copiesIds
+      .bookCopiesIds
       .forEach((bookCopyId) => {
         this._selectedCopies[bookCopyId] = true
       })
@@ -50,13 +50,13 @@ export class BookState {
 
   get count() {
     return this._book
-      .copiesIds
+      .bookCopiesIds
       .length
   }
 
   get areAllCopiesSelected() {
     return this._book
-      .copiesIds
+      .bookCopiesIds
       .every((bookCopyId) =>
         this._selectedCopies[bookCopyId] === true, 
       )
@@ -83,7 +83,7 @@ export class BookState {
 
     if (checked) {
       this._book
-        .copiesIds
+        .bookCopiesIds
         .forEach((bookCopyId) => {
           this._selectedCopies[bookCopyId] = true
         })
@@ -102,7 +102,7 @@ export class BookState {
     this._selectedCopies = {}
 
     this._book
-      .copiesIds
+      .bookCopiesIds
       .forEach((bookCopyId) => {
         this._selectedCopies[bookCopyId] = true
       })

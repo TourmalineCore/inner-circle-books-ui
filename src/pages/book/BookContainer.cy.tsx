@@ -17,7 +17,7 @@ const BOOK_RESPONSE: BookType = {
     },
   ],
   coverUrl: ``,
-  copiesIds: [
+  bookCopiesIds: [
     14,
     15,
   ],
