@@ -24,3 +24,8 @@ type TakeBookType = {
   bookCopyId: number,
   sсheduledReturnDate: string,
 }
+
+type ReturnBookType = {
+  bookCopyId: number,
+  progressOfReading: string,
+}

@@ -1,0 +1,55 @@
+@use "../../styles/media" as m;
+@use "../../styles/variables" as v;
+@use "../../styles/fonts-mixin" as f;
+
+.return-book {
+  &__image {
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 26px;
+    border: 1px solid v.$color-component-border;
+    width: 127px;
+    height: 94px;
+    object-fit: contain;
+  }
+
+  &__title {
+    @include f.h3;
+
+    margin-bottom: 36px;
+  }
+
+  &__group {
+    margin-bottom: 20px;
+  }
+
+  &__label {
+    @include f.h6;
+  }
+
+  &__progress-options {
+    display: flex;
+    overflow: hidden;
+    margin-top: 8px;
+    border: 1px solid v.$color-component-border;
+    border-radius: 8px;
+  }
+
+  &__progress-btn {
+    @include f.text;
+
+    flex: 1;
+    padding: 16px;
+    background: v.$color-background-primary;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+
+  &__progress-btn:hover {
+    background: v.$color-background-component-secondary-hover;
+  }
+
+  &__progress-btn + &__progress-btn {
+    border-left: 1px solid v.$color-component-border;
+  }
+}
