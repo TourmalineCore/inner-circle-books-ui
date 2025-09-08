@@ -2,7 +2,7 @@ import { ReturnBookState } from './ReturnBookState'
 
 describe(`ReturnBookState`, () => {
   describe(`Initialization`, initializationTests)
-  describe(`ReturnBook Data`, returnbookDataTests)
+  describe(`Return Book Data`, returnBookDataTests)
   describe(`Is Tried To Submit`, isTriedToSubmitTest)
 })
 
@@ -20,20 +20,16 @@ function initializationTests() {
   })
 }
 
-function returnbookDataTests() {
-  let returnbookState: ReturnBookState
-  
-  beforeEach(() => {
-    returnbookState = new ReturnBookState()
+function returnBookDataTests() {
+  const returnbookState = new ReturnBookState()
 
-    returnbookState.initialize({
-      loadedBook: {
-        id: 1,
-        title: `Разработка ценностных предложений`,
-        coverUrl: `https://returnbook.jpg`,
+  returnbookState.initialize({
+    loadedBook: {
+      id: 1,
+      title: `Разработка ценностных предложений`,
+      coverUrl: `https://returnbook.jpg`,
         
-      },
-    })
+    },
   })
 
   it(`
