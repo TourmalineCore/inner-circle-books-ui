@@ -107,6 +107,10 @@ export const BookContent = observer(({
     }
   }
 
+  const isBookTakenByCurrentEmployee = employeesWhoReadNow.some(
+    (reader) => reader.employeeId === getEmployeeIdFromToken(),
+  )
+
   return (
     <>
       {
@@ -263,9 +267,13 @@ export const BookContent = observer(({
               isValidCopyId 
                 ? (
                   <Button
-                    onClick={() => setShowModal(true)}
+                    onClick={() => {
+                      isBookTakenByCurrentEmployee
+                        ? () => {}
+                        : setShowModal(true)
+                    }}
                     label={
-                      employeesWhoReadNow.some((reader) => reader.employeeId === getEmployeeIdFromToken())
+                      isBookTakenByCurrentEmployee
                         ? `Return Book`
                         : `Take Book`
                     }
