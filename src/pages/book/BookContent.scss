@@ -91,6 +91,29 @@
     }
   }
 
+  &__main-info-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    @include m.desktop {
+      align-items: center;
+      flex-direction: row;
+      justify-content: space-between;
+      gap: unset;
+    }
+  }
+
+  &__readers-title {
+    @include f.h6;
+  }
+
+  &__readers-list {
+    @include f.text;
+
+    margin-left: 8px;
+  }
+
   &__wrap {
     display: flex;
     flex-direction: column;

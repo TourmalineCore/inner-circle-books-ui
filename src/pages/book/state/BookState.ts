@@ -12,6 +12,7 @@ const EMPTY_BOOK: BookType = {
   ],
   coverUrl: ``,
   bookCopiesIds: [],
+  employeesWhoReadNow: [],
 }
 
 export class BookState {

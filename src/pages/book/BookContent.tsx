@@ -32,6 +32,7 @@ export const BookContent = observer(({
       authors,
       coverUrl,
       bookCopiesIds,
+      employeesWhoReadNow,
     },
   } = bookState
 
@@ -202,9 +203,24 @@ export const BookContent = observer(({
         </div>
 
         <div className='book__right'>
-          <header className='book__title'>
-            {title}
-          </header>
+          <div className='book__main-info-wrap'>
+            <header className='book__title'>
+              {title}
+            </header>
+
+            <div className='book__readers'>
+              <div className='book__readers-title'>
+                Reading Now
+                <span className='book__readers-list'>
+                  {
+                    employeesWhoReadNow
+                      .map(reader => reader.fullName)
+                      .join(`, `)
+                  }
+                </span>
+              </div>
+            </div>
+          </div>
 
           <div className='book__wrap'>
             <ul className='book__characteristics'>

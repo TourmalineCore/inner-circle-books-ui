@@ -21,6 +21,16 @@ const BOOK_RESPONSE: BookType = {
     14,
     15,
   ],
+  employeesWhoReadNow: [
+    {
+      employeeId: 2,
+      fullName: `Иванов Иван`,
+    },
+    {
+      employeeId: 3,
+      fullName: `Петров Петр`,
+    },
+  ],
 }
 
 describe(`BookContainer`, () => {
@@ -31,7 +41,7 @@ describe(`BookContainer`, () => {
       BOOK_RESPONSE,
     )
 
-    cy.viewport(1024, 768)
+    cy.viewport(1920, 1366)
   })
 
   describe(`Initialization`, initializationTests)
@@ -51,6 +61,8 @@ function initializationTests() {
     cy.contains(`Алекс Остервальдер`)
     cy.contains(`Сергей Николенко`)
     cy.contains(`2`)
+    cy.contains(`Иванов Иван`)
+    cy.contains(`Петров Петр`)
   })
 
   it(`

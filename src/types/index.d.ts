@@ -18,6 +18,7 @@ type BookType = {
   authors: AuthorType[],
   coverUrl: string,
   bookCopiesIds: number[],
+  employeesWhoReadNow: EmployeeWhoReadNowType[],
 }
 
 type TakeBookType = {
@@ -28,4 +29,9 @@ type TakeBookType = {
 type ReturnBookType = {
   bookCopyId: number,
   progressOfReading: string,
+}
+
+type EmployeeWhoReadNowType = {
+  employeeId: number,
+  fullName: string,
 }
