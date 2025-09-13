@@ -269,7 +269,7 @@ export const BookContent = observer(({
                   <Button
                     onClick={() => {
                       isBookTakenByCurrentEmployee
-                        ? () => {}
+                        ? () => {} // redirect to return book page
                         : setShowModal(true)
                     }}
                     label={
