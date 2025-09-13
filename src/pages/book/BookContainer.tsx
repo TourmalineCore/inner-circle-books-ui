@@ -39,7 +39,7 @@ export const BookContainer = observer(({
 
   async function takeBookAsync({
     bookCopyId,
-    sсheduledReturnDate,
+    scheduledReturnDate,
   }: TakeBookType) {
     bookState.setIsTriedToSubmit()
 
@@ -48,7 +48,7 @@ export const BookContainer = observer(({
         `/books/take`,
         {
           bookCopyId,
-          sсheduledReturnDate,
+          scheduledReturnDate,
         },
       )
 

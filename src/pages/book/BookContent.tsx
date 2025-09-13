@@ -12,13 +12,14 @@ import { BookStateContext } from './state/BookStateStateContext'
 import { Button } from '../../components/button/Button'
 import { useImageValid } from '../../common/useImageValid'
 import { Overlay } from '../../components/overlay/Overlay'
+import { getEmployeeIdFromToken } from '../../common/tokenUtils'
 
 export const BookContent = observer(({
   onTake,
 }: {
   onTake: ({
     bookCopyId, 
-    sсheduledReturnDate, 
+    scheduledReturnDate, 
   }: TakeBookType,
   ) => unknown,
 }) => {
@@ -125,7 +126,7 @@ export const BookContent = observer(({
             onAccentButtonAction={() => {
               onTake({
                 bookCopyId: Number(copyId),
-                sсheduledReturnDate: currentDate
+                scheduledReturnDate: currentDate
                   .toISOString()
                   .slice(0, 10),
               })
@@ -157,7 +158,7 @@ export const BookContent = observer(({
             onAccentButtonAction={() => {
               onTake({
                 bookCopyId: Number(copyId),
-                sсheduledReturnDate: endCalendarDate!
+                scheduledReturnDate: endCalendarDate!
                   .toISOString()
                   .slice(0, 10),
               })
@@ -208,18 +209,20 @@ export const BookContent = observer(({
               {title}
             </header>
 
-            <div className='book__readers'>
-              <div className='book__readers-title'>
-                Reading Now
-                <span className='book__readers-list'>
-                  {
-                    employeesWhoReadNow
-                      .map(reader => reader.fullName)
-                      .join(`, `)
-                  }
-                </span>
+            {employeesWhoReadNow.length > 0 && (
+              <div className='book__readers'>
+                <div className='book__readers-title'>
+                    Reading Now
+                  <span className='book__readers-list'>
+                    {
+                      employeesWhoReadNow
+                        .map(reader => reader.fullName)
+                        .join(`, `)
+                    }
+                  </span>
+                </div>
               </div>
-            </div>
+            )}
           </div>
 
           <div className='book__wrap'>
@@ -261,7 +264,11 @@ export const BookContent = observer(({
                 ? (
                   <Button
                     onClick={() => setShowModal(true)}
-                    label="Take Book"
+                    label={
+                      employeesWhoReadNow.some((reader) => reader.employeeId === getEmployeeIdFromToken())
+                        ? `Return Book`
+                        : `Take Book`
+                    }
                     className='book__take-button'
                     isAccent
                   />
