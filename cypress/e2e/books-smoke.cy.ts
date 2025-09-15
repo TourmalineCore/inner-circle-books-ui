@@ -51,18 +51,27 @@ describe(`Books Smoke`, () => {
             const response = interception.response
             const bookCopyId = response!.body.bookCopiesIds[0]
 
+            BookPage.checkReadersBeforeTakeBook()
+
             BookPage.visitCopy({
               bookId,
               bookCopyId,
             })
+
+            BookPage.takeBook()
+
+            BookPage.visitCopy({
+              bookId,
+              bookCopyId,
+            })
+
+            BookPage.checkBookPageAfterTakeBook()
+            
+            BookPage.clickReturnBookButton()
+
+            // fix return book button action
+            // ReturnBookPage.returnBook()
           })
       })
-
-    BookPage.takeBook()
-    
-    // fix redirect after taking book
-    // BookPage.checkNewBookReaderAdded()
-
-    // ReturnBookPage.returnBook()
   })
 })

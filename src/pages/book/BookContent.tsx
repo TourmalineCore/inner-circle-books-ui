@@ -12,13 +12,14 @@ import { BookStateContext } from './state/BookStateStateContext'
 import { Button } from '../../components/button/Button'
 import { useImageValid } from '../../common/useImageValid'
 import { Overlay } from '../../components/overlay/Overlay'
+import { getEmployeeIdFromToken } from '../../common/tokenUtils'
 
 export const BookContent = observer(({
   onTake,
 }: {
   onTake: ({
     bookCopyId, 
-    sсheduledReturnDate, 
+    scheduledReturnDate, 
   }: TakeBookType,
   ) => unknown,
 }) => {
@@ -32,6 +33,7 @@ export const BookContent = observer(({
       authors,
       coverUrl,
       bookCopiesIds,
+      employeesWhoReadNow,
     },
   } = bookState
 
@@ -105,6 +107,10 @@ export const BookContent = observer(({
     }
   }
 
+  const isBookTakenByCurrentEmployee = employeesWhoReadNow.some(
+    (reader) => reader.employeeId === getEmployeeIdFromToken(),
+  )
+
   return (
     <>
       {
@@ -124,7 +130,7 @@ export const BookContent = observer(({
             onAccentButtonAction={() => {
               onTake({
                 bookCopyId: Number(copyId),
-                sсheduledReturnDate: currentDate
+                scheduledReturnDate: currentDate
                   .toISOString()
                   .slice(0, 10),
               })
@@ -156,7 +162,7 @@ export const BookContent = observer(({
             onAccentButtonAction={() => {
               onTake({
                 bookCopyId: Number(copyId),
-                sсheduledReturnDate: endCalendarDate!
+                scheduledReturnDate: endCalendarDate!
                   .toISOString()
                   .slice(0, 10),
               })
@@ -202,9 +208,26 @@ export const BookContent = observer(({
         </div>
 
         <div className='book__right'>
-          <header className='book__title'>
-            {title}
-          </header>
+          <div className='book__main-info-wrap'>
+            <header className='book__title'>
+              {title}
+            </header>
+
+            {employeesWhoReadNow.length > 0 && (
+              <div className='book__readers'>
+                <div className='book__readers-title'>
+                    Reading Now
+                  <span className='book__readers-list'>
+                    {
+                      employeesWhoReadNow
+                        .map(reader => reader.fullName)
+                        .join(`, `)
+                    }
+                  </span>
+                </div>
+              </div>
+            )}
+          </div>
 
           <div className='book__wrap'>
             <ul className='book__characteristics'>
@@ -244,8 +267,16 @@ export const BookContent = observer(({
               isValidCopyId 
                 ? (
                   <Button
-                    onClick={() => setShowModal(true)}
-                    label="Take Book"
+                    onClick={() => {
+                      isBookTakenByCurrentEmployee
+                        ? () => {} // redirect to return book page
+                        : setShowModal(true)
+                    }}
+                    label={
+                      isBookTakenByCurrentEmployee
+                        ? `Return Book`
+                        : `Take Book`
+                    }
                     className='book__take-button'
                     isAccent
                   />
