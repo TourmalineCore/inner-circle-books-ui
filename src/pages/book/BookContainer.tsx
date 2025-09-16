@@ -47,6 +47,7 @@ export const BookContainer = observer(() => {
           scheduledReturnDate,
         },
       )
+      await loadBookAsync() 
     }
     finally {
       bookState.resetIsTriedToSubmit()
