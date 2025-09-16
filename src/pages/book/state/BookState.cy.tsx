@@ -42,13 +42,19 @@ function bookDataTests() {
         language: `ru`,
         authors: [
           {
-            fullName: `Алекс Остервальдер`, 
+            fullName: `Алекс Остервальдер`,
           },
         ],
         coverUrl: `https://book.jpg`,
         bookCopiesIds: [
           1,
           2,
+        ],
+        employeesWhoReadNow: [
+          {
+            "employeeId": 1,
+            "fullName": `Ceo Ceo Ceo`,
+          },
         ],
       },
     })
