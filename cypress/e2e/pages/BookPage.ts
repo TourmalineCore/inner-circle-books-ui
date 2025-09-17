@@ -14,7 +14,7 @@ export class BookPage {
     bookId: number, 
     bookCopyId: number,
   }) {
-    cy.visit(`/books/${bookId}?copyId=${bookCopyId}`)
+    cy.visit(`/books/${bookId}?ci=${bookCopyId}`)
   }
 
   static checkReadersBeforeTakeBook() {

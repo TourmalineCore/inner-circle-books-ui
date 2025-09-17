@@ -68,7 +68,7 @@ export const BookContent = observer(({
   const [
     searchParams,
   ] = useSearchParams()
-  const copyId = searchParams.get(`copyId`)
+  const copyId = searchParams.get(`ci`)
 
   const [
     isValidCopyId,
