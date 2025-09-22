@@ -58,6 +58,7 @@ function mountComponent() {
         1,
         2,
       ],
+      employeesWhoReadNow: [],
     },
   })
 

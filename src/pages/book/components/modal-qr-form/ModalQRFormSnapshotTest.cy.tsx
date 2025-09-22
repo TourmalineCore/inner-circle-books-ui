@@ -123,6 +123,7 @@ function mountComponentForSeveralCopies() {
         14,
         15,
       ],
+      employeesWhoReadNow: [],
     },
   })
     
@@ -155,6 +156,7 @@ function mountComponentForOneCopy() {
       bookCopiesIds: [
         11,
       ],
+      employeesWhoReadNow: [],
     },
   })
     
