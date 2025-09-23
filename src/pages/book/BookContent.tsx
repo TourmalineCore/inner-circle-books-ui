@@ -13,6 +13,7 @@ import { Button } from '../../components/button/Button'
 import { useImageValid } from '../../common/useImageValid'
 import { Overlay } from '../../components/overlay/Overlay'
 import { getEmployeeIdFromToken } from '../../common/tokenUtils'
+import { returnBookRoutes } from '../routes'
 
 export const BookContent = observer(({
   onTake,
@@ -269,7 +270,7 @@ export const BookContent = observer(({
                   <Button
                     onClick={() => {
                       isBookTakenByCurrentEmployee
-                        ? () => {} // redirect to return book page
+                        ? () => window.location.href = `${returnBookRoutes[0].path}?copyId=${copyId}`
                         : setShowModal(true)
                     }}
                     label={

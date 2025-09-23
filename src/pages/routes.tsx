@@ -1,6 +1,7 @@
 import { AddBookPage } from "./add-book/AddBookPage"
 import { AllBooksPage } from "./all-books/AllBooksPage"
 import { BookPage } from "./book/BookPage"
+import { ReturnBookPage } from "./return-book/ReturnBookPage"
 import { ScanPage } from "./scan/ScanPage"
 
 const DEFAULT_PATH = `/books`
@@ -26,6 +27,14 @@ export const bookRoutes = [
     path: `${DEFAULT_PATH}/:id`,
     breadcrumb: `Book`,
     Component: BookPage,
+  },
+]
+
+export const returnBookRoutes = [
+  {
+    path: `${DEFAULT_PATH}/return`,
+    breadcrumb: `Return Book`,
+    Component: ReturnBookPage,
   },
 ]
 

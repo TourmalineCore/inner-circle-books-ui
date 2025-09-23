@@ -11,7 +11,7 @@ const getDecodedToken = (): DecodedToken | null => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const authContext = useContext<string[]>(authService.AuthContext)
 
-  const token = authContext?.[0] || null
+  const token = authContext?.[0]
 
   if (!token) {
     return null
