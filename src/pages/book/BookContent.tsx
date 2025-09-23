@@ -270,7 +270,7 @@ export const BookContent = observer(({
                   <Button
                     onClick={() => {
                       isBookTakenByCurrentEmployee
-                        ? () => window.location.href = `${returnBookRoutes[0].path}?copyId=${copyId}`
+                        ? window.location.href = `${returnBookRoutes[0].path}?copyId=${copyId}`
                         : setShowModal(true)
                     }}
                     label={

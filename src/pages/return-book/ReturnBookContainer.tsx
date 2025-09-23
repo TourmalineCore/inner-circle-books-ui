@@ -26,7 +26,8 @@ export const ReturnBookContainer = observer(({
       returnBookState.initialize({
         loadedBook: data,
       })
-    } 
+    }
+
     loadBookAsync()
   }, [
     id,
