@@ -69,7 +69,23 @@ export const BookContent = observer(({
   const [
     searchParams,
   ] = useSearchParams()
-  const copyId = searchParams.get(`ci`)
+  
+  const copyId = searchParams.get(`copyId`) || searchParams.get(`c`)
+
+  useEffect(() => {
+    // If a copy of a book is opened via QR, replace ?c to ?copyId for URL readability
+    if (searchParams.has(`c`)) {
+      const currentUrl = window.location.href
+      const newUrl = currentUrl.replace(`?c=`, `?copyId=`)
+        .replace(`&c=`, `&copyId=`)
+    
+      if (newUrl !== currentUrl) {
+        window.history.replaceState(null, ``, newUrl)
+      }
+    }
+  }, [
+    searchParams,
+  ])
 
   const [
     isValidCopyId,

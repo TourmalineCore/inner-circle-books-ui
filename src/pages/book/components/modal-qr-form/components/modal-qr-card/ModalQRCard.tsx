@@ -3,7 +3,6 @@ import './ModalQRCard.scss'
 import CheckboxOnIcon from '../../../../../../assets/icons/Checkbox-on.svg?react'
 import CheckboxOffIcon from '../../../../../../assets/icons/Checkbox-off.svg?react'
 
-import { API_ROOT } from '../../../../../../common/config/config'
 import { LINK_TO_BOOKS_SERVICE } from '../../../../../../common/config/config'
 import QRCode from "react-qr-code"
 import { observer } from 'mobx-react-lite'
@@ -63,7 +62,7 @@ export const ModalQRCard = observer(({
             <div className="modal-qr-card__qr">
               <QRCode
                 size={64}
-                value={`${API_ROOT}${LINK_TO_BOOKS_SERVICE}${bookId}?ci=${bookCopyId}`}
+                value={`${LINK_TO_BOOKS_SERVICE}${bookId}?c=${bookCopyId}`}
                 viewBox={`0 0 64 64`}
               />
             </div>
@@ -86,7 +85,7 @@ export const ModalQRCard = observer(({
             <div className="modal-qr-card-without-checkbox__qr">
               <QRCode
                 size={64}
-                value={`${API_ROOT}${LINK_TO_BOOKS_SERVICE}${bookId}?ci=${bookCopyId}`}
+                value={`${LINK_TO_BOOKS_SERVICE}${bookId}?c=${bookCopyId}`}
                 viewBox={`0 0 64 64`}
               />
             </div>
