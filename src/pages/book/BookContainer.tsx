@@ -33,7 +33,7 @@ export const BookContainer = observer(() => {
   )
 
   async function loadBookAsync() {
-    const url = isCopyBook ? `/books-copy/${copyId}` : `/books/${id}`
+    const url = isCopyBook ? `/books/copy/${copyId}` : `/books/${id}`
 
     const {
       data,
