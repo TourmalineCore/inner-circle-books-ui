@@ -15,7 +15,7 @@ export const BookContainer = observer(() => {
 
   const id = pathnameParts[2]
 
-  const isCopyBook = location.pathname.includes(`/copy`)
+  const isBookCopy = location.pathname.includes(`/copy`)
   const copyId = pathnameParts?.[3]
 
   useEffect(() => {
@@ -33,7 +33,7 @@ export const BookContainer = observer(() => {
   )
 
   async function loadBookAsync() {
-    const url = isCopyBook ? `/books/copy/${copyId}` : `/books/${id}`
+    const url = isBookCopy ? `/books/copy/${copyId}` : `/books/${id}`
 
     const {
       data,
