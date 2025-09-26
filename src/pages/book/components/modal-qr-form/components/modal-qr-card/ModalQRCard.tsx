@@ -8,6 +8,7 @@ import { observer } from 'mobx-react-lite'
 import { useContext } from 'react'
 import { BookStateContext } from '../../../../state/BookStateStateContext'
 import clsx from 'clsx'
+import {LINK_TO_BOOKS_SERVICE, VITE_BASE_URL } from '../../../../../../common/config/config'
 
 export const ModalQRCard = observer(({
   index,
@@ -59,7 +60,7 @@ export const ModalQRCard = observer(({
             <div className="modal-qr-card__qr">
               <QRCode
                 size={64}
-                value={`/books?c=${bookCopyId}`}
+                value={`${VITE_BASE_URL}${LINK_TO_BOOKS_SERVICE}?c=${bookCopyId}`}
                 viewBox={`0 0 64 64`}
               />
             </div>
@@ -82,7 +83,7 @@ export const ModalQRCard = observer(({
             <div className="modal-qr-card-without-checkbox__qr">
               <QRCode
                 size={64}
-                value={`/books?c=${bookCopyId}`}
+                value={`${VITE_BASE_URL}${LINK_TO_BOOKS_SERVICE}?c=${bookCopyId}`}
                 viewBox={`0 0 64 64`}
               />
             </div>
