@@ -30,7 +30,7 @@ export const bookRoutes = [
   },
 ]
 
-export const copyBookRoutes = [
+export const bookCopyRoutes = [
   {
     path: `${DEFAULT_PATH}/copy/:id`,
     breadcrumb: `Book Copy`,
