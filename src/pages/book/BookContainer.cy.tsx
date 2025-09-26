@@ -25,10 +25,12 @@ const BOOK_RESPONSE: BookType = {
     {
       employeeId: 2,
       fullName: `Иванов Иван`,
+      bookCopyId: 14,
     },
     {
       employeeId: 3,
       fullName: `Петров Петр`,
+      bookCopyId: 15,
     },
   ],
 }
