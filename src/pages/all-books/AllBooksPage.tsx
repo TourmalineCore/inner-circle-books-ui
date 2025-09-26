@@ -13,9 +13,7 @@ export function AllBooksPage() {
     searchParams,
   ] = useSearchParams()
 
-  // If the url has the c query parameter,
-  // it means that the transition was made from a qr code
-  // and we need to redirect the user to the page of a copy of the book.
+  // Redirect from QR code (parameter 'c') to the book copy page.
   useEffect(() => {
     const copyId = searchParams.get(`c`)
 
