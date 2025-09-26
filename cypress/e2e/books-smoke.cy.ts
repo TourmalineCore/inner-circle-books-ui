@@ -54,14 +54,12 @@ describe(`Books Smoke`, () => {
             BookPage.checkReadersBeforeTakeBook()
 
             BookPage.visitCopy({
-              bookId,
               bookCopyId,
             })
 
             BookPage.takeBook()
 
             BookPage.visitCopy({
-              bookId,
               bookCopyId,
             })
 
@@ -73,5 +71,24 @@ describe(`Books Smoke`, () => {
             // ReturnBookPage.returnBook()
           })
       })
+  })
+
+  it(`
+  GIVEN book with QR code pointing to copy ID 1
+  WHEN QR code is scanned
+  SHOULD redirect to /books/copy/1
+  `, () => {
+    const bookCopyId = 1
+
+    BookPage.visitViaQR({
+      bookCopyId,
+    })
+
+    cy.intercept(`GET`, `/api/books/copy/${bookCopyId}`, {
+      statusCode: 200,
+    })
+    
+    cy.url()
+      .should(`contain`,`/books/copy/${bookCopyId}`)
   })
 })
