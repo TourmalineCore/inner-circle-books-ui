@@ -8,25 +8,36 @@ import { useLocation} from "react-router-dom"
 export const BookContainer = observer(() => {
   const bookState = useContext(BookStateContext)
   const location = useLocation()
+      
   const pathnameParts = location
     .pathname
     .split(`/`)
+
   const id = pathnameParts[2]
+
+  const isCopyBook = location.pathname.includes(`/copy`)
+  const copyId = pathnameParts?.[3]
 
   useEffect(() => {
     loadBookAsync()
   }, [
     id,
+    copyId,
   ])
 
   return (
-    <BookContent onTake={takeBookAsync}/>
+    <BookContent
+      onTake={takeBookAsync}
+      copyId={copyId}
+    />
   )
 
   async function loadBookAsync() {
+    const url = isCopyBook ? `/books-copy/${copyId}` : `/books/${id}`
+
     const {
       data,
-    } = await api.get<BookType>(`/books/${id}`)
+    } = await api.get<BookType>(url)
 
     bookState.initialize({
       loadedBook: data,
