@@ -46,6 +46,11 @@ describe(`Return Book Snapshot test`, () => {
         .should(`equal`, `loaded`)
 
       cy
+        .getByData('return-book-image')
+        .should('have.attr', 'naturalWidth')
+        .and('be.gt', 0);
+
+      cy
         .getByData(`return-book`)
         .compareSnapshot(`/${viewport.width}`, {
           capture: `viewport`,
