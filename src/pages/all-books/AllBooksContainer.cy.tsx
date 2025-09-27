@@ -1,4 +1,3 @@
-import React from "react"
 import { authService } from "../../common/authService"
 import { AllBooksContainer } from "./AllBooksContainer"
 import { AllBooksState } from "./state/AllBooksState"
@@ -40,12 +39,6 @@ describe(`AllBooksContainer`, () => {
       `*/books`,
       BOOK_CARDS_RESPONSE,
     )
-
-    cy.stub(React, `useContext`)
-      .withArgs(authService.AuthContext)
-      .returns([
-        MOCK_TOKEN,
-      ])
   })
 
   describe(`Initialization`, initializationTests)

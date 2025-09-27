@@ -1,17 +1,8 @@
-import React from "react"
 import { authService } from "../../common/authService"
 import { MOCK_TOKEN, VIEWPORTS } from "../../common/constant"
 import { AllBooksContent } from "./AllBooksContent"
 
 describe(`All Books Snapshot test`, () => {
-  beforeEach(() => {
-    cy.stub(React, `useContext`)
-      .withArgs(authService.AuthContext)
-      .returns([
-        MOCK_TOKEN,
-      ])
-  })
-  
   it(`Take the snapshot of a result`, () => {
     VIEWPORTS.forEach((viewport) => {
       cy.viewport(viewport.width, viewport.height)

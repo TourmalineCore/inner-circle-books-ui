@@ -2,7 +2,6 @@ import { MemoryRouter } from "react-router-dom"
 import { BookContainer } from "./BookContainer"
 import { BookState } from "./state/BookState"
 import { BookStateContext } from "./state/BookStateStateContext"
-import React from "react"
 import { authService } from "../../common/authService"
 import { MOCK_TOKEN } from "../../common/constant"
 
@@ -45,12 +44,6 @@ describe(`BookContainer`, () => {
       `*/books/1`,
       BOOK_RESPONSE,
     )
-
-    cy.stub(React, `useContext`)
-      .withArgs(authService.AuthContext)
-      .returns([
-        MOCK_TOKEN,
-      ])
 
     cy.viewport(1920, 1366)
   })
