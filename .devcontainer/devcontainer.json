@@ -19,9 +19,6 @@
 			"helm": "3.14.4",
 			"minikube": "none"
 		},
-		"ghcr.io/nucleuscloud/devcontainer-features/helmfile:0.1.0": {
-			"version": "v0.164.0"
-		},
 		// https://github.com/cypress-io/cypress-documentation/issues/2956#issuecomment-1691335689
 		"ghcr.io/devcontainers/features/desktop-lite:1.1.0": {}
 	},
@@ -41,14 +38,4 @@
 		// the original host directory which is needed for volume mount commands from inside the container (Docker in Docker)
 		"LOCAL_WORKSPACE_FOLDER": "${localWorkspaceFolder}"
 	}
-	// Features to add to the dev container. More info: https://containers.dev/features.
-	// "features": {},
-	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	// "forwardPorts": [],
-	// Uncomment the next line to run commands after the container is created.
-	// "postCreateCommand": "cat /etc/os-release",
-	// Configure tool-specific properties.
-	// "customizations": {},
-	// Uncomment to connect as an existing user other than the container default. More info: https://aka.ms/dev-containers-non-root.
-	// "remoteUser": "devcontainer"
 }
