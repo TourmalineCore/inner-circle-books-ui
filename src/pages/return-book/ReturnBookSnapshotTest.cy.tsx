@@ -61,7 +61,7 @@ function mountComponent() {
     .mount(
       <ReturnBookStateContext.Provider value={returnBookState}>
         <ReturnBookContent
-          coverUrl={`https://cdn.litres.ru/pub/c/cover_415/70413274.webp`}
+          coverUrl={``}
           title={`ChatGPT мастер подсказок или как создавать сильные промты для нейросети`} 
           onSubmit={() => {}}/>
       </ReturnBookStateContext.Provider>,
