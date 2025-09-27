@@ -25,18 +25,21 @@ export const ReturnBookContent = observer(({
       className="return-book"
       data-cy="return-book"
     >
-      <img
-        className="return-book__image"
-        data-cy="return-book-image"
-        src={isValidUrl 
-          ? coverUrl 
-          : NoImage
-        }
-        alt={title}
-      />
-      <div className="return-book__title">
-        {title}
+      <div className="return-book__info">
+        <img
+          className="return-book__image"
+          data-cy="return-book-image"
+          src={isValidUrl 
+            ? coverUrl 
+            : NoImage
+          }
+          alt={title}
+        />
+        <div className="return-book__title">
+          {title}
+        </div>
       </div>
+      
       <div className="return-book__feedback">
         <label className="return-book__label">
           Specify your reading progress*
