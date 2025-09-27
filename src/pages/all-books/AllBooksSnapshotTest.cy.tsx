@@ -1,7 +1,17 @@
-import { VIEWPORTS } from "../../common/constant"
+import React from "react"
+import { authService } from "../../common/authService"
+import { MOCK_TOKEN, VIEWPORTS } from "../../common/constant"
 import { AllBooksContent } from "./AllBooksContent"
 
 describe(`All Books Snapshot test`, () => {
+  beforeEach(() => {
+    cy.stub(React, `useContext`)
+      .withArgs(authService.AuthContext)
+      .returns([
+        MOCK_TOKEN,
+      ])
+  })
+  
   it(`Take the snapshot of a result`, () => {
     VIEWPORTS.forEach((viewport) => {
       cy.viewport(viewport.width, viewport.height)
@@ -53,8 +63,14 @@ function mountComponent() {
     length: 12,
   }, () => card)
 
+  const mockAuthContext = [
+    MOCK_TOKEN,
+  ]
+
   cy
     .mount(
-      <AllBooksContent cards={cards} />,
+      <authService.AuthContext.Provider value={mockAuthContext}>
+        <AllBooksContent cards={cards} />
+      </authService.AuthContext.Provider>,
     )
 }

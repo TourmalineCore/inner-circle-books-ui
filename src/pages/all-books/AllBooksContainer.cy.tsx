@@ -1,6 +1,9 @@
+import React from "react"
+import { authService } from "../../common/authService"
 import { AllBooksContainer } from "./AllBooksContainer"
 import { AllBooksState } from "./state/AllBooksState"
 import { AllBooksStateContext } from "./state/AllBooksStateStateContext"
+import { MOCK_TOKEN } from "../../common/constant"
 
 const BOOK_CARDS_RESPONSE = {
   books: [
@@ -37,6 +40,12 @@ describe(`AllBooksContainer`, () => {
       `*/books`,
       BOOK_CARDS_RESPONSE,
     )
+
+    cy.stub(React, `useContext`)
+      .withArgs(authService.AuthContext)
+      .returns([
+        MOCK_TOKEN,
+      ])
   })
 
   describe(`Initialization`, initializationTests)
@@ -60,10 +69,16 @@ function initializationTests() {
 function mountComponent() {
   const allBooksState = new AllBooksState()
 
+  const mockAuthContext = [
+    MOCK_TOKEN,
+  ]
+  
   cy
     .mount(
-      <AllBooksStateContext.Provider value={allBooksState}>
-        <AllBooksContainer />
-      </AllBooksStateContext.Provider>,
+      <authService.AuthContext.Provider value={mockAuthContext}>
+        <AllBooksStateContext.Provider value={allBooksState}>
+          <AllBooksContainer />
+        </AllBooksStateContext.Provider>
+      </authService.AuthContext.Provider>,
     )
 }
