@@ -26,7 +26,8 @@ describe(`Modal Calendar Snapshot test`, () => {
   })
 
   it(`Take the snapshot of a result`, () => {
-    cy.clock(new Date(`2025-08-10`).getTime())
+    cy.clock(new Date(`2025-08-10`) 
+      .getTime())
   
     VIEWPORTS.forEach((viewport) => {
       cy.viewport(viewport.width, viewport.height)
