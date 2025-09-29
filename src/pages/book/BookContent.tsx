@@ -128,7 +128,7 @@ export const BookContent = observer(({
                   .toISOString()
                   .slice(0, 10),
               })
-              setShowModal(false) // TODO
+              setShowModal(false)
             }}
             onButtonAction={() => setShowModalCalendar(true)}
             onCloseModal={() => setShowModal(false)}
@@ -160,7 +160,7 @@ export const BookContent = observer(({
                   .toISOString()
                   .slice(0, 10),
               })
-              setShowModalCalendar(false) // TODO
+              setShowModalCalendar(false)
             }}
             onButtonAction={() => setShowModalCalendar(false)}
             onCloseModal={() => {
