@@ -25,14 +25,6 @@ export const CustomCalendar = observer(({
     nextDay.setDate(date.getDate() + 1)
     return nextDay.getMonth() !== date.getMonth()
   }
-
-  const dayClassName = (date: Date) => {
-    const classes = []
-    if (isLastDayOfMonth(date)) {
-      classes.push(`last-day-of-month`)
-    }
-    return classes.join(` `)
-  }
   
   return (
     <DatePicker
@@ -49,7 +41,10 @@ export const CustomCalendar = observer(({
       }
       formatWeekDay={(nameOfDay) => nameOfDay.substring(0, 3)}
       minDate={startDate}
-      dayClassName={dayClassName}
+      dayClassName={(date) => isLastDayOfMonth(date) 
+        ? `last-day-of-month` 
+        : ``
+      }
     />
   )
 })

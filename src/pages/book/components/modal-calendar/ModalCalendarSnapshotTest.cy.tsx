@@ -25,12 +25,8 @@ describe(`Modal Calendar Snapshot test`, () => {
     document.head.appendChild(style)
   })
 
-  it(`Take the snapshot of a result with several copies`, () => {
-    // we use Date now in component so we set it here for test
-    const now = new Date(`2025-08-10`)
-      .getTime()
-
-    cy.clock(now)
+  it(`Take the snapshot of a result`, () => {
+    cy.clock(new Date(`2025-08-10`).getTime())
   
     VIEWPORTS.forEach((viewport) => {
       cy.viewport(viewport.width, viewport.height)

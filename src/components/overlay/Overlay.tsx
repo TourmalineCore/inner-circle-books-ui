@@ -21,7 +21,7 @@ export const Overlay = ({
   onAccentButtonAction: () => unknown,
   onButtonAction?: () => unknown,
   onCloseModal?: () => unknown,
-  modalName: string,
+  modalName: `modal` | `modalQRForm` | `modalCalendar`,
   title?: string,
   text?: string | React.ReactNode,
   buttonLabel?: string,

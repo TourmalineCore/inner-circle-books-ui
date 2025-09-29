@@ -130,7 +130,7 @@ export const BookContent = observer(({
                   .toISOString()
                   .slice(0, 10),
               })
-              setShowModal(false) // TODO
+              setShowModal(false)
             }}
             onButtonAction={() => setShowModalCalendar(true)}
             onCloseModal={() => setShowModal(false)}
@@ -162,7 +162,7 @@ export const BookContent = observer(({
                   .toISOString()
                   .slice(0, 10),
               })
-              setShowModalCalendar(false) // TODO
+              setShowModalCalendar(false)
             }}
             onButtonAction={() => setShowModalCalendar(false)}
             onCloseModal={() => {
@@ -282,7 +282,7 @@ export const BookContent = observer(({
                     ? (
                       <div className="book__take-info">
                         <InfoIcon />
-                        <p className="book__take-info--text">
+                        <p className="book__take-info-text">
                           Copy of book doesn't exist, check the correctness of the QR code
                         </p>
                       </div>
@@ -290,7 +290,7 @@ export const BookContent = observer(({
                     : (
                       <div className="book__take-info">
                         <InfoIcon />
-                        <p className="book__take-info--text">
+                        <p className="book__take-info-text">
                           You can take book after scanning the QR code on book cover
                         </p>
                       </div>
