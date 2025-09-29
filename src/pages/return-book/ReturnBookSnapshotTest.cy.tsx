@@ -1,6 +1,7 @@
+import { MemoryRouter } from "react-router-dom"
 import { ReturnBookContent } from "./ReturnBookContent"
 import { ReturnBookState } from "./state/ReturnBookState"
-import { ReturnBookStateContext } from "./state/ReturnBookStateStateContext"
+import { ReturnBookStateContext } from "./state/ReturnBookStateContext"
 
 export const VIEWPORTS = [
   {
@@ -59,11 +60,18 @@ function mountComponent() {
 
   cy
     .mount(
-      <ReturnBookStateContext.Provider value={returnBookState}>
-        <ReturnBookContent
-          coverUrl={``}
-          title={`ChatGPT мастер подсказок или как создавать сильные промты для нейросети`} 
-          onSubmit={() => {}}/>
-      </ReturnBookStateContext.Provider>,
+      <MemoryRouter 
+        initialEntries={[
+          `/books/return`,
+        ]}>
+        <ReturnBookStateContext.Provider value={returnBookState}>
+          <ReturnBookContent
+            coverUrl={``}
+            title={`ChatGPT мастер подсказок или как создавать сильные промты для нейросети и еще что-то интересное нереальное и очень секретное концептуальное`} 
+            onSubmit={() => {}}
+            goToBookPage={() => {}}
+          />
+        </ReturnBookStateContext.Provider>
+      </MemoryRouter>,
     )
 }

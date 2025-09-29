@@ -1,7 +1,7 @@
 import { useContext, useEffect } from "react"
 import { observer } from "mobx-react-lite"
 import { ReturnBookContent } from "./ReturnBookContent"
-import { ReturnBookStateContext } from "./state/ReturnBookStateStateContext"
+import { ReturnBookStateContext } from "./state/ReturnBookStateContext"
 import { api } from "../../common/api"
 import { useLocation } from "react-router-dom"
 
@@ -38,6 +38,7 @@ export const ReturnBookContainer = observer(({
       onSubmit={returnBookAsync} 
       coverUrl={returnBookState.book.coverUrl}
       title={returnBookState.book.title}
+      goToBookPage={goToBookPage}
     />
   )
   
@@ -45,10 +46,16 @@ export const ReturnBookContainer = observer(({
     bookCopyId,
     progressOfReading,
   }: ReturnBookType) {
+    returnBookState.setIsSaving()
     returnBookState.setIsTriedToSubmit()
+
+    if (!returnBookState.isValid) {
+      returnBookState.resetIsTriedToSubmit()
+      return
+    }
   
     try {
-      await api.post<TakeBookType>(
+      await api.post<ReturnBookType>(
         `/books/return`,
         {
           bookCopyId,
