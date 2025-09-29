@@ -214,11 +214,17 @@ export const BookContent = observer(({
                 <div className='book__readers-title'>
                     Reading Now
                   <span className='book__readers-list'>
-                    {
-                      employeesWhoReadNow
-                        .map(reader => reader.fullName)
-                        .join(`, `)
-                    }
+                    {Array
+                      .from(
+                        new Map(
+                          employeesWhoReadNow.map(reader => [
+                            reader.employeeId,
+                            reader.fullName,
+                          ]),
+                        )
+                          .values(),
+                      )
+                      .join(`, `)}
                   </span>
                 </div>
               </div>
