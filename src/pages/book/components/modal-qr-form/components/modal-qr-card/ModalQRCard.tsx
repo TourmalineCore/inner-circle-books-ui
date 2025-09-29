@@ -63,7 +63,7 @@ export const ModalQRCard = observer(({
             <div className="modal-qr-card__qr">
               <QRCode
                 size={64}
-                value={`${API_ROOT}${LINK_TO_BOOKS_SERVICE}/${bookId}?bookCopyId=${bookCopyId}`}
+                value={`${LINK_TO_BOOKS_SERVICE}${bookId}?copyId=${bookCopyId}`}
                 viewBox={`0 0 64 64`}
               />
             </div>

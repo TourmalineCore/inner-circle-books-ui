@@ -11,9 +11,7 @@ const EMPTY_BOOK: BookType = {
     },
   ],
   coverUrl: ``,
-  copiesIds: [
-    1,
-  ],
+  bookCopiesIds: [],
 }
 
 export class BookState {
@@ -24,6 +22,8 @@ export class BookState {
   private _selectedCopies: { 
     [key: number]: boolean, 
   } = {}
+
+  private _isTriedToSubmit = false
 
   constructor() {
     makeAutoObservable(this)
@@ -38,7 +38,7 @@ export class BookState {
 
     // Initialize all copies as selected
     this._book
-      .copiesIds
+      .bookCopiesIds
       .forEach((bookCopyId) => {
         this._selectedCopies[bookCopyId] = true
       })
@@ -50,16 +50,20 @@ export class BookState {
 
   get count() {
     return this._book
-      .copiesIds
+      .bookCopiesIds
       .length
   }
 
   get areAllCopiesSelected() {
     return this._book
-      .copiesIds
+      .bookCopiesIds
       .every((bookCopyId) =>
         this._selectedCopies[bookCopyId] === true, 
       )
+  }
+
+  get isTriedToSubmit() {
+    return this._isTriedToSubmit
   }
 
   toggleBookCopyChecked({
@@ -79,7 +83,7 @@ export class BookState {
 
     if (checked) {
       this._book
-        .copiesIds
+        .bookCopiesIds
         .forEach((bookCopyId) => {
           this._selectedCopies[bookCopyId] = true
         })
@@ -98,9 +102,17 @@ export class BookState {
     this._selectedCopies = {}
 
     this._book
-      .copiesIds
+      .bookCopiesIds
       .forEach((bookCopyId) => {
         this._selectedCopies[bookCopyId] = true
       })
+  }
+
+  setIsTriedToSubmit() {
+    this._isTriedToSubmit = true
+  }
+
+  resetIsTriedToSubmit() {
+    this._isTriedToSubmit = false
   }
 }

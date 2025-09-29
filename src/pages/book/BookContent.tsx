@@ -2,54 +2,181 @@ import './BookContent.scss'
 
 import NoImage from "../../assets/img/no-image.png"
 import ViewQRIcon from "../../assets/icons/View-qr.svg?react"
+import InfoIcon from "../../assets/icons/Info.svg?react"
 
 import clsx from 'clsx'
 import { observer } from "mobx-react-lite"
-import { useContext, useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
+import { useContext, useEffect, useState } from 'react'
 import { BookStateContext } from './state/BookStateStateContext'
 import { Button } from '../../components/button/Button'
 import { useImageValid } from '../../common/useImageValid'
 import { Overlay } from '../../components/overlay/Overlay'
 
-export const BookContent = observer(() => {
+export const BookContent = observer(({
+  onTake,
+}: {
+  onTake: ({
+    bookCopyId, 
+    sсheduledReturnDate, 
+  }: TakeBookType,
+  ) => unknown,
+}) => {
   const bookState = useContext(BookStateContext)
-  const {
-    book,
-  } = bookState 
 
   const {
-    title,
-    annotation,
-    language,
-    authors,
-    coverUrl,
-  } = book
+    book: {
+      title,
+      annotation,
+      language,
+      authors,
+      coverUrl,
+      bookCopiesIds,
+    },
+  } = bookState
 
   const isValidUrl = useImageValid(coverUrl)
+
+  const [
+    showModalQRForm,
+    setShowModalQRForm,
+  ] = useState(false)
 
   const [
     showModal,
     setShowModal,
   ] = useState(false)
-  
-  const handleCloseModal = () => {
-    setShowModal(false)
+
+  const [
+    showModalCalendar,
+    setShowModalCalendar,
+  ] = useState(false)
+
+  const currentDate = new Date()
+  currentDate.setMonth(currentDate.getMonth() + 3)
+
+  // formate date to DD.MM.YYYY format
+  const day = String(currentDate.getDate())
+    .padStart(2, `0`)
+  const month = String(currentDate.getMonth() + 1)
+    .padStart(2, `0`)
+  const year = currentDate.getFullYear()
+
+  // copyId
+  const [
+    searchParams,
+  ] = useSearchParams()
+  const copyId = searchParams.get(`copyId`)
+
+  const [
+    isValidCopyId,
+    setIsValidCopyId,
+  ] = useState(false)
+
+  useEffect(() => {
+    // if copyId isn't passed or is not a number or is not in bookCopiesIds
+    if (!copyId || isNaN(Number(copyId)) || !bookCopiesIds.includes(Number(copyId))) {
+      return
+    }
+
+    setIsValidCopyId(true)
+  }, [
+    copyId,
+    bookCopiesIds,
+  ])
+
+  // CustomCalendar props
+  const [
+    endCalendarDate,
+    setEndCalendarDate,
+  ] = useState<Date | null>(null)
+
+  const onChangeCalendar = (dates: [Date, Date]) => {
+    const [
+      start,
+      end,
+    ] = dates
+
+    if (end === null) {
+      setEndCalendarDate(start)
+    }
+    else {
+      setEndCalendarDate(end)
+    }
   }
-  
+
   return (
     <>
       {
+        showModalQRForm && (
+          <Overlay 
+            onAccentButtonAction={() => {}} // TODO: change when add print flow
+            modalName='modalQRForm'
+            onCloseModal={() => setShowModalQRForm(false)}
+          />
+        )
+      }
+
+      {
         showModal && (
           <Overlay 
-            onPrint={() => {}}
-            onCloseModal={handleCloseModal}
+            data-cy="book-modal"
+            onAccentButtonAction={() => {
+              onTake({
+                bookCopyId: Number(copyId),
+                sсheduledReturnDate: currentDate
+                  .toISOString()
+                  .slice(0, 10),
+              })
+              setShowModal(false)
+            }}
+            onButtonAction={() => setShowModalCalendar(true)}
+            onCloseModal={() => setShowModal(false)}
+            modalName='modal'
+            title="When you are Going to&nbsp;Return Book to&nbsp;the Library?"
+            text={
+              <>
+                You can choose the date in the next step or the date{` `}
+                <span className='text-accent'>
+                  {day}.{month}.{year}
+                </span>
+                {` `}will be selected automatically
+              </>
+            }
+            buttonLabel="Choose the Return Date"
+            accentButtonLabel="Take Book"
+            hasCloseButton
+          />
+        )
+      }
+
+      {
+        showModalCalendar && (
+          <Overlay 
+            onAccentButtonAction={() => {
+              onTake({
+                bookCopyId: Number(copyId),
+                sсheduledReturnDate: endCalendarDate!
+                  .toISOString()
+                  .slice(0, 10),
+              })
+              setShowModalCalendar(false)
+            }}
+            onButtonAction={() => setShowModalCalendar(false)}
+            onCloseModal={() => {
+              setShowModalCalendar(false)
+              setShowModal(false)
+            }}
+            modalName='modalCalendar'
+            endCalendarDate={endCalendarDate}
+            onChangeCalendar={onChangeCalendar}
           />
         )
       }
 
       <div 
         className="book"
-        data-cy="book"
+        data-cy="book-page"
       >
         <div className='book__left'>
           <img
@@ -64,7 +191,7 @@ export const BookContent = observer(() => {
           />
 
           <Button
-            onClick={() => setShowModal(true)}
+            onClick={() => setShowModalQRForm(true)}
             label={
               <>
                 <ViewQRIcon /> View QR Code
@@ -112,13 +239,37 @@ export const BookContent = observer(() => {
                 </span>
               </li>
             </ul>
-        
-            <Button 
-              onClick={() => {}}
-              label="Take Book"
-              className='book__take-button'
-              isAccent
-            />
+
+            {
+              isValidCopyId 
+                ? (
+                  <Button
+                    onClick={() => setShowModal(true)}
+                    label="Take Book"
+                    className='book__take-button'
+                    isAccent
+                  />
+                ) 
+                : (
+                  copyId 
+                    ? (
+                      <div className="book__take-info">
+                        <InfoIcon />
+                        <p className="book__take-info-text">
+                          Copy of book doesn't exist, check the correctness of the QR code
+                        </p>
+                      </div>
+                    ) 
+                    : (
+                      <div className="book__take-info">
+                        <InfoIcon />
+                        <p className="book__take-info-text">
+                          You can take book after scanning the QR code on book cover
+                        </p>
+                      </div>
+                    )
+                )
+            }
           </div>
 
           <h5 className='book__section-name'>

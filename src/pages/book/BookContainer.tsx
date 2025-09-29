@@ -14,22 +14,42 @@ export const BookContainer = observer(() => {
   const id = pathnameParts[2]
 
   useEffect(() => {
-    async function loadBookAsync() {
-      const {
-        data,
-      } = await api.get<BookType>(`/books/${id}`)
-
-      bookState.initialize({
-        loadedBook: data,
-      })
-    }
-
     loadBookAsync()
   }, [
     id,
   ])
 
   return (
-    <BookContent />
+    <BookContent onTake={takeBookAsync}/>
   )
+
+  async function loadBookAsync() {
+    const {
+      data,
+    } = await api.get<BookType>(`/books/${id}`)
+
+    bookState.initialize({
+      loadedBook: data,
+    })
+  }
+
+  async function takeBookAsync({
+    bookCopyId,
+    sсheduledReturnDate,
+  }: TakeBookType) {
+    bookState.setIsTriedToSubmit()
+
+    try {
+      await api.post<TakeBookType>(
+        `/books/take`,
+        {
+          bookCopyId,
+          sсheduledReturnDate,
+        },
+      )
+    }
+    finally {
+      bookState.resetIsTriedToSubmit()
+    }
+  }
 })
