@@ -255,7 +255,7 @@ export const BookContent = observer(({
                     ? (
                       <div className="book__take-info">
                         <InfoIcon />
-                        <p className="book__take-info--text">
+                        <p className="book__take-info-text">
                           Copy of book doesn't exist, check the correctness of the QR code
                         </p>
                       </div>
@@ -263,7 +263,7 @@ export const BookContent = observer(({
                     : (
                       <div className="book__take-info">
                         <InfoIcon />
-                        <p className="book__take-info--text">
+                        <p className="book__take-info-text">
                           You can take book after scanning the QR code on book cover
                         </p>
                       </div>

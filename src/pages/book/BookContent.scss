@@ -74,8 +74,9 @@
     svg path {
       stroke: v.$color-icon-secondary;
     }
+  }
 
-    &--text {
+  &__take-info-text {
       @include f.text;
 
       margin: 0;
@@ -89,7 +90,6 @@
         width: 280px;
       }
     }
-  }
 
   &__wrap {
     display: flex;
