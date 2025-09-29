@@ -6,7 +6,6 @@ import InfoIcon from "../../assets/icons/Info.svg?react"
 
 import clsx from 'clsx'
 import { observer } from "mobx-react-lite"
-import { useSearchParams } from 'react-router-dom'
 import { useContext, useEffect, useState } from 'react'
 import { BookStateContext } from './state/BookStateStateContext'
 import { Button } from '../../components/button/Button'
@@ -16,8 +15,10 @@ import { getEmployeeIdFromToken } from '../../common/tokenUtils'
 import { returnBookRoutes } from '../routes'
 
 export const BookContent = observer(({
+  copyId,
   onTake,
 }: {
+  copyId?: string,
   onTake: ({
     bookCopyId, 
     scheduledReturnDate, 
@@ -64,12 +65,6 @@ export const BookContent = observer(({
   const month = String(currentDate.getMonth() + 1)
     .padStart(2, `0`)
   const year = currentDate.getFullYear()
-
-  // copyId
-  const [
-    searchParams,
-  ] = useSearchParams()
-  const copyId = searchParams.get(`ci`)
 
   const [
     isValidCopyId,

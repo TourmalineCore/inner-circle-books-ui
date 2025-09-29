@@ -56,14 +56,12 @@ describe(`Books Smoke`, () => {
             BookPage.checkReadersBeforeTakeBook()
 
             BookPage.visitCopy({
-              bookId,
               bookCopyId,
             })
 
             BookPage.takeBook()
 
             BookPage.visitCopy({
-              bookId,
               bookCopyId,
             })
 

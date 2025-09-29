@@ -1,5 +1,6 @@
 import { AllBooksPage } from "./pages/AllBooksPage"
 import { AddBookPage } from "./pages/AddBookPage"
+import { BookPage } from "./pages/BookPage"
 
 describe(`Books Smoke`, () => {
   beforeEach(`Authorize and cleanup`, () => {
@@ -25,5 +26,25 @@ describe(`Books Smoke`, () => {
     AddBookPage.addBook()
 
     AllBooksPage.checkAddedBook()
+  })
+
+  it(`
+  GIVEN book with QR code pointing to copy ID 1
+  WHEN QR code is scanned
+  SHOULD redirect to /books/copy/1
+  `, () => {
+    const bookCopyId = 1
+
+    BookPage.visitViaQR({
+      bookCopyId,
+    })
+
+    cy.intercept(`GET`, `/api/books/copy/${bookCopyId}`, {
+      statusCode: 200,
+    })
+    
+    cy
+      .url()
+      .should(`contain`,`/books/copy/${bookCopyId}`)
   })
 })

@@ -8,13 +8,19 @@ export class BookPage {
   }
 
   static visitCopy({
-    bookId, 
     bookCopyId,
   }: {
-    bookId: number, 
     bookCopyId: number,
   }) {
-    cy.visit(`/books/${bookId}?ci=${bookCopyId}`)
+    cy.visit(`/books/copy/${bookCopyId}`)
+  }
+
+  static visitViaQR({
+    bookCopyId,
+  }: {
+    bookCopyId: number,
+  }) {
+    cy.visit(`/books?c=${bookCopyId}`)
   }
 
   static checkReadersBeforeTakeBook() {

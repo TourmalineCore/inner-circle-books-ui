@@ -30,6 +30,14 @@ export const bookRoutes = [
   },
 ]
 
+export const bookCopyRoutes = [
+  {
+    path: `${DEFAULT_PATH}/copy/:id`,
+    breadcrumb: `Book Copy`,
+    Component: BookPage,
+  },
+]
+
 export const returnBookRoutes = [
   {
     path: `${DEFAULT_PATH}/return`,
