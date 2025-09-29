@@ -103,8 +103,8 @@ export const BookContent = observer(({
     }
   }
 
-  const isBookTakenByCurrentEmployee = employeesWhoReadNow.some(
-    (reader) => reader.employeeId === getEmployeeIdFromToken(),
+  const isCurrentUserReadingThisCopy = employeesWhoReadNow.some(
+    (reader) => reader.employeeId === getEmployeeIdFromToken() && reader.bookCopyId === Number(copyId),
   )
 
   return (
@@ -264,12 +264,12 @@ export const BookContent = observer(({
                 ? (
                   <Button
                     onClick={() => {
-                      isBookTakenByCurrentEmployee
+                      isCurrentUserReadingThisCopy
                         ? window.location.href = `${returnBookRoutes[0].path}?copyId=${copyId}`
                         : setShowModal(true)
                     }}
                     label={
-                      isBookTakenByCurrentEmployee
+                      isCurrentUserReadingThisCopy
                         ? `Return Book`
                         : `Take Book`
                     }

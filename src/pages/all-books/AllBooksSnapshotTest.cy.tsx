@@ -1,4 +1,5 @@
-import { VIEWPORTS } from "../../common/constant"
+import { authService } from "../../common/authService"
+import { MOCK_TOKEN, VIEWPORTS } from "../../common/constant"
 import { AllBooksContent } from "./AllBooksContent"
 
 describe(`All Books Snapshot test`, () => {
@@ -53,8 +54,14 @@ function mountComponent() {
     length: 12,
   }, () => card)
 
+  const mockAuthContext = [
+    MOCK_TOKEN,
+  ]
+
   cy
     .mount(
-      <AllBooksContent cards={cards} />,
+      <authService.AuthContext.Provider value={mockAuthContext}>
+        <AllBooksContent cards={cards} />
+      </authService.AuthContext.Provider>,
     )
 }

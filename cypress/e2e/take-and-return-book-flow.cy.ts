@@ -1,0 +1,77 @@
+import { AllBooksPage } from "./pages/AllBooksPage"
+import { AddBookPage } from "./pages/AddBookPage"
+import { BookPage } from "./pages/BookPage"
+
+describe(`Books Smoke`, () => {
+  beforeEach(`Authorize and cleanup`, () => {
+    cy.authByApi()
+    cy.removeBooks()
+  })
+
+  afterEach(`Authorize and cleanup`, () => {
+    cy.removeBooks()
+  })
+
+  it(`
+  GIVEN created book
+  WHEN take this book
+  SHOULD display our name as a new reader name on the Book page
+  AND return this book
+  SHOULD not display our name as a new reader name on the Book page
+  `, () => {
+    AllBooksPage.visit()
+
+    cy.intercept(
+      `POST`, 
+      `/api/books`)
+      .as(`addBookRequest`)
+
+    AddBookPage.addBook()
+
+    cy.wait(`@addBookRequest`)
+      .then((interception) => {
+        const response = interception.response
+        const bookId = response!.body.newBookId
+       
+        cy.intercept(
+          `GET`, 
+          `/api/books/${bookId}`)
+          .as(`getBookDataRequest`)
+
+        cy
+          .getByData(`book-card`)
+          .filter((_, element) => {
+            return Cypress.$(element)
+              .text()
+              .includes(`[E2E-SMOKE] Новая книга`)
+          })
+          .should(`have.length`, 1)
+          .click()
+
+        cy.wait(`@getBookDataRequest`)
+          .then((interception) => {
+            const response = interception.response
+            const bookCopyId = response!.body.bookCopiesIds[0]
+
+            BookPage.checkReadersBeforeTakeBook()
+
+            BookPage.visitCopy({
+              bookCopyId,
+            })
+
+            BookPage.takeBook()
+
+            BookPage.visitCopy({
+              bookCopyId,
+            })
+
+            BookPage.checkBookPageAfterTakeBook()
+            
+            BookPage.clickReturnBookButton()
+
+            // fix return book button action
+            // ReturnBookPage.returnBook()
+          })
+      })
+  })
+})

@@ -52,8 +52,9 @@ function bookDataTests() {
         ],
         employeesWhoReadNow: [
           {
-            "employeeId": 1,
-            "fullName": `Ceo Ceo Ceo`,
+            employeeId: 1,
+            fullName: `Ceo Ceo Ceo`,
+            bookCopyId: 1,
           },
         ],
       },
@@ -78,6 +79,13 @@ function bookDataTests() {
     expect(bookState.book.bookCopiesIds).to.deep.eq([
       1,
       2,
+    ])
+    expect(bookState.book.employeesWhoReadNow).to.deep.eq([
+      {
+        employeeId: 1,
+        fullName: `Ceo Ceo Ceo`,
+        bookCopyId: 1,
+      },
     ])
   })
 

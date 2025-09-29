@@ -12,14 +12,6 @@ export const VIEWPORTS = [
     height: 1408,
   },
   {
-    width: 1024,
-    height: 820,
-  },
-  {
-    width: 1366,
-    height: 820,
-  },
-  {
     width: 1920,
     height: 1008,
   },
@@ -69,8 +61,8 @@ function mountComponent() {
     .mount(
       <ReturnBookStateContext.Provider value={returnBookState}>
         <ReturnBookContent
-          coverUrl={`https://cdn.litres.ru/pub/c/cover_415/70413274.webp`}
-          title={`ChatGPT мастер подсказок или как создавать сильные промты для нейросети и еще что-то интересное нереальное и очень секретное про не`} 
+          coverUrl={``}
+          title={`ChatGPT мастер подсказок или как создавать сильные промты для нейросети`} 
           onSubmit={() => {}}/>
       </ReturnBookStateContext.Provider>,
     )

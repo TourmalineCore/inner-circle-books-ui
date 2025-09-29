@@ -2,6 +2,8 @@ import { MemoryRouter } from "react-router-dom"
 import { BookContainer } from "./BookContainer"
 import { BookState } from "./state/BookState"
 import { BookStateContext } from "./state/BookStateStateContext"
+import { authService } from "../../common/authService"
+import { MOCK_TOKEN } from "../../common/constant"
 
 const BOOK_RESPONSE: BookType = {
   id: 1,
@@ -25,10 +27,12 @@ const BOOK_RESPONSE: BookType = {
     {
       employeeId: 2,
       fullName: `Иванов Иван`,
+      bookCopyId: 14,
     },
     {
       employeeId: 3,
       fullName: `Петров Петр`,
+      bookCopyId: 15,
     },
   ],
 }
@@ -83,15 +87,21 @@ function initializationTests() {
 function mountComponent() {
   const bookState = new BookState()
 
+  const mockAuthContext = [
+    MOCK_TOKEN,
+  ]
+    
   cy
     .mount(
-      <MemoryRouter 
-        initialEntries={[
-          `/books/1`,
-        ]}>
-        <BookStateContext.Provider value={bookState}>
-          <BookContainer />
-        </BookStateContext.Provider>
-      </MemoryRouter>,
+      <authService.AuthContext.Provider value={mockAuthContext}>
+        <MemoryRouter 
+          initialEntries={[
+            `/books/1`,
+          ]}>
+          <BookStateContext.Provider value={bookState}>
+            <BookContainer />
+          </BookStateContext.Provider>
+        </MemoryRouter>
+      </authService.AuthContext.Provider>,
     )
 }

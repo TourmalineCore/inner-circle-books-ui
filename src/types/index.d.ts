@@ -34,4 +34,5 @@ type ReturnBookType = {
 type EmployeeWhoReadNowType = {
   employeeId: number,
   fullName: string,
+  bookCopyId: number,
 }
