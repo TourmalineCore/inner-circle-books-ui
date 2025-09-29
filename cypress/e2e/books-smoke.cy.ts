@@ -43,7 +43,8 @@ describe(`Books Smoke`, () => {
       statusCode: 200,
     })
     
-    cy.url()
+    cy
+      .url()
       .should(`contain`,`/books/copy/${bookCopyId}`)
   })
 })
