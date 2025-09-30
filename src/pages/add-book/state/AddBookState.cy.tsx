@@ -287,7 +287,7 @@ function savingTest() {
   
   it(`
   GIVEN initial isSaving = false
-  WHEN setIsSaving and setIsSaved are triggered
+  WHEN setIsSaving and resetIsSaving are triggered
   SHOULD toggle isSaving to true and then back to false
   `, () => {
     expect(addBookState.isSaving).to.be.false
@@ -295,7 +295,7 @@ function savingTest() {
     addBookState.setIsSaving()
     expect(addBookState.isSaving).to.be.true
     
-    addBookState.setIsSaved()
+    addBookState.resetIsSaving()
     expect(addBookState.isSaving).to.be.false
   })
 

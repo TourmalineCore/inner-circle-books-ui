@@ -83,7 +83,7 @@ export class ReturnBookState {
     this._isSaving = true
   }
 
-  setIsSaved() {
+  resetIsSaving() {
     this._isSaving = false
   }
 

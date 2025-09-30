@@ -161,7 +161,7 @@ export class AddBookState {
     this._isSaving = true
   }
 
-  setIsSaved() {
+  resetIsSaving() {
     this._isSaving = false
   }
   

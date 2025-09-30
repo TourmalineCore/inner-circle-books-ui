@@ -50,7 +50,7 @@ export const ReturnBookContainer = observer(({
     returnBookState.setIsTriedToSubmit()
 
     if (!returnBookState.isValid) {
-      returnBookState.resetIsTriedToSubmit()
+      returnBookState.resetIsSaving()
       return
     }
   
@@ -66,6 +66,7 @@ export const ReturnBookContainer = observer(({
       goToBookPage()
     }
     finally {
+      returnBookState.resetIsSaving()
       returnBookState.resetIsTriedToSubmit()
     }
   }
