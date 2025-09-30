@@ -8,22 +8,19 @@ import { Button } from '../../components/button/Button'
 import { ReturnBookStateContext } from './state/ReturnBookStateContext'
 import { useContext, useState } from 'react'
 import { Overlay } from '../../components/overlay/Overlay'
-import { useSearchParams } from 'react-router-dom'
 import { ProgressOfReading } from '../../common/enums/progressOfReading'
 
 export const ReturnBookContent = observer(({
   title,
   coverUrl,
+  copyId,
   onSubmit,
   goToBookCopyPage,
 }:{
   title: string,
   coverUrl: string,
-  onSubmit: ({
-    bookCopyId, 
-    progressOfReading, 
-  }: ReturnBookType,
-  ) => unknown,
+  copyId: string,
+  onSubmit: () => unknown,
   goToBookCopyPage: ({
     copyId,
   }: {
@@ -33,11 +30,6 @@ export const ReturnBookContent = observer(({
   const returnBookState = useContext(ReturnBookStateContext)
   
   const isValidUrl = useImageValid(coverUrl)
-
-  const [
-    searchParams,
-  ] = useSearchParams()
-  const copyId = searchParams.get(`copyId`)
 
   const [
     showModal,
@@ -150,10 +142,7 @@ export const ReturnBookContent = observer(({
           />
       
           <Button 
-            onClick={() => onSubmit({
-              bookCopyId: Number(copyId),
-              progressOfReading: returnBookState.book.progressOfReading,
-            })}
+            onClick={() => onSubmit()}
             label={returnBookState.isSaving 
               ? `Returning` 
               : `Return Book`}

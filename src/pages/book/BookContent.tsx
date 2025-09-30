@@ -272,7 +272,7 @@ export const BookContent = observer(({
                   <Button
                     onClick={() => {
                       isCurrentUserReadingThisCopy
-                        ? window.location.href = `${returnBookRoutes[0].path}?copyId=${copyId}`
+                        ? window.location.href = `${returnBookRoutes[0].path.replace(`:id`, String(copyId))}`
                         : setShowModal(true)
                     }}
                     label={

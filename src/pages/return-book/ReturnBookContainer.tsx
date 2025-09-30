@@ -19,13 +19,13 @@ export const ReturnBookContainer = observer(({
   const pathnameParts = location
     .pathname
     .split(`/`)
-  const id = pathnameParts[2]
+  const copyId = pathnameParts?.[4]
   
   useEffect(() => {
     async function loadBookAsync() {
       const {
         data,
-      } = await api.get<BookType>(`/books/${id}`)
+      } = await api.get<BookType>(`/books/copy/${copyId}`)
   
       returnBookState.initialize({
         loadedBook: data,
@@ -34,24 +34,22 @@ export const ReturnBookContainer = observer(({
 
     loadBookAsync()
   }, [
-    id,
+    copyId,
   ])
 
   return (
     <div className="container">
       <ReturnBookContent 
-        onSubmit={returnBookAsync} 
-        coverUrl={returnBookState.book.coverUrl}
         title={returnBookState.book.title}
+        coverUrl={returnBookState.book.coverUrl}
+        copyId={copyId}
+        onSubmit={returnBookAsync} 
         goToBookCopyPage={goToBookCopyPage}
       />
     </div>
   )
   
-  async function returnBookAsync({
-    bookCopyId,
-    progressOfReading,
-  }: ReturnBookType) {
+  async function returnBookAsync() {
     returnBookState.setIsSaving()
     returnBookState.setIsTriedToSubmit()
 
@@ -64,13 +62,13 @@ export const ReturnBookContainer = observer(({
       await api.post<ReturnBookType>(
         `/books/return`,
         {
-          bookCopyId,
-          progressOfReading,
+          copyId,
+          progressOfReading: returnBookState.book.progressOfReading,
         },
       )
 
       goToBookCopyPage({
-        copyId: String(bookCopyId),
+        copyId: copyId,
       })
     }
     finally {
