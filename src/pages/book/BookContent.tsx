@@ -12,7 +12,11 @@ import { Button } from '../../components/button/Button'
 import { useImageValid } from '../../common/useImageValid'
 import { Overlay } from '../../components/overlay/Overlay'
 
-export const BookContent = observer(() => {
+export const BookContent = observer(({
+  toggleHistoryModal,
+}: {
+  toggleHistoryModal: () => unknown,
+}) => {
   const bookState = useContext(BookStateContext)
   const {
     book,
@@ -66,7 +70,7 @@ export const BookContent = observer(() => {
 
           <div className='book__buttons'>
             <Button
-              onClick={() => {}}
+              onClick={toggleHistoryModal}
               label={
                 <>
                   <ClockIcon /> Book Tracking
