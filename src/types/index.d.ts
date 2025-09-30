@@ -19,3 +19,13 @@ type BookType = {
   coverUrl: string,
   copiesIds: number[],
 }
+
+type HistoryType = {
+  id: number,
+  employee: string,
+  borrowDate: Date,
+  dueReturnDate: Date,
+  actualReturnDate?: Date,
+  status: string,
+  readingProgress: string,
+}
