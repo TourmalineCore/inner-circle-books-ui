@@ -38,12 +38,14 @@ export const ReturnBookContainer = observer(({
   ])
 
   return (
-    <ReturnBookContent 
-      onSubmit={returnBookAsync} 
-      coverUrl={returnBookState.book.coverUrl}
-      title={returnBookState.book.title}
-      goToBookCopyPage={goToBookCopyPage}
-    />
+    <div className="container">
+      <ReturnBookContent 
+        onSubmit={returnBookAsync} 
+        coverUrl={returnBookState.book.coverUrl}
+        title={returnBookState.book.title}
+        goToBookCopyPage={goToBookCopyPage}
+      />
+    </div>
   )
   
   async function returnBookAsync({

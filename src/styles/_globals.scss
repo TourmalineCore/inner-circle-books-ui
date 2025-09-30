@@ -79,3 +79,8 @@ button {
 .error {
   border-color: v.$color-border-error !important;
 }
+
+.container {
+  display: flex;
+  justify-content: center;
+}
