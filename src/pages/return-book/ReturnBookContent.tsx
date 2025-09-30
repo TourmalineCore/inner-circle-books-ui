@@ -10,6 +10,21 @@ import { useContext, useState } from 'react'
 import { Overlay } from '../../components/overlay/Overlay'
 import { ProgressOfReading } from '../../common/enums/progressOfReading'
 
+const progressOptions = [
+  {
+    value: ProgressOfReading.NotReadAtAll,
+    label: `Not Read At All`, 
+  },
+  {
+    value: ProgressOfReading.ReadPartially,
+    label: `Read Partially`, 
+  },
+  {
+    value: ProgressOfReading.ReadEntirely,
+    label: `Read Entirely`, 
+  },
+]
+
 export const ReturnBookContent = observer(({
   title,
   coverUrl,
@@ -104,34 +119,22 @@ export const ReturnBookContent = observer(({
           </label>
           <div className={`return-book__progress-options ${returnBookState.errors.isProgressOfReadingError
             ? `error` 
-            : ``}`}>
-            <button 
-              type="button"
-              className="return-book__progress-btn"
-              onClick={() => returnBookState.setProgressOfReading({
-                progressOfReading: ProgressOfReading.NotReadAtAll,
-              })}
-            >
-              Not Read At All
-            </button>
-            <button 
-              type="button"
-              className="return-book__progress-btn"
-              onClick={() => returnBookState.setProgressOfReading({
-                progressOfReading: ProgressOfReading.ReadPartially,
-              })}
-            >
-              Read Partially
-            </button>
-            <button 
-              type="button"
-              className="return-book__progress-btn"
-              onClick={() => returnBookState.setProgressOfReading({
-                progressOfReading: ProgressOfReading.ReadEntirely,
-              })}
-            >
-              Read Entirely
-            </button>
+            : ``}`}
+          >
+            {progressOptions.map((option) => (
+              <button
+                key={option.value}
+                type="button"
+                className={`return-book__progress-btn ${returnBookState.book.progressOfReading === option.value 
+                  ? `active` 
+                  : ``}`}
+                onClick={() => returnBookState.setProgressOfReading({
+                  progressOfReading: option.value, 
+                })}
+              >
+                {option.label}
+              </button>
+            ))}
           </div>
         </div>
 

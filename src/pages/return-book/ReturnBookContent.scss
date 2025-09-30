@@ -7,6 +7,7 @@
     display: block;
     margin: 0 auto;
     border: 1px solid v.$color-component-border;
+    border-radius: 8px;
     width: 127px;
     height: 94px;
     object-fit: contain;
@@ -54,10 +55,15 @@
     background: v.$color-background-primary;
     cursor: pointer;
     transition: background 0.2s ease;
-  }
 
-  &__progress-btn:hover {
-    background: v.$color-background-component-secondary-hover;
+    &:hover {
+      background: v.$color-background-component-secondary-hover;
+    }
+
+    &.active {
+      color: v.$color-text-contrast;
+      background: v.$color-background-component-accent;
+    }
   }
 
   &__actions {
