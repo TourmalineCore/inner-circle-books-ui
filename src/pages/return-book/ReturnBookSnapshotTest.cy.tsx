@@ -9,10 +9,6 @@ export const VIEWPORTS = [
     height: 1576,
   },
   {
-    width: 768,
-    height: 1408,
-  },
-  {
     width: 1920,
     height: 1008,
   },
@@ -69,7 +65,8 @@ function mountComponent() {
             coverUrl={``}
             title={`ChatGPT мастер подсказок или как создавать сильные промты для нейросети и еще что-то интересное нереальное и очень секретное концептуальное`} 
             onSubmit={() => {}}
-            goToBookPage={() => {}}
+            goToBookCopyPage={() => {}}
+            copyId={`1`}
           />
         </ReturnBookStateContext.Provider>
       </MemoryRouter>,
