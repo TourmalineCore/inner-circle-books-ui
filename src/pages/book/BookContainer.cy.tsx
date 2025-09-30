@@ -31,7 +31,7 @@ describe(`BookContainer`, () => {
       BOOK_RESPONSE,
     )
 
-    cy.viewport(1024, 768)
+    cy.viewport(768, 768)
   })
 
   describe(`Initialization`, initializationTests)
@@ -65,6 +65,17 @@ function initializationTests() {
 
     cy.getByData(`modal-qr-form`)
       .should(`be.visible`)
+  })
+
+  it(`
+  GIVEN book data from network
+  WHEN the "Book Tracking" button is clicked
+  SHOULD open the overlay modal with history
+  `, () => {
+    mountComponent()
+
+    cy.contains(`Book Tracking`)
+      .click()
   })
 }
 

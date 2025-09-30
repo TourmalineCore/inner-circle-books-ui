@@ -29,6 +29,11 @@
     }
   }
 
+  &__buttons {
+    display: flex;
+    gap: 8px;
+  }
+
   &__field {
     color: v.$color-text-secondary;
   }

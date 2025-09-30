@@ -2,6 +2,7 @@ import './BookContent.scss'
 
 import NoImage from "../../assets/img/no-image.png"
 import ViewQRIcon from "../../assets/icons/View-qr.svg?react"
+import ClockIcon from "../../assets/icons/Clock.svg?react"
 
 import clsx from 'clsx'
 import { observer } from "mobx-react-lite"
@@ -63,15 +64,27 @@ export const BookContent = observer(() => {
             })}
           />
 
-          <Button
-            onClick={() => setShowModal(true)}
-            label={
-              <>
-                <ViewQRIcon /> View QR Code
-              </>
-            }
-            isOutline
-          />
+          <div className='book__buttons'>
+            <Button
+              onClick={() => {}}
+              label={
+                <>
+                  <ClockIcon /> Book Tracking
+                </>
+              }
+              isOutline
+            />
+
+            <Button
+              onClick={() => setShowModal(true)}
+              label={
+                <>
+                  <ViewQRIcon /> View QR Code
+                </>
+              }
+              isOutline
+            />
+          </div>
         </div>
 
         <div className='book__right'>
