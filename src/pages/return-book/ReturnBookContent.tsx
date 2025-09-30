@@ -9,6 +9,7 @@ import { ReturnBookStateContext } from './state/ReturnBookStateContext'
 import { useContext, useState } from 'react'
 import { Overlay } from '../../components/overlay/Overlay'
 import { useSearchParams } from 'react-router-dom'
+import { ProgressOfReading } from '../../common/enums/progressOfReading'
 
 export const ReturnBookContent = observer(({
   title,
@@ -116,7 +117,7 @@ export const ReturnBookContent = observer(({
               type="button"
               className="return-book__progress-btn"
               onClick={() => returnBookState.setProgressOfReading({
-                progressOfReading: `NotReadAtAll`,
+                progressOfReading: ProgressOfReading.NotReadAtAll,
               })}
             >
               Not Read At All
@@ -125,7 +126,7 @@ export const ReturnBookContent = observer(({
               type="button"
               className="return-book__progress-btn"
               onClick={() => returnBookState.setProgressOfReading({
-                progressOfReading: `ReadPartially`,
+                progressOfReading: ProgressOfReading.ReadPartially,
               })}
             >
               Read Partially
@@ -134,7 +135,7 @@ export const ReturnBookContent = observer(({
               type="button"
               className="return-book__progress-btn"
               onClick={() => returnBookState.setProgressOfReading({
-                progressOfReading: `ReadEntirely`,
+                progressOfReading: ProgressOfReading.ReadEntirely,
               })}
             >
               Read Entirely
