@@ -14,7 +14,7 @@ export const ReturnBookContent = observer(({
   title,
   coverUrl,
   onSubmit,
-  goToBookPage,
+  goToBookCopyPage,
 }:{
   title: string,
   coverUrl: string,
@@ -23,11 +23,20 @@ export const ReturnBookContent = observer(({
     progressOfReading, 
   }: ReturnBookType,
   ) => unknown,
-  goToBookPage: () => unknown,
+  goToBookCopyPage: ({
+    copyId,
+  }: {
+    copyId: string,
+  }) => unknown,
 }) => {
   const returnBookState = useContext(ReturnBookStateContext)
   
   const isValidUrl = useImageValid(coverUrl)
+
+  const [
+    searchParams,
+  ] = useSearchParams()
+  const copyId = searchParams.get(`copyId`)
 
   const [
     showModal,
@@ -38,7 +47,9 @@ export const ReturnBookContent = observer(({
     returnBookState.reset()
     setShowModal(false)
 
-    goToBookPage()
+    goToBookCopyPage({
+      copyId: copyId!,
+    })
   }
 
   const handleCloseModal = () => {
@@ -50,14 +61,11 @@ export const ReturnBookContent = observer(({
       setShowModal(true)
     }
     else {
-      goToBookPage()
+      goToBookCopyPage({
+        copyId: copyId!,
+      }) 
     }
   }
-
-  const [
-    searchParams,
-  ] = useSearchParams()
-  const copyId = searchParams.get(`copyId`)
 
   return (
     <>

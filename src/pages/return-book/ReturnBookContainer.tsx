@@ -6,9 +6,13 @@ import { api } from "../../common/api"
 import { useLocation } from "react-router-dom"
 
 export const ReturnBookContainer = observer(({
-  goToBookPage,
+  goToBookCopyPage,
 }: {
-  goToBookPage: () => unknown,
+  goToBookCopyPage: ({
+    copyId,
+  }: {
+    copyId: string,
+  }) => unknown,
 }) => {
   const returnBookState = useContext(ReturnBookStateContext)
   const location = useLocation()
@@ -38,7 +42,7 @@ export const ReturnBookContainer = observer(({
       onSubmit={returnBookAsync} 
       coverUrl={returnBookState.book.coverUrl}
       title={returnBookState.book.title}
-      goToBookPage={goToBookPage}
+      goToBookCopyPage={goToBookCopyPage}
     />
   )
   
@@ -63,7 +67,9 @@ export const ReturnBookContainer = observer(({
         },
       )
 
-      goToBookPage()
+      goToBookCopyPage({
+        copyId: String(bookCopyId),
+      })
     }
     finally {
       returnBookState.resetIsSaving()

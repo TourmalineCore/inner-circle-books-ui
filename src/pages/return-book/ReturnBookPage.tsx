@@ -2,7 +2,7 @@ import { useMemo } from "react"
 import { ReturnBookContainer } from "./ReturnBookContainer"
 import { ReturnBookState } from "./state/ReturnBookState"
 import { ReturnBookStateContext } from "./state/ReturnBookStateContext"
-import { bookRoutes } from "../routes"
+import { bookCopyRoutes } from "../routes"
 
 export function ReturnBookPage() {
   const returnBookState = useMemo(
@@ -10,13 +10,17 @@ export function ReturnBookPage() {
     [],
   )
 
-  const goToBookPage = () => {
-    window.location.href = bookRoutes[0].path
+  const goToBookCopyPage = ({
+    copyId,
+  }: {
+    copyId: string,
+  }) => {
+    window.location.href = bookCopyRoutes[0].path.replace(`:id`, copyId)
   }
 
   return (
     <ReturnBookStateContext.Provider value={returnBookState}>
-      <ReturnBookContainer goToBookPage={goToBookPage}/>
+      <ReturnBookContainer goToBookCopyPage={goToBookCopyPage}/>
     </ReturnBookStateContext.Provider>
   )
 }
