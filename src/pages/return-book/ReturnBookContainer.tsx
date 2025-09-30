@@ -62,7 +62,7 @@ export const ReturnBookContainer = observer(({
       await api.post<ReturnBookType>(
         `/books/return`,
         {
-          copyId,
+          bookCopyId: Number(copyId),
           progressOfReading: returnBookState.book.progressOfReading,
         },
       )
