@@ -4,12 +4,13 @@ import { BookState } from "./state/BookState"
 import { BookStateContext } from "./state/BookStateStateContext"
 import { authService } from "../../common/authService"
 import { MOCK_TOKEN } from "../../common/constant"
+import { Language } from "../../common/enums/language"
 
 const BOOK_RESPONSE: BookType = {
   id: 1,
   title: `Разработка ценностных предложений`,
   annotation: `Аннотация`,
-  language: `ru`,
+  language: Language.RU,
   authors: [
     {
       fullName: `Алекс Остервальдер`,

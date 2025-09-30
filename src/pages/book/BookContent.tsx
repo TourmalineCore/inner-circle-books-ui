@@ -13,6 +13,7 @@ import { useImageValid } from '../../common/useImageValid'
 import { Overlay } from '../../components/overlay/Overlay'
 import { getEmployeeIdFromToken } from '../../common/tokenUtils'
 import { returnBookRoutes } from '../routes'
+import { Language } from '../../common/enums/language'
 
 export const BookContent = observer(({
   copyId,
@@ -257,7 +258,7 @@ export const BookContent = observer(({
                 Language
                 <span className='book__value'>
                   {
-                    language === `ru` 
+                    language === Language.RU
                       ? `Russian` 
                       : `English`
                   }

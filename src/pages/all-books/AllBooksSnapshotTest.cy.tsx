@@ -1,5 +1,6 @@
 import { authService } from "../../common/authService"
 import { MOCK_TOKEN, VIEWPORTS } from "../../common/constant"
+import { Language } from "../../common/enums/language"
 import { AllBooksContent } from "./AllBooksContent"
 
 describe(`All Books Snapshot test`, () => {
@@ -38,7 +39,7 @@ function mountComponent() {
   const card =
   {
     title: `Разработка ценностных предложений. Как создавать товары и услуги, которые захотят купить потребители. Ваш первый шаг`,
-    language: `ru`,
+    language: Language.RU,
     authors: [
       {
         fullName: `Алекс Остервальдер`,

@@ -1,3 +1,4 @@
+import { Language } from '../../../common/enums/language'
 import { BookState } from './BookState'
 
 describe(`BookState`, () => {
@@ -17,7 +18,7 @@ function initializationTests() {
     expect(bookState.book.id).to.eq(1)
     expect(bookState.book.title).to.eq(``)
     expect(bookState.book.annotation).to.eq(``)
-    expect(bookState.book.language).to.eq(`ru`)
+    expect(bookState.book.language).to.eq(Language.RU)
     expect(bookState.book.authors).to.deep.eq([
       {
         fullName: ``, 
@@ -39,7 +40,7 @@ function bookDataTests() {
         id: 1,
         title: `Разработка ценностных предложений`,
         annotation: `Аннотация`,
-        language: `ru`,
+        language: Language.RU,
         authors: [
           {
             fullName: `Алекс Остервальдер`,
@@ -69,7 +70,7 @@ function bookDataTests() {
     expect(bookState.book.id).to.eq(1)
     expect(bookState.book.title).to.eq(`Разработка ценностных предложений`)
     expect(bookState.book.annotation).to.eq(`Аннотация`)
-    expect(bookState.book.language).to.eq(`ru`)
+    expect(bookState.book.language).to.eq(Language.RU)
     expect(bookState.book.authors).to.deep.eq([
       {
         fullName: `Алекс Остервальдер`, 

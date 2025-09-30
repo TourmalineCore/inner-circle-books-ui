@@ -1,3 +1,4 @@
+import { Language } from "../../../../common/enums/language"
 import { BookState } from "../../state/BookState"
 import { BookStateContext } from "../../state/BookStateStateContext"
 import { ModalQRForm } from "./ModalQRForm"
@@ -109,7 +110,7 @@ function mountComponentForSeveralCopies() {
       id: 1,
       title: `ChatGPT мастер подсказок или как создавать сильные промты  для нейросети`,
       annotation: ``,
-      language: `ru`,
+      language: Language.RU,
       authors: [
         {
           fullName: ``,
@@ -146,7 +147,7 @@ function mountComponentForOneCopy() {
       id: 1,
       title: `ChatGPT мастер подсказок или как создавать сильные промты  для нейросети`,
       annotation: ``,
-      language: `ru`,
+      language: Language.RU,
       authors: [
         {
           fullName: ``,
