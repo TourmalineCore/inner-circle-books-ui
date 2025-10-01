@@ -31,7 +31,7 @@ describe(`BookContainer`, () => {
       BOOK_RESPONSE,
     )
 
-    cy.viewport(768, 768)
+    cy.viewport(1024, 768)
   })
 
   describe(`Initialization`, initializationTests)
