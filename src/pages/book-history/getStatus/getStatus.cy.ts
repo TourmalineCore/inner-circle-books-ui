@@ -50,23 +50,23 @@ function getStatusTests() {
   it(`
   GIVEN dueReturnDate=21.08.2025 and currentDate=24.09.2025
   WHEN use getStatus
-  SHOULD return '1 month 3 days overdue'
+  SHOULD return '1 month and 3 days overdue'
   `, () => {
     expect(getStatus({
       dueReturnDate: `21.08.2025`,
       currentDate: new Date(`2025-09-24`),
-    })).to.be.eq(`1 month 3 days overdue`)
+    })).to.be.eq(`1 month and 3 days overdue`)
   })
 
   it(`
   GIVEN dueReturnDate=21.08.2025 and currentDate=24.09.2026
   WHEN use getStatus
-  SHOULD return '1 year 1 month 3 days overdue'
+  SHOULD return '1 year 1 month and 3 days overdue'
   `, () => {
     expect(getStatus({
       dueReturnDate: `21.08.2025`,
       currentDate: new Date(`2026-09-24`),
-    })).to.be.eq(`1 year 1 month 3 days overdue`)
+    })).to.be.eq(`1 year 1 month and 3 days overdue`)
   })
   
 }

@@ -41,7 +41,7 @@ export function getStatus({
   }
 
   if (days > 0) {
-    parts.push(`${days} ${days === 1 ? `day` : `days`}`)
+    parts.push(`${months > 0 ? `and ${days}` : `${days}`} ${days === 1 ? `day` : `days`}`)
   }
 
   return `${parts.join(` `)} overdue`
