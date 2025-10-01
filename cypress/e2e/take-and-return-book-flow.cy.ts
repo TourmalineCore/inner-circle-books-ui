@@ -58,11 +58,11 @@ describe(`Take and Return Book Flow`, () => {
             const response = interception.response
             const bookCopyId = response!.body.bookCopiesIds[0]
 
-            BookPage.checkReadersBeforeTakeBook()
-
             BookPage.visitCopy({
               bookCopyId,
             })
+
+            BookPage.checkDefaultBookPage()
 
             BookPage.takeBook()
 
@@ -81,10 +81,10 @@ describe(`Take and Return Book Flow`, () => {
               .as(`getBookCopyDataRequest`)
 
             cy.wait(`@getBookCopyDataRequest`)
-            
+
             ReturnBookPage.returnBook()
 
-            BookPage.checkBookPageAfterReturnBook()
+            BookPage.checkDefaultBookPage()
           })
       })
   })

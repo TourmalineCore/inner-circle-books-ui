@@ -23,12 +23,6 @@ export class BookPage {
     cy.visit(`/books?c=${bookCopyId}`)
   }
 
-  static checkReadersBeforeTakeBook() {
-    cy
-      .contains(`Reading Now`)
-      .should(`not.exist`)
-  }
-
   static takeBook() {
     cy
       .get(`.book__wrap > .button`)
@@ -57,7 +51,7 @@ export class BookPage {
       .click()
   }
 
-  static checkBookPageAfterReturnBook() {
+  static checkDefaultBookPage() {
     cy
       .contains(`Reading Now`)
       .should(`not.exist`)
