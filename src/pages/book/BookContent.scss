@@ -52,7 +52,7 @@
     @include f.text;
   }
 
-  &__take-button {
+  &__button {
     min-height: 44px;
 
     @include m.tablet {

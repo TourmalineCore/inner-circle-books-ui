@@ -280,7 +280,7 @@ export const BookContent = observer(({
                         ? `Return Book`
                         : `Take Book`
                     }
-                    className='book__take-button'
+                    className='book__button'
                     isAccent
                   />
                 ) 
