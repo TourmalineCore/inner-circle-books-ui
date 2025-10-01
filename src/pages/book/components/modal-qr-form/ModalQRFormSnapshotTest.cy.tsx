@@ -117,7 +117,7 @@ describe(`Modal QR Form Snapshot test`, () => {
 function mountComponent({
   bookCopiesIds,
 }: {
-  bookCopiesIds: number[]
+  bookCopiesIds: number[],
 }) {
   const bookState = new BookState()
     
