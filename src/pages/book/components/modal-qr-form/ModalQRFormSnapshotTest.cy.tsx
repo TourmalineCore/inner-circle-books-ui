@@ -57,7 +57,15 @@ describe(`Modal QR Form Snapshot test`, () => {
         }),
       )
 
-      mountComponentForSeveralCopies()
+      mountComponent({
+        bookCopiesIds: [
+          11,
+          12,
+          13,
+          14,
+          15,
+        ],
+      })
 
       cy
         .window()
@@ -87,7 +95,11 @@ describe(`Modal QR Form Snapshot test`, () => {
         }),
       )
 
-      mountComponentForOneCopy()
+      mountComponent({
+        bookCopiesIds: [
+          11,
+        ],
+      })
 
       cy
         .window()
@@ -102,7 +114,11 @@ describe(`Modal QR Form Snapshot test`, () => {
   })
 })
 
-function mountComponentForSeveralCopies() {
+function mountComponent({
+  bookCopiesIds,
+}: {
+  bookCopiesIds: number[]
+}) {
   const bookState = new BookState()
     
   bookState.initialize({
@@ -117,46 +133,7 @@ function mountComponentForSeveralCopies() {
         },
       ],
       coverUrl: ``,
-      bookCopiesIds: [
-        11,
-        12,
-        13,
-        14,
-        15,
-      ],
-      employeesWhoReadNow: [],
-    },
-  })
-    
-  cy
-    .mount(
-      <BookStateContext.Provider value={bookState}>
-        <ModalQRForm
-          onPrint={() => {}}
-          onCloseModal={() => {}}
-        />,
-      </BookStateContext.Provider>,
-    )
-}
-
-function mountComponentForOneCopy() {
-  const bookState = new BookState()
-    
-  bookState.initialize({
-    loadedBook: {
-      id: 1,
-      title: `ChatGPT мастер подсказок или как создавать сильные промты  для нейросети`,
-      annotation: ``,
-      language: Language.RU,
-      authors: [
-        {
-          fullName: ``,
-        },
-      ],
-      coverUrl: ``,
-      bookCopiesIds: [
-        11,
-      ],
+      bookCopiesIds: bookCopiesIds,
       employeesWhoReadNow: [],
     },
   })
