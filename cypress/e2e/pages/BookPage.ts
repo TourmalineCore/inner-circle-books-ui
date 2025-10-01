@@ -56,4 +56,14 @@ export class BookPage {
       .should(`have.text`, `Return Book`)
       .click()
   }
+
+  static checkBookPageAfterReturnBook() {
+    cy
+      .contains(`Reading Now`)
+      .should(`not.exist`)
+
+    cy
+      .get(`.book__wrap > .button`)
+      .should(`have.text`, `Take Book`)
+  }
 }

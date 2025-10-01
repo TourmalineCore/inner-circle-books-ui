@@ -1,8 +1,9 @@
 import { AllBooksPage } from "./pages/AllBooksPage"
 import { AddBookPage } from "./pages/AddBookPage"
 import { BookPage } from "./pages/BookPage"
+import { ReturnBookPage } from "./pages/ReturnBookPage"
 
-describe(`Books Smoke`, () => {
+describe(`Take and Return Book Flow`, () => {
   beforeEach(`Authorize and cleanup`, () => {
     cy.authByApi()
     cy.removeBooks()
@@ -21,21 +22,24 @@ describe(`Books Smoke`, () => {
   `, () => {
     AllBooksPage.visit()
 
-    cy.intercept(
-      `POST`, 
-      `/api/books`)
+    cy
+      .intercept(
+        `POST`, 
+        `/api/books`)
       .as(`addBookRequest`)
 
     AddBookPage.addBook()
 
-    cy.wait(`@addBookRequest`)
+    cy
+      .wait(`@addBookRequest`)
       .then((interception) => {
         const response = interception.response
         const bookId = response!.body.newBookId
        
-        cy.intercept(
-          `GET`, 
-          `/api/books/${bookId}`)
+        cy
+          .intercept(
+            `GET`, 
+            `/api/books/${bookId}`)
           .as(`getBookDataRequest`)
 
         cy
@@ -48,7 +52,8 @@ describe(`Books Smoke`, () => {
           .should(`have.length`, 1)
           .click()
 
-        cy.wait(`@getBookDataRequest`)
+        cy
+          .wait(`@getBookDataRequest`)
           .then((interception) => {
             const response = interception.response
             const bookCopyId = response!.body.bookCopiesIds[0]
@@ -69,8 +74,17 @@ describe(`Books Smoke`, () => {
             
             BookPage.clickReturnBookButton()
 
-            // fix return book button action
-            // ReturnBookPage.returnBook()
+            cy
+              .intercept(
+                `GET`, 
+                `/api/books/copy/${bookCopyId}`)
+              .as(`getBookCopyDataRequest`)
+
+            cy.wait(`@getBookCopyDataRequest`)
+            
+            ReturnBookPage.returnBook()
+
+            BookPage.checkBookPageAfterReturnBook()
           })
       })
   })

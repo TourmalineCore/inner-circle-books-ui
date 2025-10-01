@@ -40,9 +40,12 @@ describe(`Books Smoke`, () => {
     })
 
     cy
-      .intercept(`GET`, `/api/books/copy/${bookCopyId}`, {
-        statusCode: 200,
-      })
+      .intercept(
+        `GET`, 
+        `/api/books/copy/${bookCopyId}`, 
+        {
+          statusCode: 200,
+        })
       .as(`getBookCopy`)
     
     cy.wait(`@getBookCopy`)
