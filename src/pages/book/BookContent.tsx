@@ -11,11 +11,12 @@ import { BookStateContext } from './state/BookStateStateContext'
 import { Button } from '../../components/button/Button'
 import { useImageValid } from '../../common/useImageValid'
 import { Overlay } from '../../components/overlay/Overlay'
+import { LINK_TO_BOOKS_SERVICE } from '../../common/config/config'
 
 export const BookContent = observer(({
-  toggleHistoryModal,
+  bookId,
 }: {
-  toggleHistoryModal: () => unknown,
+  bookId: string,
 }) => {
   const bookState = useContext(BookStateContext)
   const {
@@ -70,7 +71,7 @@ export const BookContent = observer(({
 
           <div className='book__buttons'>
             <Button
-              onClick={toggleHistoryModal}
+              onClick={() => window.location.href = `${LINK_TO_BOOKS_SERVICE}history/${bookId}`}
               label={
                 <>
                   <ClockIcon /> Book Tracking

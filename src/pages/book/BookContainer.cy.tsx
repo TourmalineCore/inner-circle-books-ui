@@ -89,7 +89,7 @@ function mountComponent() {
           `/books/1`,
         ]}>
         <BookStateContext.Provider value={bookState}>
-          <BookContainer toggleHistoryModal={() => {}} />
+          <BookContainer />
         </BookStateContext.Provider>
       </MemoryRouter>,
     )

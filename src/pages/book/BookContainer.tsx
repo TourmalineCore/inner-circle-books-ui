@@ -5,11 +5,7 @@ import { BookStateContext } from "./state/BookStateStateContext"
 import { api } from "../../common/api"
 import { useLocation} from "react-router-dom"
 
-export const BookContainer = observer(({
-  toggleHistoryModal,
-}: {
-  toggleHistoryModal: () => unknown,
-}) => {
+export const BookContainer = observer(() => {
   const bookState = useContext(BookStateContext)
   const location = useLocation()
   const pathnameParts = location
@@ -34,6 +30,6 @@ export const BookContainer = observer(({
   ])
 
   return (
-    <BookContent toggleHistoryModal={toggleHistoryModal}/>
+    <BookContent bookId={id} />
   )
 })
