@@ -51,6 +51,8 @@ function initializationTests() {
     cy.contains(`Алекс Остервальдер`)
     cy.contains(`Сергей Николенко`)
     cy.contains(`2`)
+    cy.contains(`Book Tracking`)
+      .click()
   })
 
   it(`
@@ -65,17 +67,6 @@ function initializationTests() {
 
     cy.getByData(`modal-qr-form`)
       .should(`be.visible`)
-  })
-
-  it(`
-  GIVEN book data from network
-  WHEN the "Book Tracking" button is clicked
-  SHOULD open the overlay modal with history
-  `, () => {
-    mountComponent()
-
-    cy.contains(`Book Tracking`)
-      .click()
   })
 }
 
