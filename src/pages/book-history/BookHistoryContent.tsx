@@ -4,19 +4,19 @@ import '@tourmalinecore/react-table-responsive/styles.css'
 import '@tourmalinecore/react-tc-modal/es/index.css'
 import '@tourmalinecore/react-tc-ui-kit/es/index.css'
 import { useContext } from "react"
-import { HistoryStateContext } from "./state/HistoryStateContext"
-import { getStatus } from "./utils/getStatus/getStatus"
+import { BookHistoryStateContext } from "./state/BookHistoryStateContext"
+import { getStatus } from "./getStatus/getStatus"
 
-export const HistoryContent = observer(() => {
-  const historyState = useContext(HistoryStateContext)
+export const BookHistoryContent = observer(() => {
+  const bookHistoryState = useContext(BookHistoryStateContext)
 
   const {
-    history,
-  } = historyState
+    bookHistory,
+  } = bookHistoryState
 
-  return <ClientTable<HistoryType>
-    data={history}
-    tableId={`history`}
+  return <ClientTable<BookHistoryType>
+    data={bookHistory}
+    tableId={`book-history`}
     columns={[
       {
         id: `Employee`,

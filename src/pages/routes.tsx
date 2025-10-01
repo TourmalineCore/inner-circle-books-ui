@@ -1,7 +1,7 @@
 import { AddBookPage } from "./add-book/AddBookPage"
 import { AllBooksPage } from "./all-books/AllBooksPage"
 import { BookPage } from "./book/BookPage"
-import { HistoryPage } from "./history/HistoryPage"
+import { BookHistoryPage } from "./book-history/BookHistoryPage"
 import { ScanPage } from "./scan/ScanPage"
 
 const DEFAULT_PATH = `/books`
@@ -42,6 +42,6 @@ export const bookHistoryRoutes = [
   {
     path: `${DEFAULT_PATH}/history/:id`,
     breadcrumb: `Book History`,
-    Component: HistoryPage,
+    Component: BookHistoryPage,
   },
 ]

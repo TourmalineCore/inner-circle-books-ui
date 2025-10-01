@@ -1,10 +1,10 @@
 import { MemoryRouter } from "react-router-dom"
 
-import { HistoryStateContext } from "./state/HistoryStateContext"
-import { HistoryContainer } from "./HistoryContainer"
-import { HistoryState } from "./state/HistoryState"
+import { BookHistoryStateContext } from "./state/BookHistoryStateContext"
+import { BookHistoryContainer } from "./BookHistoryContainer"
+import { BookHistoryState } from "./state/BookHistoryState"
 
-const HISTORY_RESPONSE: HistoryType[] =[
+const BOOK_HISTORY_RESPONSE: BookHistoryType[] =[
   {
     id: 1,
     employee: `Ivanov Ivan`,
@@ -15,12 +15,12 @@ const HISTORY_RESPONSE: HistoryType[] =[
   },
 ]
 
-describe(`HistoryContainer`, () => {
+describe(`BookHistoryContainer`, () => {
   beforeEach(() => {
     cy.intercept(
       `GET`,
       `*/books/history/1`,
-      HISTORY_RESPONSE,
+      BOOK_HISTORY_RESPONSE,
     )
 
     cy.viewport(1366, 768)
@@ -31,7 +31,7 @@ describe(`HistoryContainer`, () => {
 
 function initializationTests() {
   it(`
-  GIVEN history data from network
+  GIVEN book history data from network
   WHEN render the component
   SHOULD see it
   `, () => {
@@ -53,7 +53,7 @@ function initializationTests() {
 }
 
 function mountComponent() {
-  const historyState = new HistoryState()
+  const bookHistoryState = new BookHistoryState()
 
   cy
     .mount(
@@ -61,9 +61,9 @@ function mountComponent() {
         initialEntries={[
           `/books/history/1`,
         ]}>
-        <HistoryStateContext.Provider value={historyState}>
-          <HistoryContainer />
-        </HistoryStateContext.Provider>
+        <BookHistoryStateContext.Provider value={bookHistoryState}>
+          <BookHistoryContainer />
+        </BookHistoryStateContext.Provider>
       </MemoryRouter>,
     )
 }

@@ -20,7 +20,7 @@ type BookType = {
   copiesIds: number[],
 }
 
-type HistoryType = {
+type BookHistoryType = {
   id: number,
   employee: string,
   borrowDate: string,
