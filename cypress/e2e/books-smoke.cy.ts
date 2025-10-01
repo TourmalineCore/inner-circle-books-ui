@@ -35,10 +35,6 @@ describe(`Books Smoke`, () => {
   `, () => {
     const bookCopyId = 1
 
-    BookPage.visitViaQR({
-      bookCopyId,
-    })
-
     cy
       .intercept(
         `GET`, 
@@ -47,6 +43,10 @@ describe(`Books Smoke`, () => {
           statusCode: 200,
         })
       .as(`getBookCopy`)
+      
+    BookPage.visitViaQR({
+      bookCopyId,
+    })
     
     cy.wait(`@getBookCopy`)
 
