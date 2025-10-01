@@ -23,9 +23,8 @@ type BookType = {
 type HistoryType = {
   id: number,
   employee: string,
-  borrowDate: Date,
-  dueReturnDate: Date,
-  actualReturnDate?: Date,
-  status: string,
+  borrowDate: string,
+  dueReturnDate: string,
+  actualReturnDate?: string,
   readingProgress: string,
 }

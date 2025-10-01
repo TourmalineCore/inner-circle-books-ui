@@ -1,6 +1,7 @@
 import { AddBookPage } from "./add-book/AddBookPage"
 import { AllBooksPage } from "./all-books/AllBooksPage"
 import { BookPage } from "./book/BookPage"
+import { HistoryPage } from "./history/HistoryPage"
 import { ScanPage } from "./scan/ScanPage"
 
 const DEFAULT_PATH = `/books`
@@ -34,5 +35,13 @@ export const scanRoutes = [
     path: `${DEFAULT_PATH}/scan`,
     breadcrumb: `Scanning QR Code`,
     Component: ScanPage,
+  },
+]
+
+export const bookHistoryRoutes = [
+  {
+    path: `${DEFAULT_PATH}/history/:id`,
+    breadcrumb: `Book History`,
+    Component: HistoryPage,
   },
 ]
