@@ -5,6 +5,7 @@ import '@tourmalinecore/react-tc-modal/es/index.css'
 import '@tourmalinecore/react-tc-ui-kit/es/index.css'
 import { useContext } from "react"
 import { HistoryStateContext } from "./state/HistoryStateContext"
+import { getStatus } from "./utils/getStatus/getStatus"
 
 export const HistoryContent = observer(() => {
   const historyState = useContext(HistoryStateContext)
@@ -13,7 +14,7 @@ export const HistoryContent = observer(() => {
     history,
   } = historyState
 
-  return <ClientTable<HistoryType & { status?: string,}>
+  return <ClientTable<HistoryType>
     data={history}
     tableId={`history`}
     columns={[
@@ -47,8 +48,12 @@ export const HistoryContent = observer(() => {
       {
         id: `Status`,
         accessorFn: ({
-          status,
-        }) => status,
+          dueReturnDate,
+          actualReturnDate,
+        }) => getStatus({
+          dueReturnDate,
+          actualReturnDate,
+        }),
       },
       {
         id: `Reading Progress`,

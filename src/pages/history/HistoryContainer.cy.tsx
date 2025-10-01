@@ -9,8 +9,8 @@ const HISTORY_RESPONSE: HistoryType[] =[
     id: 1,
     employee: `Ivanov Ivan`,
     borrowDate: `20.08.2025`,
-    dueReturnDate: `23.08.2025`,
-    actualReturnDate: `21.09.2025`,
+    dueReturnDate: `23.09.2025`,
+    actualReturnDate: `24.09.2025`,
     readingProgress: `Finished`,
   },
 ]
@@ -42,10 +42,12 @@ function initializationTests() {
 
     cy.contains(`20.08.2025`)
     
-    cy.contains(`23.08.2025`)
+    cy.contains(`23.09.2025`)
 
-    cy.contains(`21.09.2025`)
-    
+    cy.contains(`24.09.2025`)
+
+    cy.contains(`Returned`)
+
     cy.contains(`Finished`)
   })
 }
