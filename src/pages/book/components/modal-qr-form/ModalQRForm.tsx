@@ -90,12 +90,15 @@ export const ModalQRForm = observer(({
           'modal-qr-form__cards--has-single-item': bookState.count === 1,
         })}>
           {
-            bookState.book.copiesIds.map((id, index) => (
+            bookState.book.bookCopies.map(({
+              copyNumber,
+              bookCopyId,
+            }) => (
               <ModalQRCard
-                index={index + 1}
+                copyNumber={copyNumber}
                 title={bookState.book.title}
                 bookId={bookState.book.id}
-                bookCopyId={id}
+                bookCopyId={bookCopyId}
               />
             ))
           }

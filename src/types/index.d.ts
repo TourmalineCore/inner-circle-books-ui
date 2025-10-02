@@ -2,11 +2,11 @@ type AuthorType = {
   fullName: string,
 }
 
-type BookCardType = Omit<BookType, 'id' | 'annotation' | 'copiesIds'> & {
+type BookCardType = Omit<BookType, 'id' | 'annotation' | 'bookCopies'> & {
   id?: number,
 }
 
-type AddBookType = Omit<BookType, 'id' | 'copiesIds'> & {
+type AddBookType = Omit<BookType, 'id' | 'bookCopies'> & {
   countOfCopies: number,
 }
 
@@ -17,5 +17,10 @@ type BookType = {
   language: string,
   authors: AuthorType[],
   coverUrl: string,
-  copiesIds: number[],
+  bookCopies: BookCopyType[],
+}
+
+type BookCopyType = {
+  bookCopyId: number,
+  copyNumber: number,
 }

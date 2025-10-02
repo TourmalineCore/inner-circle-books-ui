@@ -116,12 +116,27 @@ function mountComponentForSeveralCopies() {
         },
       ],
       coverUrl: ``,
-      copiesIds: [
-        11,
-        12,
-        13,
-        14,
-        15,
+      bookCopies: [
+        {
+          bookCopyId: 11,
+          copyNumber: 1,
+        },
+        {
+          bookCopyId: 12,
+          copyNumber: 2,
+        },
+        {
+          bookCopyId: 13,
+          copyNumber: 3,
+        },
+        {
+          bookCopyId: 14,
+          copyNumber: 4,
+        },
+        {
+          bookCopyId: 15,
+          copyNumber: 5,
+        },
       ],
     },
   })
@@ -152,8 +167,11 @@ function mountComponentForOneCopy() {
         },
       ],
       coverUrl: ``,
-      copiesIds: [
-        11,
+      bookCopies: [
+        {
+          bookCopyId: 11,
+          copyNumber: 1,
+        },
       ],
     },
   })
