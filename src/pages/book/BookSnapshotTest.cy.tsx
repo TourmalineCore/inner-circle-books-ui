@@ -63,7 +63,7 @@ function mountComponent() {
   cy
     .mount(
       <BookStateContext.Provider value={bookState}>
-        <BookContent/>
+        <BookContent bookId="" />
       </BookStateContext.Provider>,
     )
 }
