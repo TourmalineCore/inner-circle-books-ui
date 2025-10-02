@@ -17,9 +17,15 @@ const BOOK_RESPONSE: BookType = {
     },
   ],
   coverUrl: ``,
-  copiesIds: [
-    14,
-    15,
+  bookCopies: [
+    {
+      bookCopyId: 14,
+      copyNumber: 1,
+    },
+    {
+      bookCopyId: 15,
+      copyNumber: 1,
+    },
   ],
 }
 
