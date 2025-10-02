@@ -1,34 +1,34 @@
 import moment from "moment"
 
 export function getStatus({
-  dueReturnDate,
+  scheduledReturnDate,
   currentDate = new Date(),
-  actualReturnDate,
+  actualReturnedDate,
 }: {
-  dueReturnDate: string,
+  scheduledReturnDate: string,
   currentDate?: Date,
-  actualReturnDate?: string,
+  actualReturnedDate?: string | null,
 }) {
-  if (actualReturnDate) {
+  if (actualReturnedDate) {
     return `Returned`
   }
 
-  const dueDate = moment(dueReturnDate, `DD.MM.YYYY`)
+  const returnDate = moment(scheduledReturnDate, `DD.MM.YYYY`)
   const now = moment(currentDate)
 
-  const diffInDays = now.diff(dueDate, `days`)
+  const diffInDays = now.diff(returnDate, `days`)
 
   if (diffInDays <= 0) {
     return `-`
   }
 
-  const years = now.diff(dueDate, `years`)
-  dueDate.add(years, `years`)
+  const years = now.diff(returnDate, `years`)
+  returnDate.add(years, `years`)
 
-  const months = now.diff(dueDate, `months`)
-  dueDate.add(months, `months`)
+  const months = now.diff(returnDate, `months`)
+  returnDate.add(months, `months`)
 
-  const days = now.diff(dueDate, `days`)
+  const days = now.diff(returnDate, `days`)
 
   const parts = []
 

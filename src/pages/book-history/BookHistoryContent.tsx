@@ -21,51 +21,51 @@ export const BookHistoryContent = observer(() => {
       {
         id: `Employee`,
         accessorFn: ({
-          employee,
-        }) => employee,
+          employeeFullName,
+        }) => employeeFullName,
       },
       {
         id: `Date of taking`,
         accessorFn: ({
-          borrowDate,
-        }) => borrowDate,
+          takenDate,
+        }) => takenDate,
         size: 80,
       },
       {
         id: `Scheduled Return Date`,
         accessorFn: ({
-          dueReturnDate,
-        }) => dueReturnDate,
+          scheduledReturnDate,
+        }) => scheduledReturnDate,
       
       },
       {
         id: `Actual Return Date`,
         accessorFn: ({
-          actualReturnDate,
-        }) => actualReturnDate,
+          actualReturnedDate,
+        }) => actualReturnedDate,
         size: 100,
       },
       {
         id: `Status`,
         accessorFn: ({
-          dueReturnDate,
-          actualReturnDate,
+          scheduledReturnDate,
+          actualReturnedDate,
         }) => getStatus({
-          dueReturnDate,
-          actualReturnDate,
+          scheduledReturnDate,
+          actualReturnedDate,
         }),
       },
       {
         id: `Reading Progress`,
         accessorFn: ({
-          readingProgress,
-        }) => readingProgress,
+          progressOfReading,
+        }) => progressOfReading,
       },
     ]}
     tcOrder={{
       id: ``,
       desc: false,
     }}
-    tcRenderMobileTitle={(row) => row.original.employee}
+    tcRenderMobileTitle={(row) => row.original.employeeFullName}
   />
 })

@@ -6,12 +6,11 @@ import { BookHistoryState } from "./state/BookHistoryState"
 
 const BOOK_HISTORY_RESPONSE: BookHistoryType[] =[
   {
-    id: 1,
-    employee: `Ivanov Ivan`,
-    borrowDate: `20.08.2025`,
-    dueReturnDate: `23.09.2025`,
-    actualReturnDate: `24.09.2025`,
-    readingProgress: `Finished`,
+    employeeFullName: `Ivanov Ivan`,
+    takenDate: `20.08.2025`,
+    scheduledReturnDate: `23.09.2025`,
+    actualReturnedDate: `24.09.2025`,
+    progressOfReading: `Finished`,
   },
 ]
 

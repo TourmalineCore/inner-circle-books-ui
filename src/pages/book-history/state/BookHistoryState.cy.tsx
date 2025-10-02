@@ -5,14 +5,13 @@ describe(`BookHistoryState`, () => {
   describe(`Book History Data`, bookHistoryDataTests)
 })
 
-const BOOK_HISTORY = [
+const BOOK_HISTORY : BookHistoryType[] = [
   {
-    id: 1,
-    employee: `Ivanov Ivan`,
-    borrowDate: `30.08.2025`,
-    dueReturnDate: `30.09.2025`,
-    actualReturnDate: `21.09.2025`,
-    readingProgress: `Finished`,
+    employeeFullName: `Ivanov Ivan`,
+    takenDate: `30.08.2025`,
+    scheduledReturnDate: `30.09.2025`,
+    actualReturnedDate: `21.09.2025`,
+    progressOfReading: `Finished`,
   },
 ]
 

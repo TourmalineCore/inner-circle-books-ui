@@ -21,10 +21,9 @@ type BookType = {
 }
 
 type BookHistoryType = {
-  id: number,
-  employee: string,
-  borrowDate: string,
-  dueReturnDate: string,
-  actualReturnDate?: string,
-  readingProgress: string,
+  employeeFullName: string,
+  takenDate: string,
+  scheduledReturnDate: string,
+  actualReturnedDate?: string | null,
+  progressOfReading: string,
 }
