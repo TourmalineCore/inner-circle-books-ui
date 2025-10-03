@@ -24,7 +24,7 @@ const BOOK_RESPONSE: BookType = {
     },
     {
       bookCopyId: 15,
-      copyNumber: 1,
+      copyNumber: 2,
     },
   ],
 }
