@@ -66,5 +66,3 @@ function mountComponent() {
       </MemoryRouter>,
     )
 }
-
-// test
