@@ -21,9 +21,10 @@ type BookType = {
 }
 
 type BookHistoryType = {
+  copyNumber: number,
   employeeFullName: string,
   takenDate: string,
   scheduledReturnDate: string,
-  actualReturnedDate?: string | null,
-  progressOfReading: string,
+  actualReturnedDate: string | null,
+  progressOfReading: string | null ,
 }

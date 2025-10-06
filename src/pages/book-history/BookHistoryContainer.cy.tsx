@@ -6,6 +6,7 @@ import { BookHistoryState } from "./state/BookHistoryState"
 
 const BOOK_HISTORY_RESPONSE: BookHistoryType[] =[
   {
+    copyNumber: 1,
     employeeFullName: `Ivanov Ivan`,
     takenDate: `20.08.2025`,
     scheduledReturnDate: `23.09.2025`,
@@ -35,6 +36,9 @@ function initializationTests() {
   SHOULD see it
   `, () => {
     mountComponent()
+    cy.getByData(`table-cell`)
+      .contains(`1`)
+     
     cy.contains(`Employee`)
 
     cy.contains(`Ivanov Ivan`)

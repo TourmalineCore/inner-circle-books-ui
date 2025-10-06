@@ -7,6 +7,7 @@ describe(`BookHistoryState`, () => {
 
 const BOOK_HISTORY : BookHistoryType[] = [
   {
+    copyNumber: 1,
     employeeFullName: `Ivanov Ivan`,
     takenDate: `30.08.2025`,
     scheduledReturnDate: `30.09.2025`,

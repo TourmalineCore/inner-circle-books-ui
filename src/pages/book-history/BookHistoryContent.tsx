@@ -19,6 +19,13 @@ export const BookHistoryContent = observer(() => {
     tableId={`book-history`}
     columns={[
       {
+        id: `Copy Number`,
+        accessorFn: ({
+          copyNumber,
+        }) => copyNumber,
+        size: 80,
+      },
+      {
         id: `Employee`,
         accessorFn: ({
           employeeFullName,
@@ -36,14 +43,12 @@ export const BookHistoryContent = observer(() => {
         accessorFn: ({
           scheduledReturnDate,
         }) => scheduledReturnDate,
-      
       },
       {
         id: `Actual Return Date`,
         accessorFn: ({
           actualReturnedDate,
         }) => actualReturnedDate,
-        size: 100,
       },
       {
         id: `Status`,
@@ -54,12 +59,14 @@ export const BookHistoryContent = observer(() => {
           scheduledReturnDate,
           actualReturnedDate,
         }),
+        size: 80,
       },
       {
         id: `Reading Progress`,
         accessorFn: ({
           progressOfReading,
-        }) => progressOfReading,
+        }) => progressOfReading || `-`,
+        size: 100,
       },
     ]}
     tcOrder={{
