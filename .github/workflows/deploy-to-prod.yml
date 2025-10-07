@@ -32,16 +32,16 @@ jobs:
         uses: helmfile/helmfile-action@v1.9.0
         with:
           helmfile-version: 'v0.164.0'
-          helm-version: 'v3.14.4'
+          helm-version: 'v3.18.0'
           helmfile-args: >
-            apply --namespace dev-inner-circle -f ci/helmfile.yaml 
+            apply --suppress-diff --namespace dev-inner-circle -f ci/helmfile.yaml 
             --state-values-set image.tag=sha-${{ github.sha }} 
             --state-values-set ingress.hostname=${{ secrets.DEV_HOST }}
             --state-values-set extraConfigMapEnvVars.LINK_TO_BOOKS_SERVICE='books/'
             --state-values-set extraConfigMapEnvVars.API_ROOT='/api'
             --state-values-set extraConfigMapEnvVars.API_ROOT_AUTH='/api/auth'
             --state-values-set extraConfigMapEnvVars.VITE_BASE_URL=${{ secrets.BASE_URL }}
-          helmfile-auto-init: "false"       
+          helmfile-auto-init: "false"
 
   e2e-test-prod:
     runs-on: ubuntu-22.04
