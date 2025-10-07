@@ -17,7 +17,7 @@ export function BookHistoryContainer() {
     <ServerTable<BookCopyHistory>
       tableId={`book-history`}
       tcApiHostUrl={API_ROOT}
-      tcDataPath={`/history/${id}`}
+      tcDataPath={`/books/history/${id}`}
       columns={[
         {
           id: `Copy Number`,

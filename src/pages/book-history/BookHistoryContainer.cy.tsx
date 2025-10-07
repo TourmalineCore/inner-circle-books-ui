@@ -19,7 +19,7 @@ describe(`BookHistoryContainer`, () => {
   beforeEach(() => {
     cy.intercept(
       `GET`,
-      `*/history/1?draw=1&page=1&pageSize=10&orderBy=&orderingDirection=asc`,
+      `*/books/history/1?draw=1&page=1&pageSize=10&orderBy=&orderingDirection=asc`,
       BOOK_HISTORY_RESPONSE,
     )
 
