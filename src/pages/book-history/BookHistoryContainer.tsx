@@ -1,4 +1,3 @@
-import { observer } from "mobx-react-lite"
 import { useLocation } from "react-router-dom"
 import { ServerTable } from '@tourmalinecore/react-table-responsive'
 import '@tourmalinecore/react-table-responsive/styles.css'
@@ -7,7 +6,7 @@ import '@tourmalinecore/react-tc-ui-kit/es/index.css'
 import { getStatus } from "./getStatus/getStatus"
 import { API_ROOT } from "../../common/config/config"
 
-export const BookHistoryContainer = observer(() => {
+export function BookHistoryContainer() {
   const location = useLocation()
   const pathnameParts = location
     .pathname
@@ -78,4 +77,4 @@ export const BookHistoryContainer = observer(() => {
       tcRenderMobileTitle={(row) => row.original.employeeFullName}
     />
   )
-})
+}

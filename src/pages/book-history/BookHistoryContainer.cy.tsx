@@ -1,8 +1,5 @@
 import { MemoryRouter } from "react-router-dom"
-
-import { BookHistoryStateContext } from "./state/BookHistoryStateContext"
 import { BookHistoryContainer } from "./BookHistoryContainer"
-import { BookHistoryState } from "./state/BookHistoryState"
 
 const BOOK_HISTORY_RESPONSE: BookHistoryType = {
   list: [
@@ -59,7 +56,6 @@ function initializationTests() {
 }
 
 function mountComponent() {
-  const bookHistoryState = new BookHistoryState()
 
   cy
     .mount(
@@ -67,9 +63,7 @@ function mountComponent() {
         initialEntries={[
           `/books/history/1`,
         ]}>
-        <BookHistoryStateContext.Provider value={bookHistoryState}>
-          <BookHistoryContainer />
-        </BookHistoryStateContext.Provider>
+        <BookHistoryContainer />
       </MemoryRouter>,
     )
 }
