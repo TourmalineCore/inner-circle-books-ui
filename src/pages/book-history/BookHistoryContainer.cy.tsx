@@ -4,22 +4,25 @@ import { BookHistoryStateContext } from "./state/BookHistoryStateContext"
 import { BookHistoryContainer } from "./BookHistoryContainer"
 import { BookHistoryState } from "./state/BookHistoryState"
 
-const BOOK_HISTORY_RESPONSE: BookHistoryType[] =[
-  {
-    copyNumber: 1,
-    employeeFullName: `Ivanov Ivan`,
-    takenDate: `20.08.2025`,
-    scheduledReturnDate: `23.09.2025`,
-    actualReturnedDate: `24.09.2025`,
-    progressOfReading: `Finished`,
-  },
-]
+const BOOK_HISTORY_RESPONSE: BookHistoryType = {
+  list: [
+    {
+      copyNumber: 1,
+      employeeFullName: `Ivanov Ivan`,
+      takenDate: `20.08.2025`,
+      scheduledReturnDate: `23.09.2025`,
+      actualReturnedDate: `24.09.2025`,
+      progressOfReading: `Finished`,
+    },
+  ],
+  totalCount: 1,
+}
 
 describe(`BookHistoryContainer`, () => {
   beforeEach(() => {
     cy.intercept(
       `GET`,
-      `*/books/history/1`,
+      `*/history/1?draw=1&page=1&pageSize=10&orderBy=&orderingDirection=asc`,
       BOOK_HISTORY_RESPONSE,
     )
 

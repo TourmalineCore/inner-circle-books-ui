@@ -21,10 +21,15 @@ type BookType = {
 }
 
 type BookHistoryType = {
+  list: BookCopyHistory[],
+  totalCount: number,
+}
+
+type BookCopyHistory = {
   copyNumber: number,
   employeeFullName: string,
   takenDate: string,
   scheduledReturnDate: string,
   actualReturnedDate: string | null,
-  progressOfReading: string | null ,
+  progressOfReading: string | null,
 }
