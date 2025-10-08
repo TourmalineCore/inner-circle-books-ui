@@ -1,4 +1,6 @@
 import { AllBooksPage } from "./pages/AllBooksPage"
+import { AddBookPage } from "./pages/AddBookPage"
+import { BookPage } from "./pages/BookPage"
 
 describe(`Books Smoke`, () => {
   beforeEach(`Authorize and cleanup`, () => {
@@ -11,82 +13,45 @@ describe(`Books Smoke`, () => {
   })
 
   it(`
-  GIVEN AllBooks page
-  WHEN add a new book on the AddBooks page
+  GIVEN empty books list on the AllBooks page
+  WHEN add a new book on the AddBook page
   SHOULD see it in the books list on the AllBooks page
   AND click on it
   SHOULD see it's correct creation data on the Book page
   `, () => {
     AllBooksPage.visit()
 
-    cy
-      .getByData(`books-list`)
-      .should(`not.exist`)
+    AllBooksPage.checkNoBooks()
+
+    AddBookPage.addBook()
+
+    AllBooksPage.checkAddedBook()
+  })
+
+  it(`
+  GIVEN book with QR code pointing to copy ID 1
+  WHEN QR code is scanned
+  SHOULD redirect to /books/copy/1
+  `, () => {
+    const bookCopyId = 1
 
     cy
-      .contains(`No books yet`)
-      .should(`be.visible`)
-
-    cy
-      .get(`.actions__add-button > .button`)
-      .click()
-
-    cy
-      .getByData(`add-book-title`)
-      .type(`[E2E-SMOKE] Новая книга`)
-
-    cy
-      .contains(`English`)
-      .click()
-
-    cy
-      .getByData(`add-book-annotation`)
-      .type(`Описание книги`)
-
-    cy
-      .get(`.dynamic-input-list__input`)
-      .type(`Первый Автор`)
-
-    cy
-      .get(`.dynamic-input-list__add`)
-      .click()
-
-    cy
-      .get(`:nth-child(3) > .dynamic-input-list__input-wrapper > .dynamic-input-list__input`)
-      .type(`Второй Автор`)
-
-    cy
-      .get(`.image-preview-input__input`)
-      .type(`https://book.jpg`)
-
-    cy
-      .get(`.button__accent`)
-      .click()
-
-    cy
-      .getByData(`book-card`)
-      .filter((_, element) => {
-        return Cypress.$(element)
-          .text()
-          .includes(`[E2E-SMOKE] Новая книга`)
-      })
-      .should(`have.length`, 1)
-      .click()
-
-    cy
-      .get(`.book__title`)
-      .should(`have.text`, `[E2E-SMOKE] Новая книга`)
-
-    cy
-      .get(`.book__annotation`)
-      .should(`have.text`, `Описание книги`)   
+      .intercept(
+        `GET`, 
+        `/api/books/copy/${bookCopyId}`, 
+        {
+          statusCode: 200,
+        })
+      .as(`getBookCopy`)
       
+    BookPage.visitViaQR({
+      bookCopyId,
+    })
+    
+    cy.wait(`@getBookCopy`)
+
     cy
-      .get(`.book__characteristics`)
-      .contains(`Первый Автор, Второй Автор`)
-      
-    cy
-      .get(`.book__characteristics`)
-      .contains(`English`)
+      .url()
+      .should(`contain`,`/books/copy/${bookCopyId}`)
   })
 })

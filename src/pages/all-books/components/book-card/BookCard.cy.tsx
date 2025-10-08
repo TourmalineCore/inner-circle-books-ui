@@ -1,3 +1,4 @@
+import { Language } from "../../../../common/enums/language"
 import { BookCard } from "./BookCard"
 
 describe(`BookCard`, () => {
@@ -73,7 +74,7 @@ function authorSuffixTests() {
   SHOULD see "and etc." after first author
   `, () => {
     mountComponent({
-      language: `en`,
+      language: Language.EN,
       authors: [
         {
           fullName: `Alexander Osterwalder`,
@@ -106,7 +107,7 @@ function authorSuffixTests() {
 
 function mountComponent({
   title = `Test Title`,
-  language = `ru`,
+  language = Language.RU,
   authors,
   coverUrl = ``,
 }: Partial<BookCardType> & { 

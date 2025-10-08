@@ -1,17 +1,34 @@
 import './Overlay.scss'
 
-import { ModalWindow } from '../../pages/add-book/components/modal-window/ModalWindow'
+import { ModalWindow } from '../modal-window/ModalWindow'
 import { ModalQRForm } from '../../pages/book/components/modal-qr-form/ModalQRForm'
 import { useEffect } from 'react'
+import { ModalCalendar } from '../../pages/book/components/modal-calendar/ModalCalendar'
 
 export const Overlay = ({
-  onQuit,
-  onPrint,
+  onAccentButtonAction,
+  onButtonAction,
   onCloseModal,
+  modalName,
+  title,
+  text,
+  buttonLabel,
+  accentButtonLabel,
+  hasCloseButton = false,
+  endCalendarDate,
+  onChangeCalendar,
 }: {
-  onQuit?: () => unknown,
-  onPrint?: () => unknown,
-  onCloseModal: () => unknown,
+  onAccentButtonAction: () => unknown,
+  onButtonAction?: () => unknown,
+  onCloseModal?: () => unknown,
+  modalName: `modal` | `modalQRForm` | `modalCalendar`,
+  title?: string,
+  text?: string | React.ReactNode,
+  buttonLabel?: string,
+  accentButtonLabel?: string,
+  hasCloseButton?: boolean,
+  endCalendarDate?: Date | null,
+  onChangeCalendar?: (dates: [Date, Date]) => unknown,
 }) => {
 
   useEffect(() => {
@@ -33,18 +50,37 @@ export const Overlay = ({
   return (
     <div className="overlay">
       {
-        onQuit && (
+        modalName == `modal` && (
           <ModalWindow 
-            onQuit={onQuit}
-            onCloseModal={onCloseModal}
+            onAccentButtonAction={onAccentButtonAction}
+            onButtonAction={onButtonAction!}
+            onCloseModal={onCloseModal!}
+            title={title!}
+            text={text!}
+            buttonLabel={buttonLabel!}
+            accentButtonLabel={accentButtonLabel!}
+            hasCloseButton={hasCloseButton} 
           />
         )
       }
+
       {
-        onPrint && (
+        modalName == `modalQRForm` && (
           <ModalQRForm
-            onPrint={onPrint}
-            onCloseModal={onCloseModal}
+            onPrint={onAccentButtonAction}
+            onCloseModal={onCloseModal!}
+          />
+        )
+      }
+
+      {
+        modalName == `modalCalendar` && (
+          <ModalCalendar
+            onAccentButtonAction={onAccentButtonAction}
+            onButtonAction={onButtonAction!}
+            onCloseModal={onCloseModal!}
+            endCalendarDate={endCalendarDate!}
+            onChangeCalendar={onChangeCalendar!}
           />
         )
       }

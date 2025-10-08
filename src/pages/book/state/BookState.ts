@@ -1,10 +1,11 @@
 import { makeAutoObservable } from 'mobx'
+import { Language } from '../../../common/enums/language'
 
 const EMPTY_BOOK: BookType = {
   id: 1,
   title: ``,
   annotation: ``,
-  language: `ru`,
+  language: Language.RU,
   authors: [
     {
       fullName: ``, 
@@ -17,6 +18,7 @@ const EMPTY_BOOK: BookType = {
       copyNumber: 1,
     },
   ],
+  employeesWhoReadNow: [],
 }
 
 export class BookState {
@@ -27,6 +29,8 @@ export class BookState {
   private _selectedCopies: { 
     [key: number]: boolean, 
   } = {}
+
+  private _isTriedToSubmit = false
 
   constructor() {
     makeAutoObservable(this)
@@ -67,6 +71,10 @@ export class BookState {
       }) =>
         this._selectedCopies[bookCopyId] === true, 
       )
+  }
+
+  get isTriedToSubmit() {
+    return this._isTriedToSubmit
   }
 
   toggleBookCopyChecked({
@@ -113,5 +121,13 @@ export class BookState {
       }) => {
         this._selectedCopies[bookCopyId] = true
       })
+  }
+
+  setIsTriedToSubmit() {
+    this._isTriedToSubmit = true
+  }
+
+  resetIsTriedToSubmit() {
+    this._isTriedToSubmit = false
   }
 }

@@ -1,8 +1,10 @@
+import { Language } from '../../../common/enums/language'
 import { BookState } from './BookState'
 
 describe(`BookState`, () => {
   describe(`Initialization`, initializationTests)
   describe(`Book Data`, bookDataTests)
+  describe(`Is Tried To Submit`, isTriedToSubmitTest)
 })
 
 function initializationTests() {
@@ -16,7 +18,7 @@ function initializationTests() {
     expect(bookState.book.id).to.eq(1)
     expect(bookState.book.title).to.eq(``)
     expect(bookState.book.annotation).to.eq(``)
-    expect(bookState.book.language).to.eq(`ru`)
+    expect(bookState.book.language).to.eq(Language.RU)
     expect(bookState.book.authors).to.deep.eq([
       {
         fullName: ``, 
@@ -34,52 +36,19 @@ function initializationTests() {
 
 function bookDataTests() {
   let bookState: BookState
-  
-  beforeEach(() => {
-    bookState = new BookState()
 
-    bookState.initialize({
-      loadedBook: {
-        id: 1,
-        title: `Разработка ценностных предложений`,
-        annotation: `Аннотация`,
-        language: `ru`,
-        authors: [
-          {
-            fullName: `Алекс Остервальдер`, 
-          },
-        ],
-        coverUrl: `https://book.jpg`,
-        bookCopies: [
-          {
-            bookCopyId: 1,
-            copyNumber: 1,
-          },
-          {
-            bookCopyId: 2,
-            copyNumber: 2,
-          },
-        ],
-      },
-    })
-  })
-
-  it(`
-  GIVEN the BookState
-  WHEN set book data
-  SHOULD display new values in the book object
-  `, () => {
-    expect(bookState.book.id).to.eq(1)
-    expect(bookState.book.title).to.eq(`Разработка ценностных предложений`)
-    expect(bookState.book.annotation).to.eq(`Аннотация`)
-    expect(bookState.book.language).to.eq(`ru`)
-    expect(bookState.book.authors).to.deep.eq([
+  const bookForInitialization = {
+    id: 1,
+    title: `Разработка ценностных предложений`,
+    annotation: `Аннотация`,
+    language: Language.RU,
+    authors: [
       {
-        fullName: `Алекс Остервальдер`, 
+        fullName: `Алекс Остервальдер`,
       },
-    ])
-    expect(bookState.book.coverUrl).to.eq(`https://book.jpg`)
-    expect(bookState.book.bookCopies).to.deep.eq([
+    ],
+    coverUrl: `https://book.jpg`,
+    bookCopies: [
       {
         bookCopyId: 1,
         copyNumber: 1,
@@ -88,7 +57,30 @@ function bookDataTests() {
         bookCopyId: 2,
         copyNumber: 2,
       },
-    ])
+    ],
+    employeesWhoReadNow: [
+      {
+        employeeId: 1,
+        fullName: `Ceo Ceo Ceo`,
+        bookCopyId: 1,
+      },
+    ],
+  }
+  
+  beforeEach(() => {
+    bookState = new BookState()
+
+    bookState.initialize({
+      loadedBook: bookForInitialization,
+    })
+  })
+
+  it(`
+  GIVEN the BookState
+  WHEN set book data
+  SHOULD display new values in the book object
+  `, () => {
+    expect(bookState.book).to.deep.eq(bookForInitialization)
   })
 
   it(`
@@ -200,5 +192,25 @@ function bookDataTests() {
     expect(bookState.isBookCopySelected({
       id: 2, 
     })).to.be.true
+  })
+}
+
+function isTriedToSubmitTest() {
+  const bookState = new BookState()
+
+  it(`
+  GIVEN initial isTriedToSubmit = false
+  WHEN setIsTriedToSubmit()
+  SHOULD change value to true
+  WHEN resetIsTriedToSubmit()
+  SHOULD change value to false
+  `, () => {
+    expect(bookState.isTriedToSubmit).to.be.false
+
+    bookState.setIsTriedToSubmit()
+    expect(bookState.isTriedToSubmit).to.be.true
+
+    bookState.resetIsTriedToSubmit()
+    expect(bookState.isTriedToSubmit).to.be.false
   })
 }

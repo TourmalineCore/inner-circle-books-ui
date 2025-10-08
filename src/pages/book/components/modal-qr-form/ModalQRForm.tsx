@@ -97,7 +97,6 @@ export const ModalQRForm = observer(({
               <ModalQRCard
                 copyNumber={copyNumber}
                 title={bookState.book.title}
-                bookId={bookState.book.id}
                 bookCopyId={bookCopyId}
               />
             ))
