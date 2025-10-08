@@ -6,6 +6,13 @@ import '@tourmalinecore/react-tc-ui-kit/es/index.css'
 import { getStatus } from "./getStatus/getStatus"
 import { API_ROOT } from "../../common/config/config"
 import { api } from "../../common/api"
+import { ProgressOfReading } from "../../common/enums/progressOfReading"
+
+const PROGRESS_OPTIONS = {
+  [ProgressOfReading.NotReadAtAll]: `Not Read At All`,
+  [ProgressOfReading.ReadPartially]: `Read Partially`,
+  [ProgressOfReading.ReadEntirely]: `Read Entirely`,
+}
 
 export function BookHistoryContainer() {
   const location = useLocation()
@@ -68,7 +75,9 @@ export function BookHistoryContainer() {
           id: `Reading Progress`,
           accessorFn: ({
             progressOfReading,
-          }) => progressOfReading || `-`,
+          }) => progressOfReading
+            ? PROGRESS_OPTIONS[progressOfReading as ProgressOfReading]
+            : `-`,
           size: 100,
         },
       ]}
