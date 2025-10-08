@@ -5,6 +5,7 @@ import '@tourmalinecore/react-tc-modal/es/index.css'
 import '@tourmalinecore/react-tc-ui-kit/es/index.css'
 import { getStatus } from "./getStatus/getStatus"
 import { API_ROOT } from "../../common/config/config"
+import { api } from "../../common/api"
 
 export function BookHistoryContainer() {
   const location = useLocation()
@@ -16,6 +17,7 @@ export function BookHistoryContainer() {
   return (
     <ServerTable<BookCopyHistory>
       tableId={`book-history`}
+      tcHttpClient={api}
       tcApiHostUrl={API_ROOT}
       tcDataPath={`/books/history/${id}`}
       columns={[
