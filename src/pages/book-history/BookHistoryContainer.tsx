@@ -59,7 +59,7 @@ export function BookHistoryContainer() {
           id: `Actual Return Date`,
           accessorFn: ({
             actualReturnedDate,
-          }) => actualReturnedDate,
+          }) => actualReturnedDate || `-`,
         },
         {
           id: `Status`,
