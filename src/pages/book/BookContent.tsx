@@ -166,6 +166,7 @@ export const BookContent = observer(({
                   .slice(0, 10),
               })
               setShowModalCalendar(false)
+              setShowModal(false)
             }}
             onButtonAction={() => setShowModalCalendar(false)}
             onCloseModal={() => {
