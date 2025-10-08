@@ -200,7 +200,7 @@ export const BookContent = observer(({
           />
 
           <div className='book__buttons'>
-            <Button
+            {!copyId && <Button
               onClick={() => window.location.href = `${LINK_TO_BOOKS_SERVICE}history/${bookId}`}
               label={
                 <>
@@ -208,7 +208,7 @@ export const BookContent = observer(({
                 </>
               }
               isOutline
-            />
+            />}
 
             <Button
               onClick={() => setShowModalQRForm(true)}
