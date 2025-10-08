@@ -1,3 +1,4 @@
+import { Language } from "../../../../common/enums/language"
 import { BookState } from "../../state/BookState"
 import { BookStateContext } from "../../state/BookStateStateContext"
 import { ModalQRForm } from "./ModalQRForm"
@@ -56,7 +57,15 @@ describe(`Modal QR Form Snapshot test`, () => {
         }),
       )
 
-      mountComponentForSeveralCopies()
+      mountComponent({
+        bookCopiesIds: [
+          11,
+          12,
+          13,
+          14,
+          15,
+        ],
+      })
 
       cy
         .window()
@@ -86,7 +95,11 @@ describe(`Modal QR Form Snapshot test`, () => {
         }),
       )
 
-      mountComponentForOneCopy()
+      mountComponent({
+        bookCopiesIds: [
+          11,
+        ],
+      })
 
       cy
         .window()
@@ -101,7 +114,11 @@ describe(`Modal QR Form Snapshot test`, () => {
   })
 })
 
-function mountComponentForSeveralCopies() {
+function mountComponent({
+  bookCopiesIds,
+}: {
+  bookCopiesIds: number[],
+}) {
   const bookState = new BookState()
     
   bookState.initialize({
@@ -109,52 +126,15 @@ function mountComponentForSeveralCopies() {
       id: 1,
       title: `ChatGPT мастер подсказок или как создавать сильные промты  для нейросети`,
       annotation: ``,
-      language: `ru`,
+      language: Language.RU,
       authors: [
         {
           fullName: ``,
         },
       ],
       coverUrl: ``,
-      bookCopiesIds: [
-        11,
-        12,
-        13,
-        14,
-        15,
-      ],
-    },
-  })
-    
-  cy
-    .mount(
-      <BookStateContext.Provider value={bookState}>
-        <ModalQRForm
-          onPrint={() => {}}
-          onCloseModal={() => {}}
-        />,
-      </BookStateContext.Provider>,
-    )
-}
-
-function mountComponentForOneCopy() {
-  const bookState = new BookState()
-    
-  bookState.initialize({
-    loadedBook: {
-      id: 1,
-      title: `ChatGPT мастер подсказок или как создавать сильные промты  для нейросети`,
-      annotation: ``,
-      language: `ru`,
-      authors: [
-        {
-          fullName: ``,
-        },
-      ],
-      coverUrl: ``,
-      bookCopiesIds: [
-        11,
-      ],
+      bookCopiesIds: bookCopiesIds,
+      employeesWhoReadNow: [],
     },
   })
     

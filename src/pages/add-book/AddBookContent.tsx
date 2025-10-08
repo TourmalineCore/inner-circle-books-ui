@@ -13,6 +13,7 @@ import { useContext, useState } from 'react'
 import { AddBookStateContext } from './state/AddBookStateStateContext'
 import { Button } from '../../components/button/Button'
 import { Overlay } from '../../components/overlay/Overlay'
+import { Language } from '../../common/enums/language'
 
 export const AddBookContent = observer(({
   onSubmit,
@@ -123,12 +124,12 @@ export const AddBookContent = observer(({
               })}
               options={[
                 {
-                  value: `ru`,
+                  value: Language.RU,
                   label: `Russian`,
                   icon: <RussianFlag />, 
                 },
                 {
-                  value: `en`,
+                  value: Language.EN,
                   label: `English`,
                   icon: <EnglishFlag />, 
                 },

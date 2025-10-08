@@ -1,10 +1,11 @@
 import { makeAutoObservable } from 'mobx'
+import { Language } from '../../../common/enums/language'
 
 const EMPTY_BOOK: BookType = {
   id: 1,
   title: ``,
   annotation: ``,
-  language: `ru`,
+  language: Language.RU,
   authors: [
     {
       fullName: ``, 
@@ -12,6 +13,7 @@ const EMPTY_BOOK: BookType = {
   ],
   coverUrl: ``,
   bookCopiesIds: [],
+  employeesWhoReadNow: [],
 }
 
 export class BookState {

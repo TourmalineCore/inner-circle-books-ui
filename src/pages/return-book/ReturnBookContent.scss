@@ -1,0 +1,90 @@
+@use "../../styles/media" as m;
+@use "../../styles/variables" as v;
+@use "../../styles/fonts-mixin" as f;
+
+.return-book {
+  &__image {
+    display: block;
+    margin: 0 auto;
+    border: 1px solid v.$color-component-border;
+    border-radius: 8px;
+    width: 127px;
+    height: 94px;
+    object-fit: contain;
+  }
+
+  &__title {
+    @include f.h3;
+
+    @include m.tablet {
+      width: 615px;
+    }
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 36px;
+    gap: 26px;
+
+    @include m.tablet {
+      align-items: center;
+      flex-direction: row;
+    }
+  }
+
+  &__label {
+    @include f.h6;
+  }
+
+  &__progress-options {
+    display: flex;
+    overflow: hidden;
+    margin-top: 8px;
+    border: 1px solid v.$color-component-border;
+    border-radius: 8px;
+  }
+
+  &__progress-btn {
+    @include f.text;
+
+    flex: 1;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    white-space: nowrap;
+    background: v.$color-background-primary;
+    cursor: pointer;
+    transition: background 0.2s ease;
+
+    &:hover {
+      background: v.$color-background-component-secondary-hover;
+    }
+
+    &.active {
+      color: v.$color-text-contrast;
+      background: v.$color-background-component-accent;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    padding-top: 36px;
+    width: 100%;
+    height: 44px;
+    height: max-content;
+    gap: 8px;
+
+    @include m.tablet {
+      margin: 0 auto;
+      max-width: 328px;
+    }
+  }
+
+  &__progress-btn + &__progress-btn {
+    border-left: 1px solid v.$color-component-border;
+  }
+
+  @include m.tablet {
+    max-width: 728px;
+  }
+}

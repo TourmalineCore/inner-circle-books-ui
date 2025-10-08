@@ -6,19 +6,23 @@ import InfoIcon from "../../assets/icons/Info.svg?react"
 
 import clsx from 'clsx'
 import { observer } from "mobx-react-lite"
-import { useSearchParams } from 'react-router-dom'
 import { useContext, useEffect, useState } from 'react'
 import { BookStateContext } from './state/BookStateStateContext'
 import { Button } from '../../components/button/Button'
 import { useImageValid } from '../../common/useImageValid'
 import { Overlay } from '../../components/overlay/Overlay'
+import { getEmployeeIdFromToken } from '../../common/tokenUtils'
+import { returnBookRoutes } from '../routes'
+import { Language } from '../../common/enums/language'
 
 export const BookContent = observer(({
+  copyId,
   onTake,
 }: {
+  copyId?: string,
   onTake: ({
     bookCopyId, 
-    sсheduledReturnDate, 
+    scheduledReturnDate, 
   }: TakeBookType,
   ) => unknown,
 }) => {
@@ -32,6 +36,7 @@ export const BookContent = observer(({
       authors,
       coverUrl,
       bookCopiesIds,
+      employeesWhoReadNow,
     },
   } = bookState
 
@@ -61,12 +66,6 @@ export const BookContent = observer(({
   const month = String(currentDate.getMonth() + 1)
     .padStart(2, `0`)
   const year = currentDate.getFullYear()
-
-  // copyId
-  const [
-    searchParams,
-  ] = useSearchParams()
-  const copyId = searchParams.get(`copyId`)
 
   const [
     isValidCopyId,
@@ -105,6 +104,10 @@ export const BookContent = observer(({
     }
   }
 
+  const isCurrentUserReadingThisCopy = employeesWhoReadNow.some(
+    (reader) => reader.employeeId === getEmployeeIdFromToken() && reader.bookCopyId === Number(copyId),
+  )
+
   return (
     <>
       {
@@ -124,7 +127,7 @@ export const BookContent = observer(({
             onAccentButtonAction={() => {
               onTake({
                 bookCopyId: Number(copyId),
-                sсheduledReturnDate: currentDate
+                scheduledReturnDate: currentDate
                   .toISOString()
                   .slice(0, 10),
               })
@@ -156,7 +159,7 @@ export const BookContent = observer(({
             onAccentButtonAction={() => {
               onTake({
                 bookCopyId: Number(copyId),
-                sсheduledReturnDate: endCalendarDate!
+                scheduledReturnDate: endCalendarDate!
                   .toISOString()
                   .slice(0, 10),
               })
@@ -202,9 +205,32 @@ export const BookContent = observer(({
         </div>
 
         <div className='book__right'>
-          <header className='book__title'>
-            {title}
-          </header>
+          <div className='book__main-info-wrap'>
+            <header className='book__title'>
+              {title}
+            </header>
+
+            {employeesWhoReadNow.length > 0 && (
+              <div className='book__readers'>
+                <div className='book__readers-title'>
+                    Reading Now
+                  <span className='book__readers-list'>
+                    {Array
+                      .from(
+                        new Map(
+                          employeesWhoReadNow.map(reader => [
+                            reader.employeeId,
+                            reader.fullName,
+                          ]),
+                        )
+                          .values(),
+                      )
+                      .join(`, `)}
+                  </span>
+                </div>
+              </div>
+            )}
+          </div>
 
           <div className='book__wrap'>
             <ul className='book__characteristics'>
@@ -232,7 +258,7 @@ export const BookContent = observer(({
                 Language
                 <span className='book__value'>
                   {
-                    language === `ru` 
+                    language === Language.RU
                       ? `Russian` 
                       : `English`
                   }
@@ -244,9 +270,17 @@ export const BookContent = observer(({
               isValidCopyId 
                 ? (
                   <Button
-                    onClick={() => setShowModal(true)}
-                    label="Take Book"
-                    className='book__take-button'
+                    onClick={() => {
+                      isCurrentUserReadingThisCopy
+                        ? window.location.href = `${returnBookRoutes[0].path.replace(`:id`, String(copyId))}`
+                        : setShowModal(true)
+                    }}
+                    label={
+                      isCurrentUserReadingThisCopy
+                        ? `Return Book`
+                        : `Take Book`
+                    }
+                    className='book__button'
                     isAccent
                   />
                 ) 

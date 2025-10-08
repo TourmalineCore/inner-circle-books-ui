@@ -1,3 +1,4 @@
+import { Language } from "../../common/enums/language"
 import { AddBookContainer } from "./AddBookContainer"
 import { AddBookState } from "./state/AddBookState"
 import { AddBookStateContext } from "./state/AddBookStateStateContext"
@@ -5,7 +6,7 @@ import { AddBookStateContext } from "./state/AddBookStateStateContext"
 const BOOK = {
   title: `Разработка ценностных предложений`,
   annotation: `Аннотация`,
-  language: `en`,
+  language: Language.EN,
   authors: [
     {
       fullName: `Алекс Остервальдер`, 

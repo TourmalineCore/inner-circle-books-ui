@@ -4,6 +4,7 @@ import NoImage from "../../../../assets/img/no-image.png"
 
 import { observer } from "mobx-react-lite"
 import { useImageValid } from '../../../../common/useImageValid'
+import { Language } from '../../../../common/enums/language'
 
 export const BookCard = observer(({
   title,
@@ -14,7 +15,7 @@ export const BookCard = observer(({
   const firstAuthor = authors[0]?.fullName
   const suffix = authors.length > 1 
     ? (
-      language === `ru` 
+      language === Language.RU
         ? `и др.` 
         : `and etc.`
     ) 

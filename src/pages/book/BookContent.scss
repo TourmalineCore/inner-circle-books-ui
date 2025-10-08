@@ -52,7 +52,7 @@
     @include f.text;
   }
 
-  &__take-button {
+  &__button {
     min-height: 44px;
 
     @include m.tablet {
@@ -77,19 +77,42 @@
   }
 
   &__take-info-text {
-      @include f.text;
+    @include f.text;
 
-      margin: 0;
-      color: v.$color-text-secondary;
+    margin: 0;
+    color: v.$color-text-secondary;
 
-      @include m.tablet {
-        width: 356px;
-      }
-
-      @include m.tablet-xl {
-        width: 280px;
-      }
+    @include m.tablet {
+      width: 356px;
     }
+
+    @include m.tablet-xl {
+      width: 280px;
+    }
+  }
+
+  &__main-info-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    @include m.desktop {
+      align-items: center;
+      flex-direction: row;
+      justify-content: space-between;
+      gap: unset;
+    }
+  }
+
+  &__readers-title {
+    @include f.h6;
+  }
+
+  &__readers-list {
+    @include f.text;
+
+    margin-left: 8px;
+  }
 
   &__wrap {
     display: flex;
