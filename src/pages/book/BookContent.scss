@@ -30,45 +30,6 @@
     @include f.text;
   }
 
-  &__button {
-    min-height: 44px;
-
-    @include m.tablet {
-      max-width: 111px;
-    }
-  }
-
-  &__take-info {
-    display: flex;
-    justify-content: flex-start;
-    gap: 8px;
-
-    svg {
-      flex-shrink: 0;
-      width: 24px;
-      height: 24px;
-    }
-
-    svg path {
-      stroke: v.$color-icon-secondary;
-    }
-  }
-
-  &__take-info-text {
-    @include f.text;
-
-    margin: 0;
-    color: v.$color-text-secondary;
-
-    @include m.tablet {
-      width: 356px;
-    }
-
-    @include m.tablet-xl {
-      width: 280px;
-    }
-  }
-
   &__main-info-wrap {
     display: flex;
     flex-direction: column;

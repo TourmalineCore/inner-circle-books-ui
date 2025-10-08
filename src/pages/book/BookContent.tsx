@@ -2,7 +2,6 @@ import './BookContent.scss'
 
 import NoImage from "../../assets/img/no-image.png"
 import ViewQRIcon from "../../assets/icons/View-qr.svg?react"
-import InfoIcon from "../../assets/icons/Info.svg?react"
 
 import clsx from 'clsx'
 import { observer } from "mobx-react-lite"
@@ -11,13 +10,12 @@ import { BookStateContext } from './state/BookStateStateContext'
 import { Button } from '../../components/button/Button'
 import { useImageValid } from '../../common/useImageValid'
 import { Overlay } from '../../components/overlay/Overlay'
-import { getEmployeeIdFromToken } from '../../common/tokenUtils'
-import { returnBookRoutes } from '../routes'
 import { useCopyIdValidation } from './utils/useCopyIdValidation'
 import { useBookDates } from './utils/useBookDates'
 import { useCalendar } from './utils/useCalendar'
 import { BookInfo } from './components/book-info/BookInfo'
 import { BookReaders } from './components/book-readers/BookReaders'
+import { BookActionButton } from './components/book-action-button/BookActionButton'
 
 export const BookContent = observer(({
   copyId,
@@ -75,10 +73,6 @@ export const BookContent = observer(({
     endCalendarDate, 
     onChangeCalendar, 
   } = useCalendar()
-
-  const isCurrentUserReadingThisCopy = employeesWhoReadNow.some(
-    (reader) => reader.employeeId === getEmployeeIdFromToken() && reader.bookCopyId === Number(copyId),
-  )
 
   return (
     <>
@@ -191,37 +185,12 @@ export const BookContent = observer(({
               count={bookState.count} 
             />
 
-            {
-              isValidCopyId 
-                ? (
-                  <Button
-                    onClick={() => {
-                      isCurrentUserReadingThisCopy
-                        ? window.location.href = `${returnBookRoutes[0].path.replace(`:id`, String(copyId))}`
-                        : setShowModal(true)
-                    }}
-                    label={
-                      isCurrentUserReadingThisCopy
-                        ? `Return Book`
-                        : `Take Book`
-                    }
-                    className='book__button'
-                    isAccent
-                  />
-                ) 
-                : (
-                  <div className="book__take-info">
-                    <InfoIcon />
-                    <p className="book__take-info-text">
-                      {
-                        copyId 
-                          ? `Copy of book does not exist, check the correctness of the QR code` 
-                          : `You can take book after scanning the QR code on book cover`
-                      }
-                    </p>
-                  </div>
-                )
-            }
+            <BookActionButton
+              copyId={copyId}
+              employeesWhoReadNow={employeesWhoReadNow}
+              setShowModal={setShowModal}
+              isValidCopyId={isValidCopyId}
+            />
           </div>
 
           <h5 className='book__section-name'>
