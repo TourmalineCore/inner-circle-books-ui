@@ -35,8 +35,7 @@ export function BookHistoryContainer() {
             copyNumber,
           }) => copyNumber,
           tcNonMobileColumn: true,
-          minSize: 40,
-          size: 40,
+          size: 80,
         },
         {
           id: `Employee`,
