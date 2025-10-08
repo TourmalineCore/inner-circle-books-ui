@@ -152,7 +152,7 @@ export const BookContent = observer(({
         className="book"
         data-cy="book-page"
       >
-        <div className='book__left'>
+        <div>
           <img
             src={isValidUrl 
               ? coverUrl 
@@ -175,7 +175,7 @@ export const BookContent = observer(({
           />
         </div>
 
-        <div className='book__right'>
+        <div>
           <div className='book__main-info-wrap'>
             <header className='book__title'>
               {title}
