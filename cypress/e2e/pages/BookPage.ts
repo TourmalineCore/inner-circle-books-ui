@@ -60,4 +60,10 @@ export class BookPage {
       .get(`.book__wrap > .button`)
       .should(`have.text`, `Take Book`)
   }
+
+  static clickBookTrackingButton() {
+    cy
+      .getByData(`book-tracking-button`)
+      .click()
+  }
 }
