@@ -1,11 +1,12 @@
 import { makeAutoObservable } from 'mobx'
 import isEqual from 'lodash.isequal'
+import { Language } from '../../../common/enums/language'
 
 const EMPTY_BOOK: AddBookType = {
   title: ``,
   annotation: ``,
   countOfCopies: 1,
-  language: `ru`,
+  language: Language.RU,
   authors: [
     {
       fullName: ``,
@@ -161,7 +162,7 @@ export class AddBookState {
     this._isSaving = true
   }
 
-  setIsSaved() {
+  resetIsSaving() {
     this._isSaving = false
   }
   

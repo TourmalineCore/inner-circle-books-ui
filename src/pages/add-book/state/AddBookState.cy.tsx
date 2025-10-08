@@ -1,3 +1,4 @@
+import { Language } from '../../../common/enums/language'
 import { AddBookState } from './AddBookState'
 
 describe(`AddBookState`, () => {
@@ -42,7 +43,7 @@ function settersTests() {
     expect(addBookState.book.title).to.eq(`Разработка ценностных предложений`)
     expect(addBookState.book.annotation).to.eq(`Аннотация`)
     expect(addBookState.book.countOfCopies).to.eq(3)
-    expect(addBookState.book.language).to.eq(`en`)
+    expect(addBookState.book.language).to.eq(Language.EN)
     expect(addBookState.book.authors).to.deep.eq([
       {
         fullName: `Алекс Остервальдер`, 
@@ -287,7 +288,7 @@ function savingTest() {
   
   it(`
   GIVEN initial isSaving = false
-  WHEN setIsSaving and setIsSaved are triggered
+  WHEN setIsSaving and resetIsSaving are triggered
   SHOULD toggle isSaving to true and then back to false
   `, () => {
     expect(addBookState.isSaving).to.be.false
@@ -295,7 +296,7 @@ function savingTest() {
     addBookState.setIsSaving()
     expect(addBookState.isSaving).to.be.true
     
-    addBookState.setIsSaved()
+    addBookState.resetIsSaving()
     expect(addBookState.isSaving).to.be.false
   })
 
@@ -324,7 +325,7 @@ function checkExpectedInitialState({
   expect(addBookState.book.title).to.eq(``)
   expect(addBookState.book.annotation).to.eq(``)
   expect(addBookState.book.countOfCopies).to.eq(1)
-  expect(addBookState.book.language).to.eq(`ru`)
+  expect(addBookState.book.language).to.eq(Language.RU)
   expect(addBookState.book.authors).to.deep.eq([
     {
       fullName: ``, 
@@ -348,7 +349,7 @@ function setBookData({
     countOfCopies: 3,
   })
   addBookState.setLanguage({
-    language: `en`,
+    language: Language.EN,
   })
   addBookState.setAuthor({
     index: 0,
