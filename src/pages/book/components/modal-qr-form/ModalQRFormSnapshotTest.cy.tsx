@@ -58,12 +58,27 @@ describe(`Modal QR Form Snapshot test`, () => {
       )
 
       mountComponent({
-        bookCopiesIds: [
-          11,
-          12,
-          13,
-          14,
-          15,
+        bookCopies: [
+          {
+            bookCopyId: 11,
+            copyNumber: 1,
+          },
+          {
+            bookCopyId: 12,
+            copyNumber: 2,
+          },
+          {
+            bookCopyId: 13,
+            copyNumber: 3,
+          },
+          {
+            bookCopyId: 14,
+            copyNumber: 4,
+          },
+          {
+            bookCopyId: 15,
+            copyNumber: 5,
+          },
         ],
       })
 
@@ -96,8 +111,11 @@ describe(`Modal QR Form Snapshot test`, () => {
       )
 
       mountComponent({
-        bookCopiesIds: [
-          11,
+        bookCopies: [
+          {
+            bookCopyId: 11,
+            copyNumber: 1,
+          },
         ],
       })
 
@@ -115,9 +133,9 @@ describe(`Modal QR Form Snapshot test`, () => {
 })
 
 function mountComponent({
-  bookCopiesIds,
+  bookCopies,
 }: {
-  bookCopiesIds: number[],
+  bookCopies: BookType['bookCopies'],
 }) {
   const bookState = new BookState()
     
@@ -133,7 +151,7 @@ function mountComponent({
         },
       ],
       coverUrl: ``,
-      bookCopiesIds: bookCopiesIds,
+      bookCopies,
       employeesWhoReadNow: [],
     },
   })

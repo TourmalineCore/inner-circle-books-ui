@@ -11,11 +11,11 @@ import clsx from 'clsx'
 import {LINK_TO_BOOKS_SERVICE, VITE_BASE_URL } from '../../../../../../common/config/config'
 
 export const ModalQRCard = observer(({
-  index,
+  copyNumber,
   title,
   bookCopyId,
 }: {
-  index: number,
+  copyNumber: number,
   title: string,
   bookCopyId: number,
 }) => {
@@ -25,7 +25,7 @@ export const ModalQRCard = observer(({
     ? (
       <button
         type="button"
-        key={index}
+        key={copyNumber}
         className={clsx(`modal-qr-card`, { 
           'modal-qr-card--selected': bookState.isBookCopySelected({
             id: bookCopyId, 
@@ -54,7 +54,7 @@ export const ModalQRCard = observer(({
 
           <div className="modal-qr-card__qr-container">
             <div className="modal-qr-card__copy-text">
-              Copy {index}
+              Copy {copyNumber}
             </div>
 
             <div className="modal-qr-card__qr">
@@ -77,7 +77,7 @@ export const ModalQRCard = observer(({
 
           <div className="modal-qr-card-without-checkbox__qr-container">
             <div className="modal-qr-card-without-checkbox__copy-text">
-              Copy {index}
+              Copy {copyNumber}
             </div>
 
             <div className="modal-qr-card-without-checkbox__qr">

@@ -25,7 +25,12 @@ function initializationTests() {
       },
     ])
     expect(bookState.book.coverUrl).to.eq(``)
-    expect(bookState.book.bookCopiesIds).to.deep.eq([])
+    expect(bookState.book.bookCopies).to.deep.eq([
+      {
+        bookCopyId: 1,
+        copyNumber: 1,
+      },
+    ])
   })
 }
 
@@ -43,9 +48,15 @@ function bookDataTests() {
       },
     ],
     coverUrl: `https://book.jpg`,
-    bookCopiesIds: [
-      1,
-      2,
+    bookCopies: [
+      {
+        bookCopyId: 1,
+        copyNumber: 1,
+      },
+      {
+        bookCopyId: 2,
+        copyNumber: 2,
+      },
     ],
     employeesWhoReadNow: [
       {

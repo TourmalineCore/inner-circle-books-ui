@@ -35,7 +35,7 @@ export const BookContent = observer(({
       language,
       authors,
       coverUrl,
-      bookCopiesIds,
+      bookCopies,
       employeesWhoReadNow,
     },
   } = bookState
@@ -74,14 +74,16 @@ export const BookContent = observer(({
 
   useEffect(() => {
     // if copyId isn't passed or is not a number or is not in bookCopiesIds
-    if (!copyId || isNaN(Number(copyId)) || !bookCopiesIds.includes(Number(copyId))) {
+    if (!copyId || isNaN(Number(copyId)) || !bookCopies.some(({
+      bookCopyId,
+    }) => bookCopyId === Number(copyId))) {
       return
     }
 
     setIsValidCopyId(true)
   }, [
     copyId,
-    bookCopiesIds,
+    bookCopies,
   ])
 
   // CustomCalendar props

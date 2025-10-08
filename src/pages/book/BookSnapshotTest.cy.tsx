@@ -55,9 +55,15 @@ function mountComponent() {
         },
       ],
       coverUrl: ``,
-      bookCopiesIds: [
-        1,
-        2,
+      bookCopies: [
+        {
+          bookCopyId: 1,
+          copyNumber: 1,
+        },
+        {
+          bookCopyId: 2,
+          copyNumber: 2,
+        },
       ],
       employeesWhoReadNow: [],
     },
