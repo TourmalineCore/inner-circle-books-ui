@@ -1,15 +1,16 @@
 import { MemoryRouter } from "react-router-dom"
 import { BookHistoryContainer } from "./BookHistoryContainer"
+import { ProgressOfReading } from "../../common/enums/progressOfReading"
 
 const BOOK_HISTORY_RESPONSE: BookHistoryType = {
   list: [
     {
       copyNumber: 1,
-      employeeFullName: `Ivanov Ivan`,
+      employeeFullName: `Ivanov Ivan Ivanov Ivanov Ivanov`,
       takenDate: `20.08.2025`,
       scheduledReturnDate: `23.09.2025`,
       actualReturnedDate: `24.09.2025`,
-      progressOfReading: `Finished`,
+      progressOfReading: ProgressOfReading.ReadEntirely,
     },
   ],
   totalCount: 1,
@@ -51,7 +52,7 @@ function initializationTests() {
 
     cy.contains(`Returned`)
 
-    cy.contains(`Finished`)
+    cy.contains(`Read Entirely`)
   })
 }
 
