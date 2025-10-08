@@ -1,3 +1,4 @@
+import './BookHistoryContainer.scss'
 import { useLocation } from "react-router-dom"
 import { ServerTable } from '@tourmalinecore/react-table-responsive'
 import '@tourmalinecore/react-table-responsive/styles.css'
@@ -29,11 +30,12 @@ export function BookHistoryContainer() {
       tcDataPath={`/books/history/${id}`}
       columns={[
         {
-          id: `Copy Number`,
+          id: `Copy`,
           accessorFn: ({
             copyNumber,
           }) => copyNumber,
-          size: 80,
+          minSize: 40,
+          size: 40,
         },
         {
           id: `Employee`,
@@ -46,7 +48,6 @@ export function BookHistoryContainer() {
           accessorFn: ({
             takenDate,
           }) => takenDate,
-          size: 80,
         },
         {
           id: `Scheduled Return Date`,
@@ -69,7 +70,6 @@ export function BookHistoryContainer() {
             scheduledReturnDate,
             actualReturnedDate,
           }),
-          size: 80,
         },
         {
           id: `Reading Progress`,
@@ -78,7 +78,6 @@ export function BookHistoryContainer() {
           }) => progressOfReading
             ? PROGRESS_OPTIONS[progressOfReading as ProgressOfReading]
             : `-`,
-          size: 100,
         },
       ]}
       tcOrder={{
