@@ -6,14 +6,18 @@ import InfoIcon from "../../assets/icons/Info.svg?react"
 
 import clsx from 'clsx'
 import { observer } from "mobx-react-lite"
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useState } from 'react'
 import { BookStateContext } from './state/BookStateStateContext'
 import { Button } from '../../components/button/Button'
 import { useImageValid } from '../../common/useImageValid'
 import { Overlay } from '../../components/overlay/Overlay'
 import { getEmployeeIdFromToken } from '../../common/tokenUtils'
 import { returnBookRoutes } from '../routes'
-import { Language } from '../../common/enums/language'
+import { useCopyIdValidation } from './utils/useCopyIdValidation'
+import { useBookDates } from './utils/useBookDates'
+import { useCalendar } from './utils/useCalendar'
+import { BookInfo } from './components/book-info/BookInfo'
+import { BookReaders } from './components/book-readers/BookReaders'
 
 export const BookContent = observer(({
   copyId,
@@ -57,54 +61,20 @@ export const BookContent = observer(({
     setShowModalCalendar,
   ] = useState(false)
 
-  const currentDate = new Date()
-  currentDate.setMonth(currentDate.getMonth() + 3)
+  const {
+    formattedDate, 
+    isoDate, 
+  } = useBookDates()
 
-  // formate date to DD.MM.YYYY format
-  const day = String(currentDate.getDate())
-    .padStart(2, `0`)
-  const month = String(currentDate.getMonth() + 1)
-    .padStart(2, `0`)
-  const year = currentDate.getFullYear()
+  const isValidCopyId = useCopyIdValidation({
+    copyId: copyId,
+    bookCopies: bookCopies,
+  })
 
-  const [
-    isValidCopyId,
-    setIsValidCopyId,
-  ] = useState(false)
-
-  useEffect(() => {
-    // if copyId isn't passed or is not a number or is not in bookCopiesIds
-    if (!copyId || isNaN(Number(copyId)) || !bookCopies.some(({
-      bookCopyId,
-    }) => bookCopyId === Number(copyId))) {
-      return
-    }
-
-    setIsValidCopyId(true)
-  }, [
-    copyId,
-    bookCopies,
-  ])
-
-  // CustomCalendar props
-  const [
-    endCalendarDate,
-    setEndCalendarDate,
-  ] = useState<Date | null>(null)
-
-  const onChangeCalendar = (dates: [Date, Date]) => {
-    const [
-      start,
-      end,
-    ] = dates
-
-    if (end === null) {
-      setEndCalendarDate(start)
-    }
-    else {
-      setEndCalendarDate(end)
-    }
-  }
+  const {
+    endCalendarDate, 
+    onChangeCalendar, 
+  } = useCalendar()
 
   const isCurrentUserReadingThisCopy = employeesWhoReadNow.some(
     (reader) => reader.employeeId === getEmployeeIdFromToken() && reader.bookCopyId === Number(copyId),
@@ -129,9 +99,7 @@ export const BookContent = observer(({
             onAccentButtonAction={() => {
               onTake({
                 bookCopyId: Number(copyId),
-                scheduledReturnDate: currentDate
-                  .toISOString()
-                  .slice(0, 10),
+                scheduledReturnDate: isoDate,
               })
               setShowModal(false)
             }}
@@ -143,7 +111,7 @@ export const BookContent = observer(({
               <>
                 You can choose the date in the next step or the date{` `}
                 <span className='text-accent'>
-                  {day}.{month}.{year}
+                  {formattedDate}
                 </span>
                 {` `}will be selected automatically
               </>
@@ -213,61 +181,15 @@ export const BookContent = observer(({
               {title}
             </header>
 
-            {employeesWhoReadNow.length > 0 && (
-              <div className='book__readers'>
-                <div className='book__readers-title'>
-                    Reading Now
-                  <span className='book__readers-list'>
-                    {Array
-                      .from(
-                        new Map(
-                          employeesWhoReadNow.map(reader => [
-                            reader.employeeId,
-                            reader.fullName,
-                          ]),
-                        )
-                          .values(),
-                      )
-                      .join(`, `)}
-                  </span>
-                </div>
-              </div>
-            )}
+            <BookReaders employeesWhoReadNow={employeesWhoReadNow} />
           </div>
 
           <div className='book__wrap'>
-            <ul className='book__characteristics'>
-              <li className='book__field'>
-                Author
-                <span className='book__value'>
-                  {
-                    authors
-                      .map(author => author.fullName)
-                      .join(`, `)
-                  }
-                </span>
-              </li>
-
-              <li className='book__field'>
-                Number of Copies
-                <span className='book__value'>
-                  {
-                    bookState.count
-                  }
-                </span>
-              </li>
-              
-              <li className='book__field'>
-                Language
-                <span className='book__value'>
-                  {
-                    language === Language.RU
-                      ? `Russian` 
-                      : `English`
-                  }
-                </span>
-              </li>
-            </ul>
+            <BookInfo 
+              authors={authors}
+              language={language}
+              count={bookState.count} 
+            />
 
             {
               isValidCopyId 
@@ -288,23 +210,16 @@ export const BookContent = observer(({
                   />
                 ) 
                 : (
-                  copyId 
-                    ? (
-                      <div className="book__take-info">
-                        <InfoIcon />
-                        <p className="book__take-info-text">
-                          Copy of book doesn't exist, check the correctness of the QR code
-                        </p>
-                      </div>
-                    ) 
-                    : (
-                      <div className="book__take-info">
-                        <InfoIcon />
-                        <p className="book__take-info-text">
-                          You can take book after scanning the QR code on book cover
-                        </p>
-                      </div>
-                    )
+                  <div className="book__take-info">
+                    <InfoIcon />
+                    <p className="book__take-info-text">
+                      {
+                        copyId 
+                          ? `Copy of book does not exist, check the correctness of the QR code` 
+                          : `You can take book after scanning the QR code on book cover`
+                      }
+                    </p>
+                  </div>
                 )
             }
           </div>

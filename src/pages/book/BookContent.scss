@@ -20,28 +20,6 @@
     }
   }
 
-  &__characteristics {
-    @include f.text;
-
-    display: grid;
-    margin-top: 16px;
-    margin-bottom: 32px;
-    gap: 8px;
-
-    @include m.desktop-xl {
-      margin-bottom: 0;
-    }
-  }
-
-  &__field {
-    color: v.$color-text-secondary;
-  }
-
-  &__value {
-    margin-left: 8px;
-    color: v.$color-text-primary;
-  }
-
   &__section-name {
     @include f.h5;
 
@@ -102,16 +80,6 @@
       justify-content: space-between;
       gap: unset;
     }
-  }
-
-  &__readers-title {
-    @include f.h6;
-  }
-
-  &__readers-list {
-    @include f.text;
-
-    margin-left: 8px;
   }
 
   &__wrap {
