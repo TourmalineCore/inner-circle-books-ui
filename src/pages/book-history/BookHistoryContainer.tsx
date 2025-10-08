@@ -34,6 +34,7 @@ export function BookHistoryContainer() {
           accessorFn: ({
             copyNumber,
           }) => copyNumber,
+          tcNonMobileColumn: true,
           minSize: 40,
           size: 40,
         },
@@ -42,6 +43,7 @@ export function BookHistoryContainer() {
           accessorFn: ({
             employeeFullName,
           }) => employeeFullName,
+          tcNonMobileColumn: true,
         },
         {
           id: `Date of taking`,
@@ -84,7 +86,7 @@ export function BookHistoryContainer() {
         id: ``,
         desc: false,
       }}
-      tcRenderMobileTitle={(row) => row.original.employeeFullName}
+      tcRenderMobileTitle={(row) => `Copy ${row.original.copyNumber}, ${row.original.employeeFullName}`}
     />
   )
 }
