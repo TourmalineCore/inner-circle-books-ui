@@ -56,7 +56,7 @@ describe(`Take and Return Book Flow`, () => {
           .wait(`@getBookDataRequest`)
           .then((interception) => {
             const response = interception.response
-            const bookCopyId = response!.body.bookCopiesIds[0]
+            const bookCopyId = response!.body.bookCopies[0].bookCopyId
 
             BookPage.visitCopy({
               bookCopyId,
