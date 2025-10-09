@@ -5,7 +5,7 @@ export const useCopyIdValidation = ({
   bookCopies,
 }: {
   copyId?: string, 
-  bookCopies?: BookCopyType[],
+  bookCopies: BookCopyType[],
 }) => {
   const [
     isValidCopyId,
@@ -13,13 +13,13 @@ export const useCopyIdValidation = ({
   ] = useState(false)
 
   useEffect(() => {
-    // if copyId isn't passed or is not a number or is not in bookCopiesIds
-    if (!copyId || isNaN(Number(copyId)) || !bookCopies?.some(({
+    // if copyId isn't passed or is not a number or is not in bookCopies
+    if (copyId || isNaN(Number(copyId)) || bookCopies.some(({
       bookCopyId, 
     }) => bookCopyId === Number(copyId))) {
-      setIsValidCopyId(false)
       return
     }
+
     setIsValidCopyId(true)
   }, [
     copyId,
