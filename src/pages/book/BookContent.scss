@@ -20,28 +20,6 @@
     }
   }
 
-  &__characteristics {
-    @include f.text;
-
-    display: grid;
-    margin-top: 16px;
-    margin-bottom: 32px;
-    gap: 8px;
-
-    @include m.desktop-xl {
-      margin-bottom: 0;
-    }
-  }
-
-  &__field {
-    color: v.$color-text-secondary;
-  }
-
-  &__value {
-    margin-left: 8px;
-    color: v.$color-text-primary;
-  }
-
   &__section-name {
     @include f.h5;
 
@@ -50,45 +28,6 @@
 
   &__annotation {
     @include f.text;
-  }
-
-  &__button {
-    min-height: 44px;
-
-    @include m.tablet {
-      max-width: 111px;
-    }
-  }
-
-  &__take-info {
-    display: flex;
-    justify-content: flex-start;
-    gap: 8px;
-
-    svg {
-      flex-shrink: 0;
-      width: 24px;
-      height: 24px;
-    }
-
-    svg path {
-      stroke: v.$color-icon-secondary;
-    }
-  }
-
-  &__take-info-text {
-    @include f.text;
-
-    margin: 0;
-    color: v.$color-text-secondary;
-
-    @include m.tablet {
-      width: 356px;
-    }
-
-    @include m.tablet-xl {
-      width: 280px;
-    }
   }
 
   &__main-info-wrap {
@@ -102,16 +41,6 @@
       justify-content: space-between;
       gap: unset;
     }
-  }
-
-  &__readers-title {
-    @include f.h6;
-  }
-
-  &__readers-list {
-    @include f.text;
-
-    margin-left: 8px;
   }
 
   &__wrap {

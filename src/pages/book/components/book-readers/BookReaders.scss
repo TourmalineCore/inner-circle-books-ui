@@ -1,0 +1,13 @@
+@use "../../../../styles/fonts-mixin" as f;
+
+.book-readers {
+  &__title {
+    @include f.h6;
+  }
+
+  &__list {
+    @include f.text;
+
+    margin-left: 8px;
+  }
+}
