@@ -29,9 +29,7 @@ export const BookInfo = ({
       <li className='book-info__field'>
         Number of Copies
         <span className='book-info__value'>
-          {
-            count
-          }
+          {count}
         </span>
       </li>
               
