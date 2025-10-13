@@ -6,7 +6,7 @@ const BOOK_HISTORY_RESPONSE: BookHistoryType = {
   list: [
     {
       copyNumber: 1,
-      employeeFullName: `Ivanov Ivan Ivanov Ivanov Ivanov`,
+      employeeFullName: `Ivanov Ivan`,
       takenDate: `20.08.2025`,
       scheduledReturnDate: `23.09.2025`,
       actualReturnedDate: `24.09.2025`,
@@ -37,7 +37,9 @@ function initializationTests() {
   SHOULD see it
   `, () => {
     mountComponent()
-    cy.getByData(`table-cell`)
+    
+    cy
+      .getByData(`table-cell`)
       .contains(`1`)
      
     cy.contains(`Employee`)
