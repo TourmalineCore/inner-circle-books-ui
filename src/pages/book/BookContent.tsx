@@ -2,6 +2,7 @@ import './BookContent.scss'
 
 import NoImage from "../../assets/img/no-image.png"
 import ViewQRIcon from "../../assets/icons/View-qr.svg?react"
+import ClockIcon from "../../assets/icons/Clock.svg?react"
 
 import clsx from 'clsx'
 import { observer } from "mobx-react-lite"
@@ -16,11 +17,14 @@ import { useCalendar } from './utils/useCalendar'
 import { BookInfo } from './components/book-info/BookInfo'
 import { BookReaders } from './components/book-readers/BookReaders'
 import { BookActionButton } from './components/book-action-button/BookActionButton'
+import { LINK_TO_BOOKS_SERVICE } from '../../common/config/config'
 
 export const BookContent = observer(({
+  bookId,
   copyId,
   onTake,
 }: {
+  bookId: string,
   copyId?: string,
   onTake: ({
     bookCopyId, 
@@ -73,7 +77,7 @@ export const BookContent = observer(({
     endCalendarDate, 
     onChangeCalendar, 
   } = useCalendar()
-
+  
   return (
     <>
       {
@@ -158,15 +162,28 @@ export const BookContent = observer(({
             })}
           />
 
-          <Button
-            onClick={() => setShowModalQRForm(true)}
-            label={
-              <>
-                <ViewQRIcon /> View QR Code
-              </>
-            }
-            isOutline
-          />
+          <div className='book__buttons'>
+            {!copyId && <Button
+              data-cy='book-tracking-button'
+              onClick={() => window.location.href = `${LINK_TO_BOOKS_SERVICE}history/${bookId}`}
+              label={
+                <>
+                  <ClockIcon /> Book Tracking
+                </>
+              }
+              isOutline
+            />}
+
+            <Button
+              onClick={() => setShowModalQRForm(true)}
+              label={
+                <>
+                  <ViewQRIcon /> View QR Code
+                </>
+              }
+              isOutline
+            />
+          </div>
         </div>
 
         <div>

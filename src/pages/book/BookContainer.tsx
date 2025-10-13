@@ -27,6 +27,7 @@ export const BookContainer = observer(() => {
 
   return (
     <BookContent
+      bookId={id} 
       onTake={takeBookAsync}
       copyId={copyId}
     />

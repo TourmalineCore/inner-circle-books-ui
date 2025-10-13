@@ -72,6 +72,7 @@ function initializationTests() {
     cy.contains(`Алекс Остервальдер`)
     cy.contains(`Сергей Николенко`)
     cy.contains(`2`)
+    cy.contains(`Book Tracking`)
     cy.contains(`Иванов Иван`)
     cy.contains(`Петров Петр`)
   })

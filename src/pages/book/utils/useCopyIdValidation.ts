@@ -14,7 +14,7 @@ export const useCopyIdValidation = ({
 
   useEffect(() => {
     // if copyId isn't passed or is not a number or is not in bookCopies
-    if (copyId || isNaN(Number(copyId)) || bookCopies.some(({
+    if (!copyId || isNaN(Number(copyId)) || !bookCopies.some(({
       bookCopyId, 
     }) => bookCopyId === Number(copyId))) {
       return

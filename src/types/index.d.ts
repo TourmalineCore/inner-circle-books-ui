@@ -21,6 +21,20 @@ type BookType = {
   employeesWhoReadNow: EmployeeWhoReadNowType[],
 }
 
+type BookHistoryType = {
+  list: BookCopyHistory[],
+  totalCount: number,
+}
+
+type BookCopyHistory = {
+  copyNumber: number,
+  employeeFullName: string,
+  takenDate: string,
+  scheduledReturnDate: string,
+  actualReturnedDate: string | null,
+  progressOfReading: string | null,
+}
+
 type BookCopyType = {
   bookCopyId: number,
   copyNumber: number,
