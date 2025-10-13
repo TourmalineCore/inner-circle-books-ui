@@ -78,7 +78,8 @@ function mountComponent() {
         <BookStateContext.Provider value={bookState}>
           <BookContent 
             bookId="1"
-            onTake={() => {}}/>
+            onTake={() => {}}
+          />
         </BookStateContext.Provider>
       </MemoryRouter>,
     )
