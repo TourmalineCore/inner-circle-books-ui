@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import './ModalQRForm.scss'
 
 import CancelIcon from '../../../../assets/icons/Сancel.svg?react'
