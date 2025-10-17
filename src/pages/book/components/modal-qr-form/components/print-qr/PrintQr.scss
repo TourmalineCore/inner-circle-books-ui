@@ -1,5 +1,4 @@
 .print-qr {
-  display: none;
   width: 56mm;
   height: 28mm;
   page-break-after: always;
@@ -8,33 +7,23 @@
   &__wrapper {
     position: relative;
     display: flex;
-    padding: 10px;
+    padding: 2mm;
   }
 
   &__info {
     display: flex;
     flex-direction: column;
-    min-width: 34mm;
+    margin-right: 2mm;
+    min-width: 30mm;
   }
 
-  &__copy-text {
-    font-size: 8px;
-    line-height: 1.2;
+  &__meta {
+    font-size: 7px;
+    line-height: 1.4;
   }
 
   &__title {
     font-size: 9px;
     line-height: 1.2;
-  }
-
-  &__date {
-    position: absolute;
-    right: 32px;
-    bottom: 0;
-    font-size: 8px;
-  }
-
-  @media print {
-    display: block;
   }
 }

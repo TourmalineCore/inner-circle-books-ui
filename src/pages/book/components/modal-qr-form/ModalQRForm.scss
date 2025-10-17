@@ -121,6 +121,14 @@
       animation: unset;
     }
   }
+
+  &__print-qr {
+    display: none;
+
+    @media print {
+      display: block;
+    }
+  }
 }
 
 @keyframes slideUp {

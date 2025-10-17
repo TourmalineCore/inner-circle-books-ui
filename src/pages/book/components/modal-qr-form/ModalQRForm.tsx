@@ -13,7 +13,7 @@ import { observer } from 'mobx-react-lite'
 import clsx from 'clsx'
 import { useMediaQuery } from 'react-responsive'
 import { useReactToPrint } from "react-to-print"
-import { PrintQr } from './components/modal-qr-card/components/print-qr/PrintQr'
+import { PrintQr } from './components/print-qr/PrintQr'
 
 export const ModalQRForm = observer(({
   onCloseModal,
@@ -124,16 +124,17 @@ export const ModalQRForm = observer(({
       </div>
 
       {/*A hidden element that is only visible when printing*/}
-      <div ref={contentRef}>
+      <div 
+        className='modal-qr-form__print-qr'
+        ref={contentRef}
+       >
         {bookState
           .selectedBookCopies
           .map(({
-            copyNumber,
             bookCopyId, 
           }) => (
             <div key={bookCopyId}>
               <PrintQr
-                copyNumber={copyNumber}
                 title={bookState.book.title}
                 bookCopyId={bookCopyId}
               />
