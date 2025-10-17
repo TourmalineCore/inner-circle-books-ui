@@ -1,0 +1,40 @@
+.print-qr {
+  display: none;
+  width: 56mm;
+  height: 28mm;
+  page-break-after: always;
+  break-after: page;
+
+  &__wrapper {
+    position: relative;
+    display: flex;
+    padding: 10px;
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    min-width: 34mm;
+  }
+
+  &__copy-text {
+    font-size: 8px;
+    line-height: 1.2;
+  }
+
+  &__title {
+    font-size: 9px;
+    line-height: 1.2;
+  }
+
+  &__date {
+    position: absolute;
+    right: 32px;
+    bottom: 0;
+    font-size: 8px;
+  }
+
+  @media print {
+    display: block;
+  }
+}

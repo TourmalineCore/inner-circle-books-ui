@@ -83,7 +83,8 @@ export const BookContent = observer(({
       {
         showModalQRForm && (
           <Overlay 
-            onAccentButtonAction={() => {}} // TODO: change when add print flow
+            // An empty function is not an error, the accept button handler is contained inside modalQrForm
+            onAccentButtonAction={() => {}}
             modalName='modalQRForm'
             onCloseModal={() => setShowModalQRForm(false)}
           />

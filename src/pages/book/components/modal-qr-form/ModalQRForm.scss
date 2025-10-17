@@ -97,6 +97,10 @@
   }
 
   &__print-button {
+    &:disabled {
+      background-color: v.$color-grey;
+    }
+
     @include m.tablet {
       min-width: 100px;
     }

@@ -160,7 +160,6 @@ function mountComponent({
     .mount(
       <BookStateContext.Provider value={bookState}>
         <ModalQRForm
-          onPrint={() => {}}
           onCloseModal={() => {}}
         />,
       </BookStateContext.Provider>,

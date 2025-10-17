@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import './ModalQRForm.scss'
 
 import CancelIcon from '../../../../assets/icons/Сancel.svg?react'
@@ -7,23 +8,28 @@ import CheckboxOffIcon from '../../../../assets/icons/Checkbox-off.svg?react'
 
 import { Button } from '../../../../components/button/Button'
 import { ModalQRCard } from './components/modal-qr-card/ModalQRCard'
-import { useContext, useState } from 'react'
+import { useContext, useRef, useState } from 'react'
 import { BookStateContext } from '../../state/BookStateStateContext'
 import { observer } from 'mobx-react-lite'
 import clsx from 'clsx'
 import { useMediaQuery } from 'react-responsive'
+import { useReactToPrint } from "react-to-print"
+import { PrintQr } from './components/modal-qr-card/components/print-qr/PrintQr'
 
 export const ModalQRForm = observer(({
-  onPrint,
   onCloseModal,
 }: {
-  onPrint: () => unknown,
   onCloseModal: () => unknown,
 }) => {
   const bookState = useContext(BookStateContext)
-
+  
   const isMobile = useMediaQuery({
     maxWidth: 767,
+  })
+
+  const contentRef = useRef<HTMLDivElement>(null)
+  const reactToPrintFn = useReactToPrint({
+    contentRef, 
   })
 
   const [
@@ -106,15 +112,34 @@ export const ModalQRForm = observer(({
 
       <div className='modal-qr-form__print-button-container'>
         <Button 
-          onClick={onPrint}
+          onClick={reactToPrintFn}
           className='modal-qr-form__print-button'
           label={
             <>
               <PrintIcon /> Print
             </>
           }
+          disabled={!bookState.selectedBookCopies.length}
           isAccent
         />
+      </div>
+
+      {/*A hidden element that is only visible when printing*/}
+      <div ref={contentRef}>
+        {bookState
+          .selectedBookCopies
+          .map(({
+            copyNumber,
+            bookCopyId, 
+          }) => (
+            <div key={bookCopyId}>
+              <PrintQr
+                copyNumber={copyNumber}
+                title={bookState.book.title}
+                bookCopyId={bookCopyId}
+              />
+            </div>
+          ))}
       </div>
     </div>
   )
