@@ -77,6 +77,14 @@ export class BookState {
     return this._isTriedToSubmit
   }
 
+  get selectedBookCopies() {
+    return this._book.bookCopies.filter(({
+      bookCopyId, 
+    }) => 
+      this._selectedCopies[bookCopyId] === true,
+    )
+  }
+
   toggleBookCopyChecked({
     id,
   }: {
