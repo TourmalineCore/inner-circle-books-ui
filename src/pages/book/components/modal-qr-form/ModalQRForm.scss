@@ -78,7 +78,6 @@
       &:not(&--has-single-item) {
         display: grid;
         column-gap: 18px;
-        max-height: unset;
         grid-template-columns: repeat(2, 1fr);
       }
     }
