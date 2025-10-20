@@ -1,11 +1,17 @@
 .print-qr {
+  position: relative;
   width: 56mm;
   height: 28mm;
   page-break-after: always;
   break-after: page;
 
+  &__logo {
+    position: absolute;
+    bottom: 0;
+    left: 2mm;
+  }
+
   &__wrapper {
-    position: relative;
     display: flex;
     padding: 2mm;
   }

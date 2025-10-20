@@ -3,6 +3,7 @@ import './PrintQr.scss'
 import QRCode from "react-qr-code"
 import { LINK_TO_BOOKS_SERVICE, VITE_BASE_URL } from "../../../../../../common/config/config"
 import moment from 'moment'
+import LogoIcon from '../../../../../../assets/img/logo-qr.png'
 
 export function PrintQr({
   title,
@@ -18,6 +19,12 @@ export function PrintQr({
       className="print-qr"
       data-cy='print-qr'
     > 
+     <img
+       className='print-qr__logo'
+       src={LogoIcon}
+       width={48}
+       height={16}
+      />
       <div 
         className="print-qr__wrapper"
       >
