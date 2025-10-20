@@ -19,11 +19,11 @@ export function PrintQr({
       className="print-qr"
       data-cy='print-qr'
     > 
-     <img
-       className='print-qr__logo'
-       src={LogoIcon}
-       width={48}
-       height={16}
+      <img 
+        className='print-qr__logo'
+        src={LogoIcon}
+        width={48}
+        height={16}
       />
       <div 
         className="print-qr__wrapper"

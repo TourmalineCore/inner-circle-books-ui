@@ -127,9 +127,9 @@ export const ModalQRForm = observer(({
       <div 
         className='modal-qr-form__print-qr'
         ref={contentRef}
-       >
+      >
         {bookState
-          .selectedBookCopies
+          .selectedBookCopies 
           .map(({
             bookCopyId, 
           }) => (
