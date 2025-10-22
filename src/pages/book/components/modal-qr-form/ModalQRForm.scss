@@ -96,6 +96,10 @@
   }
 
   &__print-button {
+    &:disabled {
+      background-color: v.$color-grey;
+    }
+
     @include m.tablet {
       min-width: 100px;
     }
@@ -114,6 +118,14 @@
 
     @include m.tablet {
       animation: unset;
+    }
+  }
+
+  &__print-qr {
+    display: none;
+
+    @media print {
+      display: block;
     }
   }
 }

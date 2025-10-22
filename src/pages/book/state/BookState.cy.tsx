@@ -100,6 +100,19 @@ function bookDataTests() {
     expect(bookState.isBookCopySelected({
       id: 1, 
     })).to.be.true
+    expect(bookState.selectedBookCopies)
+      .to
+      .deep
+      .eq([
+        {
+          copyNumber: 1,
+          bookCopyId: 1,
+        },
+        {
+          copyNumber: 2,
+          bookCopyId: 2,
+        },
+      ])
 
     bookState.toggleBookCopyChecked({
       id: 1, 
@@ -108,6 +121,16 @@ function bookDataTests() {
     expect(bookState.isBookCopySelected({
       id: 1, 
     })).to.be.false
+
+    expect(bookState.selectedBookCopies)
+      .to
+      .deep
+      .eq([
+        {
+          copyNumber: 2,
+          bookCopyId: 2,
+        },
+      ])
 
     bookState.toggleBookCopyChecked({
       id: 1, 

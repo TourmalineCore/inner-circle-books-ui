@@ -1,0 +1,35 @@
+.print-qr {
+  position: relative;
+  width: 56mm;
+  height: 28mm;
+  page-break-after: always;
+  break-after: page;
+
+  &__logo {
+    position: absolute;
+    bottom: 0;
+    left: 2mm;
+  }
+
+  &__wrapper {
+    display: flex;
+    padding: 2mm;
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    margin-right: 2mm;
+    min-width: 30mm;
+  }
+
+  &__meta {
+    font-size: 7px;
+    line-height: 1.4;
+  }
+
+  &__title {
+    font-size: 9px;
+    line-height: 1.2;
+  }
+}

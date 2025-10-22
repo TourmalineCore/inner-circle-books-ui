@@ -67,7 +67,6 @@ export const Overlay = ({
       {
         modalName == `modalQRForm` && (
           <ModalQRForm
-            onPrint={onAccentButtonAction}
             onCloseModal={onCloseModal!}
           />
         )
