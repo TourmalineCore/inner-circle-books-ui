@@ -21,16 +21,15 @@
     gap: 16px;
   }
 
+  &__info {
+    display: flex;
+    flex-direction: column;
+  }
+
   &__copy-text {
     @include f.subhead1-medium;
 
-    white-space: nowrap;
-  }
-
-  &__qr-container {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+    font-size: 12px;
   }
 
   &__qr {

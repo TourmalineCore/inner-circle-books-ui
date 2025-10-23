@@ -46,22 +46,23 @@ export const ModalQRCard = observer(({
         </div>
 
         <div className="modal-qr-card__content">
-          <div className="modal-qr-card__title">
-            {title}
+
+          <div className='modal-qr-card__info'>
+            <div className="modal-qr-card__copy-text">
+              Copy ID: {bookCopyId}
+            </div>
+
+            <div className="modal-qr-card__title">
+              {title}
+            </div>
           </div>
 
-          <div className="modal-qr-card__qr-container">
-            <div className="modal-qr-card__copy-text">
-              Copy Id {bookCopyId}
-            </div>
-
-            <div className="modal-qr-card__qr">
-              <QRCode
-                size={64}
-                value={`${VITE_BASE_URL}${LINK_TO_BOOKS_SERVICE}?c=${bookCopyId}`}
-                viewBox={`0 0 64 64`}
-              />
-            </div>
+          <div className="modal-qr-card__qr">
+            <QRCode
+              size={64}
+              value={`${VITE_BASE_URL}${LINK_TO_BOOKS_SERVICE}?c=${bookCopyId}`}
+              viewBox={`0 0 64 64`}
+            />
           </div>
         </div>
       </button>
@@ -69,22 +70,21 @@ export const ModalQRCard = observer(({
     : (
       <div className="modal-qr-card-without-checkbox">
         <div className="modal-qr-card-without-checkbox__content">
-          <div className="modal-qr-card-without-checkbox__title">
-            {title}
+          <div className='modal-qr-card__info'>
+            <div className="modal-qr-card-without-checkbox__copy-text">
+              Copy ID: {bookCopyId}
+            </div>
+            <div className="modal-qr-card-without-checkbox__title">
+              {title}
+            </div>
           </div>
 
-          <div className="modal-qr-card-without-checkbox__qr-container">
-            <div className="modal-qr-card-without-checkbox__copy-text">
-              Copy Id {bookCopyId}
-            </div>
-
-            <div className="modal-qr-card-without-checkbox__qr">
-              <QRCode
-                size={64}
-                value={`${VITE_BASE_URL}${LINK_TO_BOOKS_SERVICE}?c=${bookCopyId}`}
-                viewBox={`0 0 64 64`}
-              />
-            </div>
+          <div className="modal-qr-card-without-checkbox__qr">
+            <QRCode
+              size={64}
+              value={`${VITE_BASE_URL}${LINK_TO_BOOKS_SERVICE}?c=${bookCopyId}`}
+              viewBox={`0 0 64 64`}
+            />
           </div>
         </div>
       </div>
