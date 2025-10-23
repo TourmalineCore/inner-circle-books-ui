@@ -21,16 +21,10 @@ export const BookActionButton = ({
     (reader) => reader.employeeId === getEmployeeIdFromToken() && reader.bookCopyId === Number(copyId),
   )
 
-  const currentReader = employeesWhoReadNow.find((reader) => reader.bookCopyId === Number(copyId))
-
-  const isBookCopyBusy = !isCurrentUserReadingThisCopy && employeesWhoReadNow.some(({
-    bookCopyId,
-  }) => bookCopyId === Number(copyId))
-  
   return (
     <div className='book-action-button'>
-      {
-        isValidCopyId && !isBookCopyBusy
+      { 
+        isValidCopyId 
           ? (
             <Button
               onClick={() => {
@@ -53,9 +47,7 @@ export const BookActionButton = ({
               <p className="book-action-button__take-info-text">
                 {
                   copyId 
-                    ? isBookCopyBusy
-                      ? `${currentReader?.fullName} has already taken this book`
-                      : `Copy of book does not exist, check the correctness of the QR code` 
+                    ? `Copy of book does not exist, check the correctness of the QR code` 
                     : `You can take book after scanning the QR code on book cover`
                 }
               </p>
