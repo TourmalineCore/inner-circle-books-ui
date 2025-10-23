@@ -25,12 +25,7 @@ function initializationTests() {
       },
     ])
     expect(bookState.book.coverUrl).to.eq(``)
-    expect(bookState.book.bookCopies).to.deep.eq([
-      {
-        bookCopyId: 1,
-        copyNumber: 1,
-      },
-    ])
+    expect(bookState.book.bookCopiesIds).to.deep.eq([])
   })
 }
 
@@ -48,15 +43,9 @@ function bookDataTests() {
       },
     ],
     coverUrl: `https://book.jpg`,
-    bookCopies: [
-      {
-        bookCopyId: 1,
-        copyNumber: 1,
-      },
-      {
-        bookCopyId: 2,
-        copyNumber: 2,
-      },
+    bookCopiesIds: [
+      1,
+      2,
     ],
     employeesWhoReadNow: [
       {
@@ -104,14 +93,8 @@ function bookDataTests() {
       .to
       .deep
       .eq([
-        {
-          copyNumber: 1,
-          bookCopyId: 1,
-        },
-        {
-          copyNumber: 2,
-          bookCopyId: 2,
-        },
+        1,
+        2,
       ])
 
     bookState.toggleBookCopyChecked({
@@ -126,10 +109,7 @@ function bookDataTests() {
       .to
       .deep
       .eq([
-        {
-          copyNumber: 2,
-          bookCopyId: 2,
-        },
+        2,
       ])
 
     bookState.toggleBookCopyChecked({
