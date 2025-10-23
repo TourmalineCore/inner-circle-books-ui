@@ -41,7 +41,7 @@ export const BookContent = observer(({
       language,
       authors,
       coverUrl,
-      bookCopies,
+      bookCopiesIds,
       employeesWhoReadNow,
     },
   } = bookState
@@ -70,7 +70,7 @@ export const BookContent = observer(({
 
   const isValidCopyId = useCopyIdValidation({
     copyId: copyId,
-    bookCopies: bookCopies,
+    bookCopiesIds: bookCopiesIds,
   })
 
   const {

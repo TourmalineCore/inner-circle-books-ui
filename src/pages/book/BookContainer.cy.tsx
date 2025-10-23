@@ -20,15 +20,9 @@ const BOOK_RESPONSE: BookType = {
     },
   ],
   coverUrl: ``,
-  bookCopies: [
-    {
-      bookCopyId: 14,
-      copyNumber: 1,
-    },
-    {
-      bookCopyId: 15,
-      copyNumber: 2,
-    },
+  bookCopiesIds: [
+    14,
+    15,
   ],
   employeesWhoReadNow: [
     {

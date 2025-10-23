@@ -14,6 +14,7 @@ const PROGRESS_OPTIONS = {
   [ProgressOfReading.NotReadAtAll]: `Not Read At All`,
   [ProgressOfReading.ReadPartially]: `Read Partially`,
   [ProgressOfReading.ReadEntirely]: `Read Entirely`,
+  [ProgressOfReading.Unknown]: `Unknown`,
 }
 
 export function BookHistoryContainer() {
@@ -30,14 +31,6 @@ export function BookHistoryContainer() {
       tcApiHostUrl={API_ROOT}
       tcDataPath={`/books/history/${id}`}
       columns={[
-        {
-          id: `Copy`,
-          accessorFn: ({
-            copyNumber,
-          }) => copyNumber,
-          tcNonMobileColumn: true,
-          size: 80,
-        },
         {
           id: `Employee`,
           accessorFn: ({
@@ -81,12 +74,20 @@ export function BookHistoryContainer() {
             ? PROGRESS_OPTIONS[progressOfReading as ProgressOfReading]
             : `-`,
         },
+        {
+          id: `Copy ID`,
+          accessorFn: ({
+            bookCopyId,
+          }) => bookCopyId,
+          tcNonMobileColumn: true,
+          size: 90,
+        },
       ]}
       tcOrder={{
         id: ``,
         desc: false,
       }}
-      tcRenderMobileTitle={(row) => `Copy ${row.original.copyNumber}, ${row.original.employeeFullName}`}
+      tcRenderMobileTitle={(row) => `Copy ID ${row.original.bookCopyId}, ${row.original.employeeFullName}`}
     />
   )
 }

@@ -12,12 +12,7 @@ const EMPTY_BOOK: BookType = {
     },
   ],
   coverUrl: ``,
-  bookCopies: [
-    {
-      bookCopyId: 1,
-      copyNumber: 1,
-    },
-  ],
+  bookCopiesIds: [],
   employeesWhoReadNow: [],
 }
 
@@ -45,10 +40,10 @@ export class BookState {
 
     // Initialize all copies as selected
     this._book
-      .bookCopies
-      .forEach(({
+      .bookCopiesIds
+      .forEach((
         bookCopyId,
-      }) => {
+      ) => {
         this._selectedCopies[bookCopyId] = true
       })
   }
@@ -59,16 +54,16 @@ export class BookState {
 
   get count() {
     return this._book
-      .bookCopies
+      .bookCopiesIds
       .length
   }
 
   get areAllCopiesSelected() {
     return this._book
-      .bookCopies
-      .every(({
+      .bookCopiesIds
+      .every((
         bookCopyId,
-      }) =>
+      ) =>
         this._selectedCopies[bookCopyId] === true, 
       )
   }
@@ -78,9 +73,9 @@ export class BookState {
   }
 
   get selectedBookCopies() {
-    return this._book.bookCopies.filter(({
+    return this._book.bookCopiesIds.filter((
       bookCopyId, 
-    }) => 
+    ) => 
       this._selectedCopies[bookCopyId] === true,
     )
   }
@@ -102,10 +97,10 @@ export class BookState {
 
     if (checked) {
       this._book
-        .bookCopies
-        .forEach(({
+        .bookCopiesIds
+        .forEach((
           bookCopyId,
-        }) => {
+        ) => {
           this._selectedCopies[bookCopyId] = true
         })
     }
@@ -123,10 +118,10 @@ export class BookState {
     this._selectedCopies = {}
 
     this._book
-      .bookCopies
-      .forEach(({
+      .bookCopiesIds
+      .forEach((
         bookCopyId,
-      }) => {
+      ) => {
         this._selectedCopies[bookCopyId] = true
       })
   }

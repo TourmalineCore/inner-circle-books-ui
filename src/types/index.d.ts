@@ -2,11 +2,11 @@ type AuthorType = {
   fullName: string,
 }
 
-type BookCardType = Omit<BookType, 'id' | 'annotation' | 'bookCopies' | 'employeesWhoReadNow'> & {
+type BookCardType = Omit<BookType, 'id' | 'annotation' | 'bookCopiesIds' | 'employeesWhoReadNow'> & {
   id?: number,
 }
 
-type AddBookType = Omit<BookType, 'id' | 'bookCopies' | 'employeesWhoReadNow'> & {
+type AddBookType = Omit<BookType, 'id' | 'bookCopiesIds' | 'employeesWhoReadNow'> & {
   countOfCopies: number,
 }
 
@@ -17,7 +17,7 @@ type BookType = {
   language: string,
   authors: AuthorType[],
   coverUrl: string,
-  bookCopies: BookCopyType[],
+  bookCopiesIds: number[],
   employeesWhoReadNow: EmployeeWhoReadNowType[],
 }
 
@@ -27,17 +27,12 @@ type BookHistoryType = {
 }
 
 type BookCopyHistory = {
-  copyNumber: number,
+  bookCopyId: number,
   employeeFullName: string,
   takenDate: string,
   scheduledReturnDate: string,
   actualReturnedDate: string | null,
   progressOfReading: string | null,
-}
-
-type BookCopyType = {
-  bookCopyId: number,
-  copyNumber: number,
 }
 
 type TakeBookType = {

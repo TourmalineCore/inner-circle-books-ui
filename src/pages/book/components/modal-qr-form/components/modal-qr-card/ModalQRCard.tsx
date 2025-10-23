@@ -8,14 +8,12 @@ import { observer } from 'mobx-react-lite'
 import { useContext } from 'react'
 import { BookStateContext } from '../../../../state/BookStateStateContext'
 import clsx from 'clsx'
-import {LINK_TO_BOOKS_SERVICE, VITE_BASE_URL } from '../../../../../../common/config/config'
+import { LINK_TO_BOOKS_SERVICE, VITE_BASE_URL } from '../../../../../../common/config/config'
 
 export const ModalQRCard = observer(({
-  copyNumber,
   title,
   bookCopyId,
 }: {
-  copyNumber: number,
   title: string,
   bookCopyId: number,
 }) => {
@@ -25,7 +23,7 @@ export const ModalQRCard = observer(({
     ? (
       <button
         type="button"
-        key={copyNumber}
+        key={bookCopyId}
         className={clsx(`modal-qr-card`, { 
           'modal-qr-card--selected': bookState.isBookCopySelected({
             id: bookCopyId, 
@@ -54,7 +52,7 @@ export const ModalQRCard = observer(({
 
           <div className="modal-qr-card__qr-container">
             <div className="modal-qr-card__copy-text">
-              Copy {copyNumber}
+              Copy Id {bookCopyId}
             </div>
 
             <div className="modal-qr-card__qr">
@@ -77,7 +75,7 @@ export const ModalQRCard = observer(({
 
           <div className="modal-qr-card-without-checkbox__qr-container">
             <div className="modal-qr-card-without-checkbox__copy-text">
-              Copy {copyNumber}
+              Copy Id {bookCopyId}
             </div>
 
             <div className="modal-qr-card-without-checkbox__qr">
