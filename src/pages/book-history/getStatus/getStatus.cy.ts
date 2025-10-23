@@ -6,12 +6,12 @@ function getStatusTests() {
   it(`
   GIVEN scheduledReturnDate=21.08.2025 and currentDate=20.08.2025
   WHEN use getStatus
-  SHOULD return '-'
+  SHOULD return 'Reading now'
   `, () => {
     expect(getStatus({
       scheduledReturnDate: `21.08.2025`,
       currentDate: new Date(`2025-08-20`),
-    })).to.be.eq(`-`)
+    })).to.be.eq(`Reading now`)
   })
 
   it(`
@@ -28,45 +28,45 @@ function getStatusTests() {
   it(`
   GIVEN scheduledReturnDate=21.08.2025 and currentDate=22.08.2025
   WHEN use getStatus
-  SHOULD return '1 day overdue'
+  SHOULD return 'Reading now, 1 day overdue'
   `, () => {
     expect(getStatus({
       scheduledReturnDate: `21.08.2025`,
       currentDate: new Date(`2025-08-22`),
-    })).to.be.eq(`1 day overdue`)
+    })).to.be.eq(`Reading now, 1 day overdue`)
   })
 
   it(`
   GIVEN scheduledReturnDate=21.08.2025 and currentDate=02.09.2025
   WHEN use getStatus
-  SHOULD return '12 days overdue'
+  SHOULD return 'Reading now, 12 days overdue'
   `, () => {
     expect(getStatus({
       scheduledReturnDate: `21.08.2025`,
       currentDate: new Date(`2025-09-02`),
-    })).to.be.eq(`12 days overdue`)
+    })).to.be.eq(`Reading now, 12 days overdue`)
   })
 
   it(`
   GIVEN scheduledReturnDate=21.08.2025 and currentDate=24.09.2025
   WHEN use getStatus
-  SHOULD return '1 month and 3 days overdue'
+  SHOULD return 'Reading now, 1 month and 3 days overdue'
   `, () => {
     expect(getStatus({
       scheduledReturnDate: `21.08.2025`,
       currentDate: new Date(`2025-09-24`),
-    })).to.be.eq(`1 month and 3 days overdue`)
+    })).to.be.eq(`Reading now, 1 month and 3 days overdue`)
   })
 
   it(`
   GIVEN scheduledReturnDate=21.08.2025 and currentDate=24.09.2026
   WHEN use getStatus
-  SHOULD return '1 year 1 month and 3 days overdue'
+  SHOULD return 'Reading now, 1 year 1 month and 3 days overdue'
   `, () => {
     expect(getStatus({
       scheduledReturnDate: `21.08.2025`,
       currentDate: new Date(`2026-09-24`),
-    })).to.be.eq(`1 year 1 month and 3 days overdue`)
+    })).to.be.eq(`Reading now, 1 year 1 month and 3 days overdue`)
   })
   
 }

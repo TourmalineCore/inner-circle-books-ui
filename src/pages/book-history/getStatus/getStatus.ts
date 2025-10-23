@@ -19,7 +19,7 @@ export function getStatus({
   const diffInDays = now.diff(returnDate, `days`)
 
   if (diffInDays <= 0) {
-    return `-`
+    return `Reading now`
   }
 
   const years = now.diff(returnDate, `years`)
@@ -44,5 +44,5 @@ export function getStatus({
     parts.push(`${months > 0 ? `and ${days}` : `${days}`} ${days === 1 ? `day` : `days`}`)
   }
 
-  return `${parts.join(` `)} overdue`
+  return `Reading now, ${parts.join(` `)} overdue`
 }
