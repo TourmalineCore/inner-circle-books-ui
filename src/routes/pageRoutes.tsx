@@ -32,7 +32,7 @@ export function getPageRoutes(accessPermissions: Map<any, boolean>) {
     routes.push(...scanRoutes)
   }
   
-  if (accessPermissions.get(`CanViewBooks`)) {
+  if (accessPermissions.get(`CanManageBooks`)) {
     routes.push(...bookHistoryRoutes)
   }
 

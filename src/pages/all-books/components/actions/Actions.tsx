@@ -7,6 +7,7 @@ import { observer } from "mobx-react-lite"
 import { Button } from '../../../../components/button/Button'
 import { addBookRoutes, scanRoutes } from '../../../routes'
 import { useMediaQuery } from 'react-responsive'
+import { hasAccessPermission } from '../../../../common/tokenUtils'
 
 export const Actions = observer(() => {
   const isScanButtonMobile = useMediaQuery({
@@ -42,7 +43,9 @@ export const Actions = observer(() => {
           }
         />
       </div>
-      <div className='actions__add-button'>
+      {hasAccessPermission({
+        permission: `CanManageBooks`,
+      }) && <div className='actions__add-button'>
         <Button
           onClick={() => window.location.href = addBookRoutes[0].path}
           label={
@@ -64,7 +67,7 @@ export const Actions = observer(() => {
             : {})
           }
         />
-      </div>
+      </div>}
     </div>
   )
 })
