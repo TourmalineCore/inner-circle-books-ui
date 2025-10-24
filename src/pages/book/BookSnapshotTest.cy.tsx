@@ -1,9 +1,10 @@
 import { MemoryRouter } from "react-router-dom"
-import { VIEWPORTS } from "../../common/constant"
+import { MOCK_TOKEN, VIEWPORTS } from "../../common/constant"
 import { BookContent } from "./BookContent"
 import { BookState } from "./state/BookState"
 import { BookStateContext } from "./state/BookStateStateContext"
 import { Language } from "../../common/enums/language"
+import { authService } from "../../common/authService"
 
 describe(`Book Page Snapshot test`, () => {
   it(`Take the snapshot of a result`, () => {
@@ -63,18 +64,24 @@ function mountComponent() {
     },
   })
 
+  const mockAuthContext = [
+    MOCK_TOKEN,
+  ]
+
   cy
     .mount(
       <MemoryRouter 
         initialEntries={[
           `/books/1`,
         ]}>
-        <BookStateContext.Provider value={bookState}>
-          <BookContent 
-            bookId="1"
-            onTake={() => {}}
-          />
-        </BookStateContext.Provider>
+        <authService.AuthContext.Provider value={mockAuthContext}>
+          <BookStateContext.Provider value={bookState}>
+            <BookContent 
+              bookId="1"
+              onTake={() => {}}
+            />
+          </BookStateContext.Provider>
+        </authService.AuthContext.Provider>,
       </MemoryRouter>,
     )
 }

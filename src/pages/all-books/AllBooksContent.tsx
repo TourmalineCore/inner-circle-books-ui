@@ -1,7 +1,6 @@
 import { observer } from "mobx-react-lite"
 import { BooksList } from './components/books-list/BooksList'
 import { Actions } from './components/actions/Actions'
-import { hasAccessPermission } from "../../common/tokenUtils"
 
 export const AllBooksContent = observer(({
   cards, 
@@ -11,11 +10,7 @@ export const AllBooksContent = observer(({
 
   return (
     <>
-      {
-        hasAccessPermission({
-          permission: `CanManageBooks`,
-        }) && <Actions />
-      }
+      <Actions />
       <BooksList cards={cards} />
     </>
   )
