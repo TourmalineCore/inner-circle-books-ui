@@ -79,6 +79,7 @@ function mountComponent() {
             <BookContent 
               bookId="1"
               onTake={() => {}}
+              openModalQrCode={() => {}}
             />
           </BookStateContext.Provider>
         </authService.AuthContext.Provider>,
