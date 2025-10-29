@@ -4,16 +4,36 @@
 
 .modal-qr-form {
   position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  margin-bottom: 56px; // because of mobile sidebar panel
-  border-radius: 12px 12px 0 0;
+  z-index: 71;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
-  height: max-content;
-  box-shadow: 0 0 32px v.$color-shadow-modal;
-  background-color: v.$color-background-modal;
-  animation: slideUp 0.4s ease-out forwards;
+  height: 100%;
+  background-color: v.$color-background-overlay;
+  inset: 0;
+
+  &__inner {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin-bottom: 56px; // because of mobile sidebar panel
+    border-radius: 12px 12px 0 0;
+    width: 100%;
+    height: max-content;
+    box-shadow: 0 0 32px v.$color-shadow-modal;
+    background-color: v.$color-background-modal;
+    animation: slideUp 0.4s ease-out forwards;
+
+    @include m.tablet {
+      position: relative;
+      margin-bottom: 0;
+      border-radius: 12px;
+      width: max-content;
+      animation: unset;
+    }
+  }
 
   &__content {
     display: flex;
@@ -105,12 +125,12 @@
     }
   }
 
-  @include m.tablet {
-    position: relative;
-    margin-bottom: 0;
-    border-radius: 12px;
-    width: max-content;
-    animation: unset;
+  &__print-qr {
+    display: none;
+
+    @media print {
+      display: block;
+    }
   }
 
   &--closing {
@@ -118,14 +138,6 @@
 
     @include m.tablet {
       animation: unset;
-    }
-  }
-
-  &__print-qr {
-    display: none;
-
-    @media print {
-      display: block;
     }
   }
 }

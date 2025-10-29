@@ -101,7 +101,7 @@ function mountComponent() {
             `/books/1`,
           ]}>
           <BookStateContext.Provider value={bookState}>
-            <BookContainer />
+            <BookContainer openModalQrCode={() => {}}/>
           </BookStateContext.Provider>
         </MemoryRouter>
       </authService.AuthContext.Provider>,

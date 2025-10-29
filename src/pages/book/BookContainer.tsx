@@ -3,9 +3,13 @@ import { observer } from "mobx-react-lite"
 import { BookContent } from "./BookContent"
 import { BookStateContext } from "./state/BookStateStateContext"
 import { api } from "../../common/api"
-import { useLocation} from "react-router-dom"
+import { useLocation, useSearchParams} from "react-router-dom"
 
-export const BookContainer = observer(() => {
+export const BookContainer = observer(({
+  openModalQrCode,
+}: {
+  openModalQrCode: () => unknown,
+}) => {
   const bookState = useContext(BookStateContext)
   const location = useLocation()
       
@@ -17,6 +21,12 @@ export const BookContainer = observer(() => {
 
   const isBookCopy = location.pathname.includes(`/copy`)
   const copyId = pathnameParts?.[3]
+
+  const [
+    searchParams,
+  ] = useSearchParams()
+  
+  const secretKey = searchParams.get(`s`)
 
   useEffect(() => {
     loadBookAsync()
@@ -30,12 +40,13 @@ export const BookContainer = observer(() => {
       bookId={id} 
       onTake={takeBookAsync}
       copyId={copyId}
+      openModalQrCode={openModalQrCode}
     />
   )
 
   async function loadBookAsync() {
     const url = isBookCopy
-      ? `/books/copy/${copyId}`
+      ? `/books/copy/${copyId}?secretKey=${secretKey}`
       : `/books/${id}`
 
     const {

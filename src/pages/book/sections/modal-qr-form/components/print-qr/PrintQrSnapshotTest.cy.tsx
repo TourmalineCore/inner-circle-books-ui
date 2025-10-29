@@ -27,6 +27,7 @@ function mountComponent() {
       <PrintQr
         bookCopyId={1}
         title="Designing Data-Intensive Applications"
+        secretKey="ab2d"
         timestamp={moment(`2025-10-17 13:00`)}
       />,
     ) 

@@ -1,7 +1,7 @@
 import { Language } from "../../../../common/enums/language"
 import { BookState } from "../../state/BookState"
 import { BookStateContext } from "../../state/BookStateStateContext"
-import { ModalQRForm } from "./ModalQRForm"
+import { ModalQRFormContent } from "./ModalQRFormContent"
 
 export const VIEWPORTS = [
   {
@@ -141,7 +141,7 @@ function mountComponent({
   cy
     .mount(
       <BookStateContext.Provider value={bookState}>
-        <ModalQRForm
+        <ModalQRFormContent
           onCloseModal={() => {}}
         />,
       </BookStateContext.Provider>,

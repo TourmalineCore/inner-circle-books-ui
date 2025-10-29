@@ -8,10 +8,12 @@ import LogoIcon from '../../../../../../assets/img/logo-qr.png'
 export function PrintQr({
   title,
   bookCopyId,
+  secretKey,
   timestamp = moment(),
 }: {
   title: string,
   bookCopyId: number,
+  secretKey: string,
   timestamp?: moment.Moment,
 }) {
   return (
@@ -41,11 +43,12 @@ export function PrintQr({
         <div className="print-qr__code">
           <QRCode
             size={84}
-            value={`${VITE_BASE_URL}${LINK_TO_BOOKS_SERVICE}?c=${bookCopyId}`}
+            value={`${VITE_BASE_URL}${LINK_TO_BOOKS_SERVICE}?c=${bookCopyId}?s=${secretKey}`}
             viewBox={`0 0 84 84`}
           />
         </div>
       </div>
+      <span className='print-qr__secret'>SecretKey: {secretKey}</span>
     </div>
   )
 }

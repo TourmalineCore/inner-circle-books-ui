@@ -6,30 +6,32 @@ import CheckboxOffIcon from '../../../../../../assets/icons/Checkbox-off.svg?rea
 import QRCode from "react-qr-code"
 import { observer } from 'mobx-react-lite'
 import { useContext } from 'react'
-import { BookStateContext } from '../../../../state/BookStateStateContext'
 import clsx from 'clsx'
 import { LINK_TO_BOOKS_SERVICE, VITE_BASE_URL } from '../../../../../../common/config/config'
+import { ModalQrFormStateContext } from '../../state/ModalQrFormStateContext'
 
 export const ModalQRCard = observer(({
   title,
   bookCopyId,
+  secretKey,
 }: {
   title: string,
   bookCopyId: number,
+  secretKey: string,
 }) => {
-  const bookState = useContext(BookStateContext)
+  const modalQrFormState = useContext(ModalQrFormStateContext)
   
-  return bookState.count > 1 
+  return modalQrFormState.bookCopiesCount > 1 
     ? (
       <button
         type="button"
         key={bookCopyId}
         className={clsx(`modal-qr-card`, { 
-          'modal-qr-card--selected': bookState.isBookCopySelected({
+          'modal-qr-card--selected': modalQrFormState.isBookCopySelected({
             id: bookCopyId, 
           }),
         })}
-        onClick={() => bookState.toggleBookCopyChecked({
+        onClick={() => modalQrFormState.toggleBookCopyChecked({
           id: bookCopyId,
         })}
       >
@@ -37,7 +39,7 @@ export const ModalQRCard = observer(({
           className="modal-qr-card__checkbox-icon"
         >
           {
-            bookState.isBookCopySelected({
+            modalQrFormState.isBookCopySelected({
               id: bookCopyId,
             }) 
               ? <CheckboxOnIcon /> 
@@ -60,7 +62,7 @@ export const ModalQRCard = observer(({
           <div className="modal-qr-card__qr">
             <QRCode
               size={64}
-              value={`${VITE_BASE_URL}${LINK_TO_BOOKS_SERVICE}?c=${bookCopyId}`}
+              value={`${VITE_BASE_URL}${LINK_TO_BOOKS_SERVICE}?c=${bookCopyId}?s=${secretKey}`}
               viewBox={`0 0 64 64`}
             />
           </div>
@@ -82,7 +84,7 @@ export const ModalQRCard = observer(({
           <div className="modal-qr-card-without-checkbox__qr">
             <QRCode
               size={64}
-              value={`${VITE_BASE_URL}${LINK_TO_BOOKS_SERVICE}?c=${bookCopyId}`}
+              value={`${VITE_BASE_URL}${LINK_TO_BOOKS_SERVICE}?c=${bookCopyId}?s=${secretKey}`}
               viewBox={`0 0 64 64`}
             />
           </div>

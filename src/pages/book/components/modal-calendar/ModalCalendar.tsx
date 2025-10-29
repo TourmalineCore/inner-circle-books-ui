@@ -3,8 +3,7 @@ import './ModalCalendar.scss'
 import CancelIcon from '../../../../assets/icons/Сancel.svg?react'
 
 import { Button } from '../../../../components/button/Button'
-import { useContext, useState } from 'react'
-import { BookStateContext } from '../../state/BookStateStateContext'
+import { useState } from 'react'
 import { observer } from 'mobx-react-lite'
 import { useMediaQuery } from 'react-responsive'
 import clsx from 'clsx'
@@ -23,8 +22,6 @@ export const ModalCalendar = observer(({
   endCalendarDate: Date | null,
   onChangeCalendar: (dates: [Date, Date]) => unknown,
 }) => {
-  const bookState = useContext(BookStateContext)
-
   const isMobile = useMediaQuery({
     maxWidth: 767,
   })
@@ -36,7 +33,6 @@ export const ModalCalendar = observer(({
 
   const handleClose = () => {
     setIsClosing(true)
-    bookState.resetSelectedCopies()
 
     if (isMobile) {
       setTimeout(onCloseModal, 400) // Close after end of animation
