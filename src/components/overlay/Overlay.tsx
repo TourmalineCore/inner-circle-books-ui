@@ -1,9 +1,8 @@
 import './Overlay.scss'
 
 import { ModalWindow } from '../modal-window/ModalWindow'
-import { ModalQRForm } from '../../pages/book/components/modal-qr-form/ModalQRForm'
-import { useEffect } from 'react'
 import { ModalCalendar } from '../../pages/book/components/modal-calendar/ModalCalendar'
+import { useAddDisableScrollClassOnBody } from '../../common/hooks/useAddDisableScrollClassOnBody'
 
 export const Overlay = ({
   onAccentButtonAction,
@@ -12,7 +11,7 @@ export const Overlay = ({
   modalName,
   title,
   text,
-  buttonLabel,
+  buttonLabel,  
   accentButtonLabel,
   hasCloseButton = false,
   endCalendarDate,
@@ -21,7 +20,7 @@ export const Overlay = ({
   onAccentButtonAction: () => unknown,
   onButtonAction?: () => unknown,
   onCloseModal?: () => unknown,
-  modalName: `modal` | `modalQRForm` | `modalCalendar`,
+  modalName: `modal` | `modalCalendar`,
   title?: string,
   text?: string | React.ReactNode,
   buttonLabel?: string,
@@ -30,22 +29,7 @@ export const Overlay = ({
   endCalendarDate?: Date | null,
   onChangeCalendar?: (dates: [Date, Date]) => unknown,
 }) => {
-
-  useEffect(() => {
-    // Add class to body when overlay is opened for add style to disable scroll under overlay
-    document
-      .body
-      .classList
-      .add(`overlay-open`)
-
-    // Remove class from body when component unmounts
-    return () => {
-      document
-        .body
-        .classList
-        .remove(`overlay-open`)
-    }
-  }, [])
+  useAddDisableScrollClassOnBody()
 
   return (
     <div className="overlay">
@@ -63,15 +47,6 @@ export const Overlay = ({
           />
         )
       }
-
-      {
-        modalName == `modalQRForm` && (
-          <ModalQRForm
-            onCloseModal={onCloseModal!}
-          />
-        )
-      }
-
       {
         modalName == `modalCalendar` && (
           <ModalCalendar

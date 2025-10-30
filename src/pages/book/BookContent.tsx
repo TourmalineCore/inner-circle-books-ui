@@ -24,6 +24,7 @@ export const BookContent = observer(({
   bookId,
   copyId,
   onTake,
+  openModalQrCode,
 }: {
   bookId: string,
   copyId?: string,
@@ -32,6 +33,7 @@ export const BookContent = observer(({
     scheduledReturnDate, 
   }: TakeBookType,
   ) => unknown,
+  openModalQrCode: () => unknown,
 }) => {
   const bookState = useContext(BookStateContext)
 
@@ -48,11 +50,6 @@ export const BookContent = observer(({
   } = bookState
 
   const isValidUrl = useImageValid(coverUrl)
-
-  const [
-    showModalQRForm,
-    setShowModalQRForm,
-  ] = useState(false)
 
   const [
     showModal,
@@ -81,17 +78,6 @@ export const BookContent = observer(({
   
   return (
     <>
-      {
-        showModalQRForm && (
-          <Overlay 
-            // An empty function is not an error, the accept button handler is contained inside modalQrForm
-            onAccentButtonAction={() => {}}
-            modalName='modalQRForm'
-            onCloseModal={() => setShowModalQRForm(false)}
-          />
-        )
-      }
-
       {
         showModal && (
           <Overlay 
@@ -178,15 +164,15 @@ export const BookContent = observer(({
               isOutline
             />}
 
-            <Button
-              onClick={() => setShowModalQRForm(true)}
+            {!copyId && <Button
+              onClick={openModalQrCode}
               label={
                 <>
                   <ViewQRIcon /> View QR Code
                 </>
               }
               isOutline
-            />
+            />}
           </div>
           }
         </div>

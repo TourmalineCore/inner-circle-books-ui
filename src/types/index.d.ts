@@ -50,3 +50,11 @@ type EmployeeWhoReadNowType = {
   fullName: string,
   bookCopyId: number,
 }
+
+type ModalQrFormType = {
+  bookTitle: string,
+  bookCopies: {
+    bookCopyId: number,
+    secretKey: string,
+  }[],
+} 

@@ -1,7 +1,9 @@
 import { Language } from "../../../../common/enums/language"
 import { BookState } from "../../state/BookState"
 import { BookStateContext } from "../../state/BookStateStateContext"
-import { ModalQRForm } from "./ModalQRForm"
+import { ModalQRFormContent } from "./ModalQRFormContent"
+import { ModalQrFormState } from "./state/ModalQrFormState"
+import { ModalQrFormStateContext } from "./state/ModalQrFormStateContext"
 
 export const VIEWPORTS = [
   {
@@ -120,6 +122,7 @@ function mountComponent({
   bookCopiesIds: BookType['bookCopiesIds'],
 }) {
   const bookState = new BookState()
+  const modalQrFormState = new ModalQrFormState()
     
   bookState.initialize({
     loadedBook: {
@@ -137,13 +140,25 @@ function mountComponent({
       employeesWhoReadNow: [],
     },
   })
+
+  modalQrFormState.initialize({
+    loadedModalQRFormData: {
+      bookTitle: bookState.book.title,
+      bookCopies: bookCopiesIds.map((id) => ({
+        bookCopyId: id,
+        secretKey: `secret-key-${id}`, 
+      })),
+    },
+  })
     
   cy
     .mount(
       <BookStateContext.Provider value={bookState}>
-        <ModalQRForm
-          onCloseModal={() => {}}
-        />,
+        <ModalQrFormStateContext.Provider value={modalQrFormState}>
+          <ModalQRFormContent
+            onCloseModal={() => {}}
+          />,
+        </ModalQrFormStateContext.Provider>
       </BookStateContext.Provider>,
     )
 }

@@ -84,3 +84,7 @@ button {
   display: flex;
   justify-content: center;
 }
+
+body.disable-scroll {
+  overflow: hidden; // disable scrolling
+}
