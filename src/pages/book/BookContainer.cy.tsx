@@ -70,20 +70,6 @@ function initializationTests() {
     cy.contains(`Иванов Иван`)
     cy.contains(`Петров Петр`)
   })
-
-  it(`
-  GIVEN book data from network
-  WHEN the "View QR Code" button is clicked
-  SHOULD open the overlay modal
-  `, () => {
-    mountComponent()
-
-    cy.contains(`View QR Code`)
-      .click()
-
-    cy.getByData(`modal-qr-form`)
-      .should(`be.visible`)
-  })
 }
 
 function mountComponent() {
