@@ -68,5 +68,16 @@ function getStatusTests() {
       currentDate: new Date(`2026-09-24`),
     })).to.be.eq(`Reading now, 1 year 1 month and 3 days overdue`)
   })
+
+  it(`
+  GIVEN scheduledReturnDate=24.09.2025 and currentDate=24.09.2025
+  WHEN use getStatus
+  SHOULD return 'Reading now'
+  `, () => {
+    expect(getStatus({
+      scheduledReturnDate: `24.09.2025`,
+      currentDate: new Date(`2025-09-24`),
+    })).to.be.eq(`Reading now`)
+  })
   
 }
