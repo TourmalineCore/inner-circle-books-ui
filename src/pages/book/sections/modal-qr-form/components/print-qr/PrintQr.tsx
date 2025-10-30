@@ -48,7 +48,7 @@ export function PrintQr({
           />
         </div>
       </div>
-      <span className='print-qr__secret'>SecretKey: {secretKey}</span>
+      <span className='print-qr__secret'>{secretKey}</span>
     </div>
   )
 }
