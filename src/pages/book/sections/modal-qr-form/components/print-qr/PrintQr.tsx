@@ -32,7 +32,7 @@ export function PrintQr({
       >
         <div className='print-qr__info'>
           <div className="print-qr__meta">
-            {timestamp.format(`DD.MM.YYYY HH:mm`)}
+            {timestamp.format(`YYYY-MM-DD HH:mm`)}
             {` `}
             Id: {bookCopyId} 
           </div>
