@@ -8,7 +8,7 @@ describe(`Books Smoke`, () => {
     cy.removeBooks()
   })
 
-  afterEach(`Authorize and cleanup`, () => {
+  afterEach(`Cleanup`, () => {
     cy.removeBooks()
   })
 
@@ -35,20 +35,9 @@ describe(`Books Smoke`, () => {
   `, () => {
     const bookCopyId = 1
 
-    cy
-      .intercept(
-        `GET`, 
-        `/api/books/copy/${bookCopyId}`, 
-        {
-          statusCode: 200,
-        })
-      .as(`getBookCopy`)
-      
     BookPage.visitViaQR({
       bookCopyId,
     })
-    
-    cy.wait(`@getBookCopy`)
 
     cy
       .url()

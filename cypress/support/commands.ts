@@ -91,4 +91,27 @@ Cypress.Commands.add(`removeBooks`, () => {
     })
 })
 
+Cypress.Commands.add(`getBookCopySecret`, ({
+  bookId,
+  bookCopyId,
+}: {
+  bookId: number,
+  bookCopyId: number,
+}) => {
+  return cy.request<ModalQrFormType>({
+    method: `GET`,
+    url: `${Cypress.env(`API_ROOT`)}${Cypress.env(`LINK_TO_BOOKS_SERVICE`)}/copies/${bookId}`,
+    headers: {
+      Authorization: `Bearer ${Cypress.env(`accessToken`)}`,
+    },
+  })
+    .then(({
+      body,
+    }) => {
+      return body
+        .bookCopies
+        .find((bookCopy) => bookCopy.bookCopyId === bookCopyId)?.secretKey
+    })
+})
+
 compareSnapshotCommand()

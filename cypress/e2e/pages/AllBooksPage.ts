@@ -33,15 +33,15 @@ export class AllBooksPage {
       .should(`have.text`, `Описание книги`)   
       
     cy
-      .get(`.book__characteristics`)
+      .get(`.book-info`)
       .contains(`Первый Автор, Второй Автор`)
 
     cy
-      .get(`.book__characteristics > :nth-child(2)`)
+      .get(`.book-info > :nth-child(2)`)
       .contains(2)
       
     cy
-      .get(`.book__characteristics`)
+      .get(`.book-info`)
       .contains(`English`)
   }
 }

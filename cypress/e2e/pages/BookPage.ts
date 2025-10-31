@@ -9,10 +9,12 @@ export class BookPage {
 
   static visitCopy({
     bookCopyId,
+    secretKey,
   }: {
     bookCopyId: number,
+    secretKey: string,
   }) {
-    cy.visit(`/books/copy/${bookCopyId}`)
+    cy.visit(`/books/copy/${bookCopyId}?s=${secretKey}`)
   }
 
   static visitViaQR({
@@ -20,12 +22,12 @@ export class BookPage {
   }: {
     bookCopyId: number,
   }) {
-    cy.visit(`/books?c=${bookCopyId}`)
+    cy.visit(`/books?c=${bookCopyId}?s=abcd`)
   }
 
   static takeBook() {
     cy
-      .get(`.book__wrap > .button`)
+      .get(`.book-action-button > .button`)
       .should(`have.text`, `Take Book`)
       .click()
 
@@ -40,13 +42,13 @@ export class BookPage {
       .should(`exist`)
 
     cy
-      .get(`.book__wrap > .button`)
+      .get(`.book-action-button > .button`)
       .should(`have.text`, `Return Book`)
   }
 
   static clickReturnBookButton() {
     cy
-      .get(`.book__wrap > .button`)
+      .get(`.book-action-button > .button`)
       .should(`have.text`, `Return Book`)
       .click()
   }
@@ -57,7 +59,7 @@ export class BookPage {
       .should(`not.exist`)
 
     cy
-      .get(`.book__wrap > .button`)
+      .get(`.book-action-button > .button`)
       .should(`have.text`, `Take Book`)
   }
 

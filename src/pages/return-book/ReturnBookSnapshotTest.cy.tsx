@@ -66,7 +66,6 @@ function mountComponent() {
             title={`ChatGPT мастер подсказок или как создавать сильные промты для нейросети и еще что-то интересное нереальное и очень секретное концептуальное`} 
             onSubmit={() => {}}
             goToBookCopyPage={() => {}}
-            copyId={`1`}
           />
         </ReturnBookStateContext.Provider>
       </MemoryRouter>,

@@ -3,23 +3,22 @@ import { observer } from "mobx-react-lite"
 import { ReturnBookContent } from "./ReturnBookContent"
 import { ReturnBookStateContext } from "./state/ReturnBookStateContext"
 import { api } from "../../common/api"
-import { useLocation } from "react-router-dom"
+import { useLocation, useSearchParams } from "react-router-dom"
+import { bookCopyRoutes } from "../routes"
 
-export const ReturnBookContainer = observer(({
-  goToBookCopyPage,
-}: {
-  goToBookCopyPage: ({
-    copyId,
-  }: {
-    copyId: string,
-  }) => unknown,
-}) => {
+export const ReturnBookContainer = observer(() => {
   const returnBookState = useContext(ReturnBookStateContext)
   const location = useLocation()
   const pathnameParts = location
     .pathname
     .split(`/`)
   const copyId = pathnameParts?.[4]
+
+  const [
+    searchParams,
+  ] = useSearchParams()
+    
+  const secretKey = searchParams.get(`s`)
   
   useEffect(() => {
     async function loadBookAsync() {
@@ -36,13 +35,16 @@ export const ReturnBookContainer = observer(({
   }, [
     copyId,
   ])
+  
+  const goToBookCopyPage = () => {
+    window.location.href = `${bookCopyRoutes[0].path.replace(`:id`, copyId)}?s=${secretKey}`
+  }
 
   return (
     <div className="container">
       <ReturnBookContent 
         title={returnBookState.book.title}
         coverUrl={returnBookState.book.coverUrl}
-        copyId={copyId}
         onSubmit={returnBookAsync} 
         goToBookCopyPage={goToBookCopyPage}
       />
@@ -67,9 +69,7 @@ export const ReturnBookContainer = observer(({
         },
       )
 
-      goToBookCopyPage({
-        copyId: copyId,
-      })
+      goToBookCopyPage()
     }
     finally {
       returnBookState.resetIsSaving()

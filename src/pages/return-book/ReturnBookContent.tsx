@@ -28,19 +28,13 @@ const progressOptions = [
 export const ReturnBookContent = observer(({
   title,
   coverUrl,
-  copyId,
   onSubmit,
   goToBookCopyPage,
 }:{
   title: string,
   coverUrl: string,
-  copyId: string,
   onSubmit: () => unknown,
-  goToBookCopyPage: ({
-    copyId,
-  }: {
-    copyId: string,
-  }) => unknown,
+  goToBookCopyPage: () => unknown,
 }) => {
   const returnBookState = useContext(ReturnBookStateContext)
   
@@ -55,9 +49,7 @@ export const ReturnBookContent = observer(({
     returnBookState.reset()
     setShowModal(false)
 
-    goToBookCopyPage({
-      copyId: copyId!,
-    })
+    goToBookCopyPage()
   }
 
   const handleCloseModal = () => {
@@ -69,9 +61,7 @@ export const ReturnBookContent = observer(({
       setShowModal(true)
     }
     else {
-      goToBookCopyPage({
-        copyId: copyId!,
-      }) 
+      goToBookCopyPage() 
     }
   }
 

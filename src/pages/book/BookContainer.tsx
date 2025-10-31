@@ -3,7 +3,7 @@ import { observer } from "mobx-react-lite"
 import { BookContent } from "./BookContent"
 import { BookStateContext } from "./state/BookStateStateContext"
 import { api } from "../../common/api"
-import { useLocation, useSearchParams} from "react-router-dom"
+import { useLocation, useSearchParams } from "react-router-dom"
 
 export const BookContainer = observer(({
   openModalQrCode,

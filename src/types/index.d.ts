@@ -27,6 +27,7 @@ type BookHistoryType = {
 }
 
 type BookCopyHistory = {
+  id: number,
   bookCopyId: number,
   employeeFullName: string,
   takenDate: string,

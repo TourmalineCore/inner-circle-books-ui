@@ -9,7 +9,7 @@ describe(`Take and Return Book Flow`, () => {
     cy.removeBooks()
   })
 
-  afterEach(`Authorize and cleanup`, () => {
+  afterEach(`Cleanup`, () => {
     cy.removeBooks()
   })
 
@@ -56,35 +56,43 @@ describe(`Take and Return Book Flow`, () => {
           .wait(`@getBookDataRequest`)
           .then((interception) => {
             const response = interception.response
-            const bookCopyId = response!.body.bookCopies[0].bookCopyId
+            const bookCopyId = response!.body.bookCopiesIds[0]
 
-            BookPage.visitCopy({
+            cy.getBookCopySecret({
+              bookId,
               bookCopyId,
             })
+              .then((secretKey) => {
+                BookPage.visitCopy({
+                  bookCopyId,
+                  secretKey,
+                })
 
-            BookPage.checkDefaultBookPage()
+                BookPage.checkDefaultBookPage()
 
-            BookPage.takeBook()
+                BookPage.takeBook()
 
-            BookPage.visitCopy({
-              bookCopyId,
-            })
+                BookPage.visitCopy({
+                  bookCopyId,
+                  secretKey,
+                })
 
-            BookPage.checkBookPageAfterTakeBook()
+                BookPage.checkBookPageAfterTakeBook()
             
-            BookPage.clickReturnBookButton()
+                BookPage.clickReturnBookButton()
 
-            cy
-              .intercept(
-                `GET`, 
-                `/api/books/copy/${bookCopyId}`)
-              .as(`getBookCopyDataRequest`)
+                ReturnBookPage.returnBook()
 
-            cy.wait(`@getBookCopyDataRequest`)
+                cy
+                  .intercept(
+                    `GET`, 
+                    `/api/books/copy/${bookCopyId}?secretKey=${secretKey}`)
+                  .as(`getBookCopyDataRequest`)
 
-            ReturnBookPage.returnBook()
+                cy.wait(`@getBookCopyDataRequest`)
 
-            BookPage.checkDefaultBookPage()
+                BookPage.checkDefaultBookPage()
+              })
           })
       })
   })

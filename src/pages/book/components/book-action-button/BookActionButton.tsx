@@ -5,6 +5,7 @@ import InfoIcon from "../../../../assets/icons/Info.svg?react"
 import { returnBookRoutes } from '../../../routes'
 import { getEmployeeIdFromToken } from '../../../../common/tokenUtils'
 import { Button } from '../../../../components/button/Button'
+import { useSearchParams } from 'react-router-dom'
 
 export const BookActionButton = ({
   copyId,
@@ -21,6 +22,12 @@ export const BookActionButton = ({
     (reader) => reader.employeeId === getEmployeeIdFromToken() && reader.bookCopyId === Number(copyId),
   )
 
+  const [
+    searchParams,
+  ] = useSearchParams()
+    
+  const secretKey = searchParams.get(`s`)
+
   return (
     <div className='book-action-button'>
       { 
@@ -29,7 +36,7 @@ export const BookActionButton = ({
             <Button
               onClick={() => {
                 isCurrentUserReadingThisCopy
-                  ? window.location.href = `${returnBookRoutes[0].path.replace(`:id`, String(copyId))}`
+                  ? window.location.href = `${returnBookRoutes[0].path.replace(`:id`, String(copyId))}?s=${secretKey}`
                   : setShowModal(true)
               }}
               label={

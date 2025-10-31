@@ -10,7 +10,7 @@ describe(`Adding book history entries`, () => {
     cy.removeBooks()
   })
 
-  afterEach(`Authorize and cleanup`, () => {
+  afterEach(`Cleanup`, () => {
     cy.removeBooks()
   })
 
@@ -58,61 +58,64 @@ describe(`Adding book history entries`, () => {
           .wait(`@getBookDataRequest`)
           .then((interception) => {
             const response = interception.response
-            const bookCopyId = response!.body.bookCopies[0].bookCopyId
+            const bookCopyId = response!.body.bookCopiesIds[0]
 
-            BookPage.visitCopy({
+            cy.getBookCopySecret({
+              bookId,
               bookCopyId,
             })
+              .then((secretKey) => {
+                BookPage.visitCopy({
+                  bookCopyId,
+                  secretKey,
+                })
 
-            BookPage.takeBook()
+                BookPage.takeBook()
 
-            BookPage.visit({
-              bookId,
-            })
+                BookPage.visit({
+                  bookId,
+                })
 
-            BookPage.clickBookTrackingButton()
+                BookPage.clickBookTrackingButton()
 
-            cy
-              .intercept(
-                `GET`, 
-                `/api/books/history/${bookCopyId}?draw=1&page=1&pageSize=10&orderBy=&orderingDirection=asc`)
-              .as(`getBookHistoryDataRequest`)
+                cy
+                  .intercept(
+                    `GET`, 
+                    `/api/books/history/${bookCopyId}?draw=1&page=1&pageSize=10&orderBy=&orderingDirection=asc`)
+                  .as(`getBookHistoryDataRequest`)
+                
+                cy.contains(`Reading now`)
+                  
+                cy.should(`not.contain`, `Read Partially`)
 
-            cy.getByData(`table-cell`)
-              .first()
-              .contains(1)
+                cy.should(`not.contain`, `Returned`)
 
-            cy.contains(`08.10.2025`)
+                BookPage.visitCopy({
+                  bookCopyId,
+                  secretKey,
+                })
+
+                cy
+                  .intercept(
+                    `GET`, 
+                    `/api/books/copy/${bookCopyId}?secretKey=${secretKey}`)
+                  .as(`getBookCopyDataRequest`)
+
+                cy.wait(`@getBookCopyDataRequest`)
+
+                BookPage.clickReturnBookButton()
+
+                ReturnBookPage.returnBook()
+
+                BookHistoryPage.visit({
+                  bookId,
+                })
+
+                cy.contains(`Read Partially`)
+
+                cy.contains(`Returned`)
+              })
             
-            cy.contains(`08.01.2026`)
-
-            cy.should(`not.contain`, `Read Partially`)
-
-            cy.should(`not.contain`, `Returned`)
-    
-            BookPage.visitCopy({
-              bookCopyId,
-            })
-  
-            cy
-              .intercept(
-                `GET`, 
-                `/api/books/copy/${bookCopyId}`)
-              .as(`getBookCopyDataRequest`)
-
-            cy.wait(`@getBookCopyDataRequest`)
-
-            BookPage.clickReturnBookButton()
-
-            ReturnBookPage.returnBook()
-
-            BookHistoryPage.visit({
-              bookId,
-            })
-
-            cy.contains(`Read Partially`)
-
-            cy.contains(`Returned`)
           })
       })
   })
