@@ -32,7 +32,7 @@ export const AddBookContainer = observer(({
     } = addBookState.book
 
     if (!addBookState.isValid) {
-      addBookState.resetIsTriedToSubmit()
+      addBookState.resetIsSaving()
       return
     }
 
@@ -55,7 +55,7 @@ export const AddBookContainer = observer(({
       goToBooksList()
     }
     finally {
-      addBookState.setIsSaved()
+      addBookState.resetIsSaving()
       addBookState.resetIsTriedToSubmit()
     }
   }

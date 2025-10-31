@@ -6,11 +6,12 @@ export const Button = ({
   onClick,
   className, 
   label, 
-  isAccent,
+  isAccent = false,
   isDisable = false,
   isLoader = false,
   isMobile = false,
   isOutline = false,
+  ...props
 }: {
   onClick: () => unknown,
   className?: string, 
@@ -20,7 +21,7 @@ export const Button = ({
   isLoader?: boolean,
   isMobile?: boolean,
   isOutline?: boolean,
-}) => (
+} & React.ButtonHTMLAttributes<HTMLButtonElement>) => (
   <button 
     type="button"
     onClick={onClick} 
@@ -32,6 +33,7 @@ export const Button = ({
       'button__outline': isOutline,
     })}
     disabled={isDisable}
+    {...props}
   >
     {
       <>

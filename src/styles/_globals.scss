@@ -68,8 +68,8 @@ textarea {
 }
 
 button {
-  color: v.$color-text-primary;
   border: none;
+  color: v.$color-text-primary;
 
   &:focus {
     outline: none;
@@ -78,4 +78,13 @@ button {
 
 .error {
   border-color: v.$color-border-error !important;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+}
+
+body.disable-scroll {
+  overflow: hidden; // disable scrolling
 }

@@ -1,12 +1,15 @@
+import { authService } from "../../common/authService"
 import { AllBooksContainer } from "./AllBooksContainer"
 import { AllBooksState } from "./state/AllBooksState"
 import { AllBooksStateContext } from "./state/AllBooksStateStateContext"
+import { MOCK_TOKEN } from "../../common/constant"
+import { Language } from "../../common/enums/language"
 
 const BOOK_CARDS_RESPONSE = {
   books: [
     {
       title: `Разработка ценностных предложений`,
-      language: `ru`,
+      language: Language.RU,
       authors: [
         {
           fullName: `Алекс Остервальдер`,
@@ -19,7 +22,7 @@ const BOOK_CARDS_RESPONSE = {
     },
     {
       title: `Думай медленно… решай быстро`,
-      language: `en`,
+      language: Language.EN,
       authors: [
         {
           fullName: `Даниэль Канеман`,
@@ -52,7 +55,7 @@ function initializationTests() {
 
     cy.contains(`Думай медленно… решай быстро`)
     cy.contains(`Разработка ценностных предложений`)
-    cy.contains(`en`)
+    cy.contains(Language.EN)
     cy.contains(`Даниэль Канеман`)
   })
 }
@@ -60,10 +63,16 @@ function initializationTests() {
 function mountComponent() {
   const allBooksState = new AllBooksState()
 
+  const mockAuthContext = [
+    MOCK_TOKEN,
+  ]
+  
   cy
     .mount(
-      <AllBooksStateContext.Provider value={allBooksState}>
-        <AllBooksContainer />
-      </AllBooksStateContext.Provider>,
+      <authService.AuthContext.Provider value={mockAuthContext}>
+        <AllBooksStateContext.Provider value={allBooksState}>
+          <AllBooksContainer />
+        </AllBooksStateContext.Provider>
+      </authService.AuthContext.Provider>,
     )
 }

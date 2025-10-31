@@ -2,6 +2,10 @@
 @use "../../styles/variables" as v;
 @use "../../styles/fonts-mixin" as f;
 
+.text-accent {
+  @include f.text-semibold;
+}
+
 .book {
   display: grid;
   margin: 0 auto;
@@ -16,17 +20,9 @@
     }
   }
 
-  &__characteristics {
-    @include f.text;
-
-    display: grid;
-    margin-top: 16px;
-    margin-bottom: 32px;
+  &__buttons {
+    display: flex;
     gap: 8px;
-
-    @include m.desktop-xl {
-      margin-bottom: 0;
-    }
   }
 
   &__field {
@@ -48,11 +44,16 @@
     @include f.text;
   }
 
-  &__take-button {
-    min-height: 44px;
+  &__main-info-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 
-    @include m.tablet {
-      max-width: 111px;
+    @include m.desktop {
+      align-items: center;
+      flex-direction: row;
+      justify-content: space-between;
+      gap: unset;
     }
   }
 

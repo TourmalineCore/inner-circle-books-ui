@@ -2,6 +2,7 @@ import './BookContent.scss'
 
 import NoImage from "../../assets/img/no-image.png"
 import ViewQRIcon from "../../assets/icons/View-qr.svg?react"
+import ClockIcon from "../../assets/icons/Clock.svg?react"
 
 import clsx from 'clsx'
 import { observer } from "mobx-react-lite"
@@ -10,20 +11,43 @@ import { BookStateContext } from './state/BookStateStateContext'
 import { Button } from '../../components/button/Button'
 import { useImageValid } from '../../common/useImageValid'
 import { Overlay } from '../../components/overlay/Overlay'
+import { useCopyIdValidation } from './utils/useCopyIdValidation'
+import { useBookDates } from './utils/useBookDates'
+import { useCalendar } from './utils/useCalendar'
+import { BookInfo } from './components/book-info/BookInfo'
+import { BookReaders } from './components/book-readers/BookReaders'
+import { BookActionButton } from './components/book-action-button/BookActionButton'
+import { LINK_TO_BOOKS_SERVICE } from '../../common/config/config'
+import { hasAccessPermission } from '../../common/tokenUtils'
 
-export const BookContent = observer(() => {
+export const BookContent = observer(({
+  bookId,
+  copyId,
+  onTake,
+  openModalQrCode,
+}: {
+  bookId: string,
+  copyId?: string,
+  onTake: ({
+    bookCopyId, 
+    scheduledReturnDate, 
+  }: TakeBookType,
+  ) => unknown,
+  openModalQrCode: () => unknown,
+}) => {
   const bookState = useContext(BookStateContext)
-  const {
-    book,
-  } = bookState 
 
   const {
-    title,
-    annotation,
-    language,
-    authors,
-    coverUrl,
-  } = book
+    book: {
+      title,
+      annotation,
+      language,
+      authors,
+      coverUrl,
+      bookCopiesIds,
+      employeesWhoReadNow,
+    },
+  } = bookState
 
   const isValidUrl = useImageValid(coverUrl)
 
@@ -31,27 +55,90 @@ export const BookContent = observer(() => {
     showModal,
     setShowModal,
   ] = useState(false)
-  
-  const handleCloseModal = () => {
-    setShowModal(false)
-  }
+
+  const [
+    showModalCalendar,
+    setShowModalCalendar,
+  ] = useState(false)
+
+  const {
+    formattedDate, 
+    isoDate, 
+  } = useBookDates()
+
+  const isValidCopyId = useCopyIdValidation({
+    copyId: copyId,
+    bookCopiesIds: bookCopiesIds,
+  })
+
+  const {
+    endCalendarDate, 
+    onChangeCalendar, 
+  } = useCalendar()
   
   return (
     <>
       {
         showModal && (
           <Overlay 
-            onPrint={() => {}}
-            onCloseModal={handleCloseModal}
+            data-cy="book-modal"
+            onAccentButtonAction={() => {
+              onTake({
+                bookCopyId: Number(copyId),
+                scheduledReturnDate: isoDate,
+              })
+              setShowModal(false)
+            }}
+            onButtonAction={() => setShowModalCalendar(true)}
+            onCloseModal={() => setShowModal(false)}
+            modalName='modal'
+            title="When you are Going to&nbsp;Return Book to&nbsp;the Library?"
+            text={
+              <>
+                You can choose the date in the next step or the date{` `}
+                <span className='text-accent'>
+                  {formattedDate}
+                </span>
+                {` `}will be selected automatically
+              </>
+            }
+            buttonLabel="Choose the Return Date"
+            accentButtonLabel="Take Book"
+            hasCloseButton
+          />
+        )
+      }
+
+      {
+        showModalCalendar && (
+          <Overlay 
+            onAccentButtonAction={() => {
+              onTake({
+                bookCopyId: Number(copyId),
+                scheduledReturnDate: endCalendarDate!
+                  .toISOString()
+                  .slice(0, 10),
+              })
+              setShowModalCalendar(false)
+              setShowModal(false)
+            }}
+            onButtonAction={() => setShowModalCalendar(false)}
+            onCloseModal={() => {
+              setShowModalCalendar(false)
+              setShowModal(false)
+            }}
+            modalName='modalCalendar'
+            endCalendarDate={endCalendarDate}
+            onChangeCalendar={onChangeCalendar}
           />
         )
       }
 
       <div 
         className="book"
-        data-cy="book"
+        data-cy="book-page"
       >
-        <div className='book__left'>
+        <div>
           <img
             src={isValidUrl 
               ? coverUrl 
@@ -63,61 +150,54 @@ export const BookContent = observer(() => {
             })}
           />
 
-          <Button
-            onClick={() => setShowModal(true)}
-            label={
-              <>
-                <ViewQRIcon /> View QR Code
-              </>
-            }
-            isOutline
-          />
+          {hasAccessPermission({
+            permission: `CanManageBooks`,
+          }) && <div className='book__buttons'>
+            {!copyId && <Button
+              data-cy='book-tracking-button'
+              onClick={() => window.location.href = `${LINK_TO_BOOKS_SERVICE}history/${bookId}`}
+              label={
+                <>
+                  <ClockIcon /> Book Tracking
+                </>
+              }
+              isOutline
+            />}
+
+            {!copyId && <Button
+              onClick={openModalQrCode}
+              label={
+                <>
+                  <ViewQRIcon /> View QR Code
+                </>
+              }
+              isOutline
+            />}
+          </div>
+          }
         </div>
 
-        <div className='book__right'>
-          <header className='book__title'>
-            {title}
-          </header>
+        <div>
+          <div className='book__main-info-wrap'>
+            <header className='book__title'>
+              {title}
+            </header>
+
+            <BookReaders employeesWhoReadNow={employeesWhoReadNow} />
+          </div>
 
           <div className='book__wrap'>
-            <ul className='book__characteristics'>
-              <li className='book__field'>
-                Author
-                <span className='book__value'>
-                  {
-                    authors
-                      .map(author => author.fullName)
-                      .join(`, `)
-                  }
-                </span>
-              </li>
+            <BookInfo 
+              authors={authors}
+              language={language}
+              count={bookState.count} 
+            />
 
-              <li className='book__field'>
-                Number of Copies
-                <span className='book__value'>
-                  {
-                    bookState.count
-                  }
-                </span>
-              </li>
-              
-              <li className='book__field'>
-                Language
-                <span className='book__value'>
-                  {
-                    language === `ru` 
-                      ? `Russian` 
-                      : `English`
-                  }
-                </span>
-              </li>
-            </ul>
-        
-            <Button 
-              onClick={() => {}}
-              label="Take Book"
-              className='book__take-button'
-              isAccent
+            <BookActionButton
+              copyId={copyId}
+              employeesWhoReadNow={employeesWhoReadNow}
+              setShowModal={setShowModal}
+              isValidCopyId={isValidCopyId}
             />
           </div>
 

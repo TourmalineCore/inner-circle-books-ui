@@ -5,5 +5,12 @@ declare namespace Cypress {
     getByData(dataTestAttribute: string): Chainable<JQuery<HTMLElement>>,
     authByApi(): Chainable<any>,
     removeBooks(): Chainable<any>,
+    getBookCopySecret({
+      bookId,
+      bookCopyId,
+    }: {
+      bookId: number,
+      bookCopyId: number,
+    }): Chainable<any>,
   }
 }

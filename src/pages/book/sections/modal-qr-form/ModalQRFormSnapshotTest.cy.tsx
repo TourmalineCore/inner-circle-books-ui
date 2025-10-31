@@ -1,0 +1,164 @@
+import { Language } from "../../../../common/enums/language"
+import { BookState } from "../../state/BookState"
+import { BookStateContext } from "../../state/BookStateStateContext"
+import { ModalQRFormContent } from "./ModalQRFormContent"
+import { ModalQrFormState } from "./state/ModalQrFormState"
+import { ModalQrFormStateContext } from "./state/ModalQrFormStateContext"
+
+export const VIEWPORTS = [
+  {
+    width: 375,
+    height: 555,
+  },
+  {
+    width: 1024,
+    height: 612,
+  },
+  {
+    width: 1920,
+    height: 664,
+  },
+]
+
+export const VIEWPORTS_FOR_ONE = [
+  {
+    width: 375,
+    height: 320,
+  },
+  {
+    width: 1920,
+    height: 324,
+  },
+]
+
+describe(`Modal QR Form Snapshot test`, () => {
+  // We added margin for the mobile sidebar panel, but it is not needed in the test
+  beforeEach(() => {
+    const style = document.createElement(`style`)
+    style.innerHTML = `
+      .modal-qr-form {
+        margin-bottom: 0 !important;
+      }
+    `
+    document.head.appendChild(style)
+  })
+
+  it(`Take the snapshot of a result with several copies`, () => {
+    VIEWPORTS.forEach((viewport) => {
+      cy.viewport(viewport.width, viewport.height)
+
+      cy.wrap(
+        Cypress.automation(`remote:debugger:protocol`, {
+          command: `Emulation.setDeviceMetricsOverride`,
+          params: {
+            width: viewport.width,
+            height: viewport.height,
+            deviceScaleFactor: 1,
+            mobile: false,
+          },
+        }),
+      )
+
+      mountComponent({
+        bookCopiesIds: [
+          11,
+          12,
+          13,
+          14,
+          15,
+        ],
+      })
+
+      cy
+        .window()
+        .then((win) => win.document.fonts.ready)
+
+      cy
+        .getByData(`modal-qr-form`)
+        .compareSnapshot(`/${viewport.width}`, {
+          capture: `viewport`,
+        })
+    })
+  })
+
+  it(`Take the snapshot of a result with one copy`, () => {
+    VIEWPORTS_FOR_ONE.forEach((viewport) => {
+      cy.viewport(viewport.width, viewport.height)
+
+      cy.wrap(
+        Cypress.automation(`remote:debugger:protocol`, {
+          command: `Emulation.setDeviceMetricsOverride`,
+          params: {
+            width: viewport.width,
+            height: viewport.height,
+            deviceScaleFactor: 1,
+            mobile: false,
+          },
+        }),
+      )
+
+      mountComponent({
+        bookCopiesIds: [
+          11,
+        ],
+      })
+
+      cy
+        .window()
+        .then((win) => win.document.fonts.ready)
+
+      cy
+        .getByData(`modal-qr-form`)
+        .compareSnapshot(`/one${viewport.width}`, {
+          capture: `viewport`,
+        })
+    })
+  })
+})
+
+function mountComponent({
+  bookCopiesIds,
+}: {
+  bookCopiesIds: BookType['bookCopiesIds'],
+}) {
+  const bookState = new BookState()
+  const modalQrFormState = new ModalQrFormState()
+    
+  bookState.initialize({
+    loadedBook: {
+      id: 1,
+      title: `ChatGPT мастер подсказок или как создавать сильные промты  для нейросети`,
+      annotation: ``,
+      language: Language.RU,
+      authors: [
+        {
+          fullName: ``,
+        },
+      ],
+      coverUrl: ``,
+      bookCopiesIds,
+      employeesWhoReadNow: [],
+    },
+  })
+
+  modalQrFormState.initialize({
+    loadedModalQRFormData: {
+      bookTitle: bookState.book.title,
+      bookCopies: bookCopiesIds.map((id) => ({
+        bookCopyId: id,
+        secretKey: `secret-key-${id}`, 
+      })),
+    },
+  })
+    
+  cy
+    .mount(
+      <BookStateContext.Provider value={bookState}>
+        <ModalQrFormStateContext.Provider value={modalQrFormState}>
+          <ModalQRFormContent
+            onCloseModal={() => {}}
+          />,
+        </ModalQrFormStateContext.Provider>
+      </BookStateContext.Provider>,
+    )
+}
