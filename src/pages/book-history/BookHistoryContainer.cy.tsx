@@ -5,6 +5,7 @@ import { ProgressOfReading } from "../../common/enums/progressOfReading"
 const BOOK_HISTORY_RESPONSE: BookHistoryType = {
   list: [
     {
+      id: 1,
       bookCopyId: 1,
       employeeFullName: `Ivanov Ivan`,
       takenDate: `20.08.2025`,
