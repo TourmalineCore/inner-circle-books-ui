@@ -6,7 +6,6 @@ import '@tourmalinecore/react-table-responsive/styles.css'
 import '@tourmalinecore/react-tc-modal/es/index.css'
 import '@tourmalinecore/react-tc-ui-kit/es/index.css'
 import { getStatus } from "./getStatus/getStatus"
-import { API_ROOT } from "../../common/config/config"
 import { api } from "../../common/api"
 import { ProgressOfReading } from "../../common/enums/progressOfReading"
 
@@ -28,7 +27,7 @@ export function BookHistoryContainer() {
     <ServerTable<BookCopyHistory>
       tableId={`book-history-${id}`}
       tcHttpClient={api}
-      tcApiHostUrl={API_ROOT}
+      tcApiHostUrl={``}
       tcDataPath={`/books/history/${id}`}
       columns={[
         {
