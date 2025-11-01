@@ -81,6 +81,14 @@ describe(`Take and Return Book Flow`, () => {
             
                 BookPage.clickReturnBookButton()
 
+                cy
+                  .intercept(
+                    `GET`, 
+                    `/api/books/copy/${bookCopyId}?secretKey=${secretKey}`)
+                  .as(`getBookCopyDataRequest`)
+
+                cy.wait(`@getBookCopyDataRequest`)
+
                 ReturnBookPage.returnBook()
 
                 cy

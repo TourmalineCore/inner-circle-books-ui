@@ -21,16 +21,6 @@ export const ReturnBookContainer = observer(() => {
   const secretKey = searchParams.get(`s`)
   
   useEffect(() => {
-    async function loadBookAsync() {
-      const {
-        data,
-      } = await api.get<BookType>(`/books/copy/${copyId}`)
-  
-      returnBookState.initialize({
-        loadedBook: data,
-      })
-    }
-
     loadBookAsync()
   }, [
     copyId,
@@ -50,6 +40,16 @@ export const ReturnBookContainer = observer(() => {
       />
     </div>
   )
+
+  async function loadBookAsync() {
+    const {
+      data,
+    } = await api.get<BookType>(`/books/copy/${copyId}?secretKey=${secretKey}`)
+  
+    returnBookState.initialize({
+      loadedBook: data,
+    })
+  }
   
   async function returnBookAsync() {
     returnBookState.setIsSaving()
