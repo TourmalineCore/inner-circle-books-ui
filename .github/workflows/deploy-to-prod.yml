@@ -40,7 +40,6 @@ jobs:
             --state-values-set extraConfigMapEnvVars.LINK_TO_BOOKS_SERVICE='/books/'
             --state-values-set extraConfigMapEnvVars.API_ROOT='/api'
             --state-values-set extraConfigMapEnvVars.API_ROOT_AUTH='/api/auth'
-            --state-values-set extraConfigMapEnvVars.VITE_BASE_URL=${{ secrets.BASE_URL }}
           helmfile-auto-init: "false"
 
   e2e-test-prod:
@@ -66,7 +65,6 @@ jobs:
           API_ROOT: '/api'
           API_ROOT_AUTH: '/api/auth'
           LINK_TO_BOOKS_SERVICE: '/books/'
-          VITE_BASE_URL: ${{ secrets.BASE_URL }}
           USER_LOGIN: ${{ secrets.DEV_USER_LOGIN }}
           USER_PASSWORD: ${{ secrets.DEV_USER_PASSWORD }}
 
