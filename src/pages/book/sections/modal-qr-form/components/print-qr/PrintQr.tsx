@@ -1,9 +1,10 @@
 import './PrintQr.scss'
 
 import QRCode from "react-qr-code"
-import { LINK_TO_BOOKS_SERVICE, VITE_BASE_URL } from "../../../../../../common/config/config"
+import { LINK_TO_BOOKS_SERVICE } from "../../../../../../common/config/config"
 import moment from 'moment'
 import LogoIcon from '../../../../../../assets/img/logo-qr.png'
+import { QR_CODE_BASE_URL } from '../../../../../../common/constant'
 
 export function PrintQr({
   title,
@@ -43,7 +44,7 @@ export function PrintQr({
         <div className="print-qr__code">
           <QRCode
             size={84}
-            value={`${VITE_BASE_URL}${LINK_TO_BOOKS_SERVICE}?c=${bookCopyId}?s=${secretKey}`}
+            value={`${QR_CODE_BASE_URL}${LINK_TO_BOOKS_SERVICE}?c=${bookCopyId}?s=${secretKey}`}
             viewBox={`0 0 84 84`}
           />
         </div>

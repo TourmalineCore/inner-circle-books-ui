@@ -7,8 +7,9 @@ import QRCode from "react-qr-code"
 import { observer } from 'mobx-react-lite'
 import { useContext } from 'react'
 import clsx from 'clsx'
-import { LINK_TO_BOOKS_SERVICE, VITE_BASE_URL } from '../../../../../../common/config/config'
+import { LINK_TO_BOOKS_SERVICE } from '../../../../../../common/config/config'
 import { ModalQrFormStateContext } from '../../state/ModalQrFormStateContext'
+import { QR_CODE_BASE_URL } from '../../../../../../common/constant'
 
 export const ModalQRCard = observer(({
   title,
@@ -62,7 +63,7 @@ export const ModalQRCard = observer(({
           <div className="modal-qr-card__qr">
             <QRCode
               size={64}
-              value={`${VITE_BASE_URL}${LINK_TO_BOOKS_SERVICE}?c=${bookCopyId}?s=${secretKey}`}
+              value={`${QR_CODE_BASE_URL}${LINK_TO_BOOKS_SERVICE}?c=${bookCopyId}?s=${secretKey}`}
               viewBox={`0 0 64 64`}
             />
           </div>
@@ -84,7 +85,7 @@ export const ModalQRCard = observer(({
           <div className="modal-qr-card-without-checkbox__qr">
             <QRCode
               size={64}
-              value={`${VITE_BASE_URL}${LINK_TO_BOOKS_SERVICE}?c=${bookCopyId}?s=${secretKey}`}
+              value={`${QR_CODE_BASE_URL}${LINK_TO_BOOKS_SERVICE}?c=${bookCopyId}?s=${secretKey}`}
               viewBox={`0 0 64 64`}
             />
           </div>
