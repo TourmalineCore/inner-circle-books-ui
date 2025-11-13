@@ -9,7 +9,6 @@ import { useContext } from 'react'
 import clsx from 'clsx'
 import { LINK_TO_BOOKS_SERVICE } from '../../../../../../common/config/config'
 import { ModalQrFormStateContext } from '../../state/ModalQrFormStateContext'
-import { QR_CODE_BASE_URL } from '../../../../../../common/constant'
 
 export const ModalQRCard = observer(({
   title,
@@ -36,9 +35,7 @@ export const ModalQRCard = observer(({
           id: bookCopyId,
         })}
       >
-        <div
-          className="modal-qr-card__checkbox-icon"
-        >
+        <div className="modal-qr-card__checkbox-icon">
           {
             modalQrFormState.isBookCopySelected({
               id: bookCopyId,
@@ -63,7 +60,9 @@ export const ModalQRCard = observer(({
           <div className="modal-qr-card__qr">
             <QRCode
               size={64}
-              value={`${QR_CODE_BASE_URL}${LINK_TO_BOOKS_SERVICE}?c=${bookCopyId}?s=${secretKey}`}
+              value={`${window.location.origin.startsWith(`https`)
+                ? `http://ic.tourmalinecore.com`
+                : window.location.origin}${LINK_TO_BOOKS_SERVICE}?c=${bookCopyId}?s=${secretKey}`}
               viewBox={`0 0 64 64`}
             />
           </div>
@@ -85,7 +84,9 @@ export const ModalQRCard = observer(({
           <div className="modal-qr-card-without-checkbox__qr">
             <QRCode
               size={64}
-              value={`${QR_CODE_BASE_URL}${LINK_TO_BOOKS_SERVICE}?c=${bookCopyId}?s=${secretKey}`}
+              value={`${window.location.origin.startsWith(`https`)
+                ? `http://ic.tourmalinecore.com`
+                : window.location.origin}${LINK_TO_BOOKS_SERVICE}?c=${bookCopyId}?s=${secretKey}`}
               viewBox={`0 0 64 64`}
             />
           </div>
