@@ -1,9 +1,10 @@
 import './PrintQr.scss'
 
+import LogoIcon from '../../../../../../assets/img/logo-qr.png'
+
 import QRCode from "react-qr-code"
 import { LINK_TO_BOOKS_SERVICE } from "../../../../../../common/config/config"
 import moment from 'moment'
-import LogoIcon from '../../../../../../assets/img/logo-qr.png'
 
 export function PrintQr({
   title,
@@ -27,9 +28,7 @@ export function PrintQr({
         width={48}
         height={16}
       />
-      <div 
-        className="print-qr__wrapper"
-      >
+      <div className="print-qr__wrapper">
         <div className='print-qr__info'>
           <div className="print-qr__meta">
             {timestamp.format(`YYYY-MM-DD HH:mm`)}
@@ -43,12 +42,16 @@ export function PrintQr({
         <div className="print-qr__code">
           <QRCode
             size={84}
-            value={`${window.location.origin.startsWith(`https`) ? `http://ic.tourmalinecore.com` : window.location.origin}${LINK_TO_BOOKS_SERVICE}?c=${bookCopyId}?s=${secretKey}`}
+            value={`${window.location.origin.startsWith(`https`)
+              ? `http://ic.tourmalinecore.com`
+              : window.location.origin}${LINK_TO_BOOKS_SERVICE}?c=${bookCopyId}?s=${secretKey}`}
             viewBox={`0 0 84 84`}
           />
         </div>
       </div>
-      <span className='print-qr__secret'>{secretKey}</span>
+      <span className='print-qr__secret'>
+        {secretKey}
+      </span>
     </div>
   )
 }
