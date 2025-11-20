@@ -1,7 +1,5 @@
 FROM node:20.11.1-alpine3.19 AS build
 
-ARG VITE_BASE_URL
-ENV VITE_BASE_URL=$VITE_BASE_URL
 
 COPY package.json .
 COPY package-lock.json .
