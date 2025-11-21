@@ -41,10 +41,7 @@ jobs:
             --state-values-set extraConfigMapEnvVars.LINK_TO_BOOKS_SERVICE='/books/'
             --state-values-set extraConfigMapEnvVars.API_ROOT='/api'
             --state-values-set extraConfigMapEnvVars.API_ROOT_AUTH='/api/auth'  
-            --state-values-set redirectAnnotation=|
-              if ($host = ${{ secrets.SOURCE_DOMAIN }}) {
-                return 301 https://${{ secrets.TARGET_DOMAIN }}$request_uri;
-              }
+            --state-values-set redirectAnnotation="if (\$host = '${{ secrets.SOURCE_DOMAIN }}') { return 301 https://${{ secrets.TARGET_DOMAIN }}\$request_uri; }"
             --state-values-set ingress.extraHostsName=${{ secrets.SOURCE_DOMAIN }}
             --state-values-set ingress.extraHostsPath='/'
           helmfile-auto-init: "false"
