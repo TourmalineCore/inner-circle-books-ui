@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - feature/*
 
 jobs:
   # this is needed to wait for the new docker image to be build and published to the registry
@@ -28,7 +29,7 @@ jobs:
           mkdir .kube
           echo "${{ secrets.DEV_KUBECONFIG }}" > .kube/config
 
-      - name: Deploy
+      - name: Deploy with ingress redirect
         uses: helmfile/helmfile-action@v1.9.0
         with:
           helmfile-version: 'v0.164.0'
@@ -39,7 +40,13 @@ jobs:
             --state-values-set ingress.hostname=${{ secrets.DEV_HOST }}
             --state-values-set extraConfigMapEnvVars.LINK_TO_BOOKS_SERVICE='/books/'
             --state-values-set extraConfigMapEnvVars.API_ROOT='/api'
-            --state-values-set extraConfigMapEnvVars.API_ROOT_AUTH='/api/auth'
+            --state-values-set extraConfigMapEnvVars.API_ROOT_AUTH='/api/auth'  
+            --state-values-set redirectAnnotation=|
+              if ($host = ${{ secrets.SOURCE_DOMAIN }}) {
+                return 301 https://${{ secrets.TARGET_DOMAIN }}$request_uri;
+              }
+            --state-values-set ingress.extraHosts.name=${{ secrets.SOURCE_DOMAIN }}
+            --state-values-set ingress.extraHosts.path='/'
           helmfile-auto-init: "false"
 
   e2e-test-prod:
