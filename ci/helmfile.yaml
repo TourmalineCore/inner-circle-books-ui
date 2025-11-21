@@ -17,8 +17,7 @@ releases:
       - ingress:
           hostname: "{{ .StateValues.ingress.hostname }}"
           annotations:
-            nginx.ingress.kubernetes.io/configuration-snippet: |
-              {{ .StateValues.redirectAnnotation | indent 10 }}
+            nginx.ingress.kubernetes.io/configuration-snippet: "{{ .StateValues.redirectAnnotation }}"
           extraHosts:
             - name: "{{ .StateValues.ingress.extraHosts.name }}"
               path: "{{ .StateValues.ingress.extraHosts.path }}"
