@@ -17,10 +17,10 @@ releases:
       - ingress:
           hostname: "{{ .StateValues.ingress.hostname }}"
           annotations:
-            nginx.ingress.kubernetes.io/configuration-snippet: "{{ .StateValues.redirectAnnotation }}"
+            nginx.ingress.kubernetes.io/configuration-snippet: {{ .StateValues.redirectAnnotation }}
           extraHosts:
-            - name: "{{ .StateValues.ingressExtraHostsName }}"
-              path: "{{ .StateValues.ingressExtraHostsPath }}"
+            - name: "{{ .StateValues.ingress.extraHosts.name }}"
+              path: "{{ .StateValues.ingress.extraHosts.path }}"
       - extraConfigMapEnvVars:
           LINK_TO_BOOKS_SERVICE: "{{ .StateValues.extraConfigMapEnvVars.LINK_TO_BOOKS_SERVICE }}"
           API_ROOT: "{{ .StateValues.extraConfigMapEnvVars.API_ROOT }}"

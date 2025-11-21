@@ -42,8 +42,8 @@ jobs:
                 return 301 https://${{ secrets.TARGET_DOMAIN }}$request_uri;
               }
             --state-values-set ingress.hostname=${{ secrets.DEV_HOST }}
-            --state-values-set ingressExtraHostsName=${{ secrets.SOURCE_DOMAIN }}
-            --state-values-set ingressExtraHostsPath='/'
+            --state-values-set ingress.extraHosts.name=${{ secrets.SOURCE_DOMAIN }}
+            --state-values-set ingress.extraHosts.path='/'
             --state-values-set extraConfigMapEnvVars.LINK_TO_BOOKS_SERVICE='/books/'
             --state-values-set extraConfigMapEnvVars.API_ROOT='/api'
             --state-values-set extraConfigMapEnvVars.API_ROOT_AUTH='/api/auth'  
