@@ -13,7 +13,7 @@ npm start
 ```
 npm run docker:build:local-env
 ```
-      
+       
 ## Create local docker container to work in it (local docker container for layout-ui service must run too)
 ```
 npm run docker:build
