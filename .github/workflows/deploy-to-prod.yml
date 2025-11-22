@@ -28,7 +28,7 @@ jobs:
           mkdir .kube
           echo "${{ secrets.DEV_KUBECONFIG }}" > .kube/config
 
-      - name: Deploy with ingress redirect
+      - name: Deploy
         uses: helmfile/helmfile-action@v1.9.0
         with:
           helmfile-version: 'v0.164.0'
