@@ -10,9 +10,6 @@ on:
 
 jobs:
   push_to_registry:
-    uses: TourmalineCore/inner-circle-github-workflows/.github/workflows/docker_digest_build_and_push.yml@feature/add_reusable_build_and_push_workflow
-    with:
-      platform: amd64
-      prefix: local-env
+    uses: TourmalineCore/inner-circle-github-workflows/.github/workflows/docker_build_and_push.yml@feature/add_reusable_build_and_push_workflow
     # without this it cannot login to the registry
     secrets: inherit
