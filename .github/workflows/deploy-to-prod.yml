@@ -42,7 +42,7 @@ jobs:
             --state-values-set ingress.extraHosts.path='/b(/|$)(.*)'
             --state-values-set extraConfigMapEnvVars.LINK_TO_BOOKS_SERVICE='/books/'
             --state-values-set extraConfigMapEnvVars.API_ROOT='/api'
-            --state-values-set extraConfigMapEnvVars.API_ROOT_AUTH='/api/auth'  
+            --state-values-set extraConfigMapEnvVars.API_ROOT_AUTH='/api/auth'
           helmfile-auto-init: "false"
 
   e2e-test-prod:
