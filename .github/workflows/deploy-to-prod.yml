@@ -36,7 +36,7 @@ jobs:
           helmfile-args: >
             apply --suppress-diff --namespace dev-inner-circle -f ci/helmfile.yaml 
             --state-values-set image.tag=sha-${{ github.sha }}
-            --state-values-set redirectAnnotation="if ($uri ~ ^/b(/|$)(.*)$) { return 301 https://${{ secrets.TARGET_DOMAIN }}/books$2$is_args$args; }"
+            --state-values-set redirectAnnotation="if ($uri ~ ^/b(/|$)(.*)$) { return 302 https://${{ secrets.TARGET_DOMAIN }}/books$2$is_args$args; }"
             --state-values-set ingress.hostname=${{ secrets.DEV_HOST }}
             --state-values-set ingress.extraHosts.name=${{ secrets.SOURCE_DOMAIN }}
             --state-values-set ingress.extraHosts.path='/b(/|$)(.*)'
