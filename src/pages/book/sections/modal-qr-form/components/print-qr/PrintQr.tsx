@@ -44,7 +44,7 @@ export function PrintQr({
             size={84}
             value={`${window.location.origin.startsWith(`https`)
               ? `http://ic.tourmalinecore.com`
-              : window.location.origin}${LINK_TO_BOOKS_SERVICE}?c=${bookCopyId}?s=${secretKey}`}
+              : window.location.origin}${LINK_TO_BOOKS_SERVICE}?c=${bookCopyId}&s=${secretKey}`}
             viewBox={`0 0 84 84`}
           />
         </div>

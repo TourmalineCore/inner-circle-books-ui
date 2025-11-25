@@ -155,7 +155,7 @@ export const BookContent = observer(({
           }) && <div className='book__buttons'>
             {!copyId && <Button
               data-cy='book-tracking-button'
-              onClick={() => window.location.href = `${LINK_TO_BOOKS_SERVICE}history/${bookId}`}
+              onClick={() => window.location.href = `${LINK_TO_BOOKS_SERVICE}/history/${bookId}`}
               label={
                 <>
                   <ClockIcon /> Book Tracking
