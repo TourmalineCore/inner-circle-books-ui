@@ -43,7 +43,7 @@ export function PrintQr({
           <QRCode
             size={84}
             value={`${window.location.origin.startsWith(`https`)
-              ? `http://ic.tourmalinecore.com`
+              ? `https://ic.tourmalinecore.com`
               : window.location.origin}${LINK_TO_BOOKS_SERVICE}?c=${bookCopyId}&s=${secretKey}`}
             viewBox={`0 0 84 84`}
           />

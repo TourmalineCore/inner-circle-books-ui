@@ -19,11 +19,10 @@ export function AllBooksPage() {
     if (!copyId) return
 
     const secretKey = searchParams.get(`s`)
-    const url = secretKey
-      ? `/books/copy/${copyId}?s=${secretKey}`
-      : `/books/copy/${copyId}`
 
-    window.location.href = url
+    if (secretKey) {
+      window.location.href = `/books/copy/${copyId}?s=${secretKey}`
+    }
   }, [
     searchParams,
   ])

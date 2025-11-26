@@ -61,7 +61,7 @@ export const ModalQRCard = observer(({
             <QRCode
               size={64}
               value={`${window.location.origin.startsWith(`https`)
-                ? `http://ic.tourmalinecore.com`
+                ? `https://ic.tourmalinecore.com`
                 : window.location.origin}${LINK_TO_BOOKS_SERVICE}?c=${bookCopyId}&s=${secretKey}`}
               viewBox={`0 0 64 64`}
             />
@@ -85,7 +85,7 @@ export const ModalQRCard = observer(({
             <QRCode
               size={64}
               value={`${window.location.origin.startsWith(`https`)
-                ? `http://ic.tourmalinecore.com`
+                ? `https://ic.tourmalinecore.com`
                 : window.location.origin}${LINK_TO_BOOKS_SERVICE}?c=${bookCopyId}&s=${secretKey}`}
               viewBox={`0 0 64 64`}
             />
