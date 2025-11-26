@@ -13,19 +13,17 @@ export function AllBooksPage() {
     searchParams,
   ] = useSearchParams()
 
-  // Redirect from QR code (parameter 'c') to the book copy page.
+  // Redirect from QR code (parameter 'c') to the book copy page with secretKey (parameter 's').
   useEffect(() => {
     const copyId = searchParams.get(`c`)
-    const secretKey = searchParams.get(`s`)
+    if (!copyId) return
 
-    if (copyId) {
-      if (secretKey) {
-        window.location.href = `/books/copy/${copyId}?s=${secretKey}`
-      }
-      else {
-        window.location.href = `/books/copy/${copyId}`
-      }
-    }
+    const secretKey = searchParams.get(`s`)
+    const url = secretKey
+      ? `/books/copy/${copyId}?s=${secretKey}`
+      : `/books/copy/${copyId}`
+
+    window.location.href = url
   }, [
     searchParams,
   ])
