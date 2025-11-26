@@ -3,7 +3,6 @@ import './PrintQr.scss'
 import LogoIcon from '../../../../../../assets/img/logo-qr.png'
 
 import QRCode from "react-qr-code"
-import { LINK_TO_BOOKS_SERVICE } from "../../../../../../common/config/config"
 import moment from 'moment'
 
 export function PrintQr({
@@ -44,7 +43,7 @@ export function PrintQr({
             size={84}
             value={`${window.location.origin.startsWith(`https`)
               ? `https://ic.tourmalinecore.com`
-              : window.location.origin}${LINK_TO_BOOKS_SERVICE}?c=${bookCopyId}&s=${secretKey}`}
+              : window.location.origin}/b?c=${bookCopyId}&s=${secretKey}`}
             viewBox={`0 0 84 84`}
           />
         </div>
