@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - master
-      - feature/*
 
 jobs:
   # this is needed to wait for the new docker image to be build and published to the registry
@@ -40,7 +39,7 @@ jobs:
             --state-values-set redirectAnnotation="location ~ ^/b(/|$) { return 302 https://${{ secrets.TARGET_DOMAIN }}/books$2$is_args$args; }"
             --state-values-set ingress.hostname=${{ secrets.DEV_HOST }}
             --state-values-set ingress.extraPaths.path=/b(/|$)(.*)
-            --state-values-set extraConfigMapEnvVars.LINK_TO_BOOKS_SERVICE='/books/'
+            --state-values-set extraConfigMapEnvVars.LINK_TO_BOOKS_SERVICE='/books'
             --state-values-set extraConfigMapEnvVars.API_ROOT='/api'
             --state-values-set extraConfigMapEnvVars.API_ROOT_AUTH='/api/auth'
           helmfile-auto-init: "false"
