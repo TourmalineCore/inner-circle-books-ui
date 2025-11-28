@@ -19,10 +19,15 @@ releases:
           annotations:
             # configuration-snippet is used to redirect from /b to /books saving query args
             nginx.ingress.kubernetes.io/configuration-snippet: "{{ .StateValues.redirectAnnotation }}"
-          extraHosts:
-            # additional host needed to set up redirect
-            - name: "{{ .StateValues.ingress.extraHosts.name }}"
-              path: "{{ .StateValues.ingress.extraHosts.path }}"
+          extraPaths:
+            # additional path needed to set up redirect
+            - path: "{{ .StateValues.ingress.extraPaths.path }}"
+              pathType: ImplementationSpecific
+              backend:
+                service:
+                  name: books-ui-nginx
+                  port:
+                    name: http
       - extraConfigMapEnvVars:
           LINK_TO_BOOKS_SERVICE: "{{ .StateValues.extraConfigMapEnvVars.LINK_TO_BOOKS_SERVICE }}"
           API_ROOT: "{{ .StateValues.extraConfigMapEnvVars.API_ROOT }}"
