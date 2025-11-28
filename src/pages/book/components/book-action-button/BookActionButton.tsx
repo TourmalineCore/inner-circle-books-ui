@@ -36,7 +36,7 @@ export const BookActionButton = ({
             <Button
               onClick={() => {
                 isCurrentUserReadingThisCopy
-                  ? window.location.href = `${returnBookRoutes[0].path.replace(`:id`, String(copyId))}?s=${secretKey}`
+                  ? window.location.href = `${returnBookRoutes[0].path.replace(`:id`, String(copyId))}&s=${secretKey}`
                   : setShowModal(true)
               }}
               label={
