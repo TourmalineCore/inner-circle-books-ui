@@ -3,6 +3,7 @@ import { AllBooksState } from "./state/AllBooksState"
 import { AllBooksStateContext } from "./state/AllBooksStateStateContext"
 import {AllBooksContainer } from "./AllBooksContainer"
 import { useSearchParams } from "react-router-dom"
+import { LINK_TO_BOOKS_SERVICE } from "../../common/constant"
 
 export function AllBooksPage() {
   const allBooksState = useMemo(
@@ -18,7 +19,7 @@ export function AllBooksPage() {
     const copyId = searchParams.get(`c`)
 
     if (copyId) {
-      window.location.href =`/books/copy/${copyId}`
+      window.location.href =`${LINK_TO_BOOKS_SERVICE}/copy/${copyId}`
     }
   }, [
     searchParams,
