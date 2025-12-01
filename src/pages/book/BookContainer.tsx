@@ -46,8 +46,8 @@ export const BookContainer = observer(({
 
   async function loadBookAsync() {
     const url = isBookCopy
-      ? `/books/copy/${copyId}?secretKey=${secretKey}`
-      : `/books/${id}`
+      ? `/copy/${copyId}?secretKey=${secretKey}`
+      : `/${id}`
 
     const {
       data,
@@ -66,7 +66,7 @@ export const BookContainer = observer(({
 
     try {
       await api.post<TakeBookType>(
-        `/books/take`,
+        `/take`,
         {
           bookCopyId,
           scheduledReturnDate,

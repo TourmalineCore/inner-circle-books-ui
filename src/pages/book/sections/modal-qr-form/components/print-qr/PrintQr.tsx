@@ -3,8 +3,8 @@ import './PrintQr.scss'
 import LogoIcon from '../../../../../../assets/img/logo-qr.png'
 
 import QRCode from "react-qr-code"
-import { LINK_TO_BOOKS_SERVICE } from "../../../../../../common/config/config"
 import moment from 'moment'
+import { LINK_TO_BOOKS_SERVICE } from '../../../../../../common/constant'
 
 export function PrintQr({
   title,

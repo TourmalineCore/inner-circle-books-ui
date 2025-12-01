@@ -28,7 +28,7 @@ export function BookHistoryContainer() {
       tableId={`book-history-${id}`}
       tcHttpClient={api}
       tcApiHostUrl={``}
-      tcDataPath={`/books/history/${id}`}
+      tcDataPath={`/history/${id}`}
       columns={[
         {
           id: `Employee`,

@@ -17,8 +17,8 @@ import { useCalendar } from './utils/useCalendar'
 import { BookInfo } from './components/book-info/BookInfo'
 import { BookReaders } from './components/book-readers/BookReaders'
 import { BookActionButton } from './components/book-action-button/BookActionButton'
-import { LINK_TO_BOOKS_SERVICE } from '../../common/config/config'
 import { hasAccessPermission } from '../../common/tokenUtils'
+import { LINK_TO_BOOKS_SERVICE } from '../../common/constant'
 
 export const BookContent = observer(({
   bookId,
@@ -155,7 +155,7 @@ export const BookContent = observer(({
           }) && <div className='book__buttons'>
             {!copyId && <Button
               data-cy='book-tracking-button'
-              onClick={() => window.location.href = `${LINK_TO_BOOKS_SERVICE}history/${bookId}`}
+              onClick={() => window.location.href = `${LINK_TO_BOOKS_SERVICE}/history/${bookId}`}
               label={
                 <>
                   <ClockIcon /> Book Tracking

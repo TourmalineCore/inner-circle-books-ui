@@ -15,7 +15,7 @@ export const AllBooksContainer = observer(() => {
         },
       } = await api.get<{ 
         books: BookCardType[], 
-      }>(`/books`)
+      }>(``)
 
       allBooksState.initialize({
         booksCards: books,

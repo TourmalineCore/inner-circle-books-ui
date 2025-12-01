@@ -7,8 +7,8 @@ import QRCode from "react-qr-code"
 import { observer } from 'mobx-react-lite'
 import { useContext } from 'react'
 import clsx from 'clsx'
-import { LINK_TO_BOOKS_SERVICE } from '../../../../../../common/config/config'
 import { ModalQrFormStateContext } from '../../state/ModalQrFormStateContext'
+import { LINK_TO_BOOKS_SERVICE } from '../../../../../../common/constant'
 
 export const ModalQRCard = observer(({
   title,
