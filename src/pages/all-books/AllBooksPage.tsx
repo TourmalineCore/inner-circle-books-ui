@@ -21,7 +21,7 @@ export function AllBooksPage() {
     const secretKey = searchParams.get(`s`)
 
     if (secretKey) {
-      window.location.href = `/books/copy/${copyId}&s=${secretKey}`
+      window.location.href = `/books/copy/${copyId}?s=${secretKey}`
     }
   }, [
     searchParams,

@@ -14,7 +14,7 @@ export class BookPage {
     bookCopyId: number,
     secretKey: string,
   }) {
-    cy.visit(`/books/copy/${bookCopyId}&s=${secretKey}`)
+    cy.visit(`/books/copy/${bookCopyId}?s=${secretKey}`)
   }
 
   static visitViaQR({

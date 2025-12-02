@@ -27,7 +27,7 @@ export const ReturnBookContainer = observer(() => {
   ])
   
   const goToBookCopyPage = () => {
-    window.location.href = `${bookCopyRoutes[0].path.replace(`:id`, copyId)}&s=${secretKey}`
+    window.location.href = `${bookCopyRoutes[0].path.replace(`:id`, copyId)}?s=${secretKey}`
   }
 
   return (
