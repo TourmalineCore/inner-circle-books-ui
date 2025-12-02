@@ -16,6 +16,18 @@ releases:
           tag: "{{ .StateValues.image.tag }}"
       - ingress:
           hostname: "{{ .StateValues.ingress.hostname }}"
+          annotations:
+            # configuration-snippet is used to redirect from /b to /books saving query args
+            nginx.ingress.kubernetes.io/configuration-snippet: "{{ .StateValues.redirectAnnotation }}"
+          extraPaths:
+            # additional path needed to set up redirect
+            - path: "{{ .StateValues.ingress.extraPaths.path }}"
+              pathType: ImplementationSpecific
+              backend:
+                service:
+                  name: books-ui-nginx
+                  port:
+                    name: http
       - extraConfigMapEnvVars:
           API_ROOT_URL: "{{ .StateValues.extraConfigMapEnvVars.API_ROOT_URL }}"
           AUTH_API_ROOT_URL: "{{ .StateValues.extraConfigMapEnvVars.AUTH_API_ROOT_URL }}"

@@ -36,7 +36,9 @@ jobs:
           helmfile-args: >
             apply --suppress-diff --namespace ${{ secrets.INNER_CIRCLE_PROD_NAMESPACE }} -f ci/helmfile.yaml 
             --state-values-set image.tag=sha-${{ github.sha }} 
+            --state-values-set redirectAnnotation="location ~ ^/b(/|$) { return 302 https://${{ secrets.TARGET_DOMAIN }}/books$2$is_args$args; }"
             --state-values-set ingress.hostname=${{ secrets.INNER_CIRCLE_PROD_HOSTNAME }}
+            --state-values-set ingress.extraPaths.path=/b(/|$)(.*)
             --state-values-set extraConfigMapEnvVars.API_ROOT_URL=${{ secrets.INNER_CIRCLE_PROD_BOOKS_API_ROOT_URL }}
             --state-values-set extraConfigMapEnvVars.AUTH_API_ROOT_URL=${{ secrets.INNER_CIRCLE_PROD_AUTH_API_ROOT_URL }}
           helmfile-auto-init: "false"       
