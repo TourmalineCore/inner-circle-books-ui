@@ -22,7 +22,7 @@ export class BookPage {
   }: {
     bookCopyId: number,
   }) {
-    cy.visit(`/b?c=${bookCopyId}?s=abcd`)
+    cy.visit(`/b?c=${bookCopyId}&s=abcd`)
   }
 
   static takeBook() {

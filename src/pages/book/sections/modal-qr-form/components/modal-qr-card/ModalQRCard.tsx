@@ -7,7 +7,6 @@ import QRCode from "react-qr-code"
 import { observer } from 'mobx-react-lite'
 import { useContext } from 'react'
 import clsx from 'clsx'
-import { LINK_TO_BOOKS_SERVICE } from '../../../../../../common/config/config'
 import { ModalQrFormStateContext } from '../../state/ModalQrFormStateContext'
 
 export const ModalQRCard = observer(({
@@ -61,8 +60,8 @@ export const ModalQRCard = observer(({
             <QRCode
               size={64}
               value={`${window.location.origin.startsWith(`https`)
-                ? `http://ic.tourmalinecore.com`
-                : window.location.origin}${LINK_TO_BOOKS_SERVICE}?c=${bookCopyId}?s=${secretKey}`}
+                ? `https://ic.tourmalinecore.com`
+                : window.location.origin}/b?c=${bookCopyId}&s=${secretKey}`}
               viewBox={`0 0 64 64`}
             />
           </div>
@@ -85,8 +84,8 @@ export const ModalQRCard = observer(({
             <QRCode
               size={64}
               value={`${window.location.origin.startsWith(`https`)
-                ? `http://ic.tourmalinecore.com`
-                : window.location.origin}${LINK_TO_BOOKS_SERVICE}?c=${bookCopyId}?s=${secretKey}`}
+                ? `https://ic.tourmalinecore.com`
+                : window.location.origin}/b?c=${bookCopyId}&s=${secretKey}`}
               viewBox={`0 0 64 64`}
             />
           </div>

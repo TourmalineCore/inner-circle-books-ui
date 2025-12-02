@@ -59,9 +59,6 @@ jobs:
     container: cypress/browsers:node-22.18.0-chrome-138.0.7204.183-1-ff-141.0-edge-138.0.3351.121-1
     strategy:
       fail-fast: false
-      matrix:
-        # run 3 copies of the current job in parallel
-        containers: [1, 2, 3]
     needs: install
     steps:
       - name: Checkout ui
@@ -79,14 +76,6 @@ jobs:
           component: true
           start: npm start
           browser: electron
-          record: true
-          parallel: true
-          group: "Electron component"
-          headed: true
-        env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-          CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
 
       - name: Upload screenshots of tests failed
         uses: actions/upload-artifact@v4
