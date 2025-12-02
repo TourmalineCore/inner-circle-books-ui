@@ -10,7 +10,7 @@ import svgr from 'vite-plugin-svgr'
 
 const LOCAL_ENV_PORT = 30090
 // Set the port for the layout based on the environment
-const BOOKS_PORT = process.env.NODE_ENV === `production` ? LOCAL_ENV_PORT : 4005
+const BOOKS_PORT = process.env.NODE_ENV === `production` ? LOCAL_ENV_PORT : 4006
 
 // eslint-disable-next-line import/no-default-export
 export default defineConfig({
