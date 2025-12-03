@@ -44,7 +44,7 @@ export const ReturnBookContainer = observer(() => {
   async function loadBookAsync() {
     const {
       data,
-    } = await api.get<BookType>(`/books/copy/${copyId}?secretKey=${secretKey}`)
+    } = await api.get<BookType>(`/copy/${copyId}?secretKey=${secretKey}`)
   
     returnBookState.initialize({
       loadedBook: data,
@@ -62,7 +62,7 @@ export const ReturnBookContainer = observer(() => {
   
     try {
       await api.post<ReturnBookType>(
-        `/books/return`,
+        `/return`,
         {
           bookCopyId: Number(copyId),
           progressOfReading: returnBookState.book.progressOfReading,

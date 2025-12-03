@@ -37,7 +37,7 @@ export const AddBookContainer = observer(({
     }
 
     try {
-      await api.post(`/books`, 
+      await api.post(``, 
         {
           title: title.trim(),
           annotation: annotation.trim(),

@@ -4,6 +4,7 @@ import NoBook from '../../../../assets/icons/Not-found.svg?react'
 
 import { observer } from "mobx-react-lite"
 import { BookCard } from '../book-card/BookCard'
+import { LINK_TO_BOOKS_SERVICE } from '../../../../common/constant'
 
 export const BooksList = observer(({
   cards,
@@ -29,7 +30,7 @@ export const BooksList = observer(({
                 }) => (
                   <li key={id}>
                     <a 
-                      href={`/books/${id}`}
+                      href={`${LINK_TO_BOOKS_SERVICE}/${id}`}
                       className="books-list__link"
                     >
                       <BookCard

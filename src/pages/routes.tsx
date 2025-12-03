@@ -4,12 +4,11 @@ import { BookPage } from "./book/BookPage"
 import { BookHistoryPage } from "./book-history/BookHistoryPage"
 import { ReturnBookPage } from "./return-book/ReturnBookPage"
 import { ScanPage } from "./scan/ScanPage"
-
-const DEFAULT_PATH = `/books`
+import { LINK_TO_BOOKS_SERVICE } from "../common/constant"
 
 export const allBooksRoutes = [
   {
-    path: DEFAULT_PATH,
+    path: LINK_TO_BOOKS_SERVICE,
     breadcrumb: `All Books`,
     Component: AllBooksPage,
   },
@@ -17,7 +16,7 @@ export const allBooksRoutes = [
 
 export const addBookRoutes = [
   {
-    path: `${DEFAULT_PATH}/add`,
+    path: `${LINK_TO_BOOKS_SERVICE}/add`,
     breadcrumb: `Add Book`,
     Component: AddBookPage,
   },
@@ -25,7 +24,7 @@ export const addBookRoutes = [
 
 export const bookRoutes = [
   {
-    path: `${DEFAULT_PATH}/:id`,
+    path: `${LINK_TO_BOOKS_SERVICE}/:id`,
     breadcrumb: `Book`,
     Component: BookPage,
   },
@@ -33,7 +32,7 @@ export const bookRoutes = [
 
 export const bookCopyRoutes = [
   {
-    path: `${DEFAULT_PATH}/copy/:id`,
+    path: `${LINK_TO_BOOKS_SERVICE}/copy/:id`,
     breadcrumb: `Book Copy`,
     Component: BookPage,
   },
@@ -41,7 +40,7 @@ export const bookCopyRoutes = [
 
 export const returnBookRoutes = [
   {
-    path: `${DEFAULT_PATH}/return/copy/:id`,
+    path: `${LINK_TO_BOOKS_SERVICE}/return/copy/:id`,
     breadcrumb: `Return Book`,
     Component: ReturnBookPage,
   },
@@ -49,7 +48,7 @@ export const returnBookRoutes = [
 
 export const scanRoutes = [
   {
-    path: `${DEFAULT_PATH}/scan`,
+    path: `${LINK_TO_BOOKS_SERVICE}/scan`,
     breadcrumb: `Scanning QR Code`,
     Component: ScanPage,
   },
@@ -57,7 +56,7 @@ export const scanRoutes = [
 
 export const bookHistoryRoutes = [
   {
-    path: `${DEFAULT_PATH}/history/:id`,
+    path: `${LINK_TO_BOOKS_SERVICE}/history/:id`,
     breadcrumb: `Book History`,
     Component: BookHistoryPage,
   },
