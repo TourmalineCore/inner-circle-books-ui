@@ -145,7 +145,7 @@ export const AddBookContent = observer(({
               data-cy='specializations-multiple-select'
               label='Specialization*'
               placeholder="Choose the specialization"
-              value={specializations}
+              value={specializations || []}
               options={SPECIALIZATIONS}
               onChange={(selectedOptions) => 
                 addBookState.setSpecializations(
