@@ -28,6 +28,7 @@ export const AddBookContainer = observer(({
       countOfCopies,
       language,
       authors,
+      specializations,
       coverUrl,
     } = addBookState.book
 
@@ -48,6 +49,7 @@ export const AddBookContainer = observer(({
             }))
             .filter(author => author.fullName !== ``),
           coverUrl: coverUrl.trim(),
+          specializations: specializations,
           countOfCopies,
         },
       )

@@ -1,9 +1,13 @@
+import { Specialization, SPECIALIZATION_LABELS } from "../../common/constants/specializations"
 import { Language } from "../../common/enums/language"
 import { AddBookContainer } from "./AddBookContainer"
 import { AddBookState } from "./state/AddBookState"
 import { AddBookStateContext } from "./state/AddBookStateStateContext"
 
 const BOOK = {
+  specializations: [
+    Specialization.FRONTEND,
+  ],
   title: `Разработка ценностных предложений`,
   annotation: `Аннотация`,
   language: Language.EN,
@@ -40,7 +44,14 @@ function addBookFlowTests() {
   SHOULD send correct payload to API
   `, () => {
     mountComponent()
+      
+    cy
+      .getByData(`specializations-multiple-select`)
+      .click()
 
+    cy
+      .contains(SPECIALIZATION_LABELS[BOOK.specializations[0]])
+      .click()
     cy
       .getByData(`add-book-title`)
       .type(`Разработка ценностных предложений`)

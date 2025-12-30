@@ -14,6 +14,8 @@ import { AddBookStateContext } from './state/AddBookStateStateContext'
 import { Button } from '../../components/button/Button'
 import { Overlay } from '../../components/overlay/Overlay'
 import { Language } from '../../common/enums/language'
+import { MultipleSelect } from '../../components/multiple-select/MultipleSelect'
+import { SPECIALIZATIONS } from '../../common/constants/specializations'
 
 export const AddBookContent = observer(({
   onSubmit,
@@ -31,6 +33,7 @@ export const AddBookContent = observer(({
     language,
     authors,
     coverUrl,
+    specializations,
   } = addBookState.book
   
   const [
@@ -134,6 +137,21 @@ export const AddBookContent = observer(({
                   icon: <EnglishFlag />, 
                 },
               ]}
+            />
+          </div>
+
+          <div className="">
+            <MultipleSelect
+              data-cy='specializations-multiple-select'
+              label='Specialization*'
+              placeholder="Choose the specialization"
+              value={specializations}
+              options={SPECIALIZATIONS}
+              onChange={(selectedOptions) => 
+                addBookState.setSpecializations(
+                  selectedOptions.map(option => option.value as number),
+                )
+              }
             />
           </div>
 
