@@ -5,8 +5,14 @@ export enum Specialization {
   DEVOPS = 4,
   QA = 5,
   DESIGN = 6,
-  MANAGEMENT = 7,
+  BUSINESS_AND_MANAGEMENT = 7,
   EMBEDDED = 8,
+  GAMEDEV = 9,
+  MARKETING = 10,
+  INFORMATION_SECURITY = 11,
+  PSYCOLOGY = 12,
+  COPYWRITING_AND_EDITING = 13,
+  LANGUAGES = 14,
 }
 
 export const SPECIALIZATION_LABELS: Record<Specialization, string> = {
@@ -16,8 +22,14 @@ export const SPECIALIZATION_LABELS: Record<Specialization, string> = {
   [Specialization.DEVOPS]: `DevOps`,
   [Specialization.QA]: `QA`,
   [Specialization.DESIGN]: `Design`,
-  [Specialization.MANAGEMENT]: `Management`,
+  [Specialization.BUSINESS_AND_MANAGEMENT]: `Business and Management`,
   [Specialization.EMBEDDED]: `Embedded`,
+  [Specialization.GAMEDEV]: `Gamedev`,
+  [Specialization.MARKETING]: `Marketing`,
+  [Specialization.INFORMATION_SECURITY]: `Information Security`,
+  [Specialization.PSYCOLOGY]: `Psycology`,
+  [Specialization.COPYWRITING_AND_EDITING]: `Copywriting and Editing`,
+  [Specialization.LANGUAGES]: `Languages`,
 }
 
 export const SPECIALIZATIONS = Object.values(Specialization)
