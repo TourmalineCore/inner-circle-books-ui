@@ -13,6 +13,7 @@ const EMPTY_BOOK: AddBookType = {
     },
   ],
   coverUrl: ``,
+  specializations: [],
 }
 
 export class AddBookState {
@@ -148,6 +149,10 @@ export class AddBookState {
       ._book
       .authors
       .filter((_author, i) => i !== index)
+  }
+
+  setSpecializations(specializations: number[]) {
+    this._book.specializations = specializations
   }
 
   reset() {
