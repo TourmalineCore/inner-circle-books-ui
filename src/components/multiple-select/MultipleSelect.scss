@@ -2,13 +2,13 @@
 @use "../../styles/fonts-mixin" as f;
 
 .multiple-select {
-  // @include text;
+  @include f.text;
 
   position: relative;
   color: v.$color-text-primary;
 
   &__label {
-    // @include text;
+    @include f.text;
 
     display: block;
     margin-bottom: 8px;
