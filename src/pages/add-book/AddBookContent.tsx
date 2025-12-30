@@ -76,7 +76,7 @@ export const AddBookContent = observer(({
       }
 
       <form 
-        className="add-book"
+        className="add-book test"
         data-cy="add-book"
       >
         <header className="add-book__header">
