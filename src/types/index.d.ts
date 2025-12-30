@@ -19,7 +19,7 @@ type BookType = {
   coverUrl: string,
   bookCopiesIds: number[],
   employeesWhoReadNow: EmployeeWhoReadNowType[],
-  specializations: number[],
+  specializations?: number[],
 }
 
 type BookHistoryType = {
