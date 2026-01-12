@@ -131,7 +131,7 @@ describe(`CounterInput`, () => {
 
 function mountComponent() {
   const addBookState = new AddBookState()
-  const appState = new AppState()
+  const appState = new AppState() 
 
   // Test doesn't work using CounterInput because of nested state, 
   // so we'll test it using AddBookContent

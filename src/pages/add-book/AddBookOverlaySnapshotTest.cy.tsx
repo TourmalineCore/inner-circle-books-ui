@@ -1,3 +1,5 @@
+import { AppState } from "../../state/AppState"
+import { AppStateContext } from "../../state/AppStateContext"
 import { AddBookContent } from "./AddBookContent"
 import { AddBookState } from "./state/AddBookState"
 import { AddBookStateContext } from "./state/AddBookStateStateContext"
@@ -73,14 +75,17 @@ describe(`Add Book Overlay Snapshot test`, () => {
 
 function mountComponent() {
   const addBookState = new AddBookState()
+  const appState = new AppState()
 
   cy
     .mount(
-      <AddBookStateContext.Provider value={addBookState}>
-        <AddBookContent
-          onSubmit={() => {}}
-          goToBooksList={() => {}}
-        />
-      </AddBookStateContext.Provider>,
+      <AppStateContext.Provider value={appState}>
+        <AddBookStateContext.Provider value={addBookState}>
+          <AddBookContent
+            onSubmit={() => {}}
+            goToBooksList={() => {}}
+          />
+        </AddBookStateContext.Provider>,
+      </AppStateContext.Provider>,
     )
 }

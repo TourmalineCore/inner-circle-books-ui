@@ -53,6 +53,7 @@ function addBookFlowTests() {
     cy
       .contains(`Frontend`)
       .click()
+      
     cy
       .getByData(`add-book-title`)
       .type(`Разработка ценностных предложений`)
