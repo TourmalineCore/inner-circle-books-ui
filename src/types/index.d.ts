@@ -2,7 +2,7 @@ type AuthorType = {
   fullName: string,
 }
 
-type BookCardType = Omit<BookType, 'id' | 'annotation' | 'bookCopiesIds' | 'employeesWhoReadNow' | 'specializations'> & {
+type BookCardType = Omit<BookType, 'id' | 'annotation' | 'bookCopiesIds' | 'employeesWhoReadNow' | 'knowledgeAreasIds'> & {
   id?: number,
 }
 
@@ -19,7 +19,7 @@ type BookType = {
   coverUrl: string,
   bookCopiesIds: number[],
   employeesWhoReadNow: EmployeeWhoReadNowType[],
-  specializations?: number[],
+  knowledgeAreasIds: number[],
 }
 
 type BookHistoryType = {
@@ -59,4 +59,9 @@ type ModalQrFormType = {
     bookCopyId: number,
     secretKey: string,
   }[],
-} 
+}
+
+type KnowledgeArea = {
+  id: number,
+  name: string,
+}

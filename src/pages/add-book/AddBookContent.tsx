@@ -15,7 +15,7 @@ import { Button } from '../../components/button/Button'
 import { Overlay } from '../../components/overlay/Overlay'
 import { Language } from '../../common/enums/language'
 import { MultipleSelect } from '../../components/multiple-select/MultipleSelect'
-import { SPECIALIZATIONS } from '../../common/constants/specializations'
+import { AppStateContext } from '../../state/AppStateContext'
 
 export const AddBookContent = observer(({
   onSubmit,
@@ -25,6 +25,12 @@ export const AddBookContent = observer(({
   goToBooksList: () => unknown,
 }) => {
   const addBookState = useContext(AddBookStateContext)
+  const appState = useContext(AppStateContext)
+
+  const knowledgeAreas = appState.knowledgeAreas.map((knowledgeArea) => ({
+    value: knowledgeArea.id,
+    label: knowledgeArea.name,
+  }))
 
   const {
     title,
@@ -33,9 +39,9 @@ export const AddBookContent = observer(({
     language,
     authors,
     coverUrl,
-    specializations,
+    knowledgeAreasIds,
   } = addBookState.book
-  
+
   const [
     showModal,
     setShowModal,
@@ -140,16 +146,17 @@ export const AddBookContent = observer(({
             />
           </div>
 
-          <div className="">
+          <div>
             <MultipleSelect
-              data-cy='specializations-multiple-select'
-              label='Specialization*'
-              placeholder="Choose the specialization"
-              value={specializations || []}
-              options={SPECIALIZATIONS}
+              data-cy='knowledge-areas-multiple-select'
+              label='Subject Areas*'
+              placeholder="Choose the subject areas"
+              value={knowledgeAreasIds || []}
+              options={knowledgeAreas}
               onChange={(selectedOptions) => 
-                addBookState.setSpecializations(
-                  selectedOptions.map(option => option.value as number),
+                addBookState.setKnowledgeAreasIds({
+                  knowledgeAreasIds:selectedOptions.map(option => option.value as number),
+                },
                 )
               }
             />

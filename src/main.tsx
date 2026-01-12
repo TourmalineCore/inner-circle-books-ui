@@ -4,12 +4,12 @@ import './styles/index.scss'
 
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App'
 
 import { ThemeProvider } from './theme/themeContext'
 import { authService } from './common/authService'
 import { BrowserRouter } from 'react-router-dom'
 import { refreshTokenAndSubscribe } from './common/api/refreshByInterval'
+import { AppContainer } from './AppContainer'
 
 async function initApp() {
   await refreshTokenAndSubscribe()
@@ -21,7 +21,7 @@ async function initApp() {
         <authService.AuthProvider>
           <ThemeProvider>
             <BrowserRouter>
-              <App />
+              <AppContainer />
             </BrowserRouter>
           </ThemeProvider>
         </authService.AuthProvider>

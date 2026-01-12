@@ -28,7 +28,7 @@ export const AddBookContainer = observer(({
       countOfCopies,
       language,
       authors,
-      specializations,
+      knowledgeAreasIds: knowledgeAreas,
       coverUrl,
     } = addBookState.book
 
@@ -49,7 +49,7 @@ export const AddBookContainer = observer(({
             }))
             .filter(author => author.fullName !== ``),
           coverUrl: coverUrl.trim(),
-          knowledgeAreasIds: specializations,
+          knowledgeAreasIds: knowledgeAreas,
           countOfCopies,
         },
       )

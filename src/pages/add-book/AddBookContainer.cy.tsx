@@ -1,12 +1,13 @@
-import { Specialization, SPECIALIZATION_LABELS } from "../../common/constants/specializations"
 import { Language } from "../../common/enums/language"
+import { AppState } from "../../state/AppState"
+import { AppStateContext } from "../../state/AppStateContext"
 import { AddBookContainer } from "./AddBookContainer"
 import { AddBookState } from "./state/AddBookState"
 import { AddBookStateContext } from "./state/AddBookStateStateContext"
 
 const BOOK = {
   knowledgeAreasIds: [
-    Specialization.FRONTEND,
+    1,
   ],
   title: `Разработка ценностных предложений`,
   annotation: `Аннотация`,
@@ -46,11 +47,11 @@ function addBookFlowTests() {
     mountComponent()
       
     cy
-      .getByData(`specializations-multiple-select`)
+      .getByData(`knowledge-areas-multiple-select`)
       .click()
 
     cy
-      .contains(SPECIALIZATION_LABELS[BOOK.knowledgeAreasIds[0]])
+      .contains(`Frontend`)
       .click()
     cy
       .getByData(`add-book-title`)
@@ -97,11 +98,23 @@ function mountComponent(
     .as(`onSuccess`),
 ) {
   const addBookState = new AddBookState()
+  const appState = new AppState()
+
+  appState.setKnowledgeAreas({
+    knowledgeAreas: [
+      {
+        id: 1,
+        name: `Frontend`,
+      },
+    ],
+  })
 
   cy
     .mount(
-      <AddBookStateContext.Provider value={addBookState}>
-        <AddBookContainer goToBooksList={onSuccess} />
-      </AddBookStateContext.Provider>,
+      <AppStateContext.Provider value={appState}>
+        <AddBookStateContext.Provider value={addBookState}>
+          <AddBookContainer goToBooksList={onSuccess} />
+        </AddBookStateContext.Provider>
+      </AppStateContext.Provider>,
     )
 }

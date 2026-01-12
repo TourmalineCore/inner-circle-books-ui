@@ -13,7 +13,7 @@ const EMPTY_BOOK: AddBookType = {
     },
   ],
   coverUrl: ``,
-  specializations: [],
+  knowledgeAreasIds: [],
 }
 
 export class AddBookState {
@@ -22,7 +22,7 @@ export class AddBookState {
   }
 
   private _isSaving = false    
-  private _isTriedToSubmit = false  
+  private _isTriedToSubmit = false
 
   constructor() {
     makeAutoObservable(this)
@@ -151,8 +151,12 @@ export class AddBookState {
       .filter((_author, i) => i !== index)
   }
 
-  setSpecializations(specializations: number[]) {
-    this._book.specializations = specializations
+  setKnowledgeAreasIds({
+    knowledgeAreasIds,
+  }: {
+    knowledgeAreasIds: number[],
+  }) {
+    this._book.knowledgeAreasIds = knowledgeAreasIds
   }
 
   reset() {

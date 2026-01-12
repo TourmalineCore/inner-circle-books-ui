@@ -4,7 +4,7 @@ import { getPageRoutes } from './routes/pageRoutes'
 import Layout from 'inner_circle_layout_ui/layout'
 
 // eslint-disable-next-line import/no-default-export
-export default function App() {
+export default function App() {  
   return (
     <RequireAccessToken>
       <Layout getPageRoutes={getPageRoutes} />

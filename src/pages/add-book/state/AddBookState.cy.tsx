@@ -50,7 +50,7 @@ function settersTests() {
       },
     ])
     expect(addBookState.book.coverUrl).to.eq(`https://book.jpg`)
-    expect(addBookState.book.specializations).to.deep.eq([
+    expect(addBookState.book.knowledgeAreasIds).to.deep.eq([
       1,
     ])
   })
@@ -361,8 +361,10 @@ function setBookData({
   addBookState.setCoverUrl({
     coverUrl: `https://book.jpg`,
   })
-  addBookState.setSpecializations([
-    1,
-  ])
+  addBookState.setKnowledgeAreasIds({
+    knowledgeAreasIds: [
+      1,
+    ],
+  })
   
 }
