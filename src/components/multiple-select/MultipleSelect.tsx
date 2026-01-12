@@ -116,6 +116,7 @@ export function MultipleSelect({
             label: optionLabel, 
           }) => (
             <button
+              type="button"
               key={`multiple-select-option-${optionValue}`}
               className="multiple-select__option"
               onClick={() => handleOptionChange(optionValue)}

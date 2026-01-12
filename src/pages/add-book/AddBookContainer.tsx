@@ -49,7 +49,7 @@ export const AddBookContainer = observer(({
             }))
             .filter(author => author.fullName !== ``),
           coverUrl: coverUrl.trim(),
-          specializations: specializations,
+          knowledgeAreasIds: specializations,
           countOfCopies,
         },
       )

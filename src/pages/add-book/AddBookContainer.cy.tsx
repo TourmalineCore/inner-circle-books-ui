@@ -5,7 +5,7 @@ import { AddBookState } from "./state/AddBookState"
 import { AddBookStateContext } from "./state/AddBookStateStateContext"
 
 const BOOK = {
-  specializations: [
+  knowledgeAreasIds: [
     Specialization.FRONTEND,
   ],
   title: `Разработка ценностных предложений`,
@@ -50,7 +50,7 @@ function addBookFlowTests() {
       .click()
 
     cy
-      .contains(SPECIALIZATION_LABELS[BOOK.specializations[0]])
+      .contains(SPECIALIZATION_LABELS[BOOK.knowledgeAreasIds[0]])
       .click()
     cy
       .getByData(`add-book-title`)
