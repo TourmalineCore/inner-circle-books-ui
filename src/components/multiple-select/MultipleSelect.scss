@@ -39,14 +39,6 @@
     &:hover:not(:disabled) {
       border-color: v.$color-component-border-hover;
     }
-
-    &--error {
-      border-color: v.$color-border-error;
-
-      &:hover {
-        border-color: v.$color-border-error;
-      }
-    }
   }
 
   &__arrow {
@@ -85,6 +77,7 @@
     background-color: v.$color-background-component-tertiary;
     user-select: none;
     gap: 4px;
+    text-wrap: nowrap;
   }
 
   &__dropdown {

@@ -81,7 +81,7 @@ export function MultipleSelect({
 
       <div 
         className={clsx(`multiple-select__control`, {
-          'multiple-select__control--error': isInvalid,
+          'error': isInvalid,
         })}
         tabIndex={0}
         onClick={handleOpenDropdown}
