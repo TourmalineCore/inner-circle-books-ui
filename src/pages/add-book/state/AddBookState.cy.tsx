@@ -118,82 +118,37 @@ function validationTests() {
   beforeEach(() => {
     addBookState = new AddBookState()
   })
-  
-  it(`
-  GIVEN an empty title
-  WHEN isValid is accessed
-  SHOULD return false and set title error to true
-  `, () => {
-    addBookState.setAnnotation({
-      annotation: `Аннотация`,
-    })
-    addBookState.setAuthor({
-      index: 0,
-      authorFullName: `Алекс Остервальдер`,
-    })
 
+  it(`
+  GIVEN an empty title, annotation, authors, and knowledge areas
+  WHEN isValid is accessed
+  SHOULD return false and set all these fields' errors to true
+  `, () => {
     addBookState.setIsTriedToSubmit()
 
     expect(addBookState.isValid).to.be.false
     expect(addBookState.errors.isTitleError).to.be.true
-    expect(addBookState.errors.isAnnotationError).to.be.false
-    expect(addBookState.errors.isAuthorsError).to.be.false
-  })
-
-  it(`
-  GIVEN an empty annotation
-  WHEN isValid is accessed
-  SHOULD return false and set annotation error to true
-  `, () => {
-    addBookState.setTitle({
-      title: `Разработка ценностных предложений`,
-    })
-    addBookState.setAuthor({
-      index: 0,
-      authorFullName: `Алекс Остервальдер`,
-    })
-
-    addBookState.setIsTriedToSubmit()
-
-    expect(addBookState.isValid).to.be.false
     expect(addBookState.errors.isAnnotationError).to.be.true
-  })
-
-  it(`
-  GIVEN all authors are empty
-  WHEN isValid is accessed
-  SHOULD return false and set authors error to true
-  `, () => {
-    addBookState.setTitle({
-      title: `Разработка ценностных предложений`,
-    })
-    addBookState.setAnnotation({
-      annotation: `Аннотация`,
-    })
-    addBookState.addAuthor
-
-    addBookState.setIsTriedToSubmit()
-
-    expect(addBookState.isValid).to.be.false
     expect(addBookState.errors.isAuthorsError).to.be.true
+    expect(addBookState.errors.isKnowledgeAreasError).to.be.true
   })
 
   it(`
-  GIVEN all knowledge areas are empty
+  GIVEN an empty annotation, authors, and knowledge areas
+  AND filled title
   WHEN isValid is accessed
-  SHOULD return false and set knowledge areas error to true
+  SHOULD return false and set all these fields' errors except title to true
   `, () => {
     addBookState.setTitle({
       title: `Разработка ценностных предложений`,
     })
-    addBookState.setAnnotation({
-      annotation: `Аннотация`,
-    })
-    addBookState.addAuthor
-
+    
     addBookState.setIsTriedToSubmit()
 
     expect(addBookState.isValid).to.be.false
+    expect(addBookState.errors.isTitleError).to.be.false
+    expect(addBookState.errors.isAnnotationError).to.be.true
+    expect(addBookState.errors.isAuthorsError).to.be.true
     expect(addBookState.errors.isKnowledgeAreasError).to.be.true
   })
 
