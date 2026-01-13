@@ -69,6 +69,16 @@
     resize: none;
   }
 
+  &__knowledge-area {
+    @include m.tablet {
+      max-width: 611px;
+    }
+
+    @include m.desktop-xl {
+      max-width: 730px;
+    }
+  }
+
   &__title {
     height: 100px;
 

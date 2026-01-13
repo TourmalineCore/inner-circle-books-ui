@@ -146,7 +146,7 @@ export const AddBookContent = observer(({
             />
           </div>
 
-          <div>
+          <div className='add-book__knowledge-area'>
             <MultipleSelect
               data-cy='knowledge-areas-multiple-select'
               label='Subject Areas*'
