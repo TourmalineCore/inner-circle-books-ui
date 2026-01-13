@@ -55,11 +55,19 @@ export class AddBookState {
       .some(author => author.fullName !== ``)
   }
 
+  get isKnowledgeAreasFieldValid() {
+    return this
+      ._book
+      .knowledgeAreasIds
+      .length > 0
+  }
+
   get isValid() {
     return (
       this.isTitleValid &&
       this.isAnnotationValid &&
-      this.isAuthorsFieldValid
+      this.isAuthorsFieldValid &&
+      this.isKnowledgeAreasFieldValid
     )
   }
 
@@ -68,6 +76,7 @@ export class AddBookState {
       isTitleError: !this.isTitleValid && this._isTriedToSubmit,
       isAnnotationError: !this.isAnnotationValid && this._isTriedToSubmit,
       isAuthorsError: !this.isAuthorsFieldValid && this._isTriedToSubmit,
+      isKnowledgeAreasError: !this.isKnowledgeAreasFieldValid && this._isTriedToSubmit,
     }
   }
 

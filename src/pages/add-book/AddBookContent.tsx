@@ -42,6 +42,13 @@ export const AddBookContent = observer(({
     knowledgeAreasIds,
   } = addBookState.book
 
+  const {
+    isAnnotationError,
+    isKnowledgeAreasError,
+    isTitleError,
+    isAuthorsError,
+  } = addBookState.errors
+
   const [
     showModal,
     setShowModal,
@@ -104,7 +111,7 @@ export const AddBookContent = observer(({
               onChange={(e) => addBookState.setTitle({
                 title: e.target.value,
               })}
-              className={`add-book__textarea add-book__title ${addBookState.errors.isTitleError
+              className={`add-book__textarea add-book__title ${isTitleError
                 ? `error` 
                 : ``}`}
             />
@@ -148,6 +155,7 @@ export const AddBookContent = observer(({
 
           <div className='add-book__knowledge-area'>
             <MultipleSelect
+              isInvalid={isKnowledgeAreasError}
               data-cy='knowledge-areas-multiple-select'
               label='Subject Areas*'
               placeholder="Choose the subject areas"
@@ -171,7 +179,7 @@ export const AddBookContent = observer(({
               onChange={(e) => addBookState.setAnnotation({
                 annotation: e.target.value,
               })}
-              className={`add-book__textarea add-book__annotation ${addBookState.errors.isAnnotationError
+              className={`add-book__textarea add-book__annotation ${isAnnotationError
                 ? `error` 
                 : ``}`}
             />
@@ -201,7 +209,7 @@ export const AddBookContent = observer(({
               })
             }}
             placeholder="Enter author full name"
-            error={addBookState.errors.isAuthorsError}
+            error={isAuthorsError}
           />
         </div>
 

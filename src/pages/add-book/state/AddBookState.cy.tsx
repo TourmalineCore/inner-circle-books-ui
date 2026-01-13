@@ -179,7 +179,26 @@ function validationTests() {
   })
 
   it(`
-  GIVEN valid title, annotation, and author
+  GIVEN all knowledge areas are empty
+  WHEN isValid is accessed
+  SHOULD return false and set knowledge areas error to true
+  `, () => {
+    addBookState.setTitle({
+      title: `Разработка ценностных предложений`,
+    })
+    addBookState.setAnnotation({
+      annotation: `Аннотация`,
+    })
+    addBookState.addAuthor
+
+    addBookState.setIsTriedToSubmit()
+
+    expect(addBookState.isValid).to.be.false
+    expect(addBookState.errors.isKnowledgeAreasError).to.be.true
+  })
+
+  it(`
+  GIVEN valid title, annotation, author, and at least one knowledge area
   WHEN isValid is accessed
   SHOULD return true and all errors should be false
   `, () => {
@@ -194,6 +213,12 @@ function validationTests() {
       authorFullName: `Алекс Остервальдер`,
     })
     
+    addBookState.setKnowledgeAreasIds({
+      knowledgeAreasIds: [
+        1,
+      ],
+    })
+
     addBookState.setIsTriedToSubmit()
 
     expect(addBookState.isValid).to.be.true
@@ -201,6 +226,7 @@ function validationTests() {
       isTitleError: false,
       isAnnotationError: false,
       isAuthorsError: false,
+      isKnowledgeAreasError: false,
     })
   })
 }
