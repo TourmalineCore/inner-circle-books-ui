@@ -42,6 +42,10 @@
 
     &--error {
       border-color: v.$color-border-error;
+
+      &:hover {
+        border-color: v.$color-border-error;
+      }
     }
   }
 
