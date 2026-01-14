@@ -79,7 +79,7 @@ export const AddBookContent = observer(({
       {
         showModal && (
           <Overlay 
-            data-cy="add-book-overlay"
+            dataCy="add-book-overlay"
             onAccentButtonAction={handleConfirmQuit}
             onButtonAction={handleCloseModal}
             modalName='modal'
