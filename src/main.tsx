@@ -9,7 +9,7 @@ import { ThemeProvider } from './theme/themeContext'
 import { authService } from './common/authService'
 import { BrowserRouter } from 'react-router-dom'
 import { refreshTokenAndSubscribe } from './common/api/refreshByInterval'
-import { AppContainer } from './AppContainer'
+import App from './App'
 
 async function initApp() {
   await refreshTokenAndSubscribe()
@@ -21,7 +21,7 @@ async function initApp() {
         <authService.AuthProvider>
           <ThemeProvider>
             <BrowserRouter>
-              <AppContainer />
+              <App />
             </BrowserRouter>
           </ThemeProvider>
         </authService.AuthProvider>

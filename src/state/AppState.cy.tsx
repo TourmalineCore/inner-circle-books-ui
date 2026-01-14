@@ -1,8 +1,19 @@
 import { AppState } from './AppState'
 
+const KNOWLEDGE_AREAS = [
+  {
+    id: 1,
+    name: `Frontend`,
+  },
+  {
+    id: 2,
+    name: `Backend`,  
+  },
+]
+
 describe(`AppState`, () => {
   describe(`Initialization`, initializationTest)
-  describe(`Setters`, settersTests)
+  describe(`Fetch`, fetchTests)
 })
 
 function initializationTest() {
@@ -11,42 +22,48 @@ function initializationTest() {
   it(`
   GIVEN a new appState
   WHEN initialize
-  SHOULD have default knowledge values
+  SHOULD have default knowledge areas values
   `, () => {
-    expect(appState.knowledgeAreas).to.deep.equal([])
+    expect(appState.knowledgeAreas)
+      .to
+      .deep
+      .equal([])
   })
 }
 
-function settersTests() {
+function fetchTests() {
   let appState: AppState
   
   beforeEach(() => {
     appState = new AppState()
+
+    cy.intercept(
+      `GET`,
+      `**/knowledge-areas`,
+      (req) => {
+        req.alias = `getKnowledgeAreas`
+        req.reply({
+          statusCode: 200,
+          body: {
+            knowledgeAreas: KNOWLEDGE_AREAS,
+          }, 
+        })
+      },
+    )
   })
 
   it(`
 	GIVEN initial state with empty knowledgeAreas
-	WHEN setKnowledgeAreas
-	SHOULD set knowledgeAreas
+	WHEN fetchAndSetKnowledgeAreas
+	SHOULD set knowledgeAreas from API
 	`, () => {
-    const knowledgeAreasForInitialization = [
-      {
-        id: 1,
-        name: `Backend`,
-      },
-      {
-        id: 2,
-        name: `Frontend`,
-      },
-    ]
+    appState.fetchAndSetKnowledgeAreas()
 
-    appState.setKnowledgeAreas({
-      knowledgeAreas: knowledgeAreasForInitialization,
-    })
-
-    expect(appState.knowledgeAreas)
-      .to
-      .deep
-      .eq(knowledgeAreasForInitialization)
+    cy.wait(`@getKnowledgeAreas`)
+      .then(() => expect(appState.knowledgeAreas)
+        .to
+        .deep
+        .equal(KNOWLEDGE_AREAS),
+      )
   })
 }

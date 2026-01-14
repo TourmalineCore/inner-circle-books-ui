@@ -153,7 +153,7 @@ export const AddBookContent = observer(({
             />
           </div>
 
-          <div className='add-book__knowledge-area'>
+          <div className='add-book__knowledge-areas'>
             <MultipleSelect
               isInvalid={isKnowledgeAreasError}
               data-cy='knowledge-areas-multiple-select'

@@ -1,4 +1,5 @@
 import { makeAutoObservable } from 'mobx'
+import { api } from '../common/api'
 
 export class AppState {
   private _knowledgeAreas: KnowledgeArea[] = []
@@ -11,11 +12,15 @@ export class AppState {
     return this._knowledgeAreas
   }
 
-  setKnowledgeAreas({
-    knowledgeAreas,
-  }: {
-    knowledgeAreas: KnowledgeArea[],
-  }) {
+  async fetchAndSetKnowledgeAreas() {
+    const {
+      data: {
+        knowledgeAreas,
+      },
+    } = await api.get<{ 
+        knowledgeAreas: KnowledgeArea[], 
+      }>(`/knowledge-areas`)
+        
     this._knowledgeAreas = knowledgeAreas
   }
 }

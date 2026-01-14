@@ -33,6 +33,29 @@ describe(`AddBookContainer`, () => {
         })
       },
     )
+
+    cy.intercept(
+      `GET`,
+      `**/knowledge-areas`,
+      (req) => {
+        req.alias = `getKnowledgeAreas`
+        req.reply({
+          statusCode: 200,
+          body: {
+            knowledgeAreas: [
+              {
+                id: 1,
+                name: `Frontend`,
+              },
+              {
+                id: 2,
+                name: `Backend`,
+              },
+            ],
+          }, 
+        })
+      },
+    )
   })
 
   describe(`Add Book Flow`, addBookFlowTests)
@@ -45,6 +68,8 @@ function addBookFlowTests() {
   SHOULD send correct payload to API
   `, () => {
     mountComponent()
+    
+    cy.wait(`@getKnowledgeAreas`)
       
     cy
       .getByData(`knowledge-areas-multiple-select`)
@@ -101,21 +126,13 @@ function mountComponent(
   const addBookState = new AddBookState()
   const appState = new AppState()
 
-  appState.setKnowledgeAreas({
-    knowledgeAreas: [
-      {
-        id: 1,
-        name: `Frontend`,
-      },
-    ],
-  })
-
   cy
     .mount(
-      <AppStateContext.Provider value={appState}>
-        <AddBookStateContext.Provider value={addBookState}>
+     
+      <AddBookStateContext.Provider value={addBookState}>
+        <AppStateContext.Provider value={appState}>
           <AddBookContainer goToBooksList={onSuccess} />
-        </AddBookStateContext.Provider>
-      </AppStateContext.Provider>,
+        </AppStateContext.Provider>
+      </AddBookStateContext.Provider>,
     )
 }
