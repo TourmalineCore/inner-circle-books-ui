@@ -159,7 +159,7 @@ export const AddBookContent = observer(({
               data-cy='knowledge-areas-multiple-select'
               label='Subject Areas*'
               placeholder="Choose the subject areas"
-              value={knowledgeAreasIds || []}
+              value={knowledgeAreasIds}
               options={knowledgeAreasOptions}
               onChange={(selectedOptions) => 
                 addBookState.setKnowledgeAreasIds({
