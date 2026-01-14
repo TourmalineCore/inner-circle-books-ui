@@ -68,7 +68,7 @@ function addBookFlowTests() {
   SHOULD send correct payload to API
   `, () => {
     mountComponent()
-    
+
     cy.wait(`@getKnowledgeAreas`)
       
     cy
@@ -128,7 +128,6 @@ function mountComponent(
 
   cy
     .mount(
-     
       <AddBookStateContext.Provider value={addBookState}>
         <AppStateContext.Provider value={appState}>
           <AddBookContainer goToBooksList={onSuccess} />
