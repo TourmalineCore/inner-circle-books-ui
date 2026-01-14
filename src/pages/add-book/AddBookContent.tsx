@@ -27,7 +27,7 @@ export const AddBookContent = observer(({
   const addBookState = useContext(AddBookStateContext)
   const appState = useContext(AppStateContext)
 
-  const knowledgeAreas = appState.knowledgeAreas.map((knowledgeArea) => ({
+  const knowledgeAreasOptions = appState.knowledgeAreas.map((knowledgeArea) => ({
     value: knowledgeArea.id,
     label: knowledgeArea.name,
   }))
@@ -160,7 +160,7 @@ export const AddBookContent = observer(({
               label='Subject Areas*'
               placeholder="Choose the subject areas"
               value={knowledgeAreasIds || []}
-              options={knowledgeAreas}
+              options={knowledgeAreasOptions}
               onChange={(selectedOptions) => 
                 addBookState.setKnowledgeAreasIds({
                   knowledgeAreasIds:selectedOptions.map(option => option.value as number),
