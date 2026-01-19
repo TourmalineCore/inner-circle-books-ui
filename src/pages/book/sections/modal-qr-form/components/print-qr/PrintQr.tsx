@@ -40,16 +40,15 @@ export function PrintQr({
         </div>
         <div className="print-qr__code">
           <QRCode
-            size={84}
+            size={90}
             value={`${window.location.origin.startsWith(`https`)
               ? `https://ic.tourmalinecore.com`
               : window.location.origin}/b?c=${bookCopyId}&s=${secretKey}`}
-            viewBox={`0 0 84 84`}
           />
         </div>
       </div>
       <span className='print-qr__secret'>
-        {secretKey}
+        Secret: {secretKey}
       </span>
     </div>
   )

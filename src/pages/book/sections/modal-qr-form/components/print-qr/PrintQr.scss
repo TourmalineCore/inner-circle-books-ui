@@ -13,31 +13,31 @@
 
   &__wrapper {
     display: flex;
-    padding: 2mm;
+    padding: 1.2mm 2mm 2mm;
   }
 
   &__info {
     display: flex;
     flex-direction: column;
-    margin-right: 2mm;
+    margin-right: 1.5mm;
     min-width: 30mm;
   }
 
   &__meta {
-    font-size: 7px;
+    font-size: 8.5px;
     line-height: 1.4;
   }
 
   &__title {
-    font-size: 9px;
+    font-size: 9.5px;
     line-height: 1.2;
   }
 
   &__secret {
     position: absolute;
-    right: 9mm;
+    right: 4mm;
     bottom: 0;
-    font-size: 9px;
+    font-size: 9.5px;
     line-height: 1;
   }
 }
