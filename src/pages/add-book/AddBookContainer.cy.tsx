@@ -1,6 +1,4 @@
 import { Language } from "../../common/enums/language"
-import { AppState } from "../../state/AppState"
-import { AppStateContext } from "../../state/AppStateContext"
 import { AddBookContainer } from "./AddBookContainer"
 import { AddBookState } from "./state/AddBookState"
 import { AddBookStateContext } from "./state/AddBookStateStateContext"
@@ -124,14 +122,11 @@ function mountComponent(
     .as(`onSuccess`),
 ) {
   const addBookState = new AddBookState()
-  const appState = new AppState()
 
   cy
     .mount(
       <AddBookStateContext.Provider value={addBookState}>
-        <AppStateContext.Provider value={appState}>
-          <AddBookContainer goToBooksList={onSuccess} />
-        </AppStateContext.Provider>
+        <AddBookContainer goToBooksList={onSuccess} />
       </AddBookStateContext.Provider>,
     )
 }

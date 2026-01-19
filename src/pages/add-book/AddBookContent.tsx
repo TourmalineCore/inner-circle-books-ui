@@ -15,7 +15,6 @@ import { Button } from '../../components/button/Button'
 import { Overlay } from '../../components/overlay/Overlay'
 import { Language } from '../../common/enums/language'
 import { MultipleSelect } from '../../components/multiple-select/MultipleSelect'
-import { AppStateContext } from '../../state/AppStateContext'
 
 export const AddBookContent = observer(({
   onSubmit,
@@ -25,9 +24,8 @@ export const AddBookContent = observer(({
   goToBooksList: () => unknown,
 }) => {
   const addBookState = useContext(AddBookStateContext)
-  const appState = useContext(AppStateContext)
 
-  const knowledgeAreasOptions = appState.knowledgeAreas.map((knowledgeArea) => ({
+  const knowledgeAreasOptions = addBookState.knowledgeAreas.map((knowledgeArea) => ({
     value: knowledgeArea.id,
     label: knowledgeArea.name,
   }))

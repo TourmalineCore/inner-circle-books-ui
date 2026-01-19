@@ -3,7 +3,6 @@ import { observer } from "mobx-react-lite"
 import { AddBookContent } from "./AddBookContent"
 import { AddBookStateContext } from "./state/AddBookStateStateContext"
 import { api } from "../../common/api"
-import { AppStateContext } from "../../state/AppStateContext"
 
 export const AddBookContainer = observer(({
   goToBooksList, 
@@ -11,10 +10,23 @@ export const AddBookContainer = observer(({
   goToBooksList: () => unknown, 
 }) => {
   const addBookState = useContext(AddBookStateContext)
-  const appState = useContext(AppStateContext)
 
   useEffect(() => {
-    appState.fetchAndSetKnowledgeAreas()
+    async function loadKnowledgeAreas() {
+      const {
+        data: {
+          knowledgeAreas,
+        },
+      } = await api.get<{ 
+        knowledgeAreas: KnowledgeArea[], 
+      }>(`/knowledge-areas`)
+
+      addBookState.setKnowledgeAreas({
+        knowledgeAreas,
+      })
+    } 
+
+    loadKnowledgeAreas()
   }, [])
 
   return (

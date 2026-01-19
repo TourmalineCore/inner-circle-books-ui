@@ -21,6 +21,8 @@ export class AddBookState {
     ...EMPTY_BOOK, 
   }
 
+  private _knowledgeAreas: KnowledgeArea[] = []
+
   private _isSaving = false    
   private _isTriedToSubmit = false
 
@@ -30,6 +32,10 @@ export class AddBookState {
 
   get book() {
     return this._book
+  }
+
+  get knowledgeAreas() {
+    return this._knowledgeAreas
   }
 
   get isSaving() {
@@ -158,6 +164,14 @@ export class AddBookState {
       ._book
       .authors
       .filter((_author, i) => i !== index)
+  }
+
+  setKnowledgeAreas({
+    knowledgeAreas,
+  }: {
+    knowledgeAreas: KnowledgeArea[],
+  }) {
+    this._knowledgeAreas = knowledgeAreas
   }
 
   setKnowledgeAreasIds({
