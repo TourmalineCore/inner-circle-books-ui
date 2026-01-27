@@ -60,7 +60,7 @@
     "@typescript-eslint/eslint-plugin": "^7.0.2",
     "@typescript-eslint/parser": "^7.0.2",
     "@vitejs/plugin-react": "^5.0.4",
-    "cypress": "^13.17.0",
+    "cypress": "^14.2.0",
     "cypress-image-diff-js": "^2.4.0",
     "eslint": "^8.56.0",
     "eslint-plugin-cypress": "^2.15.1",

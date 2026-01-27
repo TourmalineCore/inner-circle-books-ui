@@ -13,6 +13,7 @@ const EMPTY_BOOK: AddBookType = {
     },
   ],
   coverUrl: ``,
+  knowledgeAreasIds: [],
 }
 
 export class AddBookState {
@@ -20,8 +21,10 @@ export class AddBookState {
     ...EMPTY_BOOK, 
   }
 
+  private _knowledgeAreas: KnowledgeArea[] = []
+
   private _isSaving = false    
-  private _isTriedToSubmit = false  
+  private _isTriedToSubmit = false
 
   constructor() {
     makeAutoObservable(this)
@@ -29,6 +32,10 @@ export class AddBookState {
 
   get book() {
     return this._book
+  }
+
+  get knowledgeAreas() {
+    return this._knowledgeAreas
   }
 
   get isSaving() {
@@ -54,11 +61,19 @@ export class AddBookState {
       .some(author => author.fullName !== ``)
   }
 
+  get isKnowledgeAreasFieldValid() {
+    return this
+      ._book
+      .knowledgeAreasIds
+      .length > 0
+  }
+
   get isValid() {
     return (
       this.isTitleValid &&
       this.isAnnotationValid &&
-      this.isAuthorsFieldValid
+      this.isAuthorsFieldValid &&
+      this.isKnowledgeAreasFieldValid
     )
   }
 
@@ -67,6 +82,7 @@ export class AddBookState {
       isTitleError: !this.isTitleValid && this._isTriedToSubmit,
       isAnnotationError: !this.isAnnotationValid && this._isTriedToSubmit,
       isAuthorsError: !this.isAuthorsFieldValid && this._isTriedToSubmit,
+      isKnowledgeAreasError: !this.isKnowledgeAreasFieldValid && this._isTriedToSubmit,
     }
   }
 
@@ -148,6 +164,22 @@ export class AddBookState {
       ._book
       .authors
       .filter((_author, i) => i !== index)
+  }
+
+  setKnowledgeAreas({
+    knowledgeAreas,
+  }: {
+    knowledgeAreas: KnowledgeArea[],
+  }) {
+    this._knowledgeAreas = knowledgeAreas
+  }
+
+  setKnowledgeAreasIds({
+    knowledgeAreasIds,
+  }: {
+    knowledgeAreasIds: number[],
+  }) {
+    this._book.knowledgeAreasIds = knowledgeAreasIds
   }
 
   reset() {

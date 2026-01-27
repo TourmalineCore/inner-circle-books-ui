@@ -16,6 +16,7 @@ export const Overlay = ({
   hasCloseButton = false,
   endCalendarDate,
   onChangeCalendar,
+  dataCy,
 }: {
   onAccentButtonAction: () => unknown,
   onButtonAction?: () => unknown,
@@ -28,11 +29,15 @@ export const Overlay = ({
   hasCloseButton?: boolean,
   endCalendarDate?: Date | null,
   onChangeCalendar?: (dates: [Date, Date]) => unknown,
+  dataCy?: string,
 }) => {
   useAddDisableScrollClassOnBody()
 
   return (
-    <div className="overlay">
+    <div 
+      className="overlay"
+      data-cy={dataCy}
+    >
       {
         modalName == `modal` && (
           <ModalWindow 
