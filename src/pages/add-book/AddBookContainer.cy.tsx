@@ -4,6 +4,9 @@ import { AddBookState } from "./state/AddBookState"
 import { AddBookStateContext } from "./state/AddBookStateStateContext"
 
 const BOOK = {
+  knowledgeAreasIds: [
+    1,
+  ],
   title: `Разработка ценностных предложений`,
   annotation: `Аннотация`,
   language: Language.EN,
@@ -28,6 +31,29 @@ describe(`AddBookContainer`, () => {
         })
       },
     )
+
+    cy.intercept(
+      `GET`,
+      `**/knowledge-areas`,
+      (req) => {
+        req.alias = `getKnowledgeAreas`
+        req.reply({
+          statusCode: 200,
+          body: {
+            knowledgeAreas: [
+              {
+                id: 1,
+                name: `Frontend`,
+              },
+              {
+                id: 2,
+                name: `Backend`,
+              },
+            ],
+          }, 
+        })
+      },
+    )
   })
 
   describe(`Add Book Flow`, addBookFlowTests)
@@ -41,6 +67,16 @@ function addBookFlowTests() {
   `, () => {
     mountComponent()
 
+    cy.wait(`@getKnowledgeAreas`)
+      
+    cy
+      .getByData(`knowledge-areas-multiple-select`)
+      .click()
+
+    cy
+      .contains(`Frontend`)
+      .click()
+      
     cy
       .getByData(`add-book-title`)
       .type(`Разработка ценностных предложений`)

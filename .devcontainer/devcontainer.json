@@ -3,7 +3,7 @@
 {
 	"name": "Existing Dockerfile",
 	// image with NOT included Cypress is used becuase cypress/included doesn't support browsers installatin for arm64 yet
-	"image": "cypress/browsers:node-20.11.1-chrome-123.0.6312.58-1-ff-124.0-edge-122.0.2365.92-1",
+	"image": "cypress/browsers:node-22.18.0-chrome-138.0.7204.183-1-ff-141.0-edge-138.0.3351.121-1",
 	"features": {
 		"ghcr.io/devcontainers/features/desktop-lite:1.1.0": {},
 		"ghcr.io/devcontainers/features/docker-outside-of-docker:1.6.0": {}

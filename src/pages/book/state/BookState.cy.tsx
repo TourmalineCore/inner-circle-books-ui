@@ -26,13 +26,14 @@ function initializationTests() {
     ])
     expect(bookState.book.coverUrl).to.eq(``)
     expect(bookState.book.bookCopiesIds).to.deep.eq([])
+    expect(bookState.book.knowledgeAreasIds).to.deep.eq([])
   })
 }
 
 function bookDataTests() {
   let bookState: BookState
 
-  const bookForInitialization = {
+  const bookForInitialization: BookType = {
     id: 1,
     title: `Разработка ценностных предложений`,
     annotation: `Аннотация`,
@@ -53,6 +54,9 @@ function bookDataTests() {
         fullName: `Ceo Ceo Ceo`,
         bookCopyId: 1,
       },
+    ],
+    knowledgeAreasIds: [
+      1,
     ],
   }
   

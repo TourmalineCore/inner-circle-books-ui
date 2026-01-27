@@ -61,6 +61,7 @@ function mountComponent() {
         2,
       ],
       employeesWhoReadNow: [],
+      knowledgeAreasIds: [],
     },
   })
 

@@ -21,6 +21,18 @@ export class AddBookPage {
       .click()
 
     cy
+      .get(`.multiple-select`) 
+      .click()
+
+    cy
+      .contains(`Frontend`)
+      .click()
+
+    cy
+      .get(`.multiple-select`) 
+      .click()
+
+    cy
       .getByData(`add-book-annotation`)
       .type(`Описание книги`)
 

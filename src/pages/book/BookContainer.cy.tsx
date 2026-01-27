@@ -36,6 +36,9 @@ const BOOK_RESPONSE: BookType = {
       bookCopyId: 15,
     },
   ],
+  knowledgeAreasIds: [
+    1,
+  ],
 }
 
 describe(`BookContainer`, () => {

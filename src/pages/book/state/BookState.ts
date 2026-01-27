@@ -14,6 +14,7 @@ const EMPTY_BOOK: BookType = {
   coverUrl: ``,
   bookCopiesIds: [],
   employeesWhoReadNow: [],
+  knowledgeAreasIds: [],
 }
 
 export class BookState {

@@ -138,6 +138,7 @@ function mountComponent({
       coverUrl: ``,
       bookCopiesIds,
       employeesWhoReadNow: [],
+      knowledgeAreasIds: [],
     },
   })
 

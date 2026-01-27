@@ -1,4 +1,4 @@
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
 import { observer } from "mobx-react-lite"
 import { AddBookContent } from "./AddBookContent"
 import { AddBookStateContext } from "./state/AddBookStateStateContext"
@@ -11,6 +11,24 @@ export const AddBookContainer = observer(({
 }) => {
   const addBookState = useContext(AddBookStateContext)
 
+  useEffect(() => {
+    async function loadKnowledgeAreas() {
+      const {
+        data: {
+          knowledgeAreas,
+        },
+      } = await api.get<{ 
+        knowledgeAreas: KnowledgeArea[], 
+      }>(`/knowledge-areas`)
+
+      addBookState.setKnowledgeAreas({
+        knowledgeAreas,
+      })
+    } 
+
+    loadKnowledgeAreas()
+  }, [])
+
   return (
     <AddBookContent 
       onSubmit={submitBookAsync}
@@ -22,19 +40,20 @@ export const AddBookContainer = observer(({
     addBookState.setIsSaving()
     addBookState.setIsTriedToSubmit()
 
+    if (!addBookState.isValid) {
+      addBookState.resetIsSaving()
+      return
+    }
+    
     const {
       title,
       annotation,
       countOfCopies,
       language,
       authors,
+      knowledgeAreasIds,
       coverUrl,
     } = addBookState.book
-
-    if (!addBookState.isValid) {
-      addBookState.resetIsSaving()
-      return
-    }
 
     try {
       await api.post(``, 
@@ -48,6 +67,7 @@ export const AddBookContainer = observer(({
             }))
             .filter(author => author.fullName !== ``),
           coverUrl: coverUrl.trim(),
+          knowledgeAreasIds,
           countOfCopies,
         },
       )
