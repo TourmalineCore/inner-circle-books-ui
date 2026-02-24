@@ -50,17 +50,18 @@ export const BookActionButton = ({
           ) 
           : (
             <div className="book-action-button__take-info">
-              {!copyId && (
-                <Button
-                  className="book-action-button__scan-button"
-                  onClick={() => window.location.href = scanRoutes[0].path}
-                  label={
-                    <>
-                      <ScanIcon /> Scan QR
-                    </>
-                  }
-                  isAccent
-                />
+              {
+                !copyId && (
+                  <Button
+                    className="book-action-button__scan-button"
+                    onClick={() => window.location.href = scanRoutes[0].path}
+                    label={
+                      <>
+                        <ScanIcon /> Scan QR
+                      </>
+                    }
+                    isAccent
+                  />
               )}
               <p className="book-action-button__take-info-text">
                 {
