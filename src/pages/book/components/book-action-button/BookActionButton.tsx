@@ -1,8 +1,8 @@
 import './BookActionButton.scss'
 
-import InfoIcon from "../../../../assets/icons/Info.svg?react"
+import ScanIcon from '../../../../assets/icons/Scan.svg?react'
 
-import { returnBookRoutes } from '../../../routes'
+import { returnBookRoutes, scanRoutes } from '../../../routes'
 import { getEmployeeIdFromToken } from '../../../../common/tokenUtils'
 import { Button } from '../../../../components/button/Button'
 import { useSearchParams } from 'react-router-dom'
@@ -50,7 +50,18 @@ export const BookActionButton = ({
           ) 
           : (
             <div className="book-action-button__take-info">
-              <InfoIcon />
+              {!copyId && (
+                <Button
+                  className="book-action-button__scan-button"
+                  onClick={() => window.location.href = scanRoutes[0].path}
+                  label={
+                    <>
+                      <ScanIcon /> Scan QR
+                    </>
+                  }
+                  isAccent
+                />
+              )}
               <p className="book-action-button__take-info-text">
                 {
                   copyId 
@@ -58,9 +69,9 @@ export const BookActionButton = ({
                     : `You can take book after scanning the QR code on book cover`
                 }
               </p>
+              
             </div>
-          )
-      }
+          )}
     </div>
   )
 }
