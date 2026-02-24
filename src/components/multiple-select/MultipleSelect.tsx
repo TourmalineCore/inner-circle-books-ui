@@ -70,14 +70,16 @@ export function MultipleSelect({
       ref={multipleSelectRef}
     >
 
-      {label && (
-        <label 
-          className="multiple-select__label"
-          htmlFor={id}
-        >
-          {label}
-        </label>
-      )}
+      {
+        label && (
+          <label 
+            className="multiple-select__label"
+            htmlFor={id}
+          >
+            {label}
+          </label>
+        )
+      }
 
       <div 
         className={clsx(`multiple-select__control`, {
@@ -109,24 +111,26 @@ export function MultipleSelect({
         />
       </div>
 
-      {isOpen && (
-        <div className="multiple-select__dropdown">
-          {options.map(({
-            value: optionValue,
-            label: optionLabel, 
-          }) => (
-            <button
-              type="button"
-              key={`multiple-select-option-${optionValue}`}
-              className="multiple-select__option"
-              onClick={() => handleOptionChange(optionValue)}
-            >
-              <span>{optionLabel}</span>
-              {value.includes(optionValue as never) && <IconCheckMarkPurple className='multiple-select__check-mark' />}
-            </button>
-          ))}
-        </div>
-      )}
+      {
+        isOpen && (
+          <div className="multiple-select__dropdown">
+            {options.map(({
+              value: optionValue,
+              label: optionLabel, 
+            }) => (
+              <button
+                type="button"
+                key={`multiple-select-option-${optionValue}`}
+                className="multiple-select__option"
+                onClick={() => handleOptionChange(optionValue)}
+              >
+                <span>{optionLabel}</span>
+                {value.includes(optionValue as never) && <IconCheckMarkPurple className='multiple-select__check-mark' />}
+              </button>
+            ))}
+          </div>
+        )
+      }
     </div>
   )
 

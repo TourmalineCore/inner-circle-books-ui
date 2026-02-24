@@ -5,7 +5,9 @@ export const BookReaders = ({
 }: {
   employeesWhoReadNow: EmployeeWhoReadNowType[],
 }) => {
-  if (employeesWhoReadNow.length === 0) return null
+  if (employeesWhoReadNow.length === 0) {
+    return null
+  } 
 
   return (
     <div className='book-readers'>
