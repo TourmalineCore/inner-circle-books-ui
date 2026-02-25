@@ -62,7 +62,8 @@ export const BookActionButton = ({
                     }
                     isAccent
                   />
-              )}
+                )
+              }
               <p className="book-action-button__take-info-text">
                 {
                   copyId 
