@@ -30,3 +30,12 @@ jobs:
           component: true
           start: npm start
           browser: electron
+
+      - name: Upload screenshots of tests failed
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: |
+            cypress-image-diff-screenshots/**/*
+            cypress-image-diff-html-report/**/*

@@ -13,18 +13,9 @@
 
   &__take-info {
     display: flex;
+    flex-direction: column;
     justify-content: flex-start;
     gap: 8px;
-
-    svg {
-      flex-shrink: 0;
-      width: 24px;
-      height: 24px;
-    }
-
-    svg path {
-      stroke: v.$color-icon-secondary;
-    }
   }
 
   &__take-info-text {
@@ -39,6 +30,16 @@
 
     @include m.tablet-xl {
       width: 280px;
+    }
+  }
+
+  &__scan-button {
+    margin-top: 4px;
+    padding: 8px;
+    width: 129px;
+
+    svg path {
+      stroke: v.$color-background-primary;
     }
   }
 }
