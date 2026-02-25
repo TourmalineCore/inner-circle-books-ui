@@ -60,12 +60,6 @@
   &__wrap {
     display: flex;
     flex-direction: column;
-
-    @include m.desktop-xl {
-      align-items: flex-end;
-      flex-direction: row;
-      justify-content: space-between;
-    }
   }
 
   &__cover,
