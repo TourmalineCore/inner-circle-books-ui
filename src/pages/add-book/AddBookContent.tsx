@@ -21,11 +21,11 @@ export const AddBookContent = observer(({
   goToBooksList,
 }:{
   onSubmit: () => unknown,
-   goToBooksList: ({
-     id,
-   }:{
-    id?:number,
-  }) => unknown, 
+  goToBooksList: ({
+    id,
+  }: {
+   id? :number,
+ }) => unknown, 
 }) => {
   const addBookState = useContext(AddBookStateContext)
 
