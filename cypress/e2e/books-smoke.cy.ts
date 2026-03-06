@@ -25,6 +25,10 @@ describe(`Books Smoke`, () => {
 
     AddBookPage.addBook()
 
+    cy
+      .getByData(`modal-qr-form-close-button`)
+      .click()
+
     AllBooksPage.checkAddedBook()
   })
 
