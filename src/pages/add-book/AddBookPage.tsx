@@ -10,8 +10,17 @@ export function AddBookPage() {
     [],
   )
 
-  const goToBooksList = () => {
-    window.location.href = allBooksRoutes[0].path
+  const goToBooksList = ({
+    id,
+  }: {
+    id?: number,
+  }) => {
+    if (id) {
+      window.location.href = `${allBooksRoutes[0].path}?addedBookId=${id}`
+    }
+    else {
+      window.location.href = allBooksRoutes[0].path
+    }
   }
 
   return (

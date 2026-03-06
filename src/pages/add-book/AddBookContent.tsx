@@ -21,7 +21,11 @@ export const AddBookContent = observer(({
   goToBooksList,
 }:{
   onSubmit: () => unknown,
-  goToBooksList: () => unknown,
+   goToBooksList: ({
+     id,
+   }:{
+    id?:number,
+  }) => unknown, 
 }) => {
   const addBookState = useContext(AddBookStateContext)
 
@@ -57,7 +61,7 @@ export const AddBookContent = observer(({
       setShowModal(true)
     }
     else {
-      goToBooksList()
+      goToBooksList({})
     }
   }
   
@@ -65,7 +69,7 @@ export const AddBookContent = observer(({
     addBookState.reset()
     setShowModal(false)
 
-    goToBooksList()
+    goToBooksList({})
   }
 
   const handleCloseModal = () => {

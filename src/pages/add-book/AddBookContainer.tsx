@@ -7,7 +7,11 @@ import { api } from "../../common/api"
 export const AddBookContainer = observer(({
   goToBooksList, 
 }: { 
-  goToBooksList: () => unknown, 
+  goToBooksList: ({
+    id,
+  }:{
+    id?:number,
+  }) => unknown, 
 }) => {
   const addBookState = useContext(AddBookStateContext)
 
@@ -56,7 +60,7 @@ export const AddBookContainer = observer(({
     } = addBookState.book
 
     try {
-      await api.post(``, 
+      const response = await api.post(``, 
         {
           title: title.trim(),
           annotation: annotation.trim(),
@@ -71,8 +75,11 @@ export const AddBookContainer = observer(({
           countOfCopies,
         },
       )
+      const bookId = response.data.newBookId
 
-      goToBooksList()
+      goToBooksList({
+        id: bookId,
+      })
     }
     finally {
       addBookState.resetIsSaving()
