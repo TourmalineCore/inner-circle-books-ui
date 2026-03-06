@@ -37,10 +37,12 @@ export function BookPage() {
         <BookContainer
           openModalQrCode={() => setShowModalQRForm(true)}
         />
-        {showModalQRForm && <ModalQrFormContainer 
-          bookId={bookId}
-          onCloseModal={() => setShowModalQRForm(false)}
-        />}
+        {showModalQRForm && (
+          <ModalQrFormContainer 
+            bookId={bookId}
+            onCloseModal={() => setShowModalQRForm(false)}
+          />
+        )}
       </ModalQrFormStateContext.Provider>
     </BookStateContext.Provider>
   )

@@ -35,6 +35,8 @@ export function AllBooksPage() {
     return false
   })
 
+  // We need to clear the id of the added book from url, to see only books list after page refresh without QR modal. 
+  // QR modal should be rendered only once after adding and redirecting to books list page
   useEffect(() => {
     if(addedBookId) {
       searchParams.delete(`addedBookId`)
@@ -61,10 +63,12 @@ export function AllBooksPage() {
       <AllBooksStateContext.Provider value={allBooksState}>
         <ModalQrFormStateContext.Provider value={modalQrFormState}>
           <AllBooksContainer />
-          {showModalQRForm && <ModalQrFormContainer 
-            bookId={addedBookId!}
-            onCloseModal={() => setShowModalQRForm(false)}
-          />}
+          {showModalQRForm && (
+            <ModalQrFormContainer 
+              bookId={addedBookId!}
+              onCloseModal={() => setShowModalQRForm(false)}
+            />
+          )}
         </ModalQrFormStateContext.Provider>
       </AllBooksStateContext.Provider>
     </div>
