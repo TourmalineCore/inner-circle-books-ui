@@ -70,6 +70,7 @@ export const ModalQRFormContent = observer(({
           <button
             type="button"
             className="modal-qr-form__close-button"
+            data-cy="modal-qr-form-close-button"
             onClick={handleClose}
           >
             <CancelIcon />

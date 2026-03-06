@@ -43,6 +43,10 @@ describe(`Take and Return Book Flow`, () => {
           .as(`getBookDataRequest`)
 
         cy
+          .getByData(`modal-qr-form-close-button`)
+          .click()
+         
+        cy
           .getByData(`book-card`)
           .filter((_, element) => {
             return Cypress.$(element)

@@ -37,13 +37,17 @@ describe(`Adding book history entries`, () => {
       .then((interception) => {
         const response = interception.response
         const bookId = response!.body.newBookId
-       
+
         cy
           .intercept(
             `GET`, 
             `/api/books/${bookId}`)
           .as(`getBookDataRequest`)
 
+        cy
+          .getByData(`modal-qr-form-close-button`)
+          .click()
+          
         cy
           .getByData(`book-card`)
           .filter((_, element) => {
