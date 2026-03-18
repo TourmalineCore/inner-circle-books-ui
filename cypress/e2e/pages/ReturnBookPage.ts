@@ -13,6 +13,10 @@ export class ReturnBookPage {
       .click()
 
     cy
+      .getByData(`return-book-advantages`)
+      .type(`Great book`)
+
+    cy
       .get(`.button__accent`)
       .click()
   }

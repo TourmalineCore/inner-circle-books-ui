@@ -66,6 +66,8 @@ export const ReturnBookContainer = observer(() => {
         {
           bookCopyId: Number(copyId),
           progressOfReading: returnBookState.book.progressOfReading,
+          advantages: returnBookState.book.advantages,
+          disadvantages: returnBookState.book.disadvantages,
         },
       )
 

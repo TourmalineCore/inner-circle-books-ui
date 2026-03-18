@@ -103,7 +103,7 @@ export const ReturnBookContent = observer(({
           </div>
         </div>
       
-        <div className="return-book__feedback">
+        <div className="return-book__progress">
           <label className="return-book__label">
             Specify your reading progress*
           </label>
@@ -127,7 +127,30 @@ export const ReturnBookContent = observer(({
             ))}
           </div>
         </div>
-
+        <div className="return-book__feedback">
+          <div>
+            What Do You Think about this Book?
+          </div>
+          <div>
+            Leave your feedback to let your colleagues know your opinion
+          </div>
+          <textarea
+            data-cy="return-book-advantages"
+            value={returnBookState.book.advantages}
+            placeholder="Advantages"
+            onChange={(e) => returnBookState.setAdvantages({
+              advantages: e.target.value,
+            })}
+          />
+          <textarea
+            data-cy="return-book-disadvantages"
+            value={returnBookState.book.disadvantages}
+            placeholder="Disadvantages"
+            onChange={(e) => returnBookState.setDisadvantages({
+              disadvantages: e.target.value,
+            })}
+          />
+        </div>
         <div className="return-book__actions">
           <Button 
             onClick={handleCancel}

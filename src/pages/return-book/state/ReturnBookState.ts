@@ -6,6 +6,8 @@ const EMPTY_BOOK = {
   title: ``,
   coverUrl: ``,
   progressOfReading: ``,
+  advantages: ``,
+  disadvantages: ``,
 }
 
 export class ReturnBookState {
@@ -34,6 +36,8 @@ export class ReturnBookState {
       title: loadedBook.title,
       coverUrl: loadedBook.coverUrl,
       progressOfReading: ``,
+      advantages: ``,
+      disadvantages: ``,
     }
   }
 
@@ -71,12 +75,30 @@ export class ReturnBookState {
     this._book.progressOfReading = progressOfReading
   }
 
+  setAdvantages({
+    advantages,
+  }: {
+    advantages: string,
+  }) {
+    this._book.advantages = advantages
+  }
+
+  setDisadvantages({
+    disadvantages,
+  }: {
+    disadvantages: string,
+  }) {
+    this._book.disadvantages = disadvantages
+  }
+
   reset() {
     this._book.progressOfReading = ``
+    this._book.advantages = ``
+    this._book.disadvantages = ``
   }
 
   isSomethingFilledWithinTheForm() { 
-    return !isEqual(this._book.progressOfReading, ``)
+    return !isEqual(this._book.progressOfReading, ``) || !isEqual(this._book.advantages, ``) || !isEqual(this._book.disadvantages, ``)
   }
 
   setIsSaving() {

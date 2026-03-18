@@ -37,6 +37,10 @@
     @include f.h6;
   }
 
+  &__progress {
+    margin-bottom: 36px;
+  }
+
   &__progress-options {
     display: flex;
     overflow: hidden;
