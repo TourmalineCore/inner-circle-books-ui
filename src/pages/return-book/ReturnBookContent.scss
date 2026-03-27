@@ -84,6 +84,22 @@
     }
   }
 
+  &__feedback-label {
+    margin-top: 8px;
+    margin-bottom: 8px;
+  }
+
+  &__feedback-field {
+    min-height: 144px;
+    max-height: 144px;
+    resize: none;
+    field-sizing: content;
+
+    & + & {
+      margin-top: 8px;
+    }
+  }
+
   &__progress-btn + &__progress-btn {
     border-left: 1px solid v.$color-component-border;
   }

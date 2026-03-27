@@ -46,7 +46,6 @@ export const ReturnBookContent = observer(({
   ] = useState(false)
   
   const handleConfirmQuit = () => {
-    returnBookState.reset()
     setShowModal(false)
 
     goToBookCopyPage()
@@ -128,13 +127,14 @@ export const ReturnBookContent = observer(({
           </div>
         </div>
         <div className="return-book__feedback">
-          <div>
+          <div className='return-book__label'>
             What Do You Think about this Book?
           </div>
-          <div>
+          <div className='return-book__feedback-label'>
             Leave your feedback to let your colleagues know your opinion
           </div>
           <textarea
+            className='return-book__feedback-field'
             data-cy="return-book-advantages"
             value={returnBookState.book.advantages}
             placeholder="Advantages"
@@ -143,6 +143,7 @@ export const ReturnBookContent = observer(({
             })}
           />
           <textarea
+            className='return-book__feedback-field'
             data-cy="return-book-disadvantages"
             value={returnBookState.book.disadvantages}
             placeholder="Disadvantages"
