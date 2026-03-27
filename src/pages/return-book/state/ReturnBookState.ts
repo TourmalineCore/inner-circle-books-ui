@@ -1,17 +1,27 @@
 import isEqual from 'lodash.isequal'
 import { makeAutoObservable } from 'mobx'
 
-const EMPTY_BOOK = {
-  id: 1,
+type ReturnBook = {
+  id?: number,
+  title: string,
+  coverUrl: string,
+  progressOfReading: string,
+  rating: number,
+  advantages: string,
+  disadvantages: string,
+}
+
+const EMPTY_BOOK: ReturnBook = {
   title: ``,
   coverUrl: ``,
   progressOfReading: ``,
+  rating: 0,
   advantages: ``,
   disadvantages: ``,
 }
 
 export class ReturnBookState {
-  private _book = {
+  private _book: ReturnBook = {
     ...EMPTY_BOOK, 
   }
 
@@ -32,12 +42,10 @@ export class ReturnBookState {
     },
   }) {
     this._book = {
+      ...EMPTY_BOOK,
       id: loadedBook.id,
       title: loadedBook.title,
       coverUrl: loadedBook.coverUrl,
-      progressOfReading: ``,
-      advantages: ``,
-      disadvantages: ``,
     }
   }
 
@@ -57,6 +65,10 @@ export class ReturnBookState {
     return this._book.progressOfReading !== ``
   }
 
+  get isRatingValid() {
+    return this._book.rating !== 0
+  }
+
   get isValid() {
     return this.isProgressOfReadingValid
   }
@@ -64,6 +76,7 @@ export class ReturnBookState {
   get errors() {
     return {
       isProgressOfReadingError: !this.isProgressOfReadingValid && this._isTriedToSubmit,
+      isRatingError: !this.isRatingValid && this._isTriedToSubmit,
     }
   }
 
@@ -91,14 +104,8 @@ export class ReturnBookState {
     this._book.disadvantages = disadvantages
   }
 
-  reset() {
-    this._book.progressOfReading = ``
-    this._book.advantages = ``
-    this._book.disadvantages = ``
-  }
-
   isSomethingFilledWithinTheForm() { 
-    return !isEqual(this._book.progressOfReading, ``) || !isEqual(this._book.advantages, ``) || !isEqual(this._book.disadvantages, ``)
+    return !isEqual(this._book.progressOfReading, ``) || !isEqual(this._book.rating, 0)
   }
 
   setIsSaving() {

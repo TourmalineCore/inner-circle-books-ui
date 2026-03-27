@@ -7,44 +7,51 @@ describe(`ReturnBookState`, () => {
 })
 
 function initializationTests() {
-  const returnbookState = new ReturnBookState()
+  const returnBookState = new ReturnBookState()
   
   it(`
   GIVEN a ReturnBookState
   WHEN initialize
-  SHOULD have default returnbook values
+  SHOULD have default returnBook values
   `, () => {
-    expect(returnbookState.book.id).to.eq(1)
-    expect(returnbookState.book.title).to.eq(``)
-    expect(returnbookState.book.coverUrl).to.eq(``)
+    expect(returnBookState.book)
+      .to
+      .deep
+      .eq({
+        title: ``,
+        coverUrl: ``,
+        progressOfReading: ``,
+        rating: 0,
+        advantages: ``,
+        disadvantages: ``,
+      })
   })
 }
 
 function returnBookDataTests() {
-  const returnbookState = new ReturnBookState()
+  const returnBookState = new ReturnBookState()
 
-  returnbookState.initialize({
+  returnBookState.initialize({
     loadedBook: {
       id: 1,
       title: `Разработка ценностных предложений`,
-      coverUrl: `https://returnbook.jpg`,
-        
+      coverUrl: `https://returnbook.jpg`, 
     },
   })
 
   it(`
   GIVEN the ReturnBookState
-  WHEN set returnbook data
-  SHOULD display new values in the returnbook object
+  WHEN set returnBook data
+  SHOULD display new values in the returnBook object
   `, () => {
-    expect(returnbookState.book.id).to.eq(1)
-    expect(returnbookState.book.title).to.eq(`Разработка ценностных предложений`)
-    expect(returnbookState.book.coverUrl).to.eq(`https://returnbook.jpg`)
+    expect(returnBookState.book.id).to.eq(1)
+    expect(returnBookState.book.title).to.eq(`Разработка ценностных предложений`)
+    expect(returnBookState.book.coverUrl).to.eq(`https://returnbook.jpg`)
   })
 }
 
 function isTriedToSubmitTest() {
-  const returnbookState = new ReturnBookState()
+  const returnBookState = new ReturnBookState()
 
   it(`
   GIVEN initial isTriedToSubmit = false
@@ -53,12 +60,12 @@ function isTriedToSubmitTest() {
   WHEN resetIsTriedToSubmit()
   SHOULD change value to false
   `, () => {
-    expect(returnbookState.isTriedToSubmit).to.be.false
+    expect(returnBookState.isTriedToSubmit).to.be.false
 
-    returnbookState.setIsTriedToSubmit()
-    expect(returnbookState.isTriedToSubmit).to.be.true
+    returnBookState.setIsTriedToSubmit()
+    expect(returnBookState.isTriedToSubmit).to.be.true
 
-    returnbookState.resetIsTriedToSubmit()
-    expect(returnbookState.isTriedToSubmit).to.be.false
+    returnBookState.resetIsTriedToSubmit()
+    expect(returnBookState.isTriedToSubmit).to.be.false
   })
 }
