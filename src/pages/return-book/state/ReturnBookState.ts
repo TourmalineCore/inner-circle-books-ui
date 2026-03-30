@@ -70,7 +70,7 @@ export class ReturnBookState {
   }
 
   get isValid() {
-    return this.isProgressOfReadingValid
+    return this.isProgressOfReadingValid && this.isRatingValid
   }
 
   get errors() {
@@ -86,6 +86,14 @@ export class ReturnBookState {
     progressOfReading: string,
   }) {
     this._book.progressOfReading = progressOfReading
+  }
+
+  setRating({
+    rating, 
+  }: { 
+    rating: number, 
+  }) {
+    this._book.rating = rating
   }
 
   setAdvantages({

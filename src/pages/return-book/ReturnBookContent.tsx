@@ -9,6 +9,7 @@ import { ReturnBookStateContext } from './state/ReturnBookStateContext'
 import { useContext, useState } from 'react'
 import { Overlay } from '../../components/overlay/Overlay'
 import { ProgressOfReading } from '../../common/enums/progressOfReading'
+import { RatingInput } from './components/RatingInput'
 
 const progressOptions = [
   {
@@ -126,6 +127,22 @@ export const ReturnBookContent = observer(({
             ))}
           </div>
         </div>
+        <div className={`return-book__rating ${returnBookState.errors.isRatingError
+          ? `error` 
+          : ``}`}
+        >
+          <label className="return-book__label">
+              Rate the book*
+          </label>
+          <RatingInput
+            value={returnBookState.book.rating}
+            onChange={(value:number) =>
+              returnBookState.setRating({
+                rating: value, 
+              })
+            }
+          />
+        </div>
         <div className="return-book__feedback">
           <div className='return-book__label'>
             What Do You Think about this Book?
@@ -133,24 +150,26 @@ export const ReturnBookContent = observer(({
           <div className='return-book__feedback-label'>
             Leave your feedback to let your colleagues know your opinion
           </div>
-          <textarea
-            className='return-book__feedback-field'
-            data-cy="return-book-advantages"
-            value={returnBookState.book.advantages}
-            placeholder="Advantages"
-            onChange={(e) => returnBookState.setAdvantages({
-              advantages: e.target.value,
-            })}
-          />
-          <textarea
-            className='return-book__feedback-field'
-            data-cy="return-book-disadvantages"
-            value={returnBookState.book.disadvantages}
-            placeholder="Disadvantages"
-            onChange={(e) => returnBookState.setDisadvantages({
-              disadvantages: e.target.value,
-            })}
-          />
+          <div className='return-book__feedback-fields'>
+            <textarea
+              className='return-book__feedback-field'
+              data-cy="return-book-advantages"
+              value={returnBookState.book.advantages}
+              placeholder="Advantages"
+              onChange={(e) => returnBookState.setAdvantages({
+                advantages: e.target.value,
+              })}
+            />
+            <textarea
+              className='return-book__feedback-field'
+              data-cy="return-book-disadvantages"
+              value={returnBookState.book.disadvantages}
+              placeholder="Disadvantages"
+              onChange={(e) => returnBookState.setDisadvantages({
+                disadvantages: e.target.value,
+              })}
+            />
+          </div>
         </div>
         <div className="return-book__actions">
           <Button 

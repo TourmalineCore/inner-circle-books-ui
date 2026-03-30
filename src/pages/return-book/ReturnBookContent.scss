@@ -35,10 +35,12 @@
 
   &__label {
     @include f.h6;
+
+    margin-bottom: 8px;
   }
 
   &__progress {
-    margin-bottom: 36px;
+    margin-bottom: 24px;
   }
 
   &__progress-options {
@@ -84,9 +86,18 @@
     }
   }
 
+  &__rating {
+    margin-bottom: 24px;
+  }
+
   &__feedback-label {
-    margin-top: 8px;
     margin-bottom: 8px;
+  }
+
+  &__feedback-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
   }
 
   &__feedback-field {
@@ -94,10 +105,6 @@
     max-height: 144px;
     resize: none;
     field-sizing: content;
-
-    & + & {
-      margin-top: 8px;
-    }
   }
 
   &__progress-btn + &__progress-btn {
