@@ -7,9 +7,11 @@ import Star from '../../../assets/icons/Star.svg?react'
 export const RatingInput = ({
   value, 
   onChange,  
+  error,
 }: {
   value: number,
   onChange: (value: number) => void,
+  error?: boolean,
 }) => {
   const [
     hover,
@@ -21,7 +23,7 @@ export const RatingInput = ({
 
   return (
     <div
-      className="rating"
+      className={`rating ${error ? `error` : ``}`}
       onMouseLeave={() => setHover(0)}
     >
       {stars.map((star) => {

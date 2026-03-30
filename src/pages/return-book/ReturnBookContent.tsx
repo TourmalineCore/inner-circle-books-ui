@@ -127,9 +127,7 @@ export const ReturnBookContent = observer(({
             ))}
           </div>
         </div>
-        <div className={`return-book__rating ${returnBookState.errors.isRatingError
-          ? `error` 
-          : ``}`}
+        <div className="return-book__rating"
         >
           <label className="return-book__label">
               Rate the book*
@@ -141,6 +139,7 @@ export const ReturnBookContent = observer(({
                 rating: value, 
               })
             }
+            error={returnBookState.errors.isRatingError}
           />
         </div>
         <div className="return-book__feedback">
