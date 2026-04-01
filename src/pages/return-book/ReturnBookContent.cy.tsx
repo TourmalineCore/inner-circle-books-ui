@@ -23,7 +23,7 @@ describe(`ReturnBookContent`, () => {
       .should(`be.disabled`)
 
     cy
-      .getByData(`.rating`)
+      .get(`.rating`)
       .should(`have.class`, `disabled`)
   })
 
