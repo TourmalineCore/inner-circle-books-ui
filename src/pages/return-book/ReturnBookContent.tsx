@@ -129,7 +129,7 @@ export const ReturnBookContent = observer(({
         </div>
         <div className="return-book__rating"
         >
-          <label className="return-book__label">
+          <label className={`return-book__label ${returnBookState.isNotReadAtAll ? `disabled` : ``}`}>
               Rate the book*
           </label>
           <RatingInput
@@ -140,13 +140,14 @@ export const ReturnBookContent = observer(({
               })
             }
             error={returnBookState.errors.isRatingError}
+            disabled={returnBookState.isNotReadAtAll}
           />
         </div>
         <div className="return-book__feedback">
-          <div className='return-book__label'>
+          <div className={`return-book__label ${returnBookState.isNotReadAtAll ? `disabled` : ``}`}>
             What Do You Think about this Book?
           </div>
-          <div className='return-book__feedback-label'>
+          <div className={`return-book__feedback-label ${returnBookState.isNotReadAtAll ? `disabled` : ``}`}>
             Leave your feedback to let your colleagues know your opinion
           </div>
           <div className='return-book__feedback-fields'>
@@ -158,6 +159,7 @@ export const ReturnBookContent = observer(({
               onChange={(e) => returnBookState.setAdvantages({
                 advantages: e.target.value,
               })}
+              disabled={returnBookState.isNotReadAtAll}
             />
             <textarea
               className='return-book__feedback-field'
@@ -167,6 +169,7 @@ export const ReturnBookContent = observer(({
               onChange={(e) => returnBookState.setDisadvantages({
                 disadvantages: e.target.value,
               })}
+              disabled={returnBookState.isNotReadAtAll}
             />
           </div>
         </div>

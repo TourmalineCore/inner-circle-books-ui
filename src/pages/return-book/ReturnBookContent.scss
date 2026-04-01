@@ -107,6 +107,15 @@
     max-height: 144px;
     resize: none;
     field-sizing: content;
+
+    &:disabled {
+      color: v.$color-text-secondary;
+      background-color: v.$color-background-primary;
+    }
+
+    &:disabled:hover {
+      border-color: v.$color-component-border;
+    }
   }
 
   &__progress-btn + &__progress-btn {

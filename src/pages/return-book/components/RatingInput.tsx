@@ -8,10 +8,12 @@ export const RatingInput = ({
   value, 
   onChange,  
   error,
+  disabled = false,
 }: {
   value: number,
   onChange: (value: number) => void,
   error?: boolean,
+   disabled?: boolean,
 }) => {
   const [
     hover,
@@ -23,7 +25,7 @@ export const RatingInput = ({
 
   return (
     <div
-      className={`rating ${error ? `error` : ``}`}
+      className={`rating ${error ? `error` : ``} ${disabled ? `rating--disabled` : ``}`}
       onMouseLeave={() => setHover(0)}
     >
       {stars.map((star) => {
@@ -33,8 +35,12 @@ export const RatingInput = ({
           <Star
             key={star}
             className={`rating__star ${isActive ? `rating__star--active` : ``}`}
-            onMouseEnter={() => setHover(star)}
-            onClick={() => onChange(star)}
+            onMouseEnter={() => {
+              if (!disabled) setHover(star)
+            }}
+            onClick={() => {
+              if (!disabled) onChange(star)
+            }}
           />
         )
       })}
