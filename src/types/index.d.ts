@@ -65,3 +65,17 @@ type KnowledgeArea = {
   id: number,
   name: string,
 }
+
+type FeedbackResponse = {
+  bookFeedbackList: Feedback[],
+}
+
+type Feedback = {
+  id: number,
+  employeeFullName: string,
+  leftFeedbackAtUtc: string,
+  progressOfReading: ProgressOfReading,
+  rating: number,
+  advantages?: string,
+  disadvantages?: string,
+}

@@ -1,10 +1,12 @@
 import { Language } from '../../../common/enums/language'
+import { ProgressOfReading } from '../../../common/enums/progressOfReading'
 import { BookState } from './BookState'
 
 describe(`BookState`, () => {
   describe(`Initialization`, initializationTests)
   describe(`Book Data`, bookDataTests)
   describe(`Is Tried To Submit`, isTriedToSubmitTest)
+  describe(`Feedback`, feedbackTests)
 })
 
 function initializationTests() {
@@ -63,7 +65,7 @@ function bookDataTests() {
   beforeEach(() => {
     bookState = new BookState()
 
-    bookState.initialize({
+    bookState.initializeBook({
       loadedBook: bookForInitialization,
     })
   })
@@ -83,6 +85,72 @@ function bookDataTests() {
   SHOULD return correct count value
   `, () => {
     expect(bookState.count).to.eq(2)
+  })
+}
+function feedbackTests() {
+  let bookState: BookState
+
+  const feedbackMock: Feedback[] = [
+    {
+      id: 1,
+      employeeFullName: `Иван Иванов`,
+      leftFeedbackAtUtc: `2026-03-31T06:40:55.347457Z`,
+      progressOfReading: ProgressOfReading.ReadEntirely,
+      rating: 5,
+      advantages: `Очень полезная книга`,
+      disadvantages: ``,
+    },
+    {
+      id: 2,
+      employeeFullName: `Петр Петров`,
+      leftFeedbackAtUtc: `2026-03-31T06:40:55.347457Z`,
+      progressOfReading: ProgressOfReading.ReadPartially,
+      rating: 4,
+      advantages: `Хорошие примеры`,
+      disadvantages: `Много теории`,
+    },
+  ]
+
+  beforeEach(() => {
+    bookState = new BookState()
+  })
+
+  it(`
+  GIVEN initial BookState
+  WHEN not initialized feedback
+  SHOULD have empty feedback array
+  `, () => {
+    expect(bookState.feedback).to.deep.eq([])
+  })
+
+  it(`
+  GIVEN BookState
+  WHEN initializeFeedback is called
+  SHOULD set feedback correctly
+  `, () => {
+    bookState.initializeFeedback({
+      loadedFeedback: feedbackMock,
+    })
+
+    expect(bookState.feedback).to.deep.eq(feedbackMock)
+  })
+
+  it(`
+  GIVEN BookState with initialized feedback
+  WHEN accessing feedback getter
+  SHOULD return actual feedback data
+  `, () => {
+    bookState.initializeFeedback({
+      loadedFeedback: feedbackMock,
+    })
+
+    const result = bookState.feedback
+
+    expect(result).to.have.length(2)
+    expect(result[0].employeeFullName).to.eq(`Иван Иванов`)
+    expect(result[0].advantages).to.eq(`Очень полезная книга`)
+    expect(result[1].progressOfReading).to.eq(ProgressOfReading.ReadPartially)
+    expect(result[1].rating).to.eq(4)
   })
 }
 

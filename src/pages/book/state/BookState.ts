@@ -23,17 +23,26 @@ export class BookState {
   }
 
   private _isTriedToSubmit = false
+  private _feedback: Feedback[] = []
 
   constructor() {
     makeAutoObservable(this)
   }
 
-  initialize({
+  initializeBook({
     loadedBook,
   }: {
     loadedBook: BookType,
-  }) {
+}) {
     this._book = loadedBook
+  }
+
+  initializeFeedback({
+    loadedFeedback,
+  }: {
+    loadedFeedback: Feedback[],
+}) {
+    this._feedback = loadedFeedback
   }
 
   get book() {
@@ -44,6 +53,10 @@ export class BookState {
     return this._book
       .bookCopiesIds
       .length
+  }
+
+  get feedback() {
+    return this._feedback
   }
 
   get isTriedToSubmit() {
