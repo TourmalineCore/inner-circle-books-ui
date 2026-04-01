@@ -91,6 +91,8 @@
   }
 
   &__feedback-label {
+    @include f.text;
+
     margin-bottom: 8px;
   }
 
