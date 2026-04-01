@@ -5,6 +5,7 @@ import { BookState } from "./state/BookState"
 import { BookStateContext } from "./state/BookStateStateContext"
 import { Language } from "../../common/enums/language"
 import { authService } from "../../common/authService"
+import { ProgressOfReading } from "../../common/enums/progressOfReading"
 
 describe(`Book Page Snapshot test`, () => {
   it(`Take the snapshot of a result`, () => {
@@ -41,7 +42,7 @@ describe(`Book Page Snapshot test`, () => {
 function mountComponent() {
   const bookState = new BookState()
   
-  bookState.initialize({
+  bookState.initializeBook({
     loadedBook: {
       id: 1,
       title: `ChatGPT мастер подсказок или как создавать сильные промты для нейросети`,
@@ -63,6 +64,29 @@ function mountComponent() {
       employeesWhoReadNow: [],
       knowledgeAreasIds: [],
     },
+  })
+  
+  bookState.initializeFeedback({
+    loadedFeedback: [
+      {
+        id: 1,
+        employeeFullName: `Иванов Иван Иванович`,
+        leftFeedbackAtUtc: `2024-12-09T00:00:00Z`,
+        rating: 5,
+        progressOfReading: ProgressOfReading.ReadEntirely,
+        advantages: `Лучшая и самая понятная на сегодняшний день книга по промптингу.`,
+        disadvantages: `Для дизайнеров эта книга не подходит. Все для копирайтинга, SMM, менеджмента.`,
+      },
+      {
+        id: 2,
+        employeeFullName: `Петров Петр Петрович`,
+        leftFeedbackAtUtc: `2024-11-12T00:00:00Z`,
+        rating: 4,
+        progressOfReading: ProgressOfReading.ReadPartially,
+        advantages: `-`,
+        disadvantages: `-`,
+      },
+    ],
   })
 
   const mockAuthContext = [
