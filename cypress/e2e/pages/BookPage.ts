@@ -61,6 +61,44 @@ export class BookPage {
     cy
       .get(`.book-action-button > .button`)
       .should(`have.text`, `Take Book`)
+
+    cy
+      .get(`.book-feedback-list`)
+      .should(`not.exist`)
+  }
+
+  static checkEmptyFeedbackList() {
+    cy
+      .getByData(`book-feedback-text`)
+      .should(`have.text`, `Let your colleagues know your opinion about this book after reading`)
+  }
+
+  static checkFeedbackList() {
+    cy
+      .getByData(`feedback-card-name`)
+      .should(`have.text`, `Ceo Ceo Ceo`) 
+    
+    cy
+      .getByData(`feedback-card-status`)
+      .should(`have.text`, `Read in Part`) 
+
+    cy
+      .getByData(`feedback-card-rating`)
+      .find(`.feedback-card__star`)
+      .should(`have.length`, 5)
+
+    cy
+      .getByData(`feedback-card-rating`)
+      .find(`.feedback-card__star--active`)
+      .should(`have.length`, 4)
+            
+    cy
+      .getByData(`feedback-card-advantages-text`)
+      .should(`have.text`, `Хорошая книга`)       
+      
+    cy
+      .getByData(`feedback-card-disadvantages-text`)
+      .should(`have.text`, `Мало примеров`) 
   }
 
   static clickBookTrackingButton() {
