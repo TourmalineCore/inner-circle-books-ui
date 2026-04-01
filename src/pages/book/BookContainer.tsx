@@ -29,7 +29,7 @@ export const BookContainer = observer(({
   const secretKey = searchParams.get(`s`)
 
   useEffect(() => {
-    loadBookAsync()
+    loadDataAsync()
   }, [
     id,
     copyId,
@@ -44,6 +44,11 @@ export const BookContainer = observer(({
     />
   )
 
+  async function loadDataAsync() {
+    const book = await loadBookAsync()
+    await loadFeedbackAsync(book.id)
+  }
+  
   async function loadBookAsync() {
     const url = isBookCopy
       ? `/copy/${copyId}?secretKey=${secretKey}`
@@ -53,8 +58,22 @@ export const BookContainer = observer(({
       data,
     } = await api.get<BookType>(url)
 
-    bookState.initialize({
+    bookState.initializeBook({
       loadedBook: data,
+    })
+    return data
+  }
+
+  async function loadFeedbackAsync(bookId: number) {
+    const url = `/feedback/${bookId}`
+    const {
+      data: {
+        bookFeedbackList,
+      },
+    } = await api.get<FeedbackResponse>(url)
+
+    bookState.initializeFeedback({
+      loadedFeedback: bookFeedbackList,
     })
   }
 

@@ -19,6 +19,7 @@ import { BookReaders } from './components/book-readers/BookReaders'
 import { BookActionButton } from './components/book-action-button/BookActionButton'
 import { hasAccessPermission } from '../../common/tokenUtils'
 import { LINK_TO_BOOKS_SERVICE } from '../../common/constant'
+import { FeedbackCard } from './components/feedbackCard/FeedbackCard'
 
 export const BookContent = observer(({
   bookId,
@@ -47,6 +48,7 @@ export const BookContent = observer(({
       bookCopiesIds,
       employeesWhoReadNow,
     },
+    feedback,
   } = bookState
 
   const isValidUrl = useImageValid(coverUrl)
@@ -207,6 +209,42 @@ export const BookContent = observer(({
           <div className='book__annotation'>
             {annotation}
           </div>
+          
+          <h5 className="book__section-name">
+            Feedback 
+            <span className="book__count">
+              {feedback.length}
+            </span>
+          </h5>
+
+          {feedback.length > 0 ? (
+            <div 
+              className="book__feedback-list"
+              data-cy='book-feedback-list'>
+              {feedback.map((feedback) => (
+                <FeedbackCard
+                  key={feedback.id}
+                  id={feedback.id}
+                  employeeFullName={feedback.employeeFullName}
+                  leftFeedbackAtUtc={new Date(feedback.leftFeedbackAtUtc)
+                    .toISOString()
+                    .slice(0, 10)}
+                  rating={feedback.rating}
+                  progressOfReading={feedback.progressOfReading}
+                  advantages={feedback.advantages}
+                  disadvantages={feedback.disadvantages}
+                />
+              ))}
+            </div>
+          ): (
+            <div 
+              className='book__feedback-text'
+              data-cy='book-feedback-text'
+            > 
+                Let your colleagues know your opinion about this book after reading 
+            </div>
+          )
+          }
         </div>
       </div>
     </>
