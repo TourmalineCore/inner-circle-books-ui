@@ -34,8 +34,8 @@ export const FeedbackCard = ({
           />
           <div>
             <div 
-              className="feedback-card__name"
-              data-cy="feedback-card-name"
+              className="feedback-card__fullname"
+              data-cy="feedback-card-fullname"
             >
               {employeeFullName}
             </div>
