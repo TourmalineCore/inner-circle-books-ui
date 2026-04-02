@@ -188,7 +188,7 @@ export const BookContent = observer(({
             <BookReaders employeesWhoReadNow={employeesWhoReadNow} />
           </div>
 
-          <div className='book__wrap'>
+          <div className='book__wrapper'>
             <BookInfo 
               authors={authors}
               language={language}

@@ -25,7 +25,7 @@ export const FeedbackCard = ({
       className="feedback-card"
       data-cy="feedback-card"
     >
-      <div className="feedback-card__wrap">
+      <div className="feedback-card__wrapper">
         <div className="feedback-card__header">
           <img
             src={AvatarImg}
