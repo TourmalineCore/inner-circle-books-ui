@@ -44,6 +44,7 @@ export const ReturnBookContent = observer(({
     book,
     isSaving,
     errors,
+    isFeedbackDisabled,
   } = returnBookState
 
   const {
@@ -83,8 +84,6 @@ export const ReturnBookContent = observer(({
       goToBookCopyPage() 
     }
   }
-
-  const isFeedbackDisabled = book.progressOfReading === ProgressOfReading.NotReadAtAll
 
   return (
     <>

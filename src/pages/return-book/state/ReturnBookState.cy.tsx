@@ -1,3 +1,4 @@
+import { ProgressOfReading } from '../../../common/enums/progressOfReading'
 import { ReturnBookState } from './ReturnBookState'
 
 describe(`ReturnBookState`, () => {
@@ -135,5 +136,41 @@ function isErrorTest() {
     })
 
     expect(returnBookState.isValid).to.be.true
+  })
+
+  it(`
+  GIVEN progressOfReading = NotReadAtAll
+  AND rating is not set
+  WHEN form is submitted
+  SHOULD NOT show rating error
+  `, () => {
+    returnBookState.setProgressOfReading({
+      progressOfReading: ProgressOfReading.NotReadAtAll,
+    })
+
+    expect(returnBookState.isFeedbackDisabled).to.be.true
+    expect(returnBookState.isRatingValid).to.be.true
+
+    returnBookState.setIsTriedToSubmit()
+
+    expect(returnBookState.errors.isRatingError).to.be.false
+  })
+
+  it(`
+  GIVEN progressOfReading is NOT NotReadAtAll
+  AND rating is not set
+  WHEN form is submitted
+  SHOULD show rating error
+  `, () => {
+    returnBookState.setProgressOfReading({
+      progressOfReading: ProgressOfReading.ReadPartially,
+    })
+
+    expect(returnBookState.isFeedbackDisabled).to.be.false
+    expect(returnBookState.isRatingValid).to.be.false
+
+    returnBookState.setIsTriedToSubmit()
+
+    expect(returnBookState.errors.isRatingError).to.be.true
   })
 }
