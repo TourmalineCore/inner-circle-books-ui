@@ -7,14 +7,14 @@ import Star from '../../../../assets/icons/Star.svg?react'
 import { ProgressOfReading } from '../../../../common/enums/progressOfReading'
 import AvatarImg from '../../../../assets/img/avatar.png'
 
-export const FeedbackCard = ({
+export function FeedbackCard({
   employeeFullName,
   leftFeedbackAtUtc,
   rating,
   progressOfReading,
   advantages,
   disadvantages,
-}: Feedback) => {
+}: Feedback) {
   const isFinished = progressOfReading === ProgressOfReading.ReadEntirely
   const isReadPartially = progressOfReading === ProgressOfReading.ReadPartially
 
