@@ -29,7 +29,7 @@ export const RatingInput = ({
     <div
       className={clsx(`rating`, { 
         'error': error,
-        'disabled': disabled,
+        'rating--disabled': disabled,
       })}
       onMouseLeave={() => setHover(0)}
     >
