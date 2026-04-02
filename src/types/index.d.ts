@@ -67,7 +67,7 @@ type KnowledgeArea = {
 }
 
 type FeedbackResponse = {
-  bookFeedbackList: Feedback[],
+  bookFeedback: Feedback[],
 }
 
 type Feedback = {

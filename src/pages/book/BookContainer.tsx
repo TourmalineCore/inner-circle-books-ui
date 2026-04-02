@@ -68,12 +68,12 @@ export const BookContainer = observer(({
     const url = `/feedback/${bookId}`
     const {
       data: {
-        bookFeedbackList,
+        bookFeedback,
       },
     } = await api.get<FeedbackResponse>(url)
 
     bookState.initializeFeedback({
-      loadedFeedback: bookFeedbackList,
+      loadedFeedback: bookFeedback,
     })
   }
 

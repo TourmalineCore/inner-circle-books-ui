@@ -43,7 +43,7 @@ const BOOK_RESPONSE: BookType = {
 }
 
 const FEEDBACK_RESPONSE: FeedbackResponse = {
-  bookFeedbackList: [
+  bookFeedback: [
     {
       id: 1,
       employeeFullName: `Иван Иванов`,
