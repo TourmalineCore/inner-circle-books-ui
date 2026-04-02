@@ -1,6 +1,5 @@
 import isEqual from 'lodash.isequal'
 import { makeAutoObservable } from 'mobx'
-import { ProgressOfReading } from '../../../common/enums/progressOfReading'
 
 const EMPTY_BOOK: ReturnBook = {
   title: ``,
@@ -69,10 +68,6 @@ export class ReturnBookState {
       isProgressOfReadingError: !this.isProgressOfReadingValid && this._isTriedToSubmit,
       isRatingError: !this.isRatingValid && this._isTriedToSubmit,
     }
-  }
-  
-  get isNotReadAtAll() {
-    return this.book.progressOfReading === ProgressOfReading.NotReadAtAll
   }
 
   setProgressOfReading({

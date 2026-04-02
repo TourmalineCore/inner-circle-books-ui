@@ -43,7 +43,6 @@ export const ReturnBookContent = observer(({
   const {
     book,
     isSaving,
-    isNotReadAtAll,
     errors,
   } = returnBookState
 
@@ -84,6 +83,8 @@ export const ReturnBookContent = observer(({
       goToBookCopyPage() 
     }
   }
+
+  const isFeedbackDisabled = book.progressOfReading === ProgressOfReading.NotReadAtAll
 
   return (
     <>
@@ -150,7 +151,7 @@ export const ReturnBookContent = observer(({
         <div className="return-book__rating"
         >
           <label className={clsx(`return-book__label`, {
-            'disabled': isNotReadAtAll,
+            'disabled': isFeedbackDisabled,
           })}>
             Rate the book*
           </label>
@@ -162,17 +163,17 @@ export const ReturnBookContent = observer(({
               })
             }
             error={isRatingError}
-            disabled={isNotReadAtAll}
+            disabled={isFeedbackDisabled}
           />
         </div>
         <div className="return-book__feedback">
           <div className={clsx(`return-book__label`, {
-            'disabled': isNotReadAtAll,
+            'disabled': isFeedbackDisabled,
           })}>
             What Do You Think about this Book?
           </div>
           <div className={clsx(`return-book__feedback-label `, {
-            'disabled': isNotReadAtAll,
+            'disabled': isFeedbackDisabled,
           })}>
             Leave your feedback to let your colleagues know your opinion
           </div>
@@ -185,7 +186,7 @@ export const ReturnBookContent = observer(({
               onChange={(e) => returnBookState.setAdvantages({
                 advantages: e.target.value,
               })}
-              disabled={isNotReadAtAll}
+              disabled={isFeedbackDisabled}
             />
             <textarea
               className='return-book__feedback-field'
@@ -195,7 +196,7 @@ export const ReturnBookContent = observer(({
               onChange={(e) => returnBookState.setDisadvantages({
                 disadvantages: e.target.value,
               })}
-              disabled={isNotReadAtAll}
+              disabled={isFeedbackDisabled}
             />
           </div>
         </div>
