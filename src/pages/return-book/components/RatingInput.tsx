@@ -1,5 +1,6 @@
 import './RatingInput.scss'
 
+import clsx from 'clsx'
 import { useState } from 'react'
 
 import Star from '../../../assets/icons/Star.svg?react'
@@ -13,7 +14,7 @@ export const RatingInput = ({
   value: number,
   onChange: (value: number) => void,
   error?: boolean,
-   disabled?: boolean,
+  disabled?: boolean,
 }) => {
   const [
     hover,
@@ -26,7 +27,10 @@ export const RatingInput = ({
 
   return (
     <div
-      className={`rating ${error ? `error` : ``} ${disabled ? `rating--disabled` : ``}`}
+      className={clsx(`rating`, { 
+        'error': error,
+        'disabled': disabled,
+      })}
       onMouseLeave={() => setHover(0)}
     >
       {numberOfStars.map((star) => {
@@ -35,7 +39,9 @@ export const RatingInput = ({
         return (
           <Star
             key={star}
-            className={`rating__star ${isActive ? `rating__star--active` : ``}`}
+            className={clsx(`rating__star `, { 
+              'rating__star--active': isActive,
+            })}
             onMouseEnter={() => {
               if (!disabled) setHover(star)
             }}
