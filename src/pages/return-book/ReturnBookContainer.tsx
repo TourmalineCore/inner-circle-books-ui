@@ -8,6 +8,21 @@ import { bookCopyRoutes } from "../routes"
 
 export const ReturnBookContainer = observer(() => {
   const returnBookState = useContext(ReturnBookStateContext)
+
+  const {
+    book,
+    isValid,
+  } = returnBookState
+
+  const {
+    title,
+    coverUrl,
+    progressOfReading,
+    rating,
+    advantages,
+    disadvantages,
+  } = book 
+
   const location = useLocation()
   const pathnameParts = location
     .pathname
@@ -33,8 +48,8 @@ export const ReturnBookContainer = observer(() => {
   return (
     <div className="container">
       <ReturnBookContent 
-        title={returnBookState.book.title}
-        coverUrl={returnBookState.book.coverUrl}
+        title={title}
+        coverUrl={coverUrl}
         onSubmit={returnBookAsync} 
         goToBookCopyPage={goToBookCopyPage}
       />
@@ -55,7 +70,7 @@ export const ReturnBookContainer = observer(() => {
     returnBookState.setIsSaving()
     returnBookState.setIsTriedToSubmit()
 
-    if (!returnBookState.isValid) {
+    if (!isValid) {
       returnBookState.resetIsSaving()
       return
     }
@@ -65,10 +80,10 @@ export const ReturnBookContainer = observer(() => {
         `/return`,
         {
           bookCopyId: Number(copyId),
-          progressOfReading: returnBookState.book.progressOfReading,
-          rating: returnBookState.book.rating,
-          advantages: returnBookState.book.advantages,
-          disadvantages: returnBookState.book.disadvantages,
+          progressOfReading: progressOfReading,
+          rating: rating,
+          advantages: advantages,
+          disadvantages: disadvantages,
         },
       )
 
