@@ -1,5 +1,3 @@
-/* eslint-disable array-bracket-newline */
-/* eslint-disable array-element-newline */
 import './FeedbackCard.scss'
 
 import clsx from 'clsx'
@@ -19,6 +17,10 @@ export function FeedbackCard({
   const isReadPartially = progressOfReading === ProgressOfReading.ReadPartially
 
   const progressLabel = isFinished ? `Finished` : `Read in Part`
+
+  const numberOfStars = Array.from({
+    length: 5, 
+  }, (_, i) => i + 1)
 
   return (
     <div 
@@ -62,7 +64,7 @@ export function FeedbackCard({
             className="feedback-card__rating"
             data-cy="feedback-card-rating"
           >
-            {[1,2,3,4,5].map((star) => (
+            {numberOfStars.map((star) => (
               <Star
                 key={star}
                 className={clsx(

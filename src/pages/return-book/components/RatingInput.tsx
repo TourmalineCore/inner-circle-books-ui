@@ -20,15 +20,16 @@ export const RatingInput = ({
     setHover,
   ] = useState<number>(0)
 
-  // eslint-disable-next-line array-bracket-newline, array-element-newline
-  const stars = [1, 2, 3, 4, 5]
+  const numberOfStars = Array.from({
+    length: 5, 
+  }, (_, i) => i + 1)
 
   return (
     <div
       className={`rating ${error ? `error` : ``} ${disabled ? `rating--disabled` : ``}`}
       onMouseLeave={() => setHover(0)}
     >
-      {stars.map((star) => {
+      {numberOfStars.map((star) => {
         const isActive = (hover || value) >= star
 
         return (
