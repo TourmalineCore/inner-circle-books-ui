@@ -2,16 +2,6 @@ import isEqual from 'lodash.isequal'
 import { makeAutoObservable } from 'mobx'
 import { ProgressOfReading } from '../../../common/enums/progressOfReading'
 
-type ReturnBook = {
-  id?: number,
-  title: string,
-  coverUrl: string,
-  progressOfReading: string,
-  rating: number,
-  advantages: string,
-  disadvantages: string,
-}
-
 const EMPTY_BOOK: ReturnBook = {
   title: ``,
   coverUrl: ``,

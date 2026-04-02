@@ -79,3 +79,13 @@ type Feedback = {
   advantages?: string,
   disadvantages?: string,
 }
+
+type ReturnBook = {
+  id?: number,
+  title: string,
+  coverUrl: string,
+  progressOfReading: string,
+  rating: number,
+  advantages: string,
+  disadvantages: string,
+}
