@@ -5,7 +5,7 @@ import './FeedbackCard.scss'
 import clsx from 'clsx'
 import Star from '../../../../assets/icons/Star.svg?react'
 import { ProgressOfReading } from '../../../../common/enums/progressOfReading'
-import AvatarImg from '../../../../assets/img/avatar.png'
+import Avatar from '../../../../assets/img/avatar.png'
 
 export function FeedbackCard({
   employeeFullName,
@@ -28,7 +28,7 @@ export function FeedbackCard({
       <div className="feedback-card__wrapper">
         <div className="feedback-card__header">
           <img
-            src={AvatarImg}
+            src={Avatar}
             alt="Avatar"
             className="feedback-card__avatar"
           />
