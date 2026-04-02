@@ -24,7 +24,7 @@ describe(`ReturnBookContent`, () => {
 
     cy
       .get(`.rating`)
-      .should(`have.class`, `disabled`)
+      .should(`have.class`, `rating--disabled`)
   })
 
   function mountComponent() {
