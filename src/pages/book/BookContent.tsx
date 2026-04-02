@@ -226,9 +226,7 @@ export const BookContent = observer(({
                   key={feedback.id}
                   id={feedback.id}
                   employeeFullName={feedback.employeeFullName}
-                  leftFeedbackAtUtc={new Date(feedback.leftFeedbackAtUtc)
-                    .toISOString()
-                    .slice(0, 10)}
+                  leftFeedbackAtUtc={feedback.leftFeedbackAtUtc}
                   rating={feedback.rating}
                   progressOfReading={feedback.progressOfReading}
                   advantages={feedback.advantages}

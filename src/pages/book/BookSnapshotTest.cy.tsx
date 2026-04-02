@@ -71,7 +71,7 @@ function mountComponent() {
       {
         id: 1,
         employeeFullName: `Иванов Иван Иванович`,
-        leftFeedbackAtUtc: `2024-12-09T00:00:00Z`,
+        leftFeedbackAtUtc: new Date(`2024-12-09`),
         rating: 5,
         progressOfReading: ProgressOfReading.ReadEntirely,
         advantages: `Лучшая и самая понятная на сегодняшний день книга по промптингу.`,
@@ -80,7 +80,7 @@ function mountComponent() {
       {
         id: 2,
         employeeFullName: `Петров Петр Петрович`,
-        leftFeedbackAtUtc: `2024-11-12T00:00:00Z`,
+        leftFeedbackAtUtc: new Date(`2024-11-12`),
         rating: 4,
         progressOfReading: ProgressOfReading.ReadPartially,
         advantages: `-`,

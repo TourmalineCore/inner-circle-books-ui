@@ -47,7 +47,7 @@ const FEEDBACK_RESPONSE: FeedbackResponse = {
     {
       id: 1,
       employeeFullName: `Иван Иванов`,
-      leftFeedbackAtUtc: `2026-03-31T06:40:55.347457Z`,
+      leftFeedbackAtUtc: new Date(`2026-03-31`),
       progressOfReading: ProgressOfReading.ReadEntirely,
       rating: 5,
       advantages: `Очень полезная книга`,
@@ -56,7 +56,7 @@ const FEEDBACK_RESPONSE: FeedbackResponse = {
     {
       id: 2,
       employeeFullName: `Петр Петров`,
-      leftFeedbackAtUtc: `2026-03-31T06:40:55.347457Z`,
+      leftFeedbackAtUtc: new Date(`2026-03-31`),
       progressOfReading: ProgressOfReading.ReadPartially,
       rating: 4,
       advantages: `Хорошие примеры`,
@@ -103,6 +103,11 @@ function initializationTests() {
     cy.contains(`Иванов Иван`)
     cy.contains(`Петров Петр`)
     cy.contains(`Feedback`)
+
+    cy.getByData(`feedback-card-date`)
+      .first()
+      .contains(`2026-03-31`)
+      
     cy
       .getByData(`feedback-card`)
       .should(`have.length`, 2)

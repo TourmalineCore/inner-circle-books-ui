@@ -1,5 +1,6 @@
 import './FeedbackCard.scss'
 
+import moment from "moment"
 import clsx from 'clsx'
 import Star from '../../../../assets/icons/Star.svg?react'
 import { ProgressOfReading } from '../../../../common/enums/progressOfReading'
@@ -42,8 +43,12 @@ export function FeedbackCard({
               {employeeFullName}
             </div>
 
-            <div className="feedback-card__date">
-              {leftFeedbackAtUtc}
+            <div 
+              className="feedback-card__date"
+              data-cy="feedback-card-date"
+            >
+              {moment(leftFeedbackAtUtc)
+                .format(`YYYY-MM-DD`)}
             </div>
           </div>
         </div>

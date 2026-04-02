@@ -73,7 +73,7 @@ type FeedbackResponse = {
 type Feedback = {
   id: number,
   employeeFullName: string,
-  leftFeedbackAtUtc: string,
+  leftFeedbackAtUtc: Date,
   progressOfReading: ProgressOfReading,
   rating: number,
   advantages?: string,
