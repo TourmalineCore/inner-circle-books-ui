@@ -216,35 +216,41 @@ export const BookContent = observer(({
               {feedback.length}
             </span>
           </h5>
-
-          {feedback.length > 0 ? (
-            <div 
-              className="book__feedback-list"
-              data-cy='book-feedback-list'>
-              {feedback.map((feedback) => (
-                <FeedbackCard
-                  key={feedback.id}
-                  id={feedback.id}
-                  employeeFullName={feedback.employeeFullName}
-                  leftFeedbackAtUtc={feedback.leftFeedbackAtUtc}
-                  rating={feedback.rating}
-                  progressOfReading={feedback.progressOfReading}
-                  advantages={feedback.advantages}
-                  disadvantages={feedback.disadvantages}
-                />
-              ))}
-            </div>
-          ): (
-            <div 
-              className='book__feedback-text'
-              data-cy='book-feedback-text'
-            > 
-                Let your colleagues know your opinion about this book after reading 
-            </div>
-          )
-          }
+          {renderFeedbackList()}
         </div>
       </div>
     </>
   )
+
+  function renderFeedbackList() {
+    if (feedback.length > 0) {
+      return (
+        <div 
+          className="book__feedback-list"
+          data-cy='book-feedback-list'>
+          {feedback.map((feedback) => (
+            <FeedbackCard
+              key={feedback.id}
+              id={feedback.id}
+              employeeFullName={feedback.employeeFullName}
+              leftFeedbackAtUtc={feedback.leftFeedbackAtUtc}
+              rating={feedback.rating}
+              progressOfReading={feedback.progressOfReading}
+              advantages={feedback.advantages}
+              disadvantages={feedback.disadvantages}
+            />
+          ))}
+        </div>
+      )
+    }
+    
+    return (
+      <div 
+        className='book__feedback-text'
+        data-cy='book-feedback-text'
+      > 
+        Let your colleagues know your opinion about this book after reading 
+      </div>
+    )
+  }
 })
