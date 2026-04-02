@@ -72,7 +72,7 @@ export class BookPage {
   static checkFeedbackList() {
     cy
       .getByData(`feedback-card-fullname`)
-      .should('exist') 
+      .should(`exist`)  
     
     cy
       .getByData(`feedback-card-status`)

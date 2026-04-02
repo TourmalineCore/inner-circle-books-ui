@@ -2,7 +2,7 @@ import { makeAutoObservable } from 'mobx'
 import { Language } from '../../../common/enums/language'
 
 const EMPTY_BOOK: BookType = {
-  id: 1,
+  id: undefined as any,
   title: ``,
   annotation: ``,
   language: Language.RU,
