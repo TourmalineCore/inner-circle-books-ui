@@ -53,11 +53,11 @@
     height: 10px;
 
     &--finished {
-      background: v.$color-icon-success;
+      background: v.$color-green;
     }
 
     &--partial {
-      background: v.$color-background-component-alternative;
+      background: v.$color-yellow;
     }
   }
 
@@ -75,7 +75,7 @@
     height: 16px;
 
     &--active path {
-      fill: v.$color-background-component-alternative;
+      fill: v.$color-yellow;
     }
   }
 
