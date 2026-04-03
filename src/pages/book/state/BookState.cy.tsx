@@ -15,7 +15,7 @@ function initializationTests() {
   WHEN initialize
   SHOULD have default book values
   `, () => {
-    expect(bookState.book.id).to.eq(1)
+    expect(bookState.book.id).to.eq(undefined)
     expect(bookState.book.title).to.eq(``)
     expect(bookState.book.annotation).to.eq(``)
     expect(bookState.book.language).to.eq(Language.RU)
@@ -27,6 +27,7 @@ function initializationTests() {
     expect(bookState.book.coverUrl).to.eq(``)
     expect(bookState.book.bookCopiesIds).to.deep.eq([])
     expect(bookState.book.knowledgeAreasIds).to.deep.eq([])
+    expect(bookState.feedback).to.deep.eq([])
   })
 }
 
@@ -63,7 +64,7 @@ function bookDataTests() {
   beforeEach(() => {
     bookState = new BookState()
 
-    bookState.initialize({
+    bookState.initializeBook({
       loadedBook: bookForInitialization,
     })
   })

@@ -42,7 +42,7 @@ export const BookCard = observer(({
           {title}
         </div>
 
-        <div className="book-card__wrap">
+        <div className="book-card__wrapper">
           <div className="book-card__author">
             {firstAuthor} {suffix}
           </div>

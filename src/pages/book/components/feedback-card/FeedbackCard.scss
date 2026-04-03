@@ -1,0 +1,96 @@
+@use "../../../../styles/variables" as v;
+@use "../../../../styles/fonts-mixin" as f;
+@use "../../../../styles/media" as m;
+
+.feedback-card {
+  &__header {
+    display: flex;
+  }
+
+  &__avatar {
+    margin-right: 8px;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    object-fit: cover;
+  }
+
+  &__full-name {
+    @include f.h6;
+
+    margin-bottom: 4px;
+  }
+
+  &__date {
+    @include f.caption;
+
+    color: v.$color-text-secondary;
+  }
+
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    gap: 16px;
+
+    @include m.tablet {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
+
+  &__metadata {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  &__dot {
+    display: inline-block;
+    margin-right: 5px;
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+
+    &--finished {
+      background: v.$color-green;
+    }
+
+    &--partial {
+      background: v.$color-yellow;
+    }
+  }
+
+  &__status {
+    @include f.text;
+  }
+
+  &__rating {
+    display: flex;
+    gap: 4px;
+  }
+
+  &__star {
+    width: 16px;
+    height: 16px;
+
+    &--active path {
+      fill: v.$color-yellow;
+    }
+  }
+
+  &__section:not(:last-child) {
+    margin-bottom: 16px;
+  }
+
+  &__title {
+    @include f.h6;
+
+    margin-bottom: 8px;
+    color: v.$color-text-secondary;
+  }
+
+  &__text {
+    @include f.text;
+  }
+}

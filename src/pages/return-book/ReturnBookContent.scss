@@ -35,6 +35,12 @@
 
   &__label {
     @include f.h6;
+
+    margin-bottom: 8px;
+  }
+
+  &__progress {
+    margin-bottom: 24px;
   }
 
   &__progress-options {
@@ -77,6 +83,38 @@
     @include m.tablet {
       margin: 0 auto;
       max-width: 328px;
+    }
+  }
+
+  &__rating {
+    margin-bottom: 24px;
+  }
+
+  &__feedback-label {
+    @include f.text;
+
+    margin-bottom: 8px;
+  }
+
+  &__feedback-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  &__feedback-field {
+    min-height: 144px;
+    max-height: 144px;
+    resize: none;
+    field-sizing: content;
+
+    &:disabled {
+      color: v.$color-text-secondary;
+      background-color: v.$color-background-primary;
+    }
+
+    &:disabled:hover {
+      border-color: v.$color-component-border;
     }
   }
 

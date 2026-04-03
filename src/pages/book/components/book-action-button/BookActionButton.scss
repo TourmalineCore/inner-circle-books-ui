@@ -35,11 +35,15 @@
 
   &__scan-button {
     margin-top: 4px;
-    padding: 8px;
-    width: 129px;
+    padding: 12px;
+    height: 44px;
 
     svg path {
       stroke: v.$color-background-primary;
+    }
+
+    @include m.tablet {
+      width: 129px;
     }
   }
 }

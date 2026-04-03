@@ -1,8 +1,7 @@
 import { makeAutoObservable } from 'mobx'
 import { Language } from '../../../common/enums/language'
 
-const EMPTY_BOOK: BookType = {
-  id: 1,
+const EMPTY_BOOK: NewBook = {
   title: ``,
   annotation: ``,
   language: Language.RU,
@@ -18,22 +17,31 @@ const EMPTY_BOOK: BookType = {
 }
 
 export class BookState {
-  private _book: BookType = {
+  private _book: NewBook = {
     ...EMPTY_BOOK, 
   }
 
   private _isTriedToSubmit = false
+  private _feedback: Feedback[] = []
 
   constructor() {
     makeAutoObservable(this)
   }
 
-  initialize({
+  initializeBook({
     loadedBook,
   }: {
     loadedBook: BookType,
-  }) {
+}) {
     this._book = loadedBook
+  }
+
+  initializeFeedback({
+    loadedFeedback,
+  }: {
+    loadedFeedback: Feedback[],
+}) {
+    this._feedback = loadedFeedback
   }
 
   get book() {
@@ -44,6 +52,10 @@ export class BookState {
     return this._book
       .bookCopiesIds
       .length
+  }
+
+  get feedback() {
+    return this._feedback
   }
 
   get isTriedToSubmit() {

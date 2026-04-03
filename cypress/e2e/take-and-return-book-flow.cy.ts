@@ -82,6 +82,7 @@ describe(`Take and Return Book Flow`, () => {
                 })
 
                 BookPage.checkBookPageAfterTakeBook()
+                BookPage.checkEmptyFeedbackList()
             
                 BookPage.clickReturnBookButton()
 
@@ -104,6 +105,7 @@ describe(`Take and Return Book Flow`, () => {
                 cy.wait(`@getBookCopyDataRequest`)
 
                 BookPage.checkDefaultBookPage()
+                BookPage.checkFeedbackList()
               })
           })
       })

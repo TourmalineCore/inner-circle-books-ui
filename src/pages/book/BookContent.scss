@@ -40,6 +40,12 @@
     margin: 32px 0 16px;
   }
 
+  &__count {
+    margin-left: 8px;
+    font-weight: 400;
+    font-size: 20px;
+  }
+
   &__annotation {
     @include f.text;
   }
@@ -57,9 +63,28 @@
     }
   }
 
-  &__wrap {
+  &__wrapper {
     display: flex;
     flex-direction: column;
+  }
+
+  // line after feedback card
+  &__feedback-list > *:not(:last-child)::after {
+    content: "";
+    display: block;
+    margin: 32px 0;
+    height: 1px;
+    background:
+      linear-gradient(
+          to right,
+          transparent,
+          v.$color-component-border,
+          transparent
+        );
+  }
+
+  &__feedback-text {
+    @include f.text;
   }
 
   &__cover,

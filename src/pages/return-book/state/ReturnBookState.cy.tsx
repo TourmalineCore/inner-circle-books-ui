@@ -1,50 +1,75 @@
+import { ProgressOfReading } from '../../../common/enums/progressOfReading'
 import { ReturnBookState } from './ReturnBookState'
 
 describe(`ReturnBookState`, () => {
   describe(`Initialization`, initializationTests)
   describe(`Return Book Data`, returnBookDataTests)
   describe(`Is Tried To Submit`, isTriedToSubmitTest)
+  describe(`Validation & Errors`, isErrorTest)
 })
 
 function initializationTests() {
-  const returnbookState = new ReturnBookState()
+  const returnBookState = new ReturnBookState()
   
   it(`
   GIVEN a ReturnBookState
   WHEN initialize
-  SHOULD have default returnbook values
+  SHOULD have default returnBook values
   `, () => {
-    expect(returnbookState.book.id).to.eq(1)
-    expect(returnbookState.book.title).to.eq(``)
-    expect(returnbookState.book.coverUrl).to.eq(``)
+    expect(returnBookState.book)
+      .to
+      .deep
+      .eq({
+        title: ``,
+        coverUrl: ``,
+        progressOfReading: ``,
+        rating: 0,
+        advantages: ``,
+        disadvantages: ``,
+      })
   })
 }
 
 function returnBookDataTests() {
-  const returnbookState = new ReturnBookState()
+  const returnBookState = new ReturnBookState()
 
-  returnbookState.initialize({
+  returnBookState.initialize({
     loadedBook: {
       id: 1,
       title: `Разработка ценностных предложений`,
-      coverUrl: `https://returnbook.jpg`,
-        
+      coverUrl: `https://returnbook.jpg`, 
     },
   })
 
   it(`
   GIVEN the ReturnBookState
-  WHEN set returnbook data
-  SHOULD display new values in the returnbook object
+  WHEN set returnBook data
+  SHOULD display new values in the returnBook object
   `, () => {
-    expect(returnbookState.book.id).to.eq(1)
-    expect(returnbookState.book.title).to.eq(`Разработка ценностных предложений`)
-    expect(returnbookState.book.coverUrl).to.eq(`https://returnbook.jpg`)
+    expect(returnBookState.book.id).to.eq(1)
+    expect(returnBookState.book.title).to.eq(`Разработка ценностных предложений`)
+    expect(returnBookState.book.coverUrl).to.eq(`https://returnbook.jpg`)
   })
+
+  it(`
+  GIVEN the ReturnBookState
+  WHEN setRating
+  SHOULD update rating correctly
+  `, () => {
+    expect(returnBookState.isRatingValid).to.be.false
+
+    returnBookState.setRating({
+      rating: 5, 
+    })
+
+    expect(returnBookState.book.rating).to.eq(5)
+    expect(returnBookState.isRatingValid).to.be.true
+  })
+
 }
 
 function isTriedToSubmitTest() {
-  const returnbookState = new ReturnBookState()
+  const returnBookState = new ReturnBookState()
 
   it(`
   GIVEN initial isTriedToSubmit = false
@@ -53,12 +78,99 @@ function isTriedToSubmitTest() {
   WHEN resetIsTriedToSubmit()
   SHOULD change value to false
   `, () => {
-    expect(returnbookState.isTriedToSubmit).to.be.false
+    expect(returnBookState.isTriedToSubmit).to.be.false
 
-    returnbookState.setIsTriedToSubmit()
-    expect(returnbookState.isTriedToSubmit).to.be.true
+    returnBookState.setIsTriedToSubmit()
+    expect(returnBookState.isTriedToSubmit).to.be.true
 
-    returnbookState.resetIsTriedToSubmit()
-    expect(returnbookState.isTriedToSubmit).to.be.false
+    returnBookState.resetIsTriedToSubmit()
+    expect(returnBookState.isTriedToSubmit).to.be.false
+  })
+}
+
+function isErrorTest() {
+  let returnBookState: ReturnBookState
+
+  beforeEach(() => {
+    returnBookState = new ReturnBookState()
+  })
+
+  it(`
+  GIVEN rating is not set
+  WHEN form is submitted
+  SHOULD show rating error
+  `, () => {
+    expect(returnBookState.errors.isRatingError).to.be.false
+
+    returnBookState.setIsTriedToSubmit()
+
+    expect(returnBookState.errors.isRatingError).to.be.true
+  })
+
+  it(`
+  GIVEN rating is set
+  WHEN checking isSomethingFilledWithinTheForm
+  SHOULD return true
+  `, () => {
+    returnBookState.setRating({
+      rating: 3, 
+    })
+
+    expect(returnBookState.isSomethingFilledWithinTheForm()).to.be.true
+  })
+
+  it(`
+  GIVEN only progress is set
+  WHEN checking isValid
+  SHOULD return false
+  AND when rating is also set SHOULD return true
+  `, () => {
+    returnBookState.setProgressOfReading({
+      progressOfReading: `READ`, 
+    })
+
+    expect(returnBookState.isValid).to.be.false
+
+    returnBookState.setRating({
+      rating: 3, 
+    })
+
+    expect(returnBookState.isValid).to.be.true
+  })
+
+  it(`
+  GIVEN progressOfReading = NotReadAtAll
+  AND rating is not set
+  WHEN form is submitted
+  SHOULD NOT show rating error
+  `, () => {
+    returnBookState.setProgressOfReading({
+      progressOfReading: ProgressOfReading.NotReadAtAll,
+    })
+
+    expect(returnBookState.isFeedbackDisabled).to.be.true
+    expect(returnBookState.isRatingValid).to.be.true
+
+    returnBookState.setIsTriedToSubmit()
+
+    expect(returnBookState.errors.isRatingError).to.be.false
+  })
+
+  it(`
+  GIVEN progressOfReading is NOT NotReadAtAll
+  AND rating is not set
+  WHEN form is submitted
+  SHOULD show rating error
+  `, () => {
+    returnBookState.setProgressOfReading({
+      progressOfReading: ProgressOfReading.ReadPartially,
+    })
+
+    expect(returnBookState.isFeedbackDisabled).to.be.false
+    expect(returnBookState.isRatingValid).to.be.false
+
+    returnBookState.setIsTriedToSubmit()
+
+    expect(returnBookState.errors.isRatingError).to.be.true
   })
 }

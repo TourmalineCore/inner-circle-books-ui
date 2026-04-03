@@ -5,6 +5,7 @@ import { BookStateContext } from "./state/BookStateStateContext"
 import { authService } from "../../common/authService"
 import { MOCK_TOKEN } from "../../common/constant"
 import { Language } from "../../common/enums/language"
+import { ProgressOfReading } from "../../common/enums/progressOfReading"
 
 const BOOK_RESPONSE: BookType = {
   id: 1,
@@ -41,6 +42,29 @@ const BOOK_RESPONSE: BookType = {
   ],
 }
 
+const FEEDBACK_RESPONSE: FeedbackResponse = {
+  bookFeedback: [
+    {
+      id: 1,
+      employeeFullName: `Иван Иванов`,
+      leftFeedbackAtUtc: new Date(`2026-03-31`),
+      progressOfReading: ProgressOfReading.ReadEntirely,
+      rating: 5,
+      advantages: `Очень полезная книга`,
+      disadvantages: ``,
+    },
+    {
+      id: 2,
+      employeeFullName: `Петр Петров`,
+      leftFeedbackAtUtc: new Date(`2026-03-31`),
+      progressOfReading: ProgressOfReading.ReadPartially,
+      rating: 4,
+      advantages: `Хорошие примеры`,
+      disadvantages: `Много теории`,
+    },
+  ],
+}
+
 describe(`BookContainer`, () => {
   beforeEach(() => {
     cy.intercept(
@@ -49,6 +73,12 @@ describe(`BookContainer`, () => {
       BOOK_RESPONSE,
     )
 
+    cy.intercept(
+      `GET`,
+      `*/books/feedback/1`,
+      FEEDBACK_RESPONSE,
+    )
+  
     cy.viewport(1920, 1366)
   })
 
@@ -72,6 +102,21 @@ function initializationTests() {
     cy.contains(`Book Tracking`)
     cy.contains(`Иванов Иван`)
     cy.contains(`Петров Петр`)
+    cy.contains(`Feedback`)
+
+    cy.getByData(`feedback-card-date`)
+      .first()
+      .contains(`2026-03-31`)
+      
+    cy
+      .getByData(`feedback-card`)
+      .should(`have.length`, 2)
+
+    cy.contains(`Иван Иванов`)
+    cy.contains(`Очень полезная книга`)
+
+    cy.contains(`Петр Петров`)
+    cy.contains(`Хорошие примеры`)
   })
 }
 

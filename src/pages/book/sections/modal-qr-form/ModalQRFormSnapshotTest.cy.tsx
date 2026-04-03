@@ -124,7 +124,7 @@ function mountComponent({
   const bookState = new BookState()
   const modalQrFormState = new ModalQrFormState()
     
-  bookState.initialize({
+  bookState.initializeBook({
     loadedBook: {
       id: 1,
       title: `ChatGPT мастер подсказок или как создавать сильные промты  для нейросети`,

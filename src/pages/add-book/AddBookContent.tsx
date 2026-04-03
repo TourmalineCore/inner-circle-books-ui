@@ -119,7 +119,7 @@ export const AddBookContent = observer(({
             />
           </label>
 
-          <div className="add-book__wrap">
+          <div className="add-book__wrapper">
             <CounterInput
               data-cy="add-book-counter"
               label="Number of Copies*"

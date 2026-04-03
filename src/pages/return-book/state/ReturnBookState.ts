@@ -1,15 +1,18 @@
 import isEqual from 'lodash.isequal'
 import { makeAutoObservable } from 'mobx'
+import { ProgressOfReading } from '../../../common/enums/progressOfReading'
 
-const EMPTY_BOOK = {
-  id: 1,
+const EMPTY_BOOK: ReturnBook = {
   title: ``,
   coverUrl: ``,
   progressOfReading: ``,
+  rating: 0,
+  advantages: ``,
+  disadvantages: ``,
 }
 
 export class ReturnBookState {
-  private _book = {
+  private _book: ReturnBook = {
     ...EMPTY_BOOK, 
   }
 
@@ -30,10 +33,10 @@ export class ReturnBookState {
     },
   }) {
     this._book = {
+      ...EMPTY_BOOK,
       id: loadedBook.id,
       title: loadedBook.title,
       coverUrl: loadedBook.coverUrl,
-      progressOfReading: ``,
     }
   }
 
@@ -53,13 +56,26 @@ export class ReturnBookState {
     return this._book.progressOfReading !== ``
   }
 
+  get isFeedbackDisabled() {
+    return this._book.progressOfReading === ProgressOfReading.NotReadAtAll
+  }
+  
+  get isRatingValid() {
+    if (this.isFeedbackDisabled) {
+      return true
+    }
+
+    return this._book.rating !== 0
+  }
+
   get isValid() {
-    return this.isProgressOfReadingValid
+    return this.isProgressOfReadingValid && this.isRatingValid
   }
 
   get errors() {
     return {
       isProgressOfReadingError: !this.isProgressOfReadingValid && this._isTriedToSubmit,
+      isRatingError: !this.isFeedbackDisabled && !this.isRatingValid && this._isTriedToSubmit,
     }
   }
 
@@ -71,12 +87,32 @@ export class ReturnBookState {
     this._book.progressOfReading = progressOfReading
   }
 
-  reset() {
-    this._book.progressOfReading = ``
+  setRating({
+    rating, 
+  }: { 
+    rating: number, 
+  }) {
+    this._book.rating = rating
+  }
+
+  setAdvantages({
+    advantages,
+  }: {
+    advantages: string,
+  }) {
+    this._book.advantages = advantages
+  }
+
+  setDisadvantages({
+    disadvantages,
+  }: {
+    disadvantages: string,
+  }) {
+    this._book.disadvantages = disadvantages
   }
 
   isSomethingFilledWithinTheForm() { 
-    return !isEqual(this._book.progressOfReading, ``)
+    return !isEqual(this._book.progressOfReading, ``) || !isEqual(this._book.rating, 0)
   }
 
   setIsSaving() {

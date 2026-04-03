@@ -1,5 +1,6 @@
 import './ReturnBookContent.scss'
 
+import clsx from 'clsx'
 import NoImage from "../../assets/img/no-image.png"
 
 import { observer } from "mobx-react-lite"
@@ -9,6 +10,7 @@ import { ReturnBookStateContext } from './state/ReturnBookStateContext'
 import { useContext, useState } from 'react'
 import { Overlay } from '../../components/overlay/Overlay'
 import { ProgressOfReading } from '../../common/enums/progressOfReading'
+import { RatingInput } from './components/RatingInput'
 
 const progressOptions = [
   {
@@ -37,6 +39,25 @@ export const ReturnBookContent = observer(({
   goToBookCopyPage: () => unknown,
 }) => {
   const returnBookState = useContext(ReturnBookStateContext)
+
+  const {
+    book,
+    isSaving,
+    errors,
+    isFeedbackDisabled,
+  } = returnBookState
+
+  const {
+    advantages,
+    disadvantages,
+    rating,
+    progressOfReading,
+  } = book
+
+  const {
+    isRatingError,
+    isProgressOfReadingError,
+  } = errors
   
   const isValidUrl = useImageValid(coverUrl)
 
@@ -46,7 +67,6 @@ export const ReturnBookContent = observer(({
   ] = useState(false)
   
   const handleConfirmQuit = () => {
-    returnBookState.reset()
     setShowModal(false)
 
     goToBookCopyPage()
@@ -103,21 +123,21 @@ export const ReturnBookContent = observer(({
           </div>
         </div>
       
-        <div className="return-book__feedback">
+        <div className="return-book__progress">
           <label className="return-book__label">
             Specify your reading progress*
           </label>
-          <div className={`return-book__progress-options ${returnBookState.errors.isProgressOfReadingError
-            ? `error` 
-            : ``}`}
+          <div className={clsx(`return-book__progress-options`, {
+            'error': isProgressOfReadingError,
+          })}
           >
             {progressOptions.map((option) => (
               <button
                 key={option.value}
                 type="button"
-                className={`return-book__progress-btn ${returnBookState.book.progressOfReading === option.value 
-                  ? `active` 
-                  : ``}`}
+                className={clsx(`return-book__progress-btn`, {
+                  'active': progressOfReading === option.value,
+                })}
                 onClick={() => returnBookState.setProgressOfReading({
                   progressOfReading: option.value, 
                 })}
@@ -127,7 +147,58 @@ export const ReturnBookContent = observer(({
             ))}
           </div>
         </div>
-
+        <div className="return-book__rating"
+        >
+          <label className={clsx(`return-book__label`, {
+            'disabled': isFeedbackDisabled,
+          })}>
+            Rate the book*
+          </label>
+          <RatingInput
+            value={rating}
+            onChange={(value:number) =>
+              returnBookState.setRating({
+                rating: value, 
+              })
+            }
+            error={isRatingError}
+            disabled={isFeedbackDisabled}
+          />
+        </div>
+        <div className="return-book__feedback">
+          <div className={clsx(`return-book__label`, {
+            'disabled': isFeedbackDisabled,
+          })}>
+            What Do You Think about this Book?
+          </div>
+          <div className={clsx(`return-book__feedback-label `, {
+            'disabled': isFeedbackDisabled,
+          })}>
+            Leave your feedback to let your colleagues know your opinion
+          </div>
+          <div className='return-book__feedback-fields'>
+            <textarea
+              className='return-book__feedback-field'
+              data-cy="return-book-advantages"
+              value={advantages}
+              placeholder="Advantages"
+              onChange={(e) => returnBookState.setAdvantages({
+                advantages: e.target.value,
+              })}
+              disabled={isFeedbackDisabled}
+            />
+            <textarea
+              className='return-book__feedback-field'
+              data-cy="return-book-disadvantages"
+              value={disadvantages}
+              placeholder="Disadvantages"
+              onChange={(e) => returnBookState.setDisadvantages({
+                disadvantages: e.target.value,
+              })}
+              disabled={isFeedbackDisabled}
+            />
+          </div>
+        </div>
         <div className="return-book__actions">
           <Button 
             onClick={handleCancel}
@@ -136,12 +207,12 @@ export const ReturnBookContent = observer(({
       
           <Button 
             onClick={() => onSubmit()}
-            label={returnBookState.isSaving 
+            label={isSaving 
               ? `Returning` 
               : `Return Book`}
             isAccent
-            isDisable={returnBookState.isSaving}
-            isLoader={returnBookState.isSaving}
+            isDisable={isSaving}
+            isLoader={isSaving}
           />
         </div>
       </form>

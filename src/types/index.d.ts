@@ -10,6 +10,10 @@ type AddBookType = Omit<BookType, 'id' | 'bookCopiesIds' | 'employeesWhoReadNow'
   countOfCopies: number,
 }
 
+type NewBook = Omit<BookType, 'id'> & {
+  id?: number,
+}
+
 type BookType = {
   id: number,
   title: string,
@@ -64,4 +68,28 @@ type ModalQrFormType = {
 type KnowledgeArea = {
   id: number,
   name: string,
+}
+
+type FeedbackResponse = {
+  bookFeedback: Feedback[],
+}
+
+type Feedback = {
+  id: number,
+  employeeFullName: string,
+  leftFeedbackAtUtc: Date,
+  progressOfReading: ProgressOfReading,
+  rating: number,
+  advantages?: string,
+  disadvantages?: string,
+}
+
+type ReturnBook = {
+  id?: number,
+  title: string,
+  coverUrl: string,
+  progressOfReading: string,
+  rating: number,
+  advantages: string,
+  disadvantages: string,
 }

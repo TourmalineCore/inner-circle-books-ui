@@ -13,6 +13,18 @@ export class ReturnBookPage {
       .click()
 
     cy
+      .get(`.rating > :nth-child(4)`)
+      .click()
+
+    cy
+      .getByData(`return-book-advantages`)
+      .type(`Хорошая книга`)
+    
+    cy
+      .getByData(`return-book-disadvantages`)
+      .type(`Мало примеров`)
+
+    cy
       .get(`.button__accent`)
       .click()
   }

@@ -80,6 +80,10 @@ button {
   border-color: v.$color-border-error !important;
 }
 
+.disabled {
+  color: v.$color-text-secondary;
+}
+
 .container {
   display: flex;
   justify-content: center;

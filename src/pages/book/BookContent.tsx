@@ -19,6 +19,7 @@ import { BookReaders } from './components/book-readers/BookReaders'
 import { BookActionButton } from './components/book-action-button/BookActionButton'
 import { hasAccessPermission } from '../../common/tokenUtils'
 import { LINK_TO_BOOKS_SERVICE } from '../../common/constant'
+import { FeedbackCard } from './components/feedback-card/FeedbackCard'
 
 export const BookContent = observer(({
   bookId,
@@ -47,6 +48,7 @@ export const BookContent = observer(({
       bookCopiesIds,
       employeesWhoReadNow,
     },
+    feedback,
   } = bookState
 
   const isValidUrl = useImageValid(coverUrl)
@@ -186,7 +188,7 @@ export const BookContent = observer(({
             <BookReaders employeesWhoReadNow={employeesWhoReadNow} />
           </div>
 
-          <div className='book__wrap'>
+          <div className='book__wrapper'>
             <BookInfo 
               authors={authors}
               language={language}
@@ -207,8 +209,48 @@ export const BookContent = observer(({
           <div className='book__annotation'>
             {annotation}
           </div>
+          
+          <h5 className="book__section-name">
+            Feedback 
+            <span className="book__count">
+              {feedback.length}
+            </span>
+          </h5>
+          {renderFeedbackList()}
         </div>
       </div>
     </>
   )
+
+  function renderFeedbackList() {
+    if (feedback.length > 0) {
+      return (
+        <div 
+          className="book__feedback-list"
+          data-cy='book-feedback-list'>
+          {feedback.map((feedback) => (
+            <FeedbackCard
+              key={feedback.id}
+              id={feedback.id}
+              employeeFullName={feedback.employeeFullName}
+              leftFeedbackAtUtc={feedback.leftFeedbackAtUtc}
+              rating={feedback.rating}
+              progressOfReading={feedback.progressOfReading}
+              advantages={feedback.advantages}
+              disadvantages={feedback.disadvantages}
+            />
+          ))}
+        </div>
+      )
+    }
+    
+    return (
+      <div 
+        className='book__feedback-text'
+        data-cy='book-feedback-text'
+      > 
+        Let your colleagues know your opinion about this book after reading 
+      </div>
+    )
+  }
 })
