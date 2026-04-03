@@ -1,8 +1,7 @@
 import { makeAutoObservable } from 'mobx'
 import { Language } from '../../../common/enums/language'
 
-const EMPTY_BOOK: BookType = {
-  id: undefined as any,
+const EMPTY_BOOK: NewBook = {
   title: ``,
   annotation: ``,
   language: Language.RU,
@@ -18,7 +17,7 @@ const EMPTY_BOOK: BookType = {
 }
 
 export class BookState {
-  private _book: BookType = {
+  private _book: NewBook = {
     ...EMPTY_BOOK, 
   }
 

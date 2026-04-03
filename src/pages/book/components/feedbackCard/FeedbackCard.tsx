@@ -37,7 +37,7 @@ export function FeedbackCard({
           />
           <div>
             <div 
-              className="feedback-card__fullname"
+              className="feedback-card__full-name"
               data-cy="feedback-card-fullname"
             >
               {employeeFullName}

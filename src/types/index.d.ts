@@ -10,6 +10,10 @@ type AddBookType = Omit<BookType, 'id' | 'bookCopiesIds' | 'employeesWhoReadNow'
   countOfCopies: number,
 }
 
+type NewBook = Omit<BookType, 'id'> & {
+  id?: number,
+}
+
 type BookType = {
   id: number,
   title: string,
