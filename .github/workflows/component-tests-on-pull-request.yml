@@ -28,6 +28,7 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           component: true
+          start: npm run create-config:local
           browser: electron
 
       - name: Upload screenshots of tests failed
