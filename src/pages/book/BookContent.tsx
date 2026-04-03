@@ -19,7 +19,7 @@ import { BookReaders } from './components/book-readers/BookReaders'
 import { BookActionButton } from './components/book-action-button/BookActionButton'
 import { hasAccessPermission } from '../../common/tokenUtils'
 import { LINK_TO_BOOKS_SERVICE } from '../../common/constant'
-import { FeedbackCard } from './components/feedbackCard/FeedbackCard'
+import { FeedbackCard } from './components/feedback-card/FeedbackCard'
 
 export const BookContent = observer(({
   bookId,
