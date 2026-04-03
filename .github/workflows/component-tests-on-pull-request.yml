@@ -28,7 +28,7 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           component: true
-          # Need to generate env-config file with env variables without this, the tests will not run.
+          # Need to generate env-config file with env variables, without this the tests will not run.
           start: npm run create-config:local
           browser: electron
 
