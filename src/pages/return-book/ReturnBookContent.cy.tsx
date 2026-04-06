@@ -27,6 +27,46 @@ describe(`ReturnBookContent`, () => {
       .should(`have.class`, `rating--disabled`)
   })
 
+  it(`
+  GIVEN a user selected "Read Partially" and set a rating
+  WHEN switching to "Not Read At All" and back to "Read Partially"
+  SHOULD disable rating, then restore previously selected rating
+  `, () => {
+    mountComponent()
+
+    cy
+      .contains(`button`, `Read Partially`)
+      .click()
+
+    cy
+      .get(`.rating > :nth-child(3)`)
+      .click()
+
+    cy
+      .get(`.rating__star--active`)
+      .should(`have.length`, 3)
+    
+    cy
+      .get(`.rating__star--disabled`)
+      .should(`not.exist`)
+
+    cy
+      .contains(`button`, `Not Read At All`)
+      .click()
+
+    cy
+      .get(`.rating__star--disabled`)
+      .should(`exist`)
+
+    cy
+      .contains(`button`, `Read Partially`)
+      .click()
+
+    cy
+      .get(`.rating__star--active`)
+      .should(`have.length`, 3)
+  })
+
   function mountComponent() {
     const returnBookstate = new ReturnBookState()
   
