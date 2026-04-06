@@ -5,6 +5,7 @@ import clsx from 'clsx'
 import Star from '../../../../assets/icons/Star.svg?react'
 import { ProgressOfReading } from '../../../../common/enums/progressOfReading'
 import Avatar from '../../../../assets/img/avatar.png'
+import { PROGRESS_OPTIONS } from '../../../../common/constant'
 
 export function FeedbackCard({
   employeeFullName,
@@ -17,7 +18,9 @@ export function FeedbackCard({
   const isFinished = progressOfReading === ProgressOfReading.ReadEntirely
   const isReadPartially = progressOfReading === ProgressOfReading.ReadPartially
 
-  const progressLabel = isFinished ? `Finished` : `Read in Part`
+  const progressLabel = PROGRESS_OPTIONS.find(
+    (option) => option.value === progressOfReading,
+  )?.label
 
   const numberOfStars = Array.from({
     length: 5, 
