@@ -41,6 +41,7 @@ export const RatingInput = ({
             key={star}
             className={clsx(`rating__star `, { 
               'rating__star--active': isActive,
+              'rating__star--disabled': disabled,
             })}
             onMouseEnter={() => {
               if (!disabled) setHover(star)
