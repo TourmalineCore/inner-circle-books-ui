@@ -18,9 +18,11 @@ export function FeedbackCard({
   const isFinished = progressOfReading === ProgressOfReading.ReadEntirely
   const isReadPartially = progressOfReading === ProgressOfReading.ReadPartially
 
-  const progressLabel = PROGRESS_OPTIONS.find(
+  const foundOption = PROGRESS_OPTIONS.find(
     (option) => option.value === progressOfReading,
-  )?.label
+  )
+
+  const progressLabel = foundOption?.label ?? progressOfReading
 
   const numberOfStars = Array.from({
     length: 5, 
