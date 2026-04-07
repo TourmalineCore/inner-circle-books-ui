@@ -10,7 +10,7 @@ import { ReturnBookStateContext } from './state/ReturnBookStateContext'
 import { useContext, useState } from 'react'
 import { Overlay } from '../../components/overlay/Overlay'
 import { RatingInput } from './components/RatingInput'
-import { PROGRESS_OPTIONS } from '../../common/constant'
+import { PROGRESS_OPTIONS } from '../../common/enums/progressOfReading'
 
 export const ReturnBookContent = observer(({
   title,
