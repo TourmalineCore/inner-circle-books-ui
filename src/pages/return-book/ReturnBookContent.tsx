@@ -9,23 +9,8 @@ import { Button } from '../../components/button/Button'
 import { ReturnBookStateContext } from './state/ReturnBookStateContext'
 import { useContext, useState } from 'react'
 import { Overlay } from '../../components/overlay/Overlay'
-import { ProgressOfReading } from '../../common/enums/progressOfReading'
 import { RatingInput } from './components/RatingInput'
-
-const progressOptions = [
-  {
-    value: ProgressOfReading.NotReadAtAll,
-    label: `Not Read At All`, 
-  },
-  {
-    value: ProgressOfReading.ReadPartially,
-    label: `Read Partially`, 
-  },
-  {
-    value: ProgressOfReading.ReadEntirely,
-    label: `Read Entirely`, 
-  },
-]
+import { PROGRESS_OPTIONS } from '../../common/enums/progressOfReading'
 
 export const ReturnBookContent = observer(({
   title,
@@ -131,7 +116,7 @@ export const ReturnBookContent = observer(({
             'error': isProgressOfReadingError,
           })}
           >
-            {progressOptions.map((option) => (
+            {PROGRESS_OPTIONS.map((option) => (
               <button
                 key={option.value}
                 type="button"

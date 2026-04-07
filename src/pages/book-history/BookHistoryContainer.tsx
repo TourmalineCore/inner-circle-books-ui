@@ -7,14 +7,7 @@ import '@tourmalinecore/react-tc-modal/es/index.css'
 import '@tourmalinecore/react-tc-ui-kit/es/index.css'
 import { getStatus } from "./getStatus/getStatus"
 import { api } from "../../common/api"
-import { ProgressOfReading } from "../../common/enums/progressOfReading"
-
-const PROGRESS_OPTIONS = {
-  [ProgressOfReading.NotReadAtAll]: `Not Read At All`,
-  [ProgressOfReading.ReadPartially]: `Read Partially`,
-  [ProgressOfReading.ReadEntirely]: `Read Entirely`,
-  [ProgressOfReading.Unknown]: `Unknown`,
-}
+import { PROGRESS_LABELS, ProgressOfReading } from "../../common/enums/progressOfReading"
 
 export function BookHistoryContainer() {
   const location = useLocation()
@@ -70,7 +63,7 @@ export function BookHistoryContainer() {
           accessorFn: ({
             progressOfReading,
           }) => progressOfReading
-            ? PROGRESS_OPTIONS[progressOfReading as ProgressOfReading]
+            ? PROGRESS_LABELS[progressOfReading as ProgressOfReading]
             : `-`,
         },
         {

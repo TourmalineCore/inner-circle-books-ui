@@ -3,7 +3,7 @@ import './FeedbackCard.scss'
 import moment from "moment"
 import clsx from 'clsx'
 import Star from '../../../../assets/icons/Star.svg?react'
-import { ProgressOfReading } from '../../../../common/enums/progressOfReading'
+import { PROGRESS_LABELS, ProgressOfReading } from '../../../../common/enums/progressOfReading'
 import Avatar from '../../../../assets/img/avatar.png'
 
 export function FeedbackCard({
@@ -16,8 +16,6 @@ export function FeedbackCard({
 }: Feedback) {
   const isFinished = progressOfReading === ProgressOfReading.ReadEntirely
   const isReadPartially = progressOfReading === ProgressOfReading.ReadPartially
-
-  const progressLabel = isFinished ? `Finished` : `Read in Part`
 
   const numberOfStars = Array.from({
     length: 5, 
@@ -62,7 +60,7 @@ export function FeedbackCard({
               'feedback-card__dot--finished': isFinished,
               'feedback-card__dot--partial': isReadPartially,
             })}/>
-            {progressLabel}
+            {PROGRESS_LABELS[progressOfReading]}
           </div>
 
           <div 

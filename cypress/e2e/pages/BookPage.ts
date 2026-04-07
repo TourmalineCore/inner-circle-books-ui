@@ -76,7 +76,7 @@ export class BookPage {
     
     cy
       .getByData(`feedback-card-status`)
-      .should(`have.text`, `Read in Part`) 
+      .should(`have.text`, `Read Partially`) 
 
     cy
       .getByData(`feedback-card-rating`)
