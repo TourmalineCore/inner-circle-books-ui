@@ -26,6 +26,10 @@ export const AllBooksContainer = observer(() => {
   }, [])
 
   return (
-    <AllBooksContent cards={allBooksState.booksCards} />
+    <AllBooksContent
+      cards={allBooksState.filteredBooks}
+      query={allBooksState.query}
+      onQueryChange={(query) => allBooksState.setQuery(query)}
+    />
   )
 })

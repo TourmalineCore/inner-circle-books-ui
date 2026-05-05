@@ -3,14 +3,19 @@ import { BooksList } from './components/books-list/BooksList'
 import { Actions } from './components/actions/Actions'
 
 export const AllBooksContent = observer(({
-  cards, 
-}: { 
-  cards: BookCardType[], 
+  cards,
+  query,
+  onQueryChange,
+}: {
+  cards: BookCardType[],
+  query: string,
+  onQueryChange: (value: string) => void,
 }) => {
-
   return (
     <>
-      <Actions />
+      <Actions 
+        query={query}
+        onQueryChange={onQueryChange} />
       <BooksList cards={cards} />
     </>
   )
