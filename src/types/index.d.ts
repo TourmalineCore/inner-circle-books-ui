@@ -6,7 +6,8 @@ type BookCardType = Omit<BookType, 'id' | 'annotation' | 'bookCopiesIds' | 'empl
   id?: number,
 }
 
-type AddBookType = Omit<BookType, 'id' | 'bookCopiesIds' | 'employeesWhoReadNow'> & {
+type AddBookType = Omit<BookType, 'id' | 'bookCopiesIds' | 'employeesWhoReadNow' | 'knowledgeAreas'> & {
+  knowledgeAreasIds: number[],
   countOfCopies: number,
 }
 
@@ -23,7 +24,7 @@ type BookType = {
   coverUrl: string,
   bookCopiesIds: number[],
   employeesWhoReadNow: EmployeeWhoReadNowType[],
-  knowledgeAreasIds: number[],
+  knowledgeAreas: KnowledgeArea[],
 }
 
 type BookHistoryType = {
