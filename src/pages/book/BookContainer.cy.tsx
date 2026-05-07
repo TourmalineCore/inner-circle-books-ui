@@ -37,8 +37,12 @@ const BOOK_RESPONSE: BookType = {
       bookCopyId: 15,
     },
   ],
-  knowledgeAreasIds: [
-    1,
+  knowledgeAreas: [
+    {
+      id: 1,
+      name: `Frontend`,
+    },
+    
   ],
 }
 

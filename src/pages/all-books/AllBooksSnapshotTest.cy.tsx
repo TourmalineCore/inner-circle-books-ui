@@ -48,6 +48,12 @@ function mountComponent() {
         fullName: `Сергей Николенко`,
       },
     ],
+    knowledgeAreas: [
+      {
+        id: 1,
+        name: `Frontend`,
+      },
+    ],
     coverUrl: ``,
   }
 
