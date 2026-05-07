@@ -6,23 +6,23 @@ import { Actions } from "./Actions"
 
 export const VIEWPORTS = [
   {
-    width: 343,
+    width: 375,
     height: 1000,
   },
   {
-    width: 720,
+    width: 768,
     height: 1000,
   },
   {
-    width: 976,
+    width: 1024,
     height: 1000,
   },
   {
-    width: 1000,
+    width: 1366,
     height: 1000,
   },
   {
-    width: 1780,
+    width: 1920,
     height: 1000,
   },
 ]
