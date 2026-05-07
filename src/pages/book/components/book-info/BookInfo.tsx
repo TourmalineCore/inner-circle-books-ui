@@ -49,16 +49,18 @@ export const BookInfo = ({
         </span>
       </li>
 
-      <li className='book-info__field'>
-        Knowledge areas
-        <span className='book-info__value'>
-          {
-            knowledgeAreas
-              .map(knowledgeAreas => knowledgeAreas.name)
-              .join(`, `)
-          }
-        </span>
-      </li>
+      {knowledgeAreas.length > 0 && (
+        <li className='book-info__field'>
+          Knowledge areas
+          <span className='book-info__value'>
+            {
+              knowledgeAreas
+                .map(knowledgeArea => knowledgeArea.name)
+                .join(`, `)
+            }
+          </span>
+        </li>
+      )}
     </ul>
   )
 }
