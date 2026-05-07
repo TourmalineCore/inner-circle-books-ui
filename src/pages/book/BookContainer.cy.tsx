@@ -138,7 +138,8 @@ function knowledgeAreasTests() {
 
     mountComponent()
 
-    cy.contains(`Knowledge areas`).should(`not.exist`)
+    cy.contains(`Knowledge areas`)
+      .should(`not.exist`)
   })
 
   it(`
@@ -149,8 +150,14 @@ function knowledgeAreasTests() {
     cy.intercept(`GET`, `*/books/1`, {
       ...BOOK_RESPONSE,
       knowledgeAreas: [
-        { id: 1, name: `Frontend` },
-        { id: 2, name: `Backend` },
+        {
+          id: 1,
+          name: `Frontend`, 
+        },
+        {
+          id: 2,
+          name: `Backend`, 
+        },
       ],
     })
 
