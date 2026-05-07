@@ -27,17 +27,17 @@ export class AllBooksState {
   get filteredBooks() {
     if (this._query.length === 0) return this._booksCards
 
-    const lower = this._query.toLowerCase()
+    const lowerCaseQuery = this._query.toLowerCase()
     return this._booksCards.filter((book) =>
       book
         .title
         .toLowerCase()
-        .includes(lower) ||
+        .includes(lowerCaseQuery) ||
       book.authors.some((author) =>
         author
           .fullName
           .toLowerCase()
-          .includes(lower),
+          .includes(lowerCaseQuery),
       ),
     )
   }
