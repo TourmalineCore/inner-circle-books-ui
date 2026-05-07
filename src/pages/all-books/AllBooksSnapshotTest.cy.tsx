@@ -68,7 +68,11 @@ function mountComponent() {
   cy
     .mount(
       <authService.AuthContext.Provider value={mockAuthContext}>
-        <AllBooksContent cards={cards} />
+        <AllBooksContent
+          cards={cards}
+          query={``}
+          onQueryChange={() => {}}
+        />
       </authService.AuthContext.Provider>,
     )
 }
