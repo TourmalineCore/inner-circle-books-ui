@@ -1,4 +1,6 @@
 @use "../../../../styles/media" as m;
+@use "../../../../styles/fonts-mixin" as f;
+@use "../../../../styles/variables" as v;
 
 .actions {
   display: flex;
@@ -16,11 +18,66 @@
     }
   }
 
+  &__wrap {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+  }
+
+  &__search {
+    display: flex;
+    align-items: center;
+    border: 1px solid v.$color-component-border;
+    border-radius: 8px;
+    padding: 12px;
+    width: 239px;
+    height: 44px;
+    background-color: v.$color-background-primary;
+
+    @include m.tablet {
+      width: 343px;
+    }
+
+    @include m.desktop {
+      width: 358px;
+    }
+  }
+
+  &__icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  &__input {
+    @include f.text;
+
+    margin-left: 4px;
+    border: none;
+    min-width: 180px;
+
+    &::placeholder {
+      color: v.$color-text-primary;
+    }
+  }
+
+  &__button {
+    border: 0;
+    border-radius: 12px;
+    padding: 12px;
+    width: 44px;
+    height: 44px;
+    background-color: v.$color-background-component-accent;
+  }
+
   &__add-button {
     width: 44px;
 
     @include m.desktop {
       width: 138px;
     }
+  }
+
+  @include m.tablet {
+    justify-content: space-between;
   }
 }
