@@ -13,7 +13,7 @@ const EMPTY_BOOK: NewBook = {
   coverUrl: ``,
   bookCopiesIds: [],
   employeesWhoReadNow: [],
-  knowledgeAreasIds: [],
+  knowledgeAreas: [],
 }
 
 export class BookState {

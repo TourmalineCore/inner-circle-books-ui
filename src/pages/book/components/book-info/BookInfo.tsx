@@ -5,12 +5,17 @@ import { Language } from '../../../../common/enums/language'
 export const BookInfo = ({
   authors,
   language,
+  knowledgeAreas,
   count,
 }: {
   authors: { 
     fullName: string, 
   }[],
   language: string,
+  knowledgeAreas: {
+    id: number,
+    name: string,
+  }[],
   count: number,
 }) => {
   return (
@@ -43,6 +48,19 @@ export const BookInfo = ({
           }
         </span>
       </li>
+
+      {knowledgeAreas.length > 0 && (
+        <li className='book-info__field'>
+          Knowledge areas
+          <span className='book-info__value'>
+            {
+              knowledgeAreas
+                .map(knowledgeArea => knowledgeArea.name)
+                .join(`, `)
+            }
+          </span>
+        </li>
+      )}
     </ul>
   )
 }

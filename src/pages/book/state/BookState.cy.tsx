@@ -26,7 +26,7 @@ function initializationTests() {
     ])
     expect(bookState.book.coverUrl).to.eq(``)
     expect(bookState.book.bookCopiesIds).to.deep.eq([])
-    expect(bookState.book.knowledgeAreasIds).to.deep.eq([])
+    expect(bookState.book.knowledgeAreas).to.deep.eq([])
     expect(bookState.feedback).to.deep.eq([])
   })
 }
@@ -56,8 +56,11 @@ function bookDataTests() {
         bookCopyId: 1,
       },
     ],
-    knowledgeAreasIds: [
-      1,
+    knowledgeAreas: [
+      {
+        id: 1,
+        name: `Frontend`,
+      },
     ],
   }
   

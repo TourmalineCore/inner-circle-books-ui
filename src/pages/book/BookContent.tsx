@@ -43,6 +43,7 @@ export const BookContent = observer(({
       title,
       annotation,
       language,
+      knowledgeAreas,
       authors,
       coverUrl,
       bookCopiesIds,
@@ -192,6 +193,7 @@ export const BookContent = observer(({
             <BookInfo 
               authors={authors}
               language={language}
+              knowledgeAreas={knowledgeAreas}
               count={bookState.count} 
             />
 

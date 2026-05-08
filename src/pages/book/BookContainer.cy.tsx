@@ -37,8 +37,11 @@ const BOOK_RESPONSE: BookType = {
       bookCopyId: 15,
     },
   ],
-  knowledgeAreasIds: [
-    1,
+  knowledgeAreas: [
+    {
+      id: 1,
+      name: `Frontend`,
+    },
   ],
 }
 
@@ -83,6 +86,7 @@ describe(`BookContainer`, () => {
   })
 
   describe(`Initialization`, initializationTests)
+  describe(`Knowledge areas tests`, knowledgeAreasTests)
 })
 
 function initializationTests() {
@@ -103,6 +107,7 @@ function initializationTests() {
     cy.contains(`Иванов Иван`)
     cy.contains(`Петров Петр`)
     cy.contains(`Feedback`)
+    cy.contains(`Frontend`)
 
     cy.getByData(`feedback-card-date`)
       .first()
@@ -117,6 +122,48 @@ function initializationTests() {
 
     cy.contains(`Петр Петров`)
     cy.contains(`Хорошие примеры`)
+  })
+}
+
+function knowledgeAreasTests() {
+  it(`
+  GIVEN book with empty knowledgeAreas
+  WHEN render the component
+  SHOULD NOT display knowledge areas field
+  `, () => {
+    cy.intercept(`GET`, `*/books/1`, {
+      ...BOOK_RESPONSE,
+      knowledgeAreas: [],
+    })
+
+    mountComponent()
+
+    cy.contains(`Knowledge areas`)
+      .should(`not.exist`)
+  })
+
+  it(`
+  GIVEN book with multiple knowledgeAreas
+  WHEN render the component
+  SHOULD display all areas separated by comma
+  `, () => {
+    cy.intercept(`GET`, `*/books/1`, {
+      ...BOOK_RESPONSE,
+      knowledgeAreas: [
+        {
+          id: 1,
+          name: `Frontend`, 
+        },
+        {
+          id: 2,
+          name: `Backend`, 
+        },
+      ],
+    })
+
+    mountComponent()
+
+    cy.contains(`Frontend, Backend`)
   })
 }
 
