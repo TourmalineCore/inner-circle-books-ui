@@ -17,7 +17,7 @@ export const AllBooksContent = observer(({
   onQueryChange: (value: string) => void,
   knowledgeAreas: string[],
   selectedAreas: Set<string>,
-  onToggleArea: (knowledgearea: string) => void,
+  onToggleArea: (knowledgeArea: string) => void,
   onResetFilters: () => void,
 }) => {
   return (

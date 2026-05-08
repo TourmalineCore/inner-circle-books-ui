@@ -33,7 +33,7 @@ export class AllBooksState {
     return [
       ...new Set(
         this._booksCards.flatMap((book) =>
-          book.knowledgeAreas.map((knowledgearea: KnowledgeArea) => knowledgearea.name),
+          book.knowledgeAreas.map((knowledgeArea: KnowledgeArea) => knowledgeArea.name),
         ),
       ),
     ]
@@ -59,8 +59,8 @@ export class AllBooksState {
 
     if (this._selectedAreas.size) {
       result = result.filter((book) =>
-        book.knowledgeAreas.some((knowledgearea: KnowledgeArea) =>
-          this._selectedAreas.has(knowledgearea.name),
+        book.knowledgeAreas.some((knowledgeArea: KnowledgeArea) =>
+          this._selectedAreas.has(knowledgeArea.name),
         ),
       )
     }
@@ -72,12 +72,12 @@ export class AllBooksState {
     this._query = query
   }
 
-  onToggleArea(knowledgearea: string) {
-    if (this._selectedAreas.has(knowledgearea)) {
-      this._selectedAreas.delete(knowledgearea)
+  onToggleArea(knowledgeArea: string) {
+    if (this._selectedAreas.has(knowledgeArea)) {
+      this._selectedAreas.delete(knowledgeArea)
     }
     else {
-      this._selectedAreas.add(knowledgearea)
+      this._selectedAreas.add(knowledgeArea)
     }
   }
 

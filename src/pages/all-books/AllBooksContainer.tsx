@@ -32,7 +32,7 @@ export const AllBooksContainer = observer(() => {
       onQueryChange={(query) => allBooksState.setQuery(query)}
       knowledgeAreas={allBooksState.knowledgeAreas}
       selectedAreas={allBooksState.selectedAreas}
-      onToggleArea={(knowledgearea) => allBooksState.onToggleArea(knowledgearea)}
+      onToggleArea={(knowledgeArea) => allBooksState.onToggleArea(knowledgeArea)}
       onResetFilters={() => allBooksState.resetFilters()}
     />
   )
