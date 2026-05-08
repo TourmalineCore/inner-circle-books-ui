@@ -65,21 +65,22 @@ function mountComponent() {
     MOCK_TOKEN,
   ]
 
-  cy.mount(
-    <authService.AuthContext.Provider value={mockAuthContext}>
-      <AllBooksContent
-        cards={cards}
-        query={``}
-        onQueryChange={() => {}}
-        knowledgeAreas={[
-          `Frontend`,
-          `Backend`,
-          `Architecture`,
-        ]}
-        selectedAreas={new Set()}
-        onToggleArea={() => {}}
-        onResetFilters={() => {}}
-      />
-    </authService.AuthContext.Provider>,
-  )
+  cy
+    .mount(
+      <authService.AuthContext.Provider value={mockAuthContext}>
+        <AllBooksContent
+          cards={cards}
+          query={``}
+          onQueryChange={() => {}}
+          knowledgeAreas={[
+            `Frontend`,
+            `Backend`,
+            `Architecture`,
+          ]}
+          selectedAreas={new Set()}
+          onToggleArea={() => {}}
+          onResetFilters={() => {}}
+        />
+      </authService.AuthContext.Provider>,
+    )
 }

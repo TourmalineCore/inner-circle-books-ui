@@ -2,8 +2,8 @@ import { makeAutoObservable } from 'mobx'
 
 export class AllBooksState {
   private _booksCards: BookCardType[] = []
-  private _query = ``
-  private _selectedAreas = new Set<string>()
+  private _query: string = ``
+  private _selectedAreas: Set<string> = new Set()
 
   constructor() {
     makeAutoObservable(this)
