@@ -3,6 +3,7 @@ import FilterIcon from "../../../../assets/icons/Filter.svg?react"
 import ArrowLeftIcon from "../../../../assets/icons/ArrowLeft.svg?react"
 import { observer } from "mobx-react-lite"
 import { useState } from "react"
+import { Button } from "../../../../components/button/Button"
 
 export const Filter = observer(({
   knowledgeAreas,
@@ -59,9 +60,9 @@ export const Filter = observer(({
               <ArrowLeftIcon />
             </button>
 
-            <h2 className="filter-modal__title">
+            <div className="filter-modal__title">
               Filters
-            </h2>
+            </div>
           </div>
 
           <div className="filter-modal__content">
@@ -86,21 +87,17 @@ export const Filter = observer(({
           </div>
 
           <div className="filter-modal__footer">
-            <button
-              type="button"
+            <Button
               className="filter-modal__reset"
               onClick={resetFilters}
-            >
-              Reset Filters
-            </button>
-
-            <button
-              type="button"
+              label={<>Reset Filters</>}
+            />
+            <Button
               className="filter-modal__apply"
               onClick={() => setIsOpen(false)}
-            >
-              Apply
-            </button>
+              label={<>Apply</>}
+              isAccent
+            />
           </div>
         </div>
       )}
