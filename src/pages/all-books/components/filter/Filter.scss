@@ -50,10 +50,12 @@
     cursor: pointer;
     transition:
       background 0.15s,
-      border-color 0.15s;
+      border-color 0.15s,
+      color 0.15s;
 
     &--active {
       border-color: v.$color-background-component-accent;
+      color: v.$color-text-contrast;
       background: v.$color-background-component-accent;
     }
   }
@@ -123,6 +125,7 @@
   }
 
   &__apply {
+    color: v.$color-text-contrast;
     background: v.$color-background-component-accent;
   }
 
