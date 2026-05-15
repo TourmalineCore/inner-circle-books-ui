@@ -72,10 +72,14 @@ function mountComponent() {
           cards={cards}
           query={``}
           onQueryChange={() => {}}
-          knowledgeAreas={[]}
-          selectedAreas={new Set<string>()}
-          onToggleArea={()=>{}}
-          onResetFilters={()=>{}}
+          knowledgeAreas={[
+            `Frontend`,
+            `Backend`,
+            `Architecture`,
+          ]}
+          selectedAreas={new Set()}
+          onToggleArea={() => {}}
+          onResetFilters={() => {}}
         />
       </authService.AuthContext.Provider>,
     )

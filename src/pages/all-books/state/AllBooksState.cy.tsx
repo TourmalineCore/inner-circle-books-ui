@@ -3,6 +3,8 @@ import { AllBooksState } from "./AllBooksState"
 describe(`AllBooksState`, () => {
   describe(`Initialization`, initializationTests)
   describe(`Query`, queryTests)
+  describe(`Selected areas`, selectedAreasTests)
+  describe(`Knowledge areas`, knowledgeAreasTests)
   describe(`Filtered books`, filteredBooksTests)
 })
 
@@ -32,7 +34,12 @@ function initializationTests() {
         language: `English`,
         authors: [
           {
-            fullName: `Алекс Остервальдер`, 
+            fullName: `Алекс Остервальдер`,
+          },
+        ],
+        knowledgeAreas: [
+          {
+            name: `Backend`,
           },
         ],
         coverUrl: `url-1`,
@@ -44,7 +51,12 @@ function initializationTests() {
         language: `Russian`,
         authors: [
           {
-            fullName: `Сергей Николенко`, 
+            fullName: `Сергей Николенко`,
+          },
+        ],
+        knowledgeAreas: [
+          {
+            name: `Frontend`,
           },
         ],
         coverUrl: `url-2`,
@@ -68,7 +80,7 @@ function queryTests() {
   SHOULD return an empty string
   `, () => {
     const {
-      allBooksState, 
+      allBooksState,
     } = createState()
 
     expect(allBooksState.query).to.eq(``)
@@ -104,6 +116,127 @@ function queryTests() {
   })
 }
 
+function selectedAreasTests() {
+  it(`
+  GIVEN initial state
+  WHEN ask for selected areas
+  SHOULD return empty set
+  `, () => {
+    const {
+      allBooksState,
+    } = createState()
+
+    expect(Array.from(allBooksState.selectedAreas)).to.deep.eq([])
+  })
+
+  it(`
+  GIVEN initial state
+  WHEN toggle knowledgeArea
+  SHOULD add knowledgeArea to selected areas
+  `, () => {
+    const {
+      allBooksState,
+    } = createState()
+
+    allBooksState.onToggleArea(`Backend`)
+
+    expect(Array.from(allBooksState.selectedAreas)).to.deep.eq([
+      `Backend`,
+    ])
+  })
+
+  it(`
+  GIVEN selected knowledgeArea
+  WHEN toggle same knowledgeArea again
+  SHOULD remove knowledgeArea from selected areas
+  `, () => {
+    const {
+      allBooksState,
+    } = createState()
+
+    allBooksState.onToggleArea(`Backend`)
+    allBooksState.onToggleArea(`Backend`)
+
+    expect(Array.from(allBooksState.selectedAreas)).to.deep.eq([])
+  })
+
+  it(`
+  GIVEN selected areas
+  WHEN reset filters
+  SHOULD clear selected areas
+  `, () => {
+    const {
+      allBooksState,
+    } = createState()
+
+    allBooksState.onToggleArea(`Backend`)
+    allBooksState.onToggleArea(`Frontend`)
+
+    allBooksState.resetFilters()
+
+    expect(Array.from(allBooksState.selectedAreas)).to.deep.eq([])
+  })
+}
+
+function knowledgeAreasTests() {
+  it(`
+  GIVEN books with duplicated knowledge areas
+  WHEN ask for knowledge areas
+  SHOULD return unique areas
+  `, () => {
+    const booksCardsForInitialization = [
+      {
+        id: 1,
+        title: `Clean Code`,
+        annotation: `Annotation`,
+        language: `English`,
+        authors: [
+          {
+            fullName: `Robert Martin`,
+          },
+        ],
+        knowledgeAreas: [
+          {
+            name: `Backend`,
+          },
+        ],
+        coverUrl: `url-1`,
+      },
+      {
+        id: 2,
+        title: `React Patterns`,
+        annotation: `Annotation`,
+        language: `English`,
+        authors: [
+          {
+            fullName: `Michael Chan`,
+          },
+        ],
+        knowledgeAreas: [
+          {
+            name: `Frontend`,
+          },
+          {
+            name: `Backend`,
+          },
+        ],
+        coverUrl: `url-2`,
+      },
+    ]
+
+    const {
+      allBooksState,
+    } = createState({
+      booksCardsForInitialization,
+    })
+
+    expect(allBooksState.knowledgeAreas).to.deep.eq([
+      `Backend`,
+      `Frontend`,
+    ])
+  })
+}
+
 function filteredBooksTests() {
   const booksCardsForInitialization = [
     {
@@ -113,7 +246,12 @@ function filteredBooksTests() {
       language: `English`,
       authors: [
         {
-          fullName: `Robert Martin`, 
+          fullName: `Robert Martin`,
+        },
+      ],
+      knowledgeAreas: [
+        {
+          name: `Backend`,
         },
       ],
       coverUrl: `url-1`,
@@ -125,7 +263,15 @@ function filteredBooksTests() {
       language: `English`,
       authors: [
         {
-          fullName: `Robert Martin`, 
+          fullName: `Robert Martin`,
+        },
+      ],
+      knowledgeAreas: [
+        {
+          name: `Architecture`,
+        },
+        {
+          name: `Backend`,
         },
       ],
       coverUrl: `url-2`,
@@ -137,7 +283,12 @@ function filteredBooksTests() {
       language: `English`,
       authors: [
         {
-          fullName: `David Thomas`, 
+          fullName: `David Thomas`,
+        },
+      ],
+      knowledgeAreas: [
+        {
+          name: `Frontend`,
         },
       ],
       coverUrl: `url-3`,
@@ -247,6 +398,64 @@ function filteredBooksTests() {
     allBooksState.setQuery(`Clean`)
 
     expect(allBooksState.filteredBooks).to.deep.eq([])
+  })
+
+  it(`
+  GIVEN books with different knowledge areas
+  WHEN toggle knowledgeArea filter
+  SHOULD return only matching books
+  `, () => {
+    const {
+      allBooksState,
+    } = createState({
+      booksCardsForInitialization,
+    })
+
+    allBooksState.onToggleArea(`Backend`)
+
+    expect(allBooksState.filteredBooks).to.deep.eq([
+      booksCardsForInitialization[0],
+      booksCardsForInitialization[1],
+    ])
+  })
+
+  it(`
+  GIVEN books
+  WHEN set query and knowledgeArea filter
+  SHOULD return books matching both filters
+  `, () => {
+    const {
+      allBooksState,
+    } = createState({
+      booksCardsForInitialization,
+    })
+
+    allBooksState.setQuery(`Architecture`)
+    allBooksState.onToggleArea(`Backend`)
+
+    expect(allBooksState.filteredBooks).to.deep.eq([
+      booksCardsForInitialization[1],
+    ])
+  })
+
+  it(`
+  GIVEN active knowledgeArea filters
+  WHEN reset filters
+  SHOULD return all books again
+  `, () => {
+    const {
+      allBooksState,
+    } = createState({
+      booksCardsForInitialization,
+    })
+
+    allBooksState.onToggleArea(`Backend`)
+
+    allBooksState.resetFilters()
+
+    expect(allBooksState.filteredBooks).to.deep.eq(
+      booksCardsForInitialization,
+    )
   })
 }
 

@@ -1,7 +1,7 @@
-import { observer } from 'mobx-react-lite'
-import { BooksList } from './components/books-list/BooksList'
-import { Actions } from './components/actions/Actions'
-import { Filter } from './components/filter/Filter'
+import { observer } from "mobx-react-lite"
+import { BooksList } from "./components/books-list/BooksList"
+import { Actions } from "./components/actions/Actions"
+import { Filter } from "./components/filter/Filter"
 
 export const AllBooksContent = observer(({
   cards,
@@ -17,7 +17,7 @@ export const AllBooksContent = observer(({
   onQueryChange: (value: string) => void,
   knowledgeAreas: string[],
   selectedAreas: Set<string>,
-  onToggleArea: (area: string) => void,
+  onToggleArea: (knowledgeArea: string) => void,
   onResetFilters: () => void,
 }) => {
   return (

@@ -12,7 +12,7 @@ export const Filter = observer(({
 }: {
   knowledgeAreas: string[],
   selectedAreas: Set<string>,
-  onToggleArea: (area: string) => void,
+  onToggleArea: (knowledgeArea: string) => void,
   resetFilters: () => void,
 }) => {
   const [
@@ -36,14 +36,14 @@ export const Filter = observer(({
 
         <div className="filter__desktop">
           <div className="filter__chips">
-            {knowledgeAreas.map((area) => (
+            {knowledgeAreas.map((knowledgeArea) => (
               <button
-                key={area}
+                key={knowledgeArea}
                 type="button"
-                className={`filter__chip ${selectedAreas.has(area) ? `filter__chip--active`: ``}`}
-                onClick={() => onToggleArea(area)}
+                className={`filter__chip ${selectedAreas.has(knowledgeArea) ? `filter__chip--active`: ``}`}
+                onClick={() => onToggleArea(knowledgeArea)}
               >
-                {area}
+                {knowledgeArea}
               </button>
             ))}
           </div>

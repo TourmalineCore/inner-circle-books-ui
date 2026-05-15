@@ -13,7 +13,6 @@
 
     display: flex;
     align-items: center;
-    border: none;
     padding: 8px;
     width: 87px;
     height: 36px;
@@ -132,17 +131,10 @@
     }
   }
 
-  &__section {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-
   &__subtitle {
-    @include f.text;
+    @include f.h6;
 
-    margin: 0;
-    font-weight: 600;
+    margin-bottom: 12px;
   }
 
   &__footer {

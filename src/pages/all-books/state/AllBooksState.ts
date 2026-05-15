@@ -2,8 +2,8 @@ import { makeAutoObservable } from 'mobx'
 
 export class AllBooksState {
   private _booksCards: BookCardType[] = []
-  private _query = ``
-  private _selectedAreas = new Set<string>()
+  private _query: string = ``
+  private _selectedAreas: Set<string> = new Set()
 
   constructor() {
     makeAutoObservable(this)
@@ -33,7 +33,7 @@ export class AllBooksState {
     return [
       ...new Set(
         this._booksCards.flatMap((book) =>
-          book.knowledgeAreas.map((area: KnowledgeArea) => area.name),
+          book.knowledgeAreas.map((knowledgeArea: KnowledgeArea) => knowledgeArea.name),
         ),
       ),
     ]
@@ -59,8 +59,8 @@ export class AllBooksState {
 
     if (this._selectedAreas.size) {
       result = result.filter((book) =>
-        book.knowledgeAreas.some((area: KnowledgeArea) =>
-          this._selectedAreas.has(area.name),
+        book.knowledgeAreas.some((knowledgeArea: KnowledgeArea) =>
+          this._selectedAreas.has(knowledgeArea.name),
         ),
       )
     }
@@ -72,12 +72,12 @@ export class AllBooksState {
     this._query = query
   }
 
-  onToggleArea(area: string) {
-    if (this._selectedAreas.has(area)) {
-      this._selectedAreas.delete(area)
+  onToggleArea(knowledgeArea: string) {
+    if (this._selectedAreas.has(knowledgeArea)) {
+      this._selectedAreas.delete(knowledgeArea)
     }
     else {
-      this._selectedAreas.add(area)
+      this._selectedAreas.add(knowledgeArea)
     }
   }
 
