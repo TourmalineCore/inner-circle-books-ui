@@ -37,27 +37,39 @@
   &__chips {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 8px 4px;
+
+    @include m.desktop {
+      gap: 8px;
+    }
   }
 
   &__chip {
     @include f.text;
 
-    border: 1px solid v.$color-component-border;
-    border-radius: 20px;
-    padding: 6px 14px;
+    border-radius: 8px;
+    padding: 8px 16px;
+    box-shadow: inset 0 0 0 1px rgb(202 202 202 / 100%);
     background: v.$color-background-primary;
     cursor: pointer;
     transition:
       background 0.15s,
-      border-color 0.15s,
+      box-shadow 0.15s,
       color 0.15s;
 
+    @include m.desktop {
+      padding: 8px 16px;
+    }
+
     &--active {
-      border-color: v.$color-background-component-accent;
+      box-shadow: inset 0 0 0 1px rgb(127 78 235 / 100%);
       color: v.$color-text-contrast;
       background: v.$color-background-component-accent;
     }
+  }
+
+  @include m.desktop {
+    margin-bottom: 20px;
   }
 }
 
@@ -66,38 +78,58 @@
   z-index: 1000;
   display: flex;
   flex-direction: column;
+
+  // padding-top: 24px;
   background: v.$color-background-primary;
   inset: 0;
 
   &__header {
     @include f.h6;
 
+    position: relative;
     display: flex;
     align-items: center;
-    border-bottom: 1px solid v.$color-component-border;
-    padding: 16px;
+    justify-content: center;
+    padding: 36px 16px 12px;
     gap: 16px;
+
+    @include m.tablet {
+      padding-left: 24px;
+    }
   }
 
   &__back {
+    position: absolute;
+    left: 28px;
     display: flex;
     align-items: center;
     justify-content: center;
     border: none;
+    padding: 0;
     background: none;
     cursor: pointer;
+
+    @include m.tablet {
+      left: 36px;
+    }
   }
 
   &__title {
-    @include f.h3;
+    @include f.text;
 
     margin: 0;
+    font-weight: 600;
   }
 
   &__content {
     flex: 1;
     overflow-y: auto;
     padding: 16px;
+
+    @include m.tablet {
+      padding-right: 24px;
+      padding-left: 24px;
+    }
   }
 
   &__section {
@@ -115,9 +147,13 @@
 
   &__footer {
     display: flex;
-    border-top: 1px solid v.$color-component-border;
-    padding: 16px;
+    padding: 16px 16px 24px;
     gap: 12px;
+
+    @include m.tablet {
+      padding-right: 24px;
+      padding-left: 24px;
+    }
   }
 
   &__reset {
@@ -135,7 +171,7 @@
 
     flex: 1;
     border: none;
-    border-radius: 12px;
+    border-radius: 8px;
     padding: 12px;
     cursor: pointer;
   }

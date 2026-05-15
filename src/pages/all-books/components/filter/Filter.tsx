@@ -26,6 +26,7 @@ export const Filter = observer(({
         <button
           type="button"
           className="filter__mobile-button"
+          data-cy="open-mobile-filters-button"
           onClick={() => setIsOpen(true)}
         >
           <FilterIcon />
@@ -49,7 +50,8 @@ export const Filter = observer(({
       </div>
 
       {isOpen && (
-        <div className="filter-modal">
+        <div className="filter-modal"
+          data-cy="filter-modal">
           <div className="filter-modal__header">
             <button
               type="button"
