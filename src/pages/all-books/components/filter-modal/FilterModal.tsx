@@ -2,6 +2,7 @@ import "./FilterModal.scss"
 import ArrowLeftIcon from "../../../../assets/icons/ArrowLeft.svg?react"
 import { observer } from "mobx-react-lite"
 import { Button } from "../../../../components/button/Button"
+import { useState } from "react"
 
 export const FilterModal = observer(({
   knowledgeAreas,
@@ -16,6 +17,41 @@ export const FilterModal = observer(({
   resetFilters: () => void,
   onClose: () => void,
 }) => {
+  const [
+    localSelectedAreas,
+    setLocalSelectedAreas,
+  ] = useState<Set<string>>(new Set(selectedAreas))
+
+  function handleToggleArea(area: string) {
+    const newSet = new Set(localSelectedAreas)
+    if (newSet.has(area)) {
+      newSet.delete(area)
+    }
+    else {
+      newSet.add(area)
+    }
+    setLocalSelectedAreas(newSet)
+  }
+
+  function handleApply() {
+    localSelectedAreas.forEach(area => {
+      if (!selectedAreas.has(area)) {
+        onToggleArea(area)
+      }
+    })
+    selectedAreas.forEach(area => {
+      if (!localSelectedAreas.has(area)) {
+        onToggleArea(area)
+      }
+    })
+    onClose()
+  }
+
+  const handleReset = () => {
+    setLocalSelectedAreas(new Set())
+    resetFilters()
+  }
+
   return (
     <div className="filter-modal"
       data-cy="filter-modal">
@@ -44,8 +80,8 @@ export const FilterModal = observer(({
               <button
                 key={area}
                 type="button"
-                className={`filter__chip ${selectedAreas.has(area) ? `filter__chip--active` : ``}`}
-                onClick={() => onToggleArea(area)}
+                className={`filter__chip ${localSelectedAreas.has(area) ? `filter__chip--active` : ``}`}
+                onClick={() => handleToggleArea(area)}
               >
                 {area}
               </button>
@@ -57,13 +93,13 @@ export const FilterModal = observer(({
       <div className="filter-modal__footer">
         <Button
           className="filter-modal__button"
-          onClick={resetFilters}
+          onClick={handleReset}
           label={<>Reset Filters</>}
         />
 
         <Button
           className="filter-modal__button"
-          onClick={onClose}
+          onClick={handleApply}
           label={<>Apply</>}
           isAccent
         />
