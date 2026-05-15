@@ -1,6 +1,7 @@
 import "./FilterModal.scss"
 import ArrowLeftIcon from "../../../../assets/icons/ArrowLeft.svg?react"
 import { observer } from "mobx-react-lite"
+import { Button } from "../../../../components/button/Button"
 
 export const FilterModal = observer(({
   knowledgeAreas,
@@ -54,21 +55,18 @@ export const FilterModal = observer(({
       </div>
 
       <div className="filter-modal__footer">
-        <button
-          type="button"
-          className="filter-modal__reset"
+        <Button
+          className="filter-modal__button"
           onClick={resetFilters}
-        >
-          Reset Filters
-        </button>
+          label={<>Reset Filters</>}
+        />
 
-        <button
-          type="button"
-          className="filter-modal__apply"
+        <Button
+          className="filter-modal__button"
           onClick={onClose}
-        >
-          Apply
-        </button>
+          label={<>Apply</>}
+          isAccent
+        />
       </div>
     </div>
   )

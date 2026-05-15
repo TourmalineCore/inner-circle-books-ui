@@ -85,17 +85,7 @@
     }
   }
 
-  &__reset {
-    background: v.$color-background-component-secondary;
-  }
-
-  &__apply {
-    color: v.$color-text-contrast;
-    background: v.$color-background-component-accent;
-  }
-
-  &__reset,
-  &__apply {
+  &__button {
     @include f.text;
 
     flex: 1;
