@@ -1,10 +1,9 @@
 import "./FilterModal.scss"
 import ArrowLeftIcon from "../../../../assets/icons/ArrowLeft.svg?react"
-import { observer } from "mobx-react-lite"
 import { Button } from "../../../../components/button/Button"
 import { useState } from "react"
 
-export const FilterModal = observer(({
+export const FilterModal = ({
   knowledgeAreas,
   selectedAreas,
   onToggleArea,
@@ -106,4 +105,4 @@ export const FilterModal = observer(({
       </div>
     </div>
   )
-})
+}

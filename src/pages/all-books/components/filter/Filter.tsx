@@ -4,7 +4,7 @@ import { observer } from "mobx-react-lite"
 import { useState } from "react"
 import { FilterModal } from "../filter-modal/FilterModal"
 
-export const Filter = observer(({
+export const Filter = ({
   knowledgeAreas,
   selectedAreas,
   onToggleArea,
@@ -61,4 +61,4 @@ export const Filter = observer(({
       )}
     </>
   )
-})
+}
