@@ -1,4 +1,5 @@
 import "./Filter.scss"
+import clsx from "clsx"
 import FilterIcon from "../../../../assets/icons/Filter.svg?react"
 import { useState } from "react"
 import { FilterModal } from "../filter-modal/FilterModal"
@@ -39,7 +40,9 @@ export const Filter = ({
               <button
                 key={knowledgeArea}
                 type="button"
-                className={`filter__chip ${selectedAreas.has(knowledgeArea) ? `filter__chip--active`: ``}`}
+                className={clsx(`filter__chip`, {
+                  "filter__chip--active": selectedAreas.has(knowledgeArea),
+                })}
                 onClick={() => onToggleArea(knowledgeArea)}
               >
                 {knowledgeArea}

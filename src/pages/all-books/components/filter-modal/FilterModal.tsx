@@ -1,4 +1,5 @@
 import "./FilterModal.scss"
+import clsx from "clsx"
 import ArrowLeftIcon from "../../../../assets/icons/ArrowLeft.svg?react"
 import { Button } from "../../../../components/button/Button"
 import { useState } from "react"
@@ -79,7 +80,9 @@ export const FilterModal = ({
               <button
                 key={area}
                 type="button"
-                className={`filter__chip ${localSelectedAreas.has(area) ? `filter__chip--active` : ``}`}
+                className={clsx(`filter__chip`, {
+                  "filter__chip--active": localSelectedAreas.has(area),
+                })}
                 onClick={() => handleToggleArea(area)}
               >
                 {area}
