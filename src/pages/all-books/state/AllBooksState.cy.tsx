@@ -69,7 +69,10 @@ function initializationTests() {
       booksCardsForInitialization,
     })
 
-    expect(allBooksState.booksCards).to.deep.eq(booksCardsForInitialization)
+    expect(allBooksState.booksCards)
+      .to
+      .deep
+      .eq(booksCardsForInitialization)
   })
 }
 
@@ -97,7 +100,9 @@ function queryTests() {
 
     allBooksState.setQuery(`Fizz`)
 
-    expect(allBooksState.query).to.eq(`Fizz`)
+    expect(allBooksState.query)
+      .to
+      .eq(`Fizz`)
   })
 
   it(`
@@ -112,7 +117,9 @@ function queryTests() {
     allBooksState.setQuery(`Fizz`)
     allBooksState.setQuery(``)
 
-    expect(allBooksState.query).to.eq(``)
+    expect(allBooksState.query)
+      .to
+      .eq(``)
   })
 }
 
@@ -126,7 +133,10 @@ function selectedAreasTests() {
       allBooksState,
     } = createState()
 
-    expect(Array.from(allBooksState.selectedAreas)).to.deep.eq([])
+    expect(Array.from(allBooksState.selectedAreas))
+      .to
+      .deep
+      .eq([])
   })
 
   it(`
@@ -140,9 +150,12 @@ function selectedAreasTests() {
 
     allBooksState.onToggleArea(`Backend`)
 
-    expect(Array.from(allBooksState.selectedAreas)).to.deep.eq([
-      `Backend`,
-    ])
+    expect(Array.from(allBooksState.selectedAreas))
+      .to
+      .deep
+      .eq([
+        `Backend`,
+      ])
   })
 
   it(`
@@ -157,7 +170,10 @@ function selectedAreasTests() {
     allBooksState.onToggleArea(`Backend`)
     allBooksState.onToggleArea(`Backend`)
 
-    expect(Array.from(allBooksState.selectedAreas)).to.deep.eq([])
+    expect(Array.from(allBooksState.selectedAreas))
+      .to
+      .deep
+      .eq([])
   })
 
   it(`
@@ -174,7 +190,10 @@ function selectedAreasTests() {
 
     allBooksState.resetFilters()
 
-    expect(Array.from(allBooksState.selectedAreas)).to.deep.eq([])
+    expect(Array.from(allBooksState.selectedAreas))
+      .to
+      .deep
+      .eq([])
   })
 }
 
@@ -230,10 +249,13 @@ function knowledgeAreasTests() {
       booksCardsForInitialization,
     })
 
-    expect(allBooksState.knowledgeAreas).to.deep.eq([
-      `Backend`,
-      `Frontend`,
-    ])
+    expect(allBooksState.knowledgeAreas)
+      .to
+      .deep
+      .eq([
+        `Backend`,
+        `Frontend`,
+      ])
   })
 }
 
@@ -306,7 +328,10 @@ function filteredBooksTests() {
       booksCardsForInitialization, 
     })
 
-    expect(allBooksState.filteredBooks).to.deep.eq(booksCardsForInitialization)
+    expect(allBooksState.filteredBooks)
+      .to
+      .deep
+      .eq(booksCardsForInitialization)
   })
 
   it(`
@@ -347,9 +372,12 @@ function filteredBooksTests() {
 
     allBooksState.setQuery(`David`)
 
-    expect(allBooksState.filteredBooks).to.deep.eq([
-      booksCardsForInitialization[2],
-    ])
+    expect(allBooksState.filteredBooks)
+      .to
+      .deep
+      .eq([
+        booksCardsForInitialization[2],
+      ])
   })
 
   it(`
@@ -365,9 +393,12 @@ function filteredBooksTests() {
 
     allBooksState.setQuery(`cLeAn cOdE`)
 
-    expect(allBooksState.filteredBooks).to.deep.eq([
-      booksCardsForInitialization[0],
-    ])
+    expect(allBooksState.filteredBooks)
+      .to
+      .deep
+      .eq([
+        booksCardsForInitialization[0],
+      ])
   })
 
   it(`
@@ -383,7 +414,10 @@ function filteredBooksTests() {
 
     allBooksState.setQuery(`Zzz None`)
 
-    expect(allBooksState.filteredBooks).to.deep.eq([])
+    expect(allBooksState.filteredBooks)
+      .to
+      .deep
+      .eq([])
   })
 
   it(`
@@ -397,7 +431,10 @@ function filteredBooksTests() {
 
     allBooksState.setQuery(`Clean`)
 
-    expect(allBooksState.filteredBooks).to.deep.eq([])
+    expect(allBooksState.filteredBooks)
+      .to
+      .deep
+      .eq([])
   })
 
   it(`
@@ -413,10 +450,13 @@ function filteredBooksTests() {
 
     allBooksState.onToggleArea(`Backend`)
 
-    expect(allBooksState.filteredBooks).to.deep.eq([
-      booksCardsForInitialization[0],
-      booksCardsForInitialization[1],
-    ])
+    expect(allBooksState.filteredBooks)
+      .to
+      .deep
+      .eq([
+        booksCardsForInitialization[0],
+        booksCardsForInitialization[1],
+      ])
   })
 
   it(`
@@ -433,9 +473,12 @@ function filteredBooksTests() {
     allBooksState.setQuery(`Architecture`)
     allBooksState.onToggleArea(`Backend`)
 
-    expect(allBooksState.filteredBooks).to.deep.eq([
-      booksCardsForInitialization[1],
-    ])
+    expect(allBooksState.filteredBooks)
+      .to
+      .deep
+      .eq([
+        booksCardsForInitialization[1],
+      ])
   })
 
   it(`
@@ -453,9 +496,12 @@ function filteredBooksTests() {
 
     allBooksState.resetFilters()
 
-    expect(allBooksState.filteredBooks).to.deep.eq(
-      booksCardsForInitialization,
-    )
+    expect(allBooksState.filteredBooks)
+      .to
+      .deep
+      .eq(
+        booksCardsForInitialization,
+      )
   })
 }
 
