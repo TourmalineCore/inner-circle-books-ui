@@ -14,11 +14,11 @@ export const AllBooksContent = observer(({
 }: {
   cards: BookCardType[],
   query: string,
-  onQueryChange: (value: string) => void,
+  onQueryChange: (value: string) => unknown,
   knowledgeAreas: string[],
   selectedAreas: Set<string>,
-  onToggleArea: (knowledgeArea: string) => void,
-  onResetFilters: () => void,
+  onToggleArea: (knowledgeArea: string) => unknown,
+  onResetFilters: () => unknown,
 }) => {
   return (
     <>

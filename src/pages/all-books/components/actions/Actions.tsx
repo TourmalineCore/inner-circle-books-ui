@@ -15,7 +15,7 @@ export const Actions = observer(({
   onQueryChange,
 }: {
   query: string,
-  onQueryChange: (value: string) => void,
+  onQueryChange: (value: string) => unknown,
 }) => {
   const isScanButtonMobile = useMediaQuery({
     maxWidth: 767,

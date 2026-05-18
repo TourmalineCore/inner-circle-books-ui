@@ -1,6 +1,5 @@
 import "./Filter.scss"
 import FilterIcon from "../../../../assets/icons/Filter.svg?react"
-import { observer } from "mobx-react-lite"
 import { useState } from "react"
 import { FilterModal } from "../filter-modal/FilterModal"
 
@@ -12,8 +11,8 @@ export const Filter = ({
 }: {
   knowledgeAreas: string[],
   selectedAreas: Set<string>,
-  onToggleArea: (knowledgeArea: string) => void,
-  resetFilters: () => void,
+  onToggleArea: (knowledgeArea: string) => unknown,
+  resetFilters: () => unknown,
 }) => {
   const [
     isOpen,

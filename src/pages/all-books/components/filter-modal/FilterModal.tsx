@@ -12,9 +12,9 @@ export const FilterModal = ({
 }: {
   knowledgeAreas: string[],
   selectedAreas: Set<string>,
-  onToggleArea: (area: string) => void,
-  resetFilters: () => void,
-  onClose: () => void,
+  onToggleArea: (area: string) => unknown,
+  resetFilters: () => unknown,
+  onClose: () => unknown,
 }) => {
   const [
     localSelectedAreas,
