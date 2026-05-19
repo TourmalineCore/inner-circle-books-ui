@@ -4,17 +4,25 @@ import FilterIcon from "../../../../assets/icons/Filter.svg?react"
 import { useState } from "react"
 import { FilterModal } from "../filter-modal/FilterModal"
 
-export const Filter = ({
+export function Filter({
   knowledgeAreas,
-  selectedAreas,
-  onToggleArea,
+  selectedAreasIds,
+  toggleKnowledgeArea,
   resetFilters,
+  applySelectedAreas,
+  resetToPreviouslySelectedAreas,
 }: {
-  knowledgeAreas: string[],
-  selectedAreas: Set<string>,
-  onToggleArea: (knowledgeArea: string) => unknown,
+  knowledgeAreas: KnowledgeArea[],
+  selectedAreasIds: number[],
+  toggleKnowledgeArea: ({
+    knowledgeAreaId,
+  }: {
+    knowledgeAreaId: number,
+  }) => unknown,
   resetFilters: () => unknown,
-}) => {
+  applySelectedAreas: () => unknown,
+  resetToPreviouslySelectedAreas: () => unknown,
+}) {
   const [
     isOpen,
     setIsOpen,
@@ -22,7 +30,8 @@ export const Filter = ({
 
   return (
     <>
-      <div className="filter"
+      <div 
+        className="filter"
         data-cy="filter">
         <button
           type="button"
@@ -36,16 +45,20 @@ export const Filter = ({
 
         <div className="filter__desktop">
           <div className="filter__chips">
-            {knowledgeAreas.map((knowledgeArea) => (
+            {knowledgeAreas.map(({
+              id, name,
+            }) => (
               <button
-                key={knowledgeArea}
+                key={id}
                 type="button"
                 className={clsx(`filter__chip`, {
-                  "filter__chip--active": selectedAreas.has(knowledgeArea),
+                  "filter__chip--active": selectedAreasIds.includes(id),
                 })}
-                onClick={() => onToggleArea(knowledgeArea)}
+                onClick={() => toggleKnowledgeArea({
+                  knowledgeAreaId: id,
+                })}
               >
-                {knowledgeArea}
+                {name}
               </button>
             ))}
           </div>
@@ -55,9 +68,11 @@ export const Filter = ({
       {isOpen && (
         <FilterModal
           knowledgeAreas={knowledgeAreas}
-          selectedAreas={selectedAreas}
-          onToggleArea={onToggleArea}
+          selectedAreasIds={selectedAreasIds}
+          toggleKnowledgeArea={toggleKnowledgeArea}
           resetFilters={resetFilters}
+          resetToPreviouslySelectedAreas={resetToPreviouslySelectedAreas}
+          applySelectedAreas={applySelectedAreas}
           onClose={() => setIsOpen(false)}
         />
       )}

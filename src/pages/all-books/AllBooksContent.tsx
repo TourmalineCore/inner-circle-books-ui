@@ -2,39 +2,36 @@ import { observer } from "mobx-react-lite"
 import { BooksList } from "./components/books-list/BooksList"
 import { Actions } from "./components/actions/Actions"
 import { Filter } from "./components/filter/Filter"
+import { useContext } from "react"
+import { AllBooksStateContext } from "./state/AllBooksStateStateContext"
 
-export const AllBooksContent = observer(({
-  cards,
-  query,
-  onQueryChange,
-  knowledgeAreas,
-  selectedAreas,
-  onToggleArea,
-  onResetFilters,
-}: {
-  cards: BookCardType[],
-  query: string,
-  onQueryChange: (value: string) => unknown,
-  knowledgeAreas: string[],
-  selectedAreas: Set<string>,
-  onToggleArea: (knowledgeArea: string) => unknown,
-  onResetFilters: () => unknown,
-}) => {
+export const AllBooksContent = observer(() => {
+  const allBooksState = useContext(AllBooksStateContext)
+
+  const {
+    query,
+    filteredBooks,
+    knowledgeAreas,
+    selectedAreasIds,
+  } = allBooksState
+   
   return (
     <>
       <Actions
         query={query}
-        onQueryChange={onQueryChange}
+        onQueryChange={(query) => allBooksState.setQuery(query)}
       />
 
       <Filter
         knowledgeAreas={knowledgeAreas}
-        selectedAreas={selectedAreas}
-        onToggleArea={onToggleArea}
-        resetFilters={onResetFilters}
+        selectedAreasIds={selectedAreasIds}
+        toggleKnowledgeArea={(knowledgeArea) => allBooksState.toggleKnowledgeArea(knowledgeArea)}
+        resetFilters={() => allBooksState.resetFilters()}
+        resetToPreviouslySelectedAreas={() => allBooksState.resetToPreviouslySelectedAreas()}
+        applySelectedAreas={() => allBooksState.applySelectedAreas()}
       />
 
-      <BooksList cards={cards} />
+      <BooksList cards={filteredBooks} />
     </>
   )
 })

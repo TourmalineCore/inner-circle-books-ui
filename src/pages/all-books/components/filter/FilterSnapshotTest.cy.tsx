@@ -16,18 +16,55 @@ export const VIEWPORTS = [
 ]
 
 export const MOCK_KNOWLEDGE_AREAS = [
-  `Backend`,
-  `Business and Management`,
-  `Design`,
-  `DevOps`,
-  `Embedded`,
-  `Frontend`,
-  `Game Dev`,
-  `Marketing`,
-  `Information Security`,
-  `ML`,
-  `Psychology`,
-  `QA`,
+  {
+    id: 1,
+    name: `Backend`,
+  },
+  {
+    id: 2,
+    name: `Business and Management`,
+  },
+  {
+    id: 3,
+    name: `Design`,
+  },
+  {
+    id: 4,
+    name: `DevOps`,
+  }, 
+  {
+    id: 5,
+    name: `Embedded`,
+  },
+  {
+    id: 6,
+    name: `Frontend`,
+  },
+  {
+    id: 7,
+    name: `Game Dev`,
+  },
+  {
+    id: 8,
+    name: `Marketing`,
+  },
+  {
+    id: 9,
+    name: `Information Security`,
+  },
+  {
+    id: 10,
+    name: `ML`,
+  },
+  {
+    id: 11,
+    name: `Psychology`,
+  },
+  {
+    id: 12,
+    name: `QA`,
+  },
+
 ]
 
 describe(`Filter Desktop Snapshot test`, () => {
@@ -75,9 +112,11 @@ function mountComponent() {
         <AllBooksStateContext.Provider value={allBooksState}>
           <Filter 
             knowledgeAreas={MOCK_KNOWLEDGE_AREAS}
-            selectedAreas={new Set<string>()}
-            onToggleArea={()=>{}}
+            selectedAreasIds={[]}
+            toggleKnowledgeArea={()=>{}}
             resetFilters={()=>{}}
+            applySelectedAreas={()=>{}}
+            resetToPreviouslySelectedAreas={()=>{}}
           />
         </AllBooksStateContext.Provider>
       </authService.AuthContext.Provider>,

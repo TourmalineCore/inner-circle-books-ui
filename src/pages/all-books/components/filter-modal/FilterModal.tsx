@@ -2,56 +2,28 @@ import "./FilterModal.scss"
 import clsx from "clsx"
 import ArrowLeftIcon from "../../../../assets/icons/ArrowLeft.svg?react"
 import { Button } from "../../../../components/button/Button"
-import { useState } from "react"
 
 export const FilterModal = ({
   knowledgeAreas,
-  selectedAreas,
-  onToggleArea,
+  selectedAreasIds,
+  toggleKnowledgeArea,
+  applySelectedAreas,
   resetFilters,
+  resetToPreviouslySelectedAreas,
   onClose,
 }: {
-  knowledgeAreas: string[],
-  selectedAreas: Set<string>,
-  onToggleArea: (area: string) => unknown,
+  knowledgeAreas: KnowledgeArea[],
+  selectedAreasIds: number[],
+  toggleKnowledgeArea: ({
+    knowledgeAreaId,
+  }: {
+    knowledgeAreaId: number,
+  }) => unknown,
   resetFilters: () => unknown,
+  resetToPreviouslySelectedAreas: () => unknown,
+  applySelectedAreas: () => unknown,
   onClose: () => unknown,
 }) => {
-  const [
-    localSelectedAreas,
-    setLocalSelectedAreas,
-  ] = useState<Set<string>>(new Set(selectedAreas))
-
-  function handleToggleArea(area: string) {
-    const newSet = new Set(localSelectedAreas)
-    if (newSet.has(area)) {
-      newSet.delete(area)
-    }
-    else {
-      newSet.add(area)
-    }
-    setLocalSelectedAreas(newSet)
-  }
-
-  function handleApply() {
-    localSelectedAreas.forEach(area => {
-      if (!selectedAreas.has(area)) {
-        onToggleArea(area)
-      }
-    })
-    selectedAreas.forEach(area => {
-      if (!localSelectedAreas.has(area)) {
-        onToggleArea(area)
-      }
-    })
-    onClose()
-  }
-
-  const handleReset = () => {
-    setLocalSelectedAreas(new Set())
-    resetFilters()
-  }
-
   return (
     <div className="filter-modal"
       data-cy="filter-modal">
@@ -59,7 +31,10 @@ export const FilterModal = ({
         <button
           type="button"
           className="filter-modal__back"
-          onClick={onClose}
+          onClick={() => {
+            onClose()
+            resetToPreviouslySelectedAreas()
+          }}
         >
           <ArrowLeftIcon />
         </button>
@@ -76,16 +51,20 @@ export const FilterModal = ({
           </h3>
 
           <div className="filter__chips">
-            {knowledgeAreas.map((area) => (
+            {knowledgeAreas.map(({
+              id, name,
+            }) => (
               <button
-                key={area}
+                key={id}
                 type="button"
                 className={clsx(`filter__chip`, {
-                  "filter__chip--active": localSelectedAreas.has(area),
+                  "filter__chip--active": selectedAreasIds.includes(id),
                 })}
-                onClick={() => handleToggleArea(area)}
+                onClick={() => toggleKnowledgeArea({
+                  knowledgeAreaId: id,
+                })}
               >
-                {area}
+                {name}
               </button>
             ))}
           </div>
@@ -95,14 +74,17 @@ export const FilterModal = ({
       <div className="filter-modal__footer">
         <Button
           className="filter-modal__button"
-          onClick={handleReset}
-          label={<>Reset Filters</>}
+          onClick={resetFilters}
+          label={`Reset Filters`}
         />
 
         <Button
           className="filter-modal__button"
-          onClick={handleApply}
-          label={<>Apply</>}
+          onClick={() => {
+            onClose()
+            applySelectedAreas()
+          }}
+          label={`Apply`}
           isAccent
         />
       </div>

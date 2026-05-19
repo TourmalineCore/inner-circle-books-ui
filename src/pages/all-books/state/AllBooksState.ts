@@ -3,13 +3,15 @@ import { makeAutoObservable } from 'mobx'
 export class AllBooksState {
   private _booksCards: BookCardType[] = []
   private _query: string = ``
-  private _selectedAreas: Set<string> = new Set()
+  private _knowledgeAreas: KnowledgeArea[] = []
+  private _selectedAreasIds: number[] = []
+  private _previouslySelectedAreasIds: number[] = []
 
   constructor() {
     makeAutoObservable(this)
   }
 
-  initialize({
+  initializeBooks({
     booksCards,
   }: {
     booksCards: BookCardType[],
@@ -17,26 +19,28 @@ export class AllBooksState {
     this._booksCards = booksCards
   }
 
+  initializeKnowledgeAreas({
+    knowledgeAreas,
+  }: {
+    knowledgeAreas: KnowledgeArea[],
+  }) {
+    this._knowledgeAreas = knowledgeAreas
+  }
+
   get query() {
     return this._query
   }
 
-  get booksCards() {
-    return this._booksCards
+  get selectedAreasIds() {
+    return this._selectedAreasIds
   }
 
-  get selectedAreas() {
-    return this._selectedAreas
+  get previouslySelectedAreasIds() {
+    return this._previouslySelectedAreasIds
   }
 
   get knowledgeAreas() {
-    return [
-      ...new Set(
-        this._booksCards.flatMap((book) =>
-          book.knowledgeAreas.map((knowledgeArea: KnowledgeArea) => knowledgeArea.name),
-        ),
-      ),
-    ]
+    return this._knowledgeAreas
   }
 
   get filteredBooks() {
@@ -57,10 +61,10 @@ export class AllBooksState {
       )
     }
 
-    if (this._selectedAreas.size) {
+    if (this._selectedAreasIds.length) {
       result = result.filter((book) =>
         book.knowledgeAreas.some((knowledgeArea: KnowledgeArea) =>
-          this._selectedAreas.has(knowledgeArea.name),
+          this._selectedAreasIds.includes(knowledgeArea.id),
         ),
       )
     }
@@ -72,16 +76,36 @@ export class AllBooksState {
     this._query = query
   }
 
-  onToggleArea(knowledgeArea: string) {
-    if (this._selectedAreas.has(knowledgeArea)) {
-      this._selectedAreas.delete(knowledgeArea)
+  toggleKnowledgeArea({
+    knowledgeAreaId,
+  } : {
+    knowledgeAreaId: number,
+  }) {
+    const indexOfKnowledgeAreaIdAmongSelected = this._selectedAreasIds.indexOf(knowledgeAreaId)
+
+    if (indexOfKnowledgeAreaIdAmongSelected === -1) {
+      this._selectedAreasIds.push(knowledgeAreaId)
     }
     else {
-      this._selectedAreas.add(knowledgeArea)
+      this._selectedAreasIds.splice(indexOfKnowledgeAreaIdAmongSelected, 1)
     }
   }
 
+  // call when click back button
+  resetToPreviouslySelectedAreas() {
+    this._selectedAreasIds = [
+      ...this._previouslySelectedAreasIds,
+    ] 
+  }
+
+  // apply method for mobile 
+  applySelectedAreas() {
+    this._previouslySelectedAreasIds = [
+      ...this._selectedAreasIds,
+    ]
+  }
+
   resetFilters() {
-    this._selectedAreas.clear()
+    this._selectedAreasIds = []
   }
 }
