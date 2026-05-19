@@ -1,7 +1,7 @@
 import "./FilterModal.scss"
 import clsx from "clsx"
-import ArrowLeftIcon from "../../../../assets/icons/ArrowLeft.svg?react"
-import { Button } from "../../../../components/button/Button"
+import ArrowLeftIcon from "../../../../../../assets/icons/ArrowLeft.svg?react"
+import { Button } from "../../../../../../components/button/Button"
 
 export const FilterModal = ({
   knowledgeAreas,

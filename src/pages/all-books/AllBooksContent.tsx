@@ -1,9 +1,9 @@
 import { observer } from "mobx-react-lite"
 import { BooksList } from "./components/books-list/BooksList"
 import { Actions } from "./components/actions/Actions"
-import { Filter } from "./components/filter/Filter"
 import { useContext } from "react"
 import { AllBooksStateContext } from "./state/AllBooksStateStateContext"
+import { Filter } from "./components/filter/Filter"
 
 export const AllBooksContent = observer(() => {
   const allBooksState = useContext(AllBooksStateContext)

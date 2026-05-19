@@ -1,0 +1,54 @@
+import FilterIcon from "../../../../assets/icons/Filter.svg?react"
+import { useState } from "react"
+import { FilterModal } from "./components/filter-modal/FilterModal"
+
+export function FilterMobile({
+  knowledgeAreas,
+  selectedAreasIds,
+  toggleKnowledgeArea,
+  resetFilters,
+  applySelectedAreas,
+  resetToPreviouslySelectedAreas,
+}: {
+  knowledgeAreas: KnowledgeArea[],
+  selectedAreasIds: number[],
+  toggleKnowledgeArea: ({
+    knowledgeAreaId,
+  }: {
+    knowledgeAreaId: number,
+  }) => unknown,
+  resetFilters: () => unknown,
+  applySelectedAreas: () => unknown,
+  resetToPreviouslySelectedAreas: () => unknown,
+}) {
+  const [
+    isOpen,
+    setIsOpen,
+  ] = useState(false)
+
+  return (
+    <>
+      <button
+        type="button"
+        className="filter__mobile-button"
+        data-cy="open-mobile-filters-button"
+        onClick={() => setIsOpen(true)}
+      >
+        <FilterIcon />
+          Filters
+      </button>
+
+      {isOpen && (
+        <FilterModal
+          knowledgeAreas={knowledgeAreas}
+          selectedAreasIds={selectedAreasIds}
+          toggleKnowledgeArea={toggleKnowledgeArea}
+          resetFilters={resetFilters}
+          resetToPreviouslySelectedAreas={resetToPreviouslySelectedAreas}
+          applySelectedAreas={applySelectedAreas}
+          onClose={() => setIsOpen(false)}
+        />
+      )}
+    </>
+  )
+}

@@ -1,8 +1,8 @@
-import { authService } from "../../../../common/authService"
-import { MOCK_TOKEN } from "../../../../common/constant"
-import { AllBooksState } from "../../state/AllBooksState"
-import { AllBooksStateContext } from "../../state/AllBooksStateStateContext"
-import { Filter } from "../filter/Filter"
+import { authService } from "../../../../../../common/authService"
+import { MOCK_TOKEN } from "../../../../../../common/constant"
+import { AllBooksState } from "../../../../state/AllBooksState"
+import { AllBooksStateContext } from "../../../../state/AllBooksStateStateContext"
+import { FilterDesktop } from "../../../filter-desktop/FilterDesktop"
 
 export const VIEWPORTS = [
   {
@@ -118,13 +118,10 @@ function mountComponent() {
     .mount(
       <authService.AuthContext.Provider value={mockAuthContext}>
         <AllBooksStateContext.Provider value={allBooksState}>
-          <Filter 
+          <FilterDesktop 
             knowledgeAreas={MOCK_KNOWLEDGE_AREAS}
             selectedAreasIds={[]}
             toggleKnowledgeArea={()=>{}}
-            resetFilters={()=>{}}
-            applySelectedAreas={()=>{}}
-            resetToPreviouslySelectedAreas={()=>{}}
           />
         </AllBooksStateContext.Provider>
       </authService.AuthContext.Provider>,

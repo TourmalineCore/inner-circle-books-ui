@@ -1,14 +1,12 @@
-@use "../../../../styles/variables" as v;
-@use "../../../../styles/fonts-mixin" as f;
-@use "../../../../styles/media" as m;
+@use "../../../../../../styles/variables" as v;
+@use "../../../../../../styles/fonts-mixin" as f;
+@use "../../../../../../styles/media" as m;
 
 .filter-modal {
   position: fixed;
   z-index: 1000;
   display: flex;
   flex-direction: column;
-
-  // padding-top: 24px;
   background: v.$color-background-primary;
   inset: 0;
 

@@ -1,8 +1,6 @@
-import "./Filter.scss"
-import clsx from "clsx"
-import FilterIcon from "../../../../assets/icons/Filter.svg?react"
-import { useState } from "react"
-import { FilterModal } from "../filter-modal/FilterModal"
+import { FilterMobile } from "../filter-mobile/FilterMobile"
+import { FilterDesktop } from "../filter-desktop/FilterDesktop"
+import { useMediaQuery } from "react-responsive"
 
 export function Filter({
   knowledgeAreas,
@@ -23,59 +21,33 @@ export function Filter({
   applySelectedAreas: () => unknown,
   resetToPreviouslySelectedAreas: () => unknown,
 }) {
-  const [
-    isOpen,
-    setIsOpen,
-  ] = useState(false)
+  const isMobile = useMediaQuery({
+    maxWidth: 1365,
+  })
 
   return (
     <>
       <div 
         className="filter"
         data-cy="filter">
-        <button
-          type="button"
-          className="filter__mobile-button"
-          data-cy="open-mobile-filters-button"
-          onClick={() => setIsOpen(true)}
-        >
-          <FilterIcon />
-          Filters
-        </button>
-
-        <div className="filter__desktop">
-          <div className="filter__chips">
-            {knowledgeAreas.map(({
-              id, name,
-            }) => (
-              <button
-                key={id}
-                type="button"
-                className={clsx(`filter__chip`, {
-                  "filter__chip--active": selectedAreasIds.includes(id),
-                })}
-                onClick={() => toggleKnowledgeArea({
-                  knowledgeAreaId: id,
-                })}
-              >
-                {name}
-              </button>
-            ))}
-          </div>
-        </div>
+        {
+          isMobile ? 
+            <FilterMobile
+              knowledgeAreas={knowledgeAreas}
+              selectedAreasIds={selectedAreasIds}
+              toggleKnowledgeArea={toggleKnowledgeArea}
+              resetFilters={resetFilters}
+              resetToPreviouslySelectedAreas={resetToPreviouslySelectedAreas}
+              applySelectedAreas={applySelectedAreas}
+            /> 
+            : 
+            <FilterDesktop
+              knowledgeAreas={knowledgeAreas}
+              selectedAreasIds={selectedAreasIds}
+              toggleKnowledgeArea={toggleKnowledgeArea}
+            />
+        }
       </div>
-
-      {isOpen && (
-        <FilterModal
-          knowledgeAreas={knowledgeAreas}
-          selectedAreasIds={selectedAreasIds}
-          toggleKnowledgeArea={toggleKnowledgeArea}
-          resetFilters={resetFilters}
-          resetToPreviouslySelectedAreas={resetToPreviouslySelectedAreas}
-          applySelectedAreas={applySelectedAreas}
-          onClose={() => setIsOpen(false)}
-        />
-      )}
     </>
   )
 }
