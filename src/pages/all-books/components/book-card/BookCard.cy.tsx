@@ -122,6 +122,7 @@ function mountComponent({
         language={language}
         authors={authors}
         coverUrl={coverUrl}
+        knowledgeAreas={[]}
       />,
     )
 }

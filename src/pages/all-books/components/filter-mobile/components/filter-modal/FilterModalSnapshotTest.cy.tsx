@@ -2,7 +2,7 @@ import { authService } from "../../../../../../common/authService"
 import { MOCK_TOKEN } from "../../../../../../common/constant"
 import { AllBooksState } from "../../../../state/AllBooksState"
 import { AllBooksStateContext } from "../../../../state/AllBooksStateStateContext"
-import { FilterDesktop } from "../../../filter-desktop/FilterDesktop"
+import { FilterModal } from "./FilterModal"
 
 export const VIEWPORTS = [
   {
@@ -96,10 +96,6 @@ describe(`Filter Modal Snapshot test`, () => {
         .then((win) => win.document.fonts.ready)
 
       cy
-        .getByData(`open-mobile-filters-button`)
-        .click()
-
-      cy
         .getByData(`filter-modal`)
         .compareSnapshot(`/${viewport.width}`, {
           capture: `viewport`,
@@ -118,10 +114,14 @@ function mountComponent() {
     .mount(
       <authService.AuthContext.Provider value={mockAuthContext}>
         <AllBooksStateContext.Provider value={allBooksState}>
-          <FilterDesktop 
+          <FilterModal
             knowledgeAreas={MOCK_KNOWLEDGE_AREAS}
             selectedAreasIds={[]}
             toggleKnowledgeArea={()=>{}}
+            applySelectedAreas={()=>{}}
+            resetFilters={()=>{}}
+            resetToPreviouslySelectedAreas={()=>{}}
+            onClose={()=>{}}
           />
         </AllBooksStateContext.Provider>
       </authService.AuthContext.Provider>,

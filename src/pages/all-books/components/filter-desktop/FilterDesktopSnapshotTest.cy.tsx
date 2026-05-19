@@ -92,7 +92,7 @@ describe(`Filter Desktop Snapshot test`, () => {
         .then((win) => win.document.fonts.ready)
 
       cy
-        .getByData(`filter`)
+        .getByData(`filter-desktop`)
         .compareSnapshot(`/${viewport.width}`, {
           capture: `viewport`,
         })
