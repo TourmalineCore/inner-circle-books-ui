@@ -3,7 +3,9 @@ import { BooksList } from "./components/books-list/BooksList"
 import { Actions } from "./components/actions/Actions"
 import { useContext } from "react"
 import { AllBooksStateContext } from "./state/AllBooksStateStateContext"
-import { Filter } from "./components/filter/Filter"
+import { useMediaQuery } from "react-responsive"
+import { FilterMobile } from "./components/filter-mobile/FilterMobile"
+import { FilterDesktop } from "./components/filter-desktop/FilterDesktop"
 
 export const AllBooksContent = observer(() => {
   const allBooksState = useContext(AllBooksStateContext)
@@ -15,22 +17,33 @@ export const AllBooksContent = observer(() => {
     selectedAreasIds,
   } = allBooksState
    
+  const isMobile = useMediaQuery({
+    maxWidth: 1365,
+  })
+  
   return (
     <>
       <Actions
         query={query}
         onQueryChange={(query) => allBooksState.setQuery(query)}
       />
-
-      <Filter
-        knowledgeAreas={knowledgeAreas}
-        selectedAreasIds={selectedAreasIds}
-        toggleKnowledgeArea={(knowledgeArea) => allBooksState.toggleKnowledgeArea(knowledgeArea)}
-        resetFilters={() => allBooksState.resetFilters()}
-        resetToPreviouslySelectedAreas={() => allBooksState.resetToPreviouslySelectedAreas()}
-        applySelectedAreas={() => allBooksState.applySelectedAreas()}
-      />
-
+      {
+        isMobile ? 
+          <FilterMobile
+            knowledgeAreas={knowledgeAreas}
+            selectedAreasIds={selectedAreasIds}
+            toggleKnowledgeArea={(knowledgeArea) => allBooksState.toggleKnowledgeArea(knowledgeArea)}
+            resetFilters={() => allBooksState.resetFilters()}
+            resetToPreviouslySelectedAreas={() => allBooksState.resetToPreviouslySelectedAreas()}
+            applySelectedAreas={() => allBooksState.applySelectedAreas()}
+          /> 
+          : 
+          <FilterDesktop
+            knowledgeAreas={knowledgeAreas}
+            selectedAreasIds={selectedAreasIds}
+            toggleKnowledgeArea={(knowledgeArea) => allBooksState.toggleKnowledgeArea(knowledgeArea)}
+          />
+      }
       <BooksList cards={filteredBooks} />
     </>
   )

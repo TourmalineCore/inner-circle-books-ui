@@ -16,16 +16,16 @@ export function FilterDesktop({
 }) {
   return (
     <>
-      <div className="filter__desktop">
-        <div className="filter__chips">
+      <div className="filter-desktop">
+        <div className="filter-desktop__chips">
           {knowledgeAreas.map(({
             id, name,
           }) => (
             <button
               key={id}
               type="button"
-              className={clsx(`filter__chip`, {
-                "filter__chip--active": selectedAreasIds.includes(id),
+              className={clsx(`filter-desktop__chip`, {
+                "filter-desktop__chip--active": selectedAreasIds.includes(id),
               })}
               onClick={() => toggleKnowledgeArea({
                 knowledgeAreaId: id,

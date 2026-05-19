@@ -25,8 +25,10 @@ export const FilterModal = ({
   onClose: () => unknown,
 }) => {
   return (
-    <div className="filter-modal"
-      data-cy="filter-modal">
+    <div 
+      className="filter-modal"
+      data-cy="filter-modal"
+    >
       <div className="filter-modal__header">
         <button
           type="button"
@@ -50,15 +52,15 @@ export const FilterModal = ({
             Knowledge Areas
           </h3>
 
-          <div className="filter__chips">
+          <div className="filter-modal__chips">
             {knowledgeAreas.map(({
               id, name,
             }) => (
               <button
                 key={id}
                 type="button"
-                className={clsx(`filter__chip`, {
-                  "filter__chip--active": selectedAreasIds.includes(id),
+                className={clsx(`filter-modal__chip`, {
+                  "filter-modal__chip--active": selectedAreasIds.includes(id),
                 })}
                 onClick={() => toggleKnowledgeArea({
                   knowledgeAreaId: id,

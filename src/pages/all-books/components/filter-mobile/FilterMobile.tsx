@@ -1,3 +1,4 @@
+import './FilterMobile.scss'
 import FilterIcon from "../../../../assets/icons/Filter.svg?react"
 import { useState } from "react"
 import { FilterModal } from "./components/filter-modal/FilterModal"
@@ -27,10 +28,10 @@ export function FilterMobile({
   ] = useState(false)
 
   return (
-    <>
+    <div className="filter-mobile">
       <button
         type="button"
-        className="filter__mobile-button"
+        className="filter-mobile__button"
         data-cy="open-mobile-filters-button"
         onClick={() => setIsOpen(true)}
       >
@@ -49,6 +50,6 @@ export function FilterMobile({
           onClose={() => setIsOpen(false)}
         />
       )}
-    </>
+    </div>
   )
 }
