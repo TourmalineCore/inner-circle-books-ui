@@ -72,9 +72,8 @@ export const MOCK_KNOWLEDGE_AREAS = [
 ]
 
 describe(`Filter Modal Snapshot test`, () => {
-  it(`Take the snapshot of filter modal`, () => {
-    VIEWPORTS.forEach((viewport) => {
-
+  VIEWPORTS.forEach((viewport) => {
+    it(`Take the snapshot of filter modal ${viewport.width}x${viewport.height}`, () => {
       cy.viewport(viewport.width, viewport.height)
 
       cy.wrap(
