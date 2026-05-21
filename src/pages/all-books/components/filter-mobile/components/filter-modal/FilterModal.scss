@@ -36,10 +36,6 @@
     background: none;
     cursor: pointer;
 
-    &:focus {
-      outline: auto;
-    }
-
     @include m.tablet {
       left: 36px;
     }
