@@ -2,7 +2,7 @@ import { makeAutoObservable } from 'mobx'
 
 export class AllBooksState {
   private _booksCards: BookCardType[] = []
-  private _query: string = ``
+  private _searchQuery: string = ``
   private _knowledgeAreas: KnowledgeArea[] = []
   private _selectedAreasIds: number[] = []
   private _previouslySelectedAreasIds: number[] = []
@@ -27,8 +27,8 @@ export class AllBooksState {
     this._knowledgeAreas = knowledgeAreas
   }
 
-  get query() {
-    return this._query
+  get searchQuery() {
+    return this._searchQuery
   }
 
   get selectedAreasIds() {
@@ -46,17 +46,17 @@ export class AllBooksState {
   get filteredBooks() {
     let result = this._booksCards
 
-    if (this._query) {
-      const lowerCaseQuery = this._query.toLowerCase()
+    if (this._searchQuery) {
+      const lowerCaseSearchQuery = this._searchQuery.toLowerCase()
 
       result = result.filter((book) =>
         book.title
           .toLowerCase()
-          .includes(lowerCaseQuery) ||
+          .includes(lowerCaseSearchQuery) ||
       book.authors.some((author) =>
         author.fullName
           .toLowerCase()
-          .includes(lowerCaseQuery),
+          .includes(lowerCaseSearchQuery),
       ),
       )
     }
@@ -71,9 +71,9 @@ export class AllBooksState {
 
     return result
   }
-
-  setQuery(query: string) {
-    this._query = query
+  
+  setSearchQuery(searchQuery: string) {
+    this._searchQuery = searchQuery
   }
 
   toggleKnowledgeArea({

@@ -2,7 +2,7 @@ import { AllBooksState } from "./AllBooksState"
 
 describe(`AllBooksState`, () => {
   describe(`Initialization`, initializationTests)
-  describe(`Query`, queryTests)
+  describe(`Search query`, searchQueryTests)
   describe(`Selected knowledge areas`, selectedKnowledgeAreasTests)
   describe(`Previously selected knowledge areas`, previouslySelectedKnowledgeAreasTests)
   describe(`Filtered books`, filteredBooksTests)
@@ -38,7 +38,7 @@ function initializationTests() {
       .deep
       .eq([])
 
-    expect(allBooksState.query)
+    expect(allBooksState.searchQuery)
       .to
       .eq(``)
   })
@@ -90,36 +90,36 @@ function initializationTests() {
   })
 }
 
-function queryTests() {
+function searchQueryTests() {
   it(`
   GIVEN initial state
-  WHEN set a query
-  SHOULD return the same query
+  WHEN set a search query
+  SHOULD return the same search query
   `, () => {
     const {
       allBooksState, 
     } = createState()
 
-    allBooksState.setQuery(`Fizz`)
+    allBooksState.setSearchQuery(`Fizz`)
 
-    expect(allBooksState.query)
+    expect(allBooksState.searchQuery)
       .to
       .eq(`Fizz`)
   })
 
   it(`
-  GIVEN state with a query
-  WHEN set an empty query
+  GIVEN state with a search query
+  WHEN set an empty search query
   SHOULD return an empty string
   `, () => {
     const {
       allBooksState, 
     } = createState()
 
-    allBooksState.setQuery(`Fizz`)
-    allBooksState.setQuery(``)
+    allBooksState.setSearchQuery(`Fizz`)
+    allBooksState.setSearchQuery(``)
 
-    expect(allBooksState.query)
+    expect(allBooksState.searchQuery)
       .to
       .eq(``)
   })
@@ -344,7 +344,7 @@ function filteredBooksTests() {
   ]
 
   it(`
-  GIVEN state with books and an empty query
+  GIVEN state with books and an empty search query
   WHEN ask for filtered books
   SHOULD return all books
   `, () => {
@@ -362,7 +362,7 @@ function filteredBooksTests() {
 
   it(`
   GIVEN state with books
-  WHEN set a query that matches part of a title
+  WHEN set a search query that matches part of a title
   SHOULD return only matching books
   `, () => {
     const {
@@ -371,7 +371,7 @@ function filteredBooksTests() {
       booksCardsForInitialization, 
     })
 
-    allBooksState.setQuery(`Clean`)
+    allBooksState.setSearchQuery(`Clean`)
 
     expect(allBooksState.filteredBooks)
       .to
@@ -381,7 +381,7 @@ function filteredBooksTests() {
         booksCardsForInitialization[1],
       ])
     
-    allBooksState.setQuery(`Pragmatic`)
+    allBooksState.setSearchQuery(`Pragmatic`)
 
     expect(allBooksState.filteredBooks)
       .to
@@ -393,7 +393,7 @@ function filteredBooksTests() {
 
   it(`
   GIVEN state with books
-  WHEN set a query that matches an author name
+  WHEN set a search query that matches an author name
   SHOULD return only books by that author
   `, () => {
     const {
@@ -402,7 +402,7 @@ function filteredBooksTests() {
       booksCardsForInitialization, 
     })
 
-    allBooksState.setQuery(`David`)
+    allBooksState.setSearchQuery(`David`)
 
     expect(allBooksState.filteredBooks)
       .to
@@ -414,7 +414,7 @@ function filteredBooksTests() {
 
   it(`
   GIVEN state with books
-  WHEN set a query in different case
+  WHEN set a search query in different case
   SHOULD match regardless of case
   `, () => {
     const {
@@ -423,7 +423,7 @@ function filteredBooksTests() {
       booksCardsForInitialization, 
     })
 
-    allBooksState.setQuery(`cLeAn cOdE`)
+    allBooksState.setSearchQuery(`cLeAn cOdE`)
 
     expect(allBooksState.filteredBooks)
       .to
@@ -435,7 +435,7 @@ function filteredBooksTests() {
 
   it(`
   GIVEN state with books
-  WHEN set a query that matches nothing
+  WHEN set a search query that matches nothing
   SHOULD return an empty array
   `, () => {
     const {
@@ -444,7 +444,7 @@ function filteredBooksTests() {
       booksCardsForInitialization, 
     })
 
-    allBooksState.setQuery(`Zzz None`)
+    allBooksState.setSearchQuery(`Zzz None`)
 
     expect(allBooksState.filteredBooks)
       .to
@@ -454,14 +454,14 @@ function filteredBooksTests() {
 
   it(`
   GIVEN state with no books
-  WHEN set any query
+  WHEN set any search query
   SHOULD return an empty array
   `, () => {
     const {
       allBooksState, 
     } = createState()
 
-    allBooksState.setQuery(`Clean`)
+    allBooksState.setSearchQuery(`Clean`)
 
     expect(allBooksState.filteredBooks)
       .to
@@ -495,7 +495,7 @@ function filteredBooksTests() {
 
   it(`
   GIVEN books
-  WHEN set query and knowledgeArea filter
+  WHEN set a search query and knowledgeArea filter
   SHOULD return books matching both filters
   `, () => {
     const {
@@ -504,7 +504,7 @@ function filteredBooksTests() {
       booksCardsForInitialization,
     })
 
-    allBooksState.setQuery(`Architecture`)
+    allBooksState.setSearchQuery(`Architecture`)
     allBooksState.toggleKnowledgeArea({
       knowledgeAreaId: 1,
     })

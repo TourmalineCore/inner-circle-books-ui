@@ -11,11 +11,11 @@ import { useMediaQuery } from 'react-responsive'
 import { hasAccessPermission } from '../../../../common/tokenUtils'
 
 export const Actions = observer(({
-  query,
-  onQueryChange,
+  searchQuery,
+  onSearchQueryChange,
 }: {
-  query: string,
-  onQueryChange: (value: string) => unknown,
+  searchQuery: string,
+  onSearchQueryChange: (value: string) => unknown,
 }) => {
   const isScanButtonMobile = useMediaQuery({
     maxWidth: 767,
@@ -39,9 +39,9 @@ export const Actions = observer(({
             className="actions__input"
             data-cy="actions-input"
             type="text"
-            value={query}
+            value={searchQuery}
             onChange={(e)=>{
-              onQueryChange(e.target.value)
+              onSearchQueryChange(e.target.value)
             }}
             placeholder="Search in the Library"
           />

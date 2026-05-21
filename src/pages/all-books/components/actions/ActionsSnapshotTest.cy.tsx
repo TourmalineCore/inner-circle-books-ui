@@ -71,9 +71,11 @@ function mountComponent() {
       <authService.AuthContext.Provider value={mockAuthContext}>
         <AllBooksStateContext.Provider value={allBooksState}>
           <Actions 
-            query={allBooksState.query}
-            onQueryChange={(query) => allBooksState.setQuery(query)} 
-          />,
+            searchQuery={allBooksState.searchQuery}
+            onSearchQueryChange={(searchQuery) => allBooksState.setSearchQuery({
+              searchQuery,
+            })} 
+          />
         </AllBooksStateContext.Provider>
       </authService.AuthContext.Provider>,
     )
