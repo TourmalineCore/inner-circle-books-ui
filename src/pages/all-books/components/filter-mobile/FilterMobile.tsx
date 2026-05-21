@@ -1,7 +1,7 @@
 import './FilterMobile.scss'
-import FilterIcon from "../../../../assets/icons/Filter.svg?react"
 import { useState } from "react"
 import { FilterModal } from "./components/filter-modal/FilterModal"
+import FilterIcon from "../../../../assets/icons/Filter.svg?react"
 
 export function FilterMobile({
   knowledgeAreas,

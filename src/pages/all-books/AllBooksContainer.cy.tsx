@@ -83,7 +83,7 @@ function knowledgeAreasInitializationTests() {
   it(`
   GIVEN two knowledge areas from network
   WHEN render the component
-  SHOULD display knowledge areas
+  SHOULD display these knowledge areas
   `, () => {
     cy.viewport(1366, 750)
     

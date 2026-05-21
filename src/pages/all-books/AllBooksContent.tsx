@@ -1,11 +1,11 @@
 import { observer } from "mobx-react-lite"
-import { BooksList } from "./components/books-list/BooksList"
-import { Actions } from "./components/actions/Actions"
 import { useContext } from "react"
 import { AllBooksStateContext } from "./state/AllBooksStateStateContext"
-import { useMediaQuery } from "react-responsive"
+import { BooksList } from "./components/books-list/BooksList"
+import { Actions } from "./components/actions/Actions"
 import { FilterMobile } from "./components/filter-mobile/FilterMobile"
 import { FilterDesktop } from "./components/filter-desktop/FilterDesktop"
+import { useMediaQuery } from "react-responsive"
 
 export const AllBooksContent = observer(() => {
   const allBooksState = useContext(AllBooksStateContext)

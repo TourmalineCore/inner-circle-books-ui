@@ -14,9 +14,5 @@
     background: none;
     cursor: pointer;
     gap: 4px;
-
-    @include m.desktop {
-      display: none;
-    }
   }
 }

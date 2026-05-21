@@ -68,7 +68,6 @@ export const MOCK_KNOWLEDGE_AREAS = [
     id: 12,
     name: `QA`,
   },
-
 ]
 
 describe(`Filter Modal Snapshot test`, () => {
