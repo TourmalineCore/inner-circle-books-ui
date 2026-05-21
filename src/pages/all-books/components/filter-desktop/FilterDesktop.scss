@@ -1,0 +1,15 @@
+@use "../../../../styles/variables" as v;
+@use "../../../../styles/fonts-mixin" as f;
+@use "../../../../styles/media" as m;
+
+.filter-desktop {
+  @include m.desktop {
+    margin-bottom: 12px;
+
+    &__chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+  }
+}

@@ -12,7 +12,7 @@ export const RatingInput = ({
   disabled = false,
 }: {
   value: number,
-  onChange: (value: number) => void,
+  onChange: (value: number) => unknown,
   error?: boolean,
   disabled?: boolean,
 }) => {

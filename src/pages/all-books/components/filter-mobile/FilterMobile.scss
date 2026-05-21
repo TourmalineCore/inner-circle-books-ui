@@ -1,0 +1,20 @@
+@use "../../../../styles/variables" as v;
+@use "../../../../styles/fonts-mixin" as f;
+@use "../../../../styles/media" as m;
+
+.filter-mobile {
+  margin-bottom: 12px;
+
+  &__button {
+    @include f.text;
+
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    width: 87px;
+    height: 36px;
+    background: none;
+    cursor: pointer;
+    gap: 4px;
+  }
+}

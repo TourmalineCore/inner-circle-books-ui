@@ -33,6 +33,19 @@ const BOOK_CARDS_RESPONSE = {
   ],
 }
 
+const KNOWLEDGE_AREAS_RESPONSE = {
+  knowledgeAreas: [
+    {
+      id: 1,
+      name: `Backend`,
+    },
+    {
+      id: 2,
+      name: `Frontend`,
+    },
+  ],
+}
+
 describe(`AllBooksContainer`, () => {
   beforeEach(() => {
     cy.intercept(
@@ -40,12 +53,18 @@ describe(`AllBooksContainer`, () => {
       `*/books`,
       BOOK_CARDS_RESPONSE,
     )
+    cy.intercept(
+      `GET`,
+      `*/books/knowledge-areas`,
+      KNOWLEDGE_AREAS_RESPONSE,
+    )
   })
 
-  describe(`Initialization`, initializationTests)
+  describe(`Books Initialization`, booksInitializationTests)
+  describe(`Knowledge Areas Initialization`, knowledgeAreasInitializationTests)
 })
 
-function initializationTests() {
+function booksInitializationTests() {
   it(`
   GIVEN two book cards from network
   WHEN render the component
@@ -57,6 +76,21 @@ function initializationTests() {
     cy.contains(`Разработка ценностных предложений`)
     cy.contains(Language.EN)
     cy.contains(`Даниэль Канеман`)
+  })
+}
+
+function knowledgeAreasInitializationTests() {
+  it(`
+  GIVEN two knowledge areas from network
+  WHEN render the component
+  SHOULD display these knowledge areas
+  `, () => {
+    cy.viewport(1366, 750)
+    
+    mountComponent()
+
+    cy.contains(`Backend`)
+    cy.contains(`Frontend`)
   })
 }
 

@@ -2,13 +2,16 @@ import { makeAutoObservable } from 'mobx'
 
 export class AllBooksState {
   private _booksCards: BookCardType[] = []
-  private _query: string = ``
+  private _searchQuery: string = ``
+  private _knowledgeAreas: KnowledgeArea[] = []
+  private _selectedAreasIds: number[] = []
+  private _previouslySelectedAreasIds: number[] = []
 
   constructor() {
     makeAutoObservable(this)
   }
 
-  initialize({
+  initializeBooks({
     booksCards,
   }: {
     booksCards: BookCardType[],
@@ -16,33 +19,97 @@ export class AllBooksState {
     this._booksCards = booksCards
   }
 
-  get query() {
-    return this._query
+  initializeKnowledgeAreas({
+    knowledgeAreas,
+  }: {
+    knowledgeAreas: KnowledgeArea[],
+  }) {
+    this._knowledgeAreas = knowledgeAreas
   }
 
-  get booksCards() {
-    return this._booksCards
+  get searchQuery() {
+    return this._searchQuery
+  }
+
+  get selectedAreasIds() {
+    return this._selectedAreasIds
+  }
+
+  get previouslySelectedAreasIds() {
+    return this._previouslySelectedAreasIds
+  }
+
+  get knowledgeAreas() {
+    return this._knowledgeAreas
   }
 
   get filteredBooks() {
-    if (this._query.length === 0) return this._booksCards
+    let result = this._booksCards
 
-    const lowerCaseQuery = this._query.toLowerCase()
-    return this._booksCards.filter((book) =>
-      book
-        .title
-        .toLowerCase()
-        .includes(lowerCaseQuery) ||
-      book.authors.some((author) =>
-        author
-          .fullName
+    if (this._searchQuery) {
+      const lowerCaseSearchQuery = this._searchQuery.toLowerCase()
+
+      result = result.filter((book) =>
+        book.title
           .toLowerCase()
-          .includes(lowerCaseQuery),
+          .includes(lowerCaseSearchQuery) ||
+      book.authors.some((author) =>
+        author.fullName
+          .toLowerCase()
+          .includes(lowerCaseSearchQuery),
       ),
-    )
+      )
+    }
+
+    if (this._selectedAreasIds.length) {
+      result = result.filter((book) =>
+        book.knowledgeAreas.some((knowledgeArea: KnowledgeArea) =>
+          this._selectedAreasIds.includes(knowledgeArea.id),
+        ),
+      )
+    }
+
+    return result
+  }
+  
+  setSearchQuery({
+    searchQuery,
+  } : {
+    searchQuery: string,
+  }) {
+    this._searchQuery = searchQuery
   }
 
-  setQuery(query: string) {
-    this._query = query
+  toggleKnowledgeArea({
+    knowledgeAreaId,
+  } : {
+    knowledgeAreaId: number,
+  }) {
+    const indexOfKnowledgeAreaIdAmongSelected = this._selectedAreasIds.indexOf(knowledgeAreaId)
+
+    if (indexOfKnowledgeAreaIdAmongSelected === -1) {
+      this._selectedAreasIds.push(knowledgeAreaId)
+    }
+    else {
+      this._selectedAreasIds.splice(indexOfKnowledgeAreaIdAmongSelected, 1)
+    }
+  }
+
+  // call when click back button
+  resetToPreviouslySelectedAreas() {
+    this._selectedAreasIds = [
+      ...this._previouslySelectedAreasIds,
+    ] 
+  }
+
+  // apply method for mobile 
+  applySelectedAreas() {
+    this._previouslySelectedAreasIds = [
+      ...this._selectedAreasIds,
+    ]
+  }
+
+  resetFilters() {
+    this._selectedAreasIds = []
   }
 }
