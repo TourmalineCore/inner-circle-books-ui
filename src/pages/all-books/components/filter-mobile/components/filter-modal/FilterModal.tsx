@@ -4,7 +4,7 @@ import { Button } from "../../../../../../components/button/Button"
 import ArrowLeftIcon from "../../../../../../assets/icons/ArrowLeft.svg?react"
 import { FilterChip } from "../../../../../../components/filter-chip/FilterChip"
 
-export const FilterModal = ({
+export function FilterModal({
   knowledgeAreas,
   selectedAreasIds,
   toggleKnowledgeArea,
@@ -24,7 +24,7 @@ export const FilterModal = ({
   resetToPreviouslySelectedAreas: () => unknown,
   applySelectedAreas: () => unknown,
   onClose: () => unknown,
-}) => {
+}) {
   return (
     <FocusLock
       returnFocus

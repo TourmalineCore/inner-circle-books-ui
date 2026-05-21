@@ -29,24 +29,31 @@ export const AllBooksContent = observer(() => {
           searchQuery,
         })}
       />
-      {
-        isMobile ? 
-          <FilterMobile
-            knowledgeAreas={knowledgeAreas}
-            selectedAreasIds={selectedAreasIds}
-            toggleKnowledgeArea={(knowledgeArea) => allBooksState.toggleKnowledgeArea(knowledgeArea)}
-            resetFilters={() => allBooksState.resetFilters()}
-            resetToPreviouslySelectedAreas={() => allBooksState.resetToPreviouslySelectedAreas()}
-            applySelectedAreas={() => allBooksState.applySelectedAreas()}
-          /> 
-          : 
-          <FilterDesktop
-            knowledgeAreas={knowledgeAreas}
-            selectedAreasIds={selectedAreasIds}
-            toggleKnowledgeArea={(knowledgeArea) => allBooksState.toggleKnowledgeArea(knowledgeArea)}
-          />
-      }
+      {renderFilters()}
       <BooksList cards={filteredBooks} />
     </>
   )
+
+  function renderFilters() {
+    if (isMobile) {
+      return (
+        <FilterMobile
+          knowledgeAreas={knowledgeAreas}
+          selectedAreasIds={selectedAreasIds}
+          toggleKnowledgeArea={(knowledgeArea) => allBooksState.toggleKnowledgeArea(knowledgeArea)}
+          resetFilters={() => allBooksState.resetFilters()}
+          resetToPreviouslySelectedAreas={() => allBooksState.resetToPreviouslySelectedAreas()}
+          applySelectedAreas={() => allBooksState.applySelectedAreas()}
+        />
+      )
+    }
+    
+    return (
+      <FilterDesktop
+        knowledgeAreas={knowledgeAreas}
+        selectedAreasIds={selectedAreasIds}
+        toggleKnowledgeArea={(knowledgeArea) => allBooksState.toggleKnowledgeArea(knowledgeArea)}
+      />
+    )
+  }
 })
