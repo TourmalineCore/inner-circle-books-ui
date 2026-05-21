@@ -72,7 +72,11 @@ export class AllBooksState {
     return result
   }
   
-  setSearchQuery(searchQuery: string) {
+  setSearchQuery({
+    searchQuery,
+  } : {
+    searchQuery: string,
+  }) {
     this._searchQuery = searchQuery
   }
 

@@ -11,7 +11,7 @@ export const AllBooksContent = observer(() => {
   const allBooksState = useContext(AllBooksStateContext)
 
   const {
-    searchQuery: query,
+    searchQuery,
     filteredBooks,
     knowledgeAreas,
     selectedAreasIds,
@@ -24,8 +24,10 @@ export const AllBooksContent = observer(() => {
   return (
     <>
       <Actions
-        query={query}
-        onQueryChange={(query) => allBooksState.setSearchQuery(query)}
+        searchQuery={searchQuery}
+        onSearchQueryChange={(searchQuery) => allBooksState.setSearchQuery({
+          searchQuery,
+        })}
       />
       {
         isMobile ? 

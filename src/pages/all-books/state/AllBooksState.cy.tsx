@@ -100,7 +100,9 @@ function searchQueryTests() {
       allBooksState, 
     } = createState()
 
-    allBooksState.setSearchQuery(`Fizz`)
+    allBooksState.setSearchQuery({
+      searchQuery: `Fizz`,
+    })
 
     expect(allBooksState.searchQuery)
       .to
@@ -116,8 +118,12 @@ function searchQueryTests() {
       allBooksState, 
     } = createState()
 
-    allBooksState.setSearchQuery(`Fizz`)
-    allBooksState.setSearchQuery(``)
+    allBooksState.setSearchQuery({
+      searchQuery: `Fizz`,
+    })
+    allBooksState.setSearchQuery({
+      searchQuery: ``,
+    })
 
     expect(allBooksState.searchQuery)
       .to
@@ -371,7 +377,9 @@ function filteredBooksTests() {
       booksCardsForInitialization, 
     })
 
-    allBooksState.setSearchQuery(`Clean`)
+    allBooksState.setSearchQuery({
+      searchQuery: `Clean`,
+    })
 
     expect(allBooksState.filteredBooks)
       .to
@@ -381,7 +389,9 @@ function filteredBooksTests() {
         booksCardsForInitialization[1],
       ])
     
-    allBooksState.setSearchQuery(`Pragmatic`)
+    allBooksState.setSearchQuery({
+      searchQuery: `Pragmatic`,
+    })
 
     expect(allBooksState.filteredBooks)
       .to
@@ -402,7 +412,9 @@ function filteredBooksTests() {
       booksCardsForInitialization, 
     })
 
-    allBooksState.setSearchQuery(`David`)
+    allBooksState.setSearchQuery({
+      searchQuery: `David`,
+    })
 
     expect(allBooksState.filteredBooks)
       .to
@@ -423,7 +435,9 @@ function filteredBooksTests() {
       booksCardsForInitialization, 
     })
 
-    allBooksState.setSearchQuery(`cLeAn cOdE`)
+    allBooksState.setSearchQuery({
+      searchQuery: `cLeAn cOdE`,
+    })
 
     expect(allBooksState.filteredBooks)
       .to
@@ -444,7 +458,9 @@ function filteredBooksTests() {
       booksCardsForInitialization, 
     })
 
-    allBooksState.setSearchQuery(`Zzz None`)
+    allBooksState.setSearchQuery({
+      searchQuery: `Zzz None`,
+    })
 
     expect(allBooksState.filteredBooks)
       .to
@@ -461,7 +477,9 @@ function filteredBooksTests() {
       allBooksState, 
     } = createState()
 
-    allBooksState.setSearchQuery(`Clean`)
+    allBooksState.setSearchQuery({
+      searchQuery: `Clean`,
+    })
 
     expect(allBooksState.filteredBooks)
       .to
@@ -504,7 +522,9 @@ function filteredBooksTests() {
       booksCardsForInitialization,
     })
 
-    allBooksState.setSearchQuery(`Architecture`)
+    allBooksState.setSearchQuery({
+      searchQuery: `Architecture`,
+    })
     allBooksState.toggleKnowledgeArea({
       knowledgeAreaId: 1,
     })
