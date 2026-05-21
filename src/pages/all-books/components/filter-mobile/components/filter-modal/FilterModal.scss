@@ -83,16 +83,6 @@
     }
   }
 
-  &__button {
-    @include f.text;
-
-    flex: 1;
-    border: none;
-    border-radius: 8px;
-    padding: 12px;
-    cursor: pointer;
-  }
-
   &__chips {
     display: flex;
     flex-wrap: wrap;
