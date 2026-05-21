@@ -2,21 +2,9 @@ import { authService } from "../../../../common/authService"
 import { MOCK_TOKEN } from "../../../../common/constant"
 import { AllBooksState } from "../../state/AllBooksState"
 import { AllBooksStateContext } from "../../state/AllBooksStateStateContext"
-import { Actions } from "./Actions"
+import { FilterDesktop } from "./FilterDesktop"
 
 export const VIEWPORTS = [
-  {
-    width: 375,
-    height: 1000,
-  },
-  {
-    width: 768,
-    height: 1000,
-  },
-  {
-    width: 1024,
-    height: 1000,
-  },
   {
     width: 1366,
     height: 1000,
@@ -27,8 +15,59 @@ export const VIEWPORTS = [
   },
 ]
 
-describe(`Actions Snapshot test`, () => {
-  it(`Take the snapshot of actions`, () => {
+export const MOCK_KNOWLEDGE_AREAS = [
+  {
+    id: 1,
+    name: `Backend`,
+  },
+  {
+    id: 2,
+    name: `Business and Management`,
+  },
+  {
+    id: 3,
+    name: `Design`,
+  },
+  {
+    id: 4,
+    name: `DevOps`,
+  }, 
+  {
+    id: 5,
+    name: `Embedded`,
+  },
+  {
+    id: 6,
+    name: `Frontend`,
+  },
+  {
+    id: 7,
+    name: `Game Dev`,
+  },
+  {
+    id: 8,
+    name: `Marketing`,
+  },
+  {
+    id: 9,
+    name: `Information Security`,
+  },
+  {
+    id: 10,
+    name: `ML`,
+  },
+  {
+    id: 11,
+    name: `Psychology`,
+  },
+  {
+    id: 12,
+    name: `QA`,
+  },
+]
+
+describe(`Filter Desktop Snapshot test`, () => {
+  it(`Take the snapshot of filter modal`, () => {
     VIEWPORTS.forEach((viewport) => {
 
       cy.viewport(viewport.width, viewport.height)
@@ -52,7 +91,7 @@ describe(`Actions Snapshot test`, () => {
         .then((win) => win.document.fonts.ready)
 
       cy
-        .getByData(`actions`)
+        .getByData(`filter-desktop`)
         .compareSnapshot(`/${viewport.width}`, {
           capture: `viewport`,
         })
@@ -70,11 +109,10 @@ function mountComponent() {
     .mount(
       <authService.AuthContext.Provider value={mockAuthContext}>
         <AllBooksStateContext.Provider value={allBooksState}>
-          <Actions 
-            searchQuery={allBooksState.searchQuery}
-            onSearchQueryChange={(searchQuery) => allBooksState.setSearchQuery({
-              searchQuery,
-            })} 
+          <FilterDesktop 
+            knowledgeAreas={MOCK_KNOWLEDGE_AREAS}
+            selectedAreasIds={[]}
+            toggleKnowledgeArea={()=>{}}
           />
         </AllBooksStateContext.Provider>
       </authService.AuthContext.Provider>,

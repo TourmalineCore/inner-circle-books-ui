@@ -16,7 +16,7 @@ export const BookActionButton = ({
   copyId?: string,
   employeesWhoReadNow: EmployeeWhoReadNowType[],
   isValidCopyId: boolean,
-  setShowModal: (value: boolean) => void,
+  setShowModal: (value: boolean) => unknown,
 }) => {
   const isCurrentUserReadingThisCopy = employeesWhoReadNow.some(
     (reader) => reader.employeeId === getEmployeeIdFromToken() && reader.bookCopyId === Number(copyId),

@@ -8,28 +8,39 @@ export const AllBooksContainer = observer(() => {
   const allBooksState = useContext(AllBooksStateContext)
 
   useEffect(() => {
-    async function loadBookCardsAsync() {
-      const {
-        data: {
-          books,
-        },
-      } = await api.get<{ 
-        books: BookCardType[], 
-      }>(``)
-
-      allBooksState.initialize({
-        booksCards: books,
-      })
-    }
-
     loadBookCardsAsync()
+    loadKnowledgeAreas()
   }, [])
 
   return (
-    <AllBooksContent
-      cards={allBooksState.filteredBooks}
-      query={allBooksState.query}
-      onQueryChange={(query) => allBooksState.setQuery(query)}
-    />
+    <AllBooksContent />
   )
+
+  async function loadBookCardsAsync() {
+    const {
+      data: {
+        books,
+      },
+    } = await api.get<{ 
+        books: BookCardType[], 
+      }>(``)
+
+    allBooksState.initializeBooks({
+      booksCards: books,
+    })
+  }
+
+  async function loadKnowledgeAreas() {
+    const {
+      data: {
+        knowledgeAreas,
+      },
+    } = await api.get<{ 
+        knowledgeAreas: KnowledgeArea[], 
+      }>(`/knowledge-areas`)
+
+    allBooksState.initializeKnowledgeAreas({
+      knowledgeAreas,
+    })
+  } 
 })

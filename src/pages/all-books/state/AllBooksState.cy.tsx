@@ -2,52 +2,55 @@ import { AllBooksState } from "./AllBooksState"
 
 describe(`AllBooksState`, () => {
   describe(`Initialization`, initializationTests)
-  describe(`Query`, queryTests)
+  describe(`Search query`, searchQueryTests)
+  describe(`Selected knowledge areas`, selectedKnowledgeAreasTests)
+  describe(`Previously selected knowledge areas`, previouslySelectedKnowledgeAreasTests)
   describe(`Filtered books`, filteredBooksTests)
 })
 
 function initializationTests() {
   it(`
-  GIVEN initial state with no books cards
+  GIVEN initial state with default values
   WHEN ask for them
-  SHOULD return an empty array
+  SHOULD return default values
   `, () => {
     const {
       allBooksState,
     } = createState()
 
-    expect(allBooksState.booksCards).to.deep.eq([])
+    expect(allBooksState.filteredBooks)
+      .to
+      .deep
+      .eq([])
+
+    expect(allBooksState.knowledgeAreas)
+      .to
+      .deep
+      .eq([])
+
+    expect(allBooksState.selectedAreasIds)
+      .to
+      .deep
+      .eq([])
+
+    expect(allBooksState.previouslySelectedAreasIds)
+      .to
+      .deep
+      .eq([])
+
+    expect(allBooksState.searchQuery)
+      .to
+      .eq(``)
   })
 
   it(`
   GIVEN initial state with no books cards
-  WHEN initialize it with two books cards
-  SHOULD return them from books cards
+  WHEN initialize it with a book card
+  SHOULD return an array with this book card
   `, () => {
     const booksCardsForInitialization = [
       {
         id: 1,
-        title: `First Fizz`,
-        annotation: `Annotation`,
-        language: `English`,
-        authors: [
-          {
-            fullName: `Алекс Остервальдер`, 
-          },
-        ],
-        coverUrl: `url-1`,
-      },
-      {
-        id: 2,
-        title: `Разработка ценностных предложений`,
-        annotation: `Аннотация`,
-        language: `Russian`,
-        authors: [
-          {
-            fullName: `Сергей Николенко`, 
-          },
-        ],
-        coverUrl: `url-2`,
       },
     ]
 
@@ -57,50 +60,243 @@ function initializationTests() {
       booksCardsForInitialization,
     })
 
-    expect(allBooksState.booksCards).to.deep.eq(booksCardsForInitialization)
+    expect(allBooksState.filteredBooks)
+      .to
+      .deep
+      .eq(booksCardsForInitialization)
+  })
+
+  it(`
+  GIVEN initial state with no knowledge areas
+  WHEN initialize it with one knowledge area
+  SHOULD return an array with this knowledge area
+  `, () => {
+    const knowledgeAreasForInitialization = [
+      {
+        id: 1,
+      },
+    ]
+
+    const {
+      allBooksState,
+    } = createState({
+      knowledgeAreasForInitialization,
+    })
+
+    expect(allBooksState.knowledgeAreas)
+      .to
+      .deep
+      .eq(knowledgeAreasForInitialization)
   })
 }
 
-function queryTests() {
+function searchQueryTests() {
   it(`
   GIVEN initial state
-  WHEN ask for query
+  WHEN set a search query
+  SHOULD return the same search query
+  `, () => {
+    const {
+      allBooksState, 
+    } = createState()
+
+    allBooksState.setSearchQuery({
+      searchQuery: `Fizz`,
+    })
+
+    expect(allBooksState.searchQuery)
+      .to
+      .eq(`Fizz`)
+  })
+
+  it(`
+  GIVEN state with a search query
+  WHEN set an empty search query
   SHOULD return an empty string
   `, () => {
     const {
       allBooksState, 
     } = createState()
 
-    expect(allBooksState.query).to.eq(``)
-  })
+    allBooksState.setSearchQuery({
+      searchQuery: `Fizz`,
+    })
+    allBooksState.setSearchQuery({
+      searchQuery: ``,
+    })
 
+    expect(allBooksState.searchQuery)
+      .to
+      .eq(``)
+  })
+}
+
+function selectedKnowledgeAreasTests() {
   it(`
   GIVEN initial state
-  WHEN set a query
-  SHOULD return the same query
+  WHEN toggle knowledgeArea
+  SHOULD add knowledgeArea to selected areas
   `, () => {
     const {
-      allBooksState, 
+      allBooksState,
     } = createState()
 
-    allBooksState.setQuery(`Fizz`)
+    allBooksState.toggleKnowledgeArea({
+      knowledgeAreaId: 1,
+    })
 
-    expect(allBooksState.query).to.eq(`Fizz`)
+    expect(allBooksState.selectedAreasIds)
+      .to
+      .deep
+      .eq([
+        1,
+      ])
   })
 
   it(`
-  GIVEN state with a query
-  WHEN set an empty query
-  SHOULD return an empty string
+  GIVEN selected knowledgeArea
+  WHEN toggle same knowledgeArea again
+  SHOULD remove knowledgeArea from selected areas
   `, () => {
     const {
-      allBooksState, 
+      allBooksState,
     } = createState()
 
-    allBooksState.setQuery(`Fizz`)
-    allBooksState.setQuery(``)
+    allBooksState.toggleKnowledgeArea({
+      knowledgeAreaId: 1,
+    })
+    allBooksState.toggleKnowledgeArea({
+      knowledgeAreaId: 1,
+    })
 
-    expect(allBooksState.query).to.eq(``)
+    expect(allBooksState.selectedAreasIds)
+      .to
+      .deep
+      .eq([])
+  })
+
+  it(`
+  GIVEN selected areas
+  WHEN reset filters
+  SHOULD clear selected areas
+  `, () => {
+    const {
+      allBooksState,
+    } = createState()
+
+    allBooksState.toggleKnowledgeArea({
+      knowledgeAreaId: 1,
+    })
+    allBooksState.toggleKnowledgeArea({
+      knowledgeAreaId: 2,
+    })
+
+    allBooksState.resetFilters()
+
+    expect(allBooksState.selectedAreasIds)
+      .to
+      .deep
+      .eq([])
+  })
+
+}
+
+function previouslySelectedKnowledgeAreasTests() {
+  it(`
+  GIVEN selected areas
+  WHEN apply filters
+  SHOULD add knowledge areas to previously selected areas ids
+  `, () => {
+    const {
+      allBooksState,
+    } = createState()
+
+    allBooksState.toggleKnowledgeArea({
+      knowledgeAreaId: 1,
+    })
+  
+    allBooksState.applySelectedAreas()
+
+    expect(allBooksState.previouslySelectedAreasIds)
+      .to
+      .deep
+      .eq([
+        1,
+      ])
+  })
+
+  it(`
+  GIVEN selected areas
+  WHEN apply filters
+  AND reset filters
+  SHOULD add knowledge areas to previously selected areas ids but not to selected areas ids
+  `, () => {
+    const {
+      allBooksState,
+    } = createState()
+
+    allBooksState.toggleKnowledgeArea({
+      knowledgeAreaId: 1,
+    })
+
+    expect(allBooksState.selectedAreasIds)
+      .to
+      .deep
+      .eq([
+        1,
+      ])
+  
+    allBooksState.applySelectedAreas()
+
+    allBooksState.resetFilters()
+
+    expect(allBooksState.previouslySelectedAreasIds)
+      .to
+      .deep
+      .eq([
+        1,
+      ])
+
+    expect(allBooksState.selectedAreasIds)
+      .to
+      .deep
+      .eq([])
+  })
+
+  it(`
+  GIVEN selected knowledge areas
+  WHEN apply filters
+  AND choose more selected knowledge areas
+  SHOULD add knowledge areas to selected areas ids but previosuly selected areas ids should remain unchanged
+  `, () => {
+    const {
+      allBooksState,
+    } = createState()
+
+    allBooksState.toggleKnowledgeArea({
+      knowledgeAreaId: 1,
+    })
+  
+    allBooksState.applySelectedAreas()
+
+    allBooksState.toggleKnowledgeArea({
+      knowledgeAreaId: 2,
+    })
+
+    expect(allBooksState.previouslySelectedAreasIds)
+      .to
+      .deep
+      .eq([
+        1,
+      ])
+
+    expect(allBooksState.selectedAreasIds)
+      .to
+      .deep
+      .eq([
+        1,
+        2,
+      ])
   })
 }
 
@@ -109,43 +305,52 @@ function filteredBooksTests() {
     {
       id: 1,
       title: `Clean Code`,
-      annotation: `Annotation`,
-      language: `English`,
       authors: [
         {
-          fullName: `Robert Martin`, 
+          fullName: `Robert Martin`,
         },
       ],
-      coverUrl: `url-1`,
+      knowledgeAreas: [
+        {
+          id: 1,
+        },
+      ],
     },
     {
       id: 2,
       title: `Clean Architecture`,
-      annotation: `Annotation`,
-      language: `English`,
       authors: [
         {
-          fullName: `Robert Martin`, 
+          fullName: `Robert Martin`,
         },
       ],
-      coverUrl: `url-2`,
+      knowledgeAreas: [
+        {
+          id: 1,
+        },
+        {
+          id: 3,
+        },
+      ],
     },
     {
       id: 3,
       title: `The Pragmatic Programmer`,
-      annotation: `Annotation`,
-      language: `English`,
       authors: [
         {
-          fullName: `David Thomas`, 
+          fullName: `David Thomas`,
         },
       ],
-      coverUrl: `url-3`,
+      knowledgeAreas: [
+        {
+          id: 2,
+        },
+      ],
     },
   ]
 
   it(`
-  GIVEN state with books and an empty query
+  GIVEN state with books and an empty search query
   WHEN ask for filtered books
   SHOULD return all books
   `, () => {
@@ -155,12 +360,15 @@ function filteredBooksTests() {
       booksCardsForInitialization, 
     })
 
-    expect(allBooksState.filteredBooks).to.deep.eq(booksCardsForInitialization)
+    expect(allBooksState.filteredBooks)
+      .to
+      .deep
+      .eq(booksCardsForInitialization)
   })
 
   it(`
   GIVEN state with books
-  WHEN set a query that matches part of a title
+  WHEN set a search query that matches part of a title
   SHOULD return only matching books
   `, () => {
     const {
@@ -169,23 +377,33 @@ function filteredBooksTests() {
       booksCardsForInitialization, 
     })
 
-    allBooksState.setQuery(`Clean`)
+    allBooksState.setSearchQuery({
+      searchQuery: `Clean`,
+    })
 
-    expect(allBooksState.filteredBooks).to.deep.eq([
-      booksCardsForInitialization[0],
-      booksCardsForInitialization[1],
-    ])
+    expect(allBooksState.filteredBooks)
+      .to
+      .deep
+      .eq([
+        booksCardsForInitialization[0],
+        booksCardsForInitialization[1],
+      ])
     
-    allBooksState.setQuery(`Pragmatic`)
+    allBooksState.setSearchQuery({
+      searchQuery: `Pragmatic`,
+    })
 
-    expect(allBooksState.filteredBooks).to.deep.eq([
-      booksCardsForInitialization[2],
-    ])
+    expect(allBooksState.filteredBooks)
+      .to
+      .deep
+      .eq([
+        booksCardsForInitialization[2],
+      ])
   })
 
   it(`
   GIVEN state with books
-  WHEN set a query that matches an author name
+  WHEN set a search query that matches an author name
   SHOULD return only books by that author
   `, () => {
     const {
@@ -194,16 +412,21 @@ function filteredBooksTests() {
       booksCardsForInitialization, 
     })
 
-    allBooksState.setQuery(`David`)
+    allBooksState.setSearchQuery({
+      searchQuery: `David`,
+    })
 
-    expect(allBooksState.filteredBooks).to.deep.eq([
-      booksCardsForInitialization[2],
-    ])
+    expect(allBooksState.filteredBooks)
+      .to
+      .deep
+      .eq([
+        booksCardsForInitialization[2],
+      ])
   })
 
   it(`
   GIVEN state with books
-  WHEN set a query in different case
+  WHEN set a search query in different case
   SHOULD match regardless of case
   `, () => {
     const {
@@ -212,16 +435,21 @@ function filteredBooksTests() {
       booksCardsForInitialization, 
     })
 
-    allBooksState.setQuery(`cLeAn cOdE`)
+    allBooksState.setSearchQuery({
+      searchQuery: `cLeAn cOdE`,
+    })
 
-    expect(allBooksState.filteredBooks).to.deep.eq([
-      booksCardsForInitialization[0],
-    ])
+    expect(allBooksState.filteredBooks)
+      .to
+      .deep
+      .eq([
+        booksCardsForInitialization[0],
+      ])
   })
 
   it(`
   GIVEN state with books
-  WHEN set a query that matches nothing
+  WHEN set a search query that matches nothing
   SHOULD return an empty array
   `, () => {
     const {
@@ -230,37 +458,129 @@ function filteredBooksTests() {
       booksCardsForInitialization, 
     })
 
-    allBooksState.setQuery(`Zzz None`)
+    allBooksState.setSearchQuery({
+      searchQuery: `Zzz None`,
+    })
 
-    expect(allBooksState.filteredBooks).to.deep.eq([])
+    expect(allBooksState.filteredBooks)
+      .to
+      .deep
+      .eq([])
   })
 
   it(`
   GIVEN state with no books
-  WHEN set any query
+  WHEN set any search query
   SHOULD return an empty array
   `, () => {
     const {
       allBooksState, 
     } = createState()
 
-    allBooksState.setQuery(`Clean`)
+    allBooksState.setSearchQuery({
+      searchQuery: `Clean`,
+    })
 
-    expect(allBooksState.filteredBooks).to.deep.eq([])
+    expect(allBooksState.filteredBooks)
+      .to
+      .deep
+      .eq([])
+  })
+
+  it(`
+  GIVEN books with different knowledge areas
+  WHEN toggle knowledgeArea filter
+  SHOULD return only matching books
+  `, () => {
+    const {
+      allBooksState,
+    } = createState({
+      booksCardsForInitialization,
+    })
+
+    allBooksState.toggleKnowledgeArea({
+      knowledgeAreaId: 1,
+    })
+
+    expect(allBooksState.filteredBooks)
+      .to
+      .deep
+      .eq([
+        booksCardsForInitialization[0],
+        booksCardsForInitialization[1],
+      ])
+  })
+
+  it(`
+  GIVEN books
+  WHEN set a search query and knowledgeArea filter
+  SHOULD return books matching both filters
+  `, () => {
+    const {
+      allBooksState,
+    } = createState({
+      booksCardsForInitialization,
+    })
+
+    allBooksState.setSearchQuery({
+      searchQuery: `Architecture`,
+    })
+    allBooksState.toggleKnowledgeArea({
+      knowledgeAreaId: 1,
+    })
+
+    expect(allBooksState.filteredBooks)
+      .to
+      .deep
+      .eq([
+        booksCardsForInitialization[1],
+      ])
+  })
+
+  it(`
+  GIVEN active knowledgeArea filters
+  WHEN reset filters
+  SHOULD return all books again
+  `, () => {
+    const {
+      allBooksState,
+    } = createState({
+      booksCardsForInitialization,
+    })
+
+    allBooksState.toggleKnowledgeArea({
+      knowledgeAreaId: 1,
+    })
+
+    allBooksState.resetFilters()
+
+    expect(allBooksState.filteredBooks)
+      .to
+      .deep
+      .eq(
+        booksCardsForInitialization,
+      )
   })
 }
 
 function createState({
   booksCardsForInitialization,
+  knowledgeAreasForInitialization,
 }: {
-  booksCardsForInitialization: unknown[], 
+  booksCardsForInitialization?: unknown[], 
+  knowledgeAreasForInitialization?: unknown[], 
 } = {
   booksCardsForInitialization: [],
+  knowledgeAreasForInitialization: [],
 }) {
   const allBooksState = new AllBooksState()
 
-  allBooksState.initialize({
+  allBooksState.initializeBooks({
     booksCards: booksCardsForInitialization as BookCardType[],
+  })
+
+  allBooksState.initializeKnowledgeAreas({
+    knowledgeAreas: knowledgeAreasForInitialization as KnowledgeArea[],
   })
 
   return {

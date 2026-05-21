@@ -4,6 +4,7 @@ type AuthorType = {
 
 type BookCardType = Omit<BookType, 'id' | 'annotation' | 'bookCopiesIds' | 'employeesWhoReadNow' | 'knowledgeAreas'> & {
   id?: number,
+  knowledgeAreas: KnowledgeArea[],
 }
 
 type AddBookType = Omit<BookType, 'id' | 'bookCopiesIds' | 'employeesWhoReadNow' | 'knowledgeAreas'> & {
