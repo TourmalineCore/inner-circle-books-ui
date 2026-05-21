@@ -27,6 +27,7 @@ export function FilterDesktop({
             key={id}
             id={id}
             name={name}
+            className="filter-desktop__chip"
             isActive={selectedAreasIds.includes(id)}
             onClick={() => toggleKnowledgeArea({
               knowledgeAreaId: id,

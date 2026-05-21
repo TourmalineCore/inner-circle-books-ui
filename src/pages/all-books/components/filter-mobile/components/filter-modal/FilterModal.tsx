@@ -65,6 +65,7 @@ export const FilterModal = ({
                   key={id}
                   id={id}
                   name={name}
+                  className="filter-modal__chip"
                   isActive={selectedAreasIds.includes(id)}
                   onClick={() => toggleKnowledgeArea({
                     knowledgeAreaId: id,
