@@ -39,8 +39,7 @@
       stroke: v.$color-text-contrast;
     }
 
-    &:hover:not(:disabled),
-    &:focus:not(:disabled) {
+    &:hover:not(:disabled) {
       background-color: v.$color-background-component-accent-hover;
     }
 
@@ -52,8 +51,7 @@
   &__secondary {
     background-color: v.$color-background-component-secondary;
 
-    &:hover:not(:disabled),
-    &:focus:not(:disabled) {
+    &:hover:not(:disabled) {
       background-color: v.$color-background-component-secondary-hover;
       transition: background-color 0.2s ease-in-out;
     }
@@ -68,8 +66,7 @@
     background-color: v.$color-background-component-accent-active;
     cursor: not-allowed;
 
-    &:hover,
-    &:focus {
+    &:hover {
       background-color: v.$color-background-component-accent-active;
     }
   }
@@ -78,8 +75,7 @@
     border: 1px solid v.$color-border-primary;
     background-color: v.$color-background-primary;
 
-    &:hover,
-    &:focus {
+    &:hover {
       background-color: v.$color-background-component-tertiary-hover;
     }
 

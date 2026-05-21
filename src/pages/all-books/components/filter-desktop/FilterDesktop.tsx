@@ -1,5 +1,5 @@
+import { FilterChip } from "../../../../components/filter-chip/FilterChip"
 import "./FilterDesktop.scss"
-import clsx from "clsx"
 
 export function FilterDesktop({
   knowledgeAreas,
@@ -23,18 +23,15 @@ export function FilterDesktop({
         {knowledgeAreas.map(({
           id, name,
         }) => (
-          <button
+          <FilterChip
             key={id}
-            type="button"
-            className={clsx(`filter-desktop__chip`, {
-              "filter-desktop__chip--active": selectedAreasIds.includes(id),
-            })}
+            id={id}
+            name={name}
+            isActive={selectedAreasIds.includes(id)}
             onClick={() => toggleKnowledgeArea({
               knowledgeAreaId: id,
             })}
-          >
-            {name}
-          </button>
+          />
         ))}
       </div>
     </div>

@@ -1,8 +1,8 @@
 import "./FilterModal.scss"
-import clsx from "clsx"
 import FocusLock from 'react-focus-lock'
 import { Button } from "../../../../../../components/button/Button"
 import ArrowLeftIcon from "../../../../../../assets/icons/ArrowLeft.svg?react"
+import { FilterChip } from "../../../../../../components/filter-chip/FilterChip"
 
 export const FilterModal = ({
   knowledgeAreas,
@@ -47,32 +47,29 @@ export const FilterModal = ({
           </button>
 
           <h2 className="filter-modal__title">
-          Filters
+            Filters
           </h2>
         </div>
 
         <div className="filter-modal__content">
           <div className="filter-modal__section">
             <h3 className="filter-modal__subtitle">
-            Knowledge Areas
+              Knowledge Areas
             </h3>
 
             <div className="filter-modal__chips">
               {knowledgeAreas.map(({
                 id, name,
               }) => (
-                <button
+                <FilterChip
                   key={id}
-                  type="button"
-                  className={clsx(`filter-modal__chip`, {
-                    "filter-modal__chip--active": selectedAreasIds.includes(id),
-                  })}
+                  id={id}
+                  name={name}
+                  isActive={selectedAreasIds.includes(id)}
                   onClick={() => toggleKnowledgeArea({
                     knowledgeAreaId: id,
                   })}
-                >
-                  {name}
-                </button>
+                />
               ))}
             </div>
           </div>
