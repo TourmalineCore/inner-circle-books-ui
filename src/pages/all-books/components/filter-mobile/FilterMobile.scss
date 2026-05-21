@@ -3,6 +3,8 @@
 @use "../../../../styles/media" as m;
 
 .filter-mobile {
+  margin-bottom: 12px;
+
   &__button {
     @include f.text;
 
