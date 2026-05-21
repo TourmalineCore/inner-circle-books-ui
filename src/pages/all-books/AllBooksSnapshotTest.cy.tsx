@@ -2,6 +2,8 @@ import { authService } from "../../common/authService"
 import { MOCK_TOKEN, VIEWPORTS } from "../../common/constant"
 import { Language } from "../../common/enums/language"
 import { AllBooksContent } from "./AllBooksContent"
+import { AllBooksState } from "./state/AllBooksState"
+import { AllBooksStateContext } from "./state/AllBooksStateStateContext"
 
 describe(`All Books Snapshot test`, () => {
   it(`Take the snapshot of a result`, () => {
@@ -65,22 +67,33 @@ function mountComponent() {
     MOCK_TOKEN,
   ]
 
-  cy
-    .mount(
-      <authService.AuthContext.Provider value={mockAuthContext}>
-        <AllBooksContent
-          cards={cards}
-          query={``}
-          onQueryChange={() => {}}
-          knowledgeAreas={[
-            `Frontend`,
-            `Backend`,
-            `Architecture`,
-          ]}
-          selectedAreas={new Set()}
-          onToggleArea={() => {}}
-          onResetFilters={() => {}}
-        />
-      </authService.AuthContext.Provider>,
-    )
+  const allBooksState = new AllBooksState()
+  
+  allBooksState.initializeBooks({
+    booksCards: cards, 
+  })
+  allBooksState.initializeKnowledgeAreas({ 
+    knowledgeAreas: [
+      {
+        id: 1,
+        name: `Frontend`, 
+      },
+      {
+        id: 2,
+        name: `Backend`, 
+      },
+      {
+        id: 3,
+        name: `Architecture`, 
+      },
+    ],
+  })
+  
+  cy.mount(
+    <authService.AuthContext.Provider value={mockAuthContext}>
+      <AllBooksStateContext.Provider value={allBooksState}>
+        <AllBooksContent />
+      </AllBooksStateContext.Provider>
+    </authService.AuthContext.Provider>,
+  )
 }
