@@ -126,11 +126,12 @@ describe(`Adding book history entries`, () => {
                   bookId,
                 })
 
-                cy.contains(`Read Partially`)
+                cy.getByData(`table-cell`)
+                  .should(`contain`, `Read Partially`)
 
-                cy.contains(`Returned`)
+                cy.getByData(`table-cell`)
+                  .should(`contain`, `Returned`)
               })
-            
           })
       })
   })
