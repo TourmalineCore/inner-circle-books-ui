@@ -127,13 +127,10 @@ describe(`Adding book history entries`, () => {
                 })
 
                 cy.get(`body`)
-                  .should(($body) => {
-                    expect($body.text())
-                      .to
-                      .include(`Read Partially`)
-                  })
+                  .should(`contain`, `Read Partially`)
 
-                cy.contains(`Returned`)
+                cy.get(`body`)
+                  .should(`contain`, `Returned`)
               })
             
           })
