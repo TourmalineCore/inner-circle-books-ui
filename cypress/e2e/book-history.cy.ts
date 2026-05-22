@@ -126,7 +126,9 @@ describe(`Adding book history entries`, () => {
                   bookId,
                 })
 
-                cy.contains(`Read Partially`)
+                cy.get('body').should(($body) => {
+                  expect($body.text()).to.include('Read Partially')
+                })
 
                 cy.contains(`Returned`)
               })
