@@ -8,9 +8,9 @@ const BOOK_HISTORY_RESPONSE: BookHistoryType = {
       id: 1,
       bookCopyId: 1,
       employeeFullName: `Ivanov Ivan`,
-      takenDate: `20.08.2025`,
-      scheduledReturnDate: `23.09.2025`,
-      actualReturnedDate: `24.09.2025`,
+      takenDate: `2025-08-20`,
+      scheduledReturnDate: `2025-09-23`,
+      actualReturnedDate: `2025-09-24`,
       progressOfReading: ProgressOfReading.ReadEntirely,
     },
   ],
@@ -47,11 +47,11 @@ function initializationTests() {
 
     cy.contains(`Ivanov Ivan`)
 
-    cy.contains(`20.08.2025`)
+    cy.contains(`2025-08-20`)
     
-    cy.contains(`23.09.2025`)
+    cy.contains(`2025-09-23`)
 
-    cy.contains(`24.09.2025`)
+    cy.contains(`2025-09-24`)
 
     cy.contains(`Returned`)
 
