@@ -13,7 +13,8 @@ export function getStatus({
     return `Returned`
   }
 
-  const returnDate = moment(scheduledReturnDate, `DD.MM.YYYY`)
+  const returnDate = moment(scheduledReturnDate)
+
   const now = moment(currentDate)
 
   const diffInDays = now.diff(returnDate, `days`)
