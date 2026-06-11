@@ -1,0 +1,18 @@
+@use "../../styles/variables" as v;
+
+.books-loader {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+
+  &__spinner {
+    display: inline-block;
+    border-top: 6px solid v.$color-background-component-accent;
+    border-right: 6px solid transparent;
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    animation: rotation 1s linear infinite;
+  }
+}

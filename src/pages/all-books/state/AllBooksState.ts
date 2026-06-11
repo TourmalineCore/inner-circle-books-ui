@@ -6,6 +6,7 @@ export class AllBooksState {
   private _knowledgeAreas: KnowledgeArea[] = []
   private _selectedAreasIds: number[] = []
   private _previouslySelectedAreasIds: number[] = []
+  private _isLoading = false
 
   constructor() {
     makeAutoObservable(this)
@@ -25,6 +26,10 @@ export class AllBooksState {
     knowledgeAreas: KnowledgeArea[],
   }) {
     this._knowledgeAreas = knowledgeAreas
+  }
+
+  get isLoading() {
+    return this._isLoading
   }
 
   get searchQuery() {
@@ -70,6 +75,14 @@ export class AllBooksState {
     }
 
     return result
+  }
+
+  setIsLoading({
+    isLoading,
+  }: {
+    isLoading: boolean,
+  }) {
+    this._isLoading = isLoading
   }
   
   setSearchQuery({

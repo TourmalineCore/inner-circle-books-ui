@@ -15,6 +15,7 @@ export const AllBooksContent = observer(() => {
     filteredBooks,
     knowledgeAreas,
     selectedAreasIds,
+    isLoading,
   } = allBooksState
    
   const isMobile = useMediaQuery({
@@ -30,7 +31,10 @@ export const AllBooksContent = observer(() => {
         })}
       />
       {renderFilters()}
-      <BooksList cards={filteredBooks} />
+      <BooksList 
+        cards={filteredBooks}
+        isLoading={isLoading}
+      />
     </>
   )
 

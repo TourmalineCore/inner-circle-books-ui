@@ -17,6 +17,10 @@ export const AllBooksContainer = observer(() => {
   )
 
   async function loadBookCardsAsync() {
+    allBooksState.setIsLoading({
+      isLoading: true,
+    })
+
     const {
       data: {
         books,
@@ -27,6 +31,10 @@ export const AllBooksContainer = observer(() => {
 
     allBooksState.initializeBooks({
       booksCards: books,
+    })
+
+    allBooksState.setIsLoading({
+      isLoading: false,
     })
   }
 
