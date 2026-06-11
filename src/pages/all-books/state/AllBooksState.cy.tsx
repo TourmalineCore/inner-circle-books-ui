@@ -6,6 +6,7 @@ describe(`AllBooksState`, () => {
   describe(`Selected knowledge areas`, selectedKnowledgeAreasTests)
   describe(`Previously selected knowledge areas`, previouslySelectedKnowledgeAreasTests)
   describe(`Filtered books`, filteredBooksTests)
+  describe(`Loading`, loadingTests)
 })
 
 function initializationTests() {
@@ -41,6 +42,10 @@ function initializationTests() {
     expect(allBooksState.searchQuery)
       .to
       .eq(``)
+
+    expect(allBooksState.isLoading)
+      .to
+      .eq(false)
   })
 
   it(`
@@ -560,6 +565,30 @@ function filteredBooksTests() {
       .eq(
         booksCardsForInitialization,
       )
+  })
+}
+
+function loadingTests() {
+  it(`
+  GIVEN isLoading is false
+  WHEN setIsLoading is called with true
+  THEN isLoading should become true
+  `, () => {
+    const {
+      allBooksState,
+    } = createState()
+
+    expect(allBooksState.isLoading)
+      .to
+      .eq(false)
+
+    allBooksState.setIsLoading({
+      isLoading: true,
+    })
+
+    expect(allBooksState.isLoading)
+      .to
+      .eq(true)
   })
 }
 

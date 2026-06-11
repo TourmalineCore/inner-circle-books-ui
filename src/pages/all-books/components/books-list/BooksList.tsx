@@ -5,12 +5,27 @@ import NoBook from '../../../../assets/icons/Not-found.svg?react'
 import { observer } from "mobx-react-lite"
 import { BookCard } from '../book-card/BookCard'
 import { LINK_TO_BOOKS_SERVICE } from '../../../../common/constant'
+import { BooksLoader } from '../../../../components/loader/BooksLoader'
 
 export const BooksList = observer(({
   cards,
+  isLoading,
 }: {
   cards: BookCardType[],
+  isLoading: boolean,
 }) => {
+
+  if (isLoading) {
+    return (
+      <ul
+        className="books-list"
+        data-cy="books-list"
+      >
+        <BooksLoader />
+      </ul>
+    )
+  }
+
   return (
     <>
       {
