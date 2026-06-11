@@ -92,3 +92,7 @@ button {
 body.disable-scroll {
   overflow: hidden; // disable scrolling
 }
+
+.template__content {
+  position: relative;
+}
