@@ -3,10 +3,10 @@ import './BooksLoader.scss'
 export function BooksLoader() {
   return (
     <div 
-      className="books-loader-container"
+      className="books-loader"
     >
       <div 
-        className="books-loader"
+        className="books-loader__spinner"
         data-cy="books-loader"
       />
     </div>
