@@ -126,13 +126,15 @@
 
   &__add-copy-button,
   &__print-button {
-    &:disabled {
-      background-color: v.$color-grey;
-    }
-
     @include m.tablet {
       flex-grow: 0;
       min-width: 160px;
+    }
+  }
+
+  &__print-button {
+    &:disabled {
+      background-color: v.$color-grey;
     }
   }
 
