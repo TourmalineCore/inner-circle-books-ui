@@ -14,6 +14,8 @@ export class ModalQrFormState {
     [key: number]: boolean, 
   } = {}
 
+  private _isSaving = false    
+
   constructor() {
     makeAutoObservable(this)
   }
@@ -65,6 +67,10 @@ export class ModalQrFormState {
       )
   }
 
+  get isSaving() {
+    return this._isSaving
+  }
+
   toggleBookCopyChecked({
     id,
   }: {
@@ -109,5 +115,13 @@ export class ModalQrFormState {
       }) => {
         this._selectedCopies[bookCopyId] = true
       })
+  }
+
+  setIsSaving() {
+    this._isSaving = true
+  }
+
+  resetIsSaving() {
+    this._isSaving = false
   }
 }

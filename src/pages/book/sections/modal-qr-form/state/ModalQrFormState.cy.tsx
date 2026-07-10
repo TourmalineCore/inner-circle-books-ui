@@ -3,6 +3,7 @@ import { ModalQrFormState } from './ModalQrFormState'
 describe(`ModalQrFormState`, () => {
   describe(`Initialization`, initializationTests)
   describe(`ModalQrForm Data`, modalQrFormDataTests)
+  describe(`Is Saving`, isSavingTests)
 })
 
 function initializationTests() {
@@ -240,5 +241,32 @@ function modalQrFormDataTests() {
       .to
       .be
       .true
+  })
+}
+
+function isSavingTests() {  
+  it(`
+  GIVEN initial isSaving = false
+  WHEN setIsSaving AND resetIsSaving are triggered
+  THEN toggle isSaving to true and then back to false
+  `, () => {
+    const modalQrFormState = new ModalQrFormState()
+
+    expect(modalQrFormState.isSaving)
+      .to
+      .be
+      .false
+  
+    modalQrFormState.setIsSaving()
+    expect(modalQrFormState.isSaving)
+      .to
+      .be
+      .true
+      
+    modalQrFormState.resetIsSaving()
+    expect(modalQrFormState.isSaving)
+      .to
+      .be
+      .false
   })
 }

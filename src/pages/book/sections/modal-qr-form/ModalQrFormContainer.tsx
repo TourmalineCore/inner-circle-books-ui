@@ -20,7 +20,11 @@ export const ModalQrFormContainer = observer(({
   ])
 
   return (
-    <ModalQRFormContent onCloseModal={onCloseModal}/>
+    <ModalQRFormContent
+      loadModalQrFormDataAsync={loadModalQrFormDataAsync}
+      addBookCopyAsync={addBookCopyAsync} 
+      onCloseModal={onCloseModal}
+    />
   )
 
   async function loadModalQrFormDataAsync() {
@@ -31,5 +35,16 @@ export const ModalQrFormContainer = observer(({
     modalQrFormState.initialize({
       loadedModalQRFormData: data,
     })
+  }
+
+  async function addBookCopyAsync() {
+    modalQrFormState.setIsSaving()
+
+    try {
+      await api.post(`/${bookId}/add-copy`)
+    } 
+    finally {
+      modalQrFormState.resetIsSaving() 
+    }
   }
 })
