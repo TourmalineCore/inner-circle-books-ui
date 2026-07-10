@@ -157,7 +157,9 @@ function mountComponent({
       <BookStateContext.Provider value={bookState}>
         <ModalQrFormStateContext.Provider value={modalQrFormState}>
           <ModalQRFormContent
-            onCloseModal={() => {}}
+            onCloseModal={() => { }}
+            loadModalQrFormDataAsync={() => { }} 
+            addBookCopyAsync={() => { }} 
           />,
         </ModalQrFormStateContext.Provider>
       </BookStateContext.Provider>,

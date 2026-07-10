@@ -152,7 +152,7 @@ export const ModalQRFormContent = observer(({
             </div>
           </div>
 
-          <div className='modal-qr-form__print-button-container'>
+          <div className='modal-qr-form__buttons-container'>
             <Button
               data-cy='add-copy-button' 
               className='modal-qr-form__add-copy-button'

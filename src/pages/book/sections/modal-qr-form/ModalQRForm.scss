@@ -103,7 +103,7 @@
     }
   }
 
-  &__print-button-container {
+  &__buttons-container {
     display: flex;
     border-top: 1px solid v.$color-component-border;
     padding: 24px 32px;
@@ -116,25 +116,23 @@
     }
   }
 
+  &__print-qr {
+    display: none;
+
+    @media print {
+      display: block;
+    }
+  }
+
+  &__add-copy-button,
   &__print-button {
     &:disabled {
       background-color: v.$color-grey;
     }
 
     @include m.tablet {
-      min-width: 100px;
-    }
-  }
-
-  &__add-copy-button {
-    min-width: 120px;
-  }
-
-  &__print-qr {
-    display: none;
-
-    @media print {
-      display: block;
+      flex-grow: 0;
+      min-width: 160px;
     }
   }
 
