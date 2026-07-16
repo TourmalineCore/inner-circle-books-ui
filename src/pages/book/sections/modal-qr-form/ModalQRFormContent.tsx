@@ -13,10 +13,10 @@ import { observer } from 'mobx-react-lite'
 import clsx from 'clsx'
 import { useMediaQuery } from 'react-responsive'
 import { useReactToPrint } from "react-to-print"
-import { PrintQr } from './components/print-qr/PrintQr'
-import { ModalQrFormStateContext } from './state/ModalQrFormStateContext'
+import { ModalQRFormStateContext } from './state/ModalQrFormStateContext'
 import { useAddDisableScrollClassOnBody } from '../../../../common/hooks/useAddDisableScrollClassOnBody'
 import { Overlay } from '../../../../components/overlay/Overlay'
+import { PrintQR } from './components/print-qr/PrintQR'
 
 export const ModalQRFormContent = observer(({
   loadModalQrFormDataAsync,
@@ -27,13 +27,13 @@ export const ModalQRFormContent = observer(({
   addBookCopyAsync: () => unknown,
   onCloseModal: () => unknown,
 }) => {
-  const modalQrFormState = useContext(ModalQrFormStateContext)
+  const modalQRFormState = useContext(ModalQRFormStateContext)
 
   const {
     isSaving,
     modalQRFormData,
     bookCopiesCount,
-  } = modalQrFormState
+  } = modalQRFormState
 
   const [
     showModal,
@@ -58,7 +58,7 @@ export const ModalQRFormContent = observer(({
 
   const handleClose = () => {
     setIsClosing(true)
-    modalQrFormState.resetSelectedCopies()
+    modalQRFormState.resetSelectedCopies()
 
     if (isMobile) {
       setTimeout(onCloseModal, 400) // Close after end of animation
@@ -121,12 +121,12 @@ export const ModalQRFormContent = observer(({
               bookCopiesCount > 1 && <button
                 type="button"
                 className="modal-qr-form__select-all-button"
-                onClick={() => modalQrFormState.toggleSelectAllCopies({
-                  checked: !modalQrFormState.areAllCopiesSelected,
+                onClick={() => modalQRFormState.toggleSelectAllCopies({
+                  checked: !modalQRFormState.areAllCopiesSelected,
                 })}
               >
                 {
-                  modalQrFormState.areAllCopiesSelected 
+                  modalQRFormState.areAllCopiesSelected 
                     ? <CheckboxOnIcon /> 
                     : <CheckboxOffIcon />
                 }
@@ -180,7 +180,7 @@ export const ModalQRFormContent = observer(({
                   <PrintIcon /> Print
                 </>
               }
-              disabled={!modalQrFormState.selectedBookCopies.length}
+              isDisable={!modalQRFormState.selectedBookCopies.length}
               isAccent
             />
           </div>
@@ -190,14 +190,14 @@ export const ModalQRFormContent = observer(({
             className='modal-qr-form__print-qr'
             ref={contentRef}
           >
-            {modalQrFormState
+            {modalQRFormState
               .selectedBookCopies 
               .map(({
                 bookCopyId, 
                 secretKey,
               }) => (
                 <div key={bookCopyId}>
-                  <PrintQr
+                  <PrintQR
                     title={modalQRFormData.bookTitle}
                     bookCopyId={bookCopyId}
                     secretKey={secretKey}

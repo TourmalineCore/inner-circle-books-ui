@@ -1,4 +1,4 @@
 import { createContext } from "react"
-import { ModalQrFormState } from "./ModalQrFormState"
+import { ModalQRFormState } from "./ModalQRFormState"
 
-export const ModalQrFormStateContext = createContext<ModalQrFormState>(null as unknown as ModalQrFormState)
+export const ModalQRFormStateContext = createContext<ModalQRFormState>(null as unknown as ModalQRFormState)

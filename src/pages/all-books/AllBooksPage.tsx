@@ -4,9 +4,9 @@ import { AllBooksStateContext } from "./state/AllBooksStateStateContext"
 import {AllBooksContainer } from "./AllBooksContainer"
 import { useSearchParams } from "react-router-dom"
 import { LINK_TO_BOOKS_SERVICE } from "../../common/constant"
-import { ModalQrFormContainer } from "../book/sections/modal-qr-form/ModalQrFormContainer"
-import { ModalQrFormStateContext } from "../book/sections/modal-qr-form/state/ModalQrFormStateContext"
-import { ModalQrFormState } from "../book/sections/modal-qr-form/state/ModalQrFormState"
+import { ModalQRFormContainer } from "../book/sections/modal-qr-form/ModalQRFormContainer"
+import { ModalQRFormStateContext } from "../book/sections/modal-qr-form/state/ModalQrFormStateContext"
+import { ModalQRFormState } from "../book/sections/modal-qr-form/state/ModalQRFormState"
 
 export function AllBooksPage() {
   const allBooksState = useMemo(
@@ -14,8 +14,8 @@ export function AllBooksPage() {
     [],
   )
 
-  const modalQrFormState = useMemo(
-    () => new ModalQrFormState(),
+  const modalQRFormState = useMemo(
+    () => new ModalQRFormState(),
     [],
   )
   const [
@@ -61,15 +61,15 @@ export function AllBooksPage() {
   return (
     <div data-cy="all-books-page">
       <AllBooksStateContext.Provider value={allBooksState}>
-        <ModalQrFormStateContext.Provider value={modalQrFormState}>
+        <ModalQRFormStateContext.Provider value={modalQRFormState}>
           <AllBooksContainer />
           {showModalQRForm && (
-            <ModalQrFormContainer 
+            <ModalQRFormContainer 
               bookId={addedBookId!}
               onCloseModal={() => setShowModalQRForm(false)}
             />
           )}
-        </ModalQrFormStateContext.Provider>
+        </ModalQRFormStateContext.Provider>
       </AllBooksStateContext.Provider>
     </div>
   )

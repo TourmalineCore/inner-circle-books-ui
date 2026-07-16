@@ -1,8 +1,8 @@
 import { ModalQRFormContent } from "./ModalQRFormContent"
-import { ModalQrFormState } from "./state/ModalQrFormState"
-import { ModalQrFormStateContext } from "./state/ModalQrFormStateContext"
+import { ModalQRFormState } from "./state/ModalQRFormState"
+import { ModalQRFormStateContext } from "./state/ModalQrFormStateContext"
 
-describe(`ModalQrFormContent`, () => {
+describe(`ModalQRFormContent`, () => {
   describe(`Add copy button`, addCopyButtonTests)
 })
 
@@ -45,23 +45,23 @@ function mountComponent({
 }: {
   isSaving?: boolean,
 } = {}) {
-  const modalQrFormState = new ModalQrFormState()
+  const modalQRFormState = new ModalQRFormState()
 
   if (isSaving) {
-    modalQrFormState.setIsSaving()
+    modalQRFormState.setIsSaving()
   }
 
   cy.viewport(1366, 750)
   
   cy
     .mount(
-      <ModalQrFormStateContext.Provider value={modalQrFormState}>
+      <ModalQRFormStateContext.Provider value={modalQRFormState}>
         <ModalQRFormContent
           loadModalQrFormDataAsync={() => {}}
           addBookCopyAsync={() => {}}
           onCloseModal={() => {}}
         />
-      </ModalQrFormStateContext.Provider>,
+      </ModalQRFormStateContext.Provider>,
 
     )
 }

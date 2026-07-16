@@ -5,7 +5,7 @@ const EMPTY_MODAL_QR_FORM_DATA: ModalQrFormType = {
   bookCopies: [],
 }
 
-export class ModalQrFormState {
+export class ModalQRFormState {
   private _modalQRFormData: ModalQrFormType = {
     ...EMPTY_MODAL_QR_FORM_DATA,
   }

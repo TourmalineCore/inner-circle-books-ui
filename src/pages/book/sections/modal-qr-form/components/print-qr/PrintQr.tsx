@@ -1,11 +1,11 @@
-import './PrintQr.scss'
+import './PrintQR.scss'
 
 import LogoIcon from '../../../../../../assets/img/logo-qr.png'
 
 import QRCode from "react-qr-code"
 import moment from 'moment'
 
-export function PrintQr({
+export function PrintQR({
   title,
   bookCopyId,
   secretKey,

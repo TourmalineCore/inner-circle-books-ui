@@ -1,8 +1,8 @@
-import { ModalQrFormContainer } from "./ModalQrFormContainer"
-import { ModalQrFormState } from "./state/ModalQrFormState"
-import { ModalQrFormStateContext } from "./state/ModalQrFormStateContext"
+import { ModalQRFormContainer } from "./ModalQRFormContainer"
+import { ModalQRFormState } from "./state/ModalQRFormState"
+import { ModalQRFormStateContext } from "./state/ModalQrFormStateContext"
 
-describe(`ModalQrFormContainer`, () => {
+describe(`ModalQRFormContainer`, () => {
   describe(`Add book copy`, addBookCopyTests)
 })
 
@@ -58,17 +58,17 @@ function mountComponent({
 }: {
   bookId: string,
 }) {
-  const modalQrFormState = new ModalQrFormState()
+  const modalQRFormState = new ModalQRFormState()
 
   cy.viewport(1366, 750)
   
   cy
     .mount(
-      <ModalQrFormStateContext.Provider value={modalQrFormState}>
-        <ModalQrFormContainer
+      <ModalQRFormStateContext.Provider value={modalQRFormState}>
+        <ModalQRFormContainer
           bookId={bookId}
           onCloseModal={() => {}}/>
-      </ModalQrFormStateContext.Provider>,
+      </ModalQRFormStateContext.Provider>,
 
     )
 }
