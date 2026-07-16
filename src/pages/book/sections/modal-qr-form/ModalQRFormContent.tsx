@@ -19,11 +19,11 @@ import { Overlay } from '../../../../components/overlay/Overlay'
 import { PrintQR } from './components/print-qr/PrintQR'
 
 export const ModalQRFormContent = observer(({
-  loadModalQrFormDataAsync,
+  loadModalQRFormDataAsync,
   addBookCopyAsync,
   onCloseModal,
 }: {
-  loadModalQrFormDataAsync: () => unknown,
+  loadModalQRFormDataAsync: () => unknown,
   addBookCopyAsync: () => unknown,
   onCloseModal: () => unknown,
 }) => {
@@ -71,7 +71,7 @@ export const ModalQRFormContent = observer(({
   const handleAcceptAddBookCopy = async () => {
     setShowModal(false)
     await addBookCopyAsync()
-    await loadModalQrFormDataAsync()
+    await loadModalQRFormDataAsync()
   }
   
   return (

@@ -14,23 +14,23 @@ export const ModalQRFormContainer = observer(({
   const modalQRFormState = useContext(ModalQRFormStateContext)
 
   useEffect(() => {
-    loadModalQrFormDataAsync()
+    loadModalQRFormDataAsync()
   }, [
     bookId,
   ])
 
   return (
     <ModalQRFormContent
-      loadModalQrFormDataAsync={loadModalQrFormDataAsync}
+      loadModalQRFormDataAsync={loadModalQRFormDataAsync}
       addBookCopyAsync={addBookCopyAsync} 
       onCloseModal={onCloseModal}
     />
   )
 
-  async function loadModalQrFormDataAsync() {
+  async function loadModalQRFormDataAsync() {
     const {
       data,
-    } = await api.get<ModalQrFormType>(`/copies/${bookId}`)
+    } = await api.get<ModalQRFormType>(`/copies/${bookId}`)
 
     modalQRFormState.initialize({
       loadedModalQRFormData: data,

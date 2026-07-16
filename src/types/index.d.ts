@@ -58,7 +58,7 @@ type EmployeeWhoReadNowType = {
   bookCopyId: number,
 }
 
-type ModalQrFormType = {
+type ModalQRFormType = {
   bookTitle: string,
   bookCopies: {
     bookCopyId: number,

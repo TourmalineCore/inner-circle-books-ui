@@ -1,12 +1,12 @@
 import { makeAutoObservable } from 'mobx'
 
-const EMPTY_MODAL_QR_FORM_DATA: ModalQrFormType = {
+const EMPTY_MODAL_QR_FORM_DATA: ModalQRFormType = {
   bookTitle: ``,
   bookCopies: [],
 }
 
 export class ModalQRFormState {
-  private _modalQRFormData: ModalQrFormType = {
+  private _modalQRFormData: ModalQRFormType = {
     ...EMPTY_MODAL_QR_FORM_DATA,
   }
 
@@ -23,7 +23,7 @@ export class ModalQRFormState {
   initialize({
     loadedModalQRFormData,
   }: {
-    loadedModalQRFormData: ModalQrFormType,
+    loadedModalQRFormData: ModalQRFormType,
   }) {
     this._modalQRFormData = loadedModalQRFormData
 

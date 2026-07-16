@@ -57,7 +57,7 @@ function mountComponent({
     .mount(
       <ModalQRFormStateContext.Provider value={modalQRFormState}>
         <ModalQRFormContent
-          loadModalQrFormDataAsync={() => {}}
+          loadModalQRFormDataAsync={() => {}}
           addBookCopyAsync={() => {}}
           onCloseModal={() => {}}
         />

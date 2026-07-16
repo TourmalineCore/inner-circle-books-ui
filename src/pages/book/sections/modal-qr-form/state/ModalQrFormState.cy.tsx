@@ -29,7 +29,7 @@ function initializationTests() {
 function modalQrFormDataTests() {
   let modalQRFormState: ModalQRFormState
 
-  const modalQrFormDataForInitialization: ModalQrFormType = {
+  const modalQrFormDataForInitialization: ModalQRFormType = {
     bookTitle: `Test`,
     bookCopies:  [
       {
