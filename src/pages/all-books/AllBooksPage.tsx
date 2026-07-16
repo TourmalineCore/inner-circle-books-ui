@@ -5,7 +5,7 @@ import {AllBooksContainer } from "./AllBooksContainer"
 import { useSearchParams } from "react-router-dom"
 import { LINK_TO_BOOKS_SERVICE } from "../../common/constant"
 import { ModalQRFormContainer } from "../book/sections/modal-qr-form/ModalQRFormContainer"
-import { ModalQRFormStateContext } from "../book/sections/modal-qr-form/state/ModalQrFormStateContext"
+import { ModalQRFormStateContext } from "../book/sections/modal-qr-form/state/ModalQRFormStateContext"
 import { ModalQRFormState } from "../book/sections/modal-qr-form/state/ModalQRFormState"
 
 export function AllBooksPage() {

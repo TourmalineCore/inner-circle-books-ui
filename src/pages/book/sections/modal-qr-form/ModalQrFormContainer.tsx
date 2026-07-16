@@ -1,6 +1,6 @@
 import { useContext, useEffect } from "react"
 import { observer } from "mobx-react-lite"
-import { ModalQRFormStateContext } from "./state/ModalQrFormStateContext"
+import { ModalQRFormStateContext } from "./state/ModalQRFormStateContext"
 import { ModalQRFormContent } from "./ModalQRFormContent"
 import { api } from "../../../../common/api"
 

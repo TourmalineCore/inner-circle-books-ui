@@ -1,6 +1,6 @@
 import { ModalQRFormContent } from "./ModalQRFormContent"
 import { ModalQRFormState } from "./state/ModalQRFormState"
-import { ModalQRFormStateContext } from "./state/ModalQrFormStateContext"
+import { ModalQRFormStateContext } from "./state/ModalQRFormStateContext"
 
 describe(`ModalQRFormContent`, () => {
   describe(`Add copy button`, addCopyButtonTests)

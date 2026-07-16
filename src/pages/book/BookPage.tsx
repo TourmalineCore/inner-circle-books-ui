@@ -3,7 +3,7 @@ import { BookContainer } from "./BookContainer"
 import { BookStateContext } from "./state/BookStateStateContext"
 import { BookState } from "./state/BookState"
 import { ModalQRFormContainer } from "./sections/modal-qr-form/ModalQRFormContainer"
-import { ModalQRFormStateContext } from "./sections/modal-qr-form/state/ModalQrFormStateContext"
+import { ModalQRFormStateContext } from "./sections/modal-qr-form/state/ModalQRFormStateContext"
 import { ModalQRFormState } from "./sections/modal-qr-form/state/ModalQRFormState"
 import { useLocation } from "react-router-dom"
 

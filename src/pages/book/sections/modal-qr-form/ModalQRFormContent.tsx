@@ -13,7 +13,7 @@ import { observer } from 'mobx-react-lite'
 import clsx from 'clsx'
 import { useMediaQuery } from 'react-responsive'
 import { useReactToPrint } from "react-to-print"
-import { ModalQRFormStateContext } from './state/ModalQrFormStateContext'
+import { ModalQRFormStateContext } from './state/ModalQRFormStateContext'
 import { useAddDisableScrollClassOnBody } from '../../../../common/hooks/useAddDisableScrollClassOnBody'
 import { Overlay } from '../../../../components/overlay/Overlay'
 import { PrintQR } from './components/print-qr/PrintQR'
