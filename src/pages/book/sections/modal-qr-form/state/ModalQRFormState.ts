@@ -1,18 +1,20 @@
 import { makeAutoObservable } from 'mobx'
 
-const EMPTY_MODAL_QR_FORM_DATA: ModalQrFormType = {
+const EMPTY_MODAL_QR_FORM_DATA: ModalQRFormType = {
   bookTitle: ``,
   bookCopies: [],
 }
 
-export class ModalQrFormState {
-  private _modalQRFormData: ModalQrFormType = {
+export class ModalQRFormState {
+  private _modalQRFormData: ModalQRFormType = {
     ...EMPTY_MODAL_QR_FORM_DATA,
   }
 
   private _selectedCopies: { 
     [key: number]: boolean, 
   } = {}
+
+  private _isSaving = false    
 
   constructor() {
     makeAutoObservable(this)
@@ -21,7 +23,7 @@ export class ModalQrFormState {
   initialize({
     loadedModalQRFormData,
   }: {
-    loadedModalQRFormData: ModalQrFormType,
+    loadedModalQRFormData: ModalQRFormType,
   }) {
     this._modalQRFormData = loadedModalQRFormData
 
@@ -63,6 +65,10 @@ export class ModalQrFormState {
       }) => 
         this._selectedCopies[bookCopyId] === true,
       )
+  }
+
+  get isSaving() {
+    return this._isSaving
   }
 
   toggleBookCopyChecked({
@@ -109,5 +115,13 @@ export class ModalQrFormState {
       }) => {
         this._selectedCopies[bookCopyId] = true
       })
+  }
+
+  setIsSaving() {
+    this._isSaving = true
+  }
+
+  resetIsSaving() {
+    this._isSaving = false
   }
 }

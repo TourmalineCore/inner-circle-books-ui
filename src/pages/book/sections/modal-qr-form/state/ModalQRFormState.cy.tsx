@@ -1,24 +1,25 @@
-import { ModalQrFormState } from './ModalQrFormState'
+import { ModalQRFormState } from './ModalQRFormState'
 
-describe(`ModalQrFormState`, () => {
+describe(`ModalQRFormState`, () => {
   describe(`Initialization`, initializationTests)
-  describe(`ModalQrForm Data`, modalQrFormDataTests)
+  describe(`ModalQRForm Data`, modalQrFormDataTests)
+  describe(`Is Saving`, isSavingTests)
 })
 
 function initializationTests() {
-  const modalQrFormState = new ModalQrFormState()
+  const modalQRFormState = new ModalQRFormState()
   
   it(`
-  GIVEN a modalQrFormState
+  GIVEN a modalQRFormState
   WHEN initialize
-  SHOULD have default modalQrFormData values
+  SHOULD have default modalQRFormData values
   `, () => {
-    expect(modalQrFormState.modalQRFormData.bookTitle)
+    expect(modalQRFormState.modalQRFormData.bookTitle)
       .to
       .be
       .eq(``)
 
-    expect(modalQrFormState.modalQRFormData.bookCopies)
+    expect(modalQRFormState.modalQRFormData.bookCopies)
       .to
       .deep
       .eq([])
@@ -26,9 +27,9 @@ function initializationTests() {
 }
 
 function modalQrFormDataTests() {
-  let modalQrFormState: ModalQrFormState
+  let modalQRFormState: ModalQRFormState
 
-  const modalQrFormDataForInitialization: ModalQrFormType = {
+  const modalQrFormDataForInitialization: ModalQRFormType = {
     bookTitle: `Test`,
     bookCopies:  [
       {
@@ -43,9 +44,9 @@ function modalQrFormDataTests() {
   }
   
   beforeEach(() => {
-    modalQrFormState = new ModalQrFormState()
+    modalQRFormState = new ModalQRFormState()
 
-    modalQrFormState.initialize({
+    modalQRFormState.initialize({
       loadedModalQRFormData: modalQrFormDataForInitialization,
     })
   })
@@ -55,7 +56,7 @@ function modalQrFormDataTests() {
   WHEN set modalQRFormData data
   SHOULD display new values in the modalQRFormData object
   `, () => {
-    expect(modalQrFormState.modalQRFormData)
+    expect(modalQRFormState.modalQRFormData)
       .to
       .deep
       .eq(modalQrFormDataForInitialization)
@@ -67,7 +68,7 @@ function modalQrFormDataTests() {
   AND called get bookCopiesCount function
   SHOULD return correct book copies count value
   `, () => {
-    expect(modalQrFormState.bookCopiesCount)
+    expect(modalQRFormState.bookCopiesCount)
       .to
       .eq(2)
   })
@@ -77,14 +78,14 @@ function modalQrFormDataTests() {
   WHEN toggleBookCopyChecked
   SHOULD toggle the selected state of a book copy
   `, () => {
-    expect(modalQrFormState.isBookCopySelected({
+    expect(modalQRFormState.isBookCopySelected({
       id: 1, 
     }))
       .to
       .be
       .true
 
-    expect(modalQrFormState.selectedBookCopies)
+    expect(modalQRFormState.selectedBookCopies)
       .to
       .deep
       .eq([
@@ -98,18 +99,18 @@ function modalQrFormDataTests() {
         },
       ])
 
-    modalQrFormState.toggleBookCopyChecked({
+    modalQRFormState.toggleBookCopyChecked({
       id: 1, 
     })
 
-    expect(modalQrFormState.isBookCopySelected({
+    expect(modalQRFormState.isBookCopySelected({
       id: 1, 
     }))
       .to
       .be
       .false
 
-    expect(modalQrFormState.selectedBookCopies)
+    expect(modalQRFormState.selectedBookCopies)
       .to
       .deep
       .eq([
@@ -119,11 +120,11 @@ function modalQrFormDataTests() {
         },
       ])
 
-    modalQrFormState.toggleBookCopyChecked({
+    modalQRFormState.toggleBookCopyChecked({
       id: 1, 
     })
 
-    expect(modalQrFormState.isBookCopySelected({
+    expect(modalQRFormState.isBookCopySelected({
       id: 1, 
     }))
       .to
@@ -138,46 +139,46 @@ function modalQrFormDataTests() {
   WHEN toggleSelectAllCopies with true
   SHOULD select all book copies
   `, () => {
-    modalQrFormState.toggleSelectAllCopies({
+    modalQRFormState.toggleSelectAllCopies({
       checked: false, 
     })
 
-    expect(modalQrFormState.areAllCopiesSelected)
+    expect(modalQRFormState.areAllCopiesSelected)
       .to
       .be
       .false
 
-    expect(modalQrFormState.isBookCopySelected({
+    expect(modalQRFormState.isBookCopySelected({
       id: 1, 
     }))
       .to
       .be
       .false
 
-    expect(modalQrFormState.isBookCopySelected({
+    expect(modalQRFormState.isBookCopySelected({
       id: 2, 
     }))
       .to
       .be
       .false
 
-    modalQrFormState.toggleSelectAllCopies({
+    modalQRFormState.toggleSelectAllCopies({
       checked: true, 
     })
 
-    expect(modalQrFormState.areAllCopiesSelected)
+    expect(modalQRFormState.areAllCopiesSelected)
       .to
       .be
       .true
 
-    expect(modalQrFormState.isBookCopySelected({
+    expect(modalQRFormState.isBookCopySelected({
       id: 1, 
     }))
       .to
       .be
       .true
 
-    expect(modalQrFormState.isBookCopySelected({
+    expect(modalQRFormState.isBookCopySelected({
       id: 2, 
     }))
       .to
@@ -190,11 +191,11 @@ function modalQrFormDataTests() {
   WHEN areAllCopiesSelected
   SHOULD return true if all copies are selected
   `, () => {
-    modalQrFormState.toggleSelectAllCopies({
+    modalQRFormState.toggleSelectAllCopies({
       checked: true, 
     })
 
-    expect(modalQrFormState.areAllCopiesSelected)
+    expect(modalQRFormState.areAllCopiesSelected)
       .to
       .be
       .true
@@ -205,11 +206,11 @@ function modalQrFormDataTests() {
   WHEN areAllCopiesSelected
   SHOULD return false if not all copies are selected
   `, () => {
-    modalQrFormState.toggleBookCopyChecked({
+    modalQRFormState.toggleBookCopyChecked({
       id: 1, 
     })
     
-    expect(modalQrFormState.areAllCopiesSelected)
+    expect(modalQRFormState.areAllCopiesSelected)
       .to
       .be
       .false
@@ -220,25 +221,52 @@ function modalQrFormDataTests() {
   WHEN resetSelectedCopies
   SHOULD reset the selected copies to default state
   `, () => {
-    modalQrFormState.resetSelectedCopies()
+    modalQRFormState.resetSelectedCopies()
 
-    expect(modalQrFormState.areAllCopiesSelected)
+    expect(modalQRFormState.areAllCopiesSelected)
       .to
       .be
       .true
 
-    expect(modalQrFormState.isBookCopySelected({
+    expect(modalQRFormState.isBookCopySelected({
       id: 1, 
     }))
       .to
       .be
       .true
     
-    expect(modalQrFormState.isBookCopySelected({
+    expect(modalQRFormState.isBookCopySelected({
       id: 2, 
     }))
       .to
       .be
       .true
+  })
+}
+
+function isSavingTests() {  
+  it(`
+  GIVEN initial isSaving = false
+  WHEN setIsSaving AND resetIsSaving are triggered
+  THEN toggle isSaving to true and then back to false
+  `, () => {
+    const modalQRFormState = new ModalQRFormState()
+
+    expect(modalQRFormState.isSaving)
+      .to
+      .be
+      .false
+  
+    modalQRFormState.setIsSaving()
+    expect(modalQRFormState.isSaving)
+      .to
+      .be
+      .true
+      
+    modalQRFormState.resetIsSaving()
+    expect(modalQRFormState.isSaving)
+      .to
+      .be
+      .false
   })
 }

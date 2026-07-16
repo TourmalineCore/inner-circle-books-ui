@@ -1,6 +1,6 @@
 
 import moment from "moment"
-import { PrintQr } from "./PrintQr"
+import { PrintQR } from "./PrintQR"
 
 describe(`Print QR Snapshot test`, () => {
 
@@ -24,7 +24,7 @@ function mountComponent() {
 
   cy
     .mount(
-      <PrintQr
+      <PrintQR
         bookCopyId={1}
         title="Designing Data-Intensive Applications"
         secretKey="ab2d"

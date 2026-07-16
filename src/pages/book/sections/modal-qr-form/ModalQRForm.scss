@@ -4,7 +4,7 @@
 
 .modal-qr-form {
   position: fixed;
-  z-index: 80;
+  z-index: 70;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -103,15 +103,24 @@
     }
   }
 
-  &__print-button-container {
-    display: grid; /* TODO: in Button component remove flex: 1; and do here display: flex; */
+  &__buttons-container {
+    display: flex;
     border-top: 1px solid v.$color-component-border;
     padding: 24px 32px;
     width: 100%;
     height: 92px;
+    gap: 10px;
 
     @include m.tablet {
       justify-content: center;
+    }
+  }
+
+  &__print-qr {
+    display: none;
+
+    @media print {
+      display: block;
     }
   }
 
@@ -121,15 +130,15 @@
     }
 
     @include m.tablet {
-      min-width: 100px;
+      flex-grow: 0;
+      min-width: 160px;
     }
   }
 
-  &__print-qr {
-    display: none;
-
-    @media print {
-      display: block;
+  &__add-copy-button {
+    @include m.tablet {
+      flex-grow: 0;
+      min-width: 160px;
     }
   }
 

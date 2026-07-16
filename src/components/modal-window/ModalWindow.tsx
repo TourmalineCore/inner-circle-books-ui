@@ -55,6 +55,7 @@ export const ModalWindow = ({
       />
     
       <Button 
+        data-cy='accept-button'
         onClick={onAccentButtonAction}
         label={accentButtonLabel}
         isAccent

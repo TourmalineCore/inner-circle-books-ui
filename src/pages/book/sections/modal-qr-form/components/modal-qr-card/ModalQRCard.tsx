@@ -7,7 +7,7 @@ import QRCode from "react-qr-code"
 import { observer } from 'mobx-react-lite'
 import { useContext } from 'react'
 import clsx from 'clsx'
-import { ModalQrFormStateContext } from '../../state/ModalQrFormStateContext'
+import { ModalQRFormStateContext } from '../../state/ModalQRFormStateContext'
 
 export const ModalQRCard = observer(({
   title,
@@ -18,25 +18,25 @@ export const ModalQRCard = observer(({
   bookCopyId: number,
   secretKey: string,
 }) => {
-  const modalQrFormState = useContext(ModalQrFormStateContext)
+  const modalQRFormState = useContext(ModalQRFormStateContext)
   
-  return modalQrFormState.bookCopiesCount > 1 
+  return modalQRFormState.bookCopiesCount > 1 
     ? (
       <button
         type="button"
         key={bookCopyId}
         className={clsx(`modal-qr-card`, { 
-          'modal-qr-card--selected': modalQrFormState.isBookCopySelected({
+          'modal-qr-card--selected': modalQRFormState.isBookCopySelected({
             id: bookCopyId, 
           }),
         })}
-        onClick={() => modalQrFormState.toggleBookCopyChecked({
+        onClick={() => modalQRFormState.toggleBookCopyChecked({
           id: bookCopyId,
         })}
       >
         <div className="modal-qr-card__checkbox-icon">
           {
-            modalQrFormState.isBookCopySelected({
+            modalQRFormState.isBookCopySelected({
               id: bookCopyId,
             }) 
               ? <CheckboxOnIcon /> 

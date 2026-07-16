@@ -2,9 +2,9 @@ import { useMemo, useState } from "react"
 import { BookContainer } from "./BookContainer"
 import { BookStateContext } from "./state/BookStateStateContext"
 import { BookState } from "./state/BookState"
-import { ModalQrFormContainer } from "./sections/modal-qr-form/ModalQrFormContainer"
-import { ModalQrFormStateContext } from "./sections/modal-qr-form/state/ModalQrFormStateContext"
-import { ModalQrFormState } from "./sections/modal-qr-form/state/ModalQrFormState"
+import { ModalQRFormContainer } from "./sections/modal-qr-form/ModalQRFormContainer"
+import { ModalQRFormStateContext } from "./sections/modal-qr-form/state/ModalQRFormStateContext"
+import { ModalQRFormState } from "./sections/modal-qr-form/state/ModalQRFormState"
 import { useLocation } from "react-router-dom"
 
 export function BookPage() {
@@ -22,7 +22,7 @@ export function BookPage() {
   const bookId = pathnameParts[2]
     
   const modalQRFormState = useMemo(
-    () => new ModalQrFormState(),
+    () => new ModalQRFormState(),
     [],
   )
 
@@ -33,17 +33,17 @@ export function BookPage() {
 
   return (
     <BookStateContext.Provider value={bookState}>
-      <ModalQrFormStateContext.Provider value={modalQRFormState}>
+      <ModalQRFormStateContext.Provider value={modalQRFormState}>
         <BookContainer
           openModalQrCode={() => setShowModalQRForm(true)}
         />
         {showModalQRForm && (
-          <ModalQrFormContainer 
+          <ModalQRFormContainer 
             bookId={bookId}
             onCloseModal={() => setShowModalQRForm(false)}
           />
         )}
-      </ModalQrFormStateContext.Provider>
+      </ModalQRFormStateContext.Provider>
     </BookStateContext.Provider>
   )
 }
