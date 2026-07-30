@@ -8,11 +8,10 @@ import ReactDOM from 'react-dom/client'
 import { ThemeProvider } from './theme/themeContext'
 import { authService } from './common/authService'
 import { BrowserRouter } from 'react-router-dom'
-import { refreshTokenAndSubscribe } from './common/api/refreshByInterval'
 import App from './App'
 
 async function initApp() {
-  await refreshTokenAndSubscribe()
+  await authService.startPeriodicalAccessTokenRefresh()
 
   ReactDOM
     .createRoot(document.getElementById(`root`)!)
@@ -25,7 +24,7 @@ async function initApp() {
             </BrowserRouter>
           </ThemeProvider>
         </authService.AuthProvider>
-      </React.StrictMode >,
+      </React.StrictMode>,
     )
 }
 
