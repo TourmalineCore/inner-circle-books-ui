@@ -60,13 +60,14 @@ Cypress.Commands.add(`authByApi`, () => {
     }) => {
       const tokenValue = loginResponseBody.accessToken.value
       const accessToken = {
-        value: Cypress.env(`DISABLE_DEBUG_TOKEN`) === false 
-          ? wrapAsJwt(tokenValue) 
+        value: Cypress.env(`DISABLE_DEBUG_TOKEN`) === false
+          ? wrapAsJwt(tokenValue)
           : tokenValue,
       }
 
       authService.setLoggedIn({
         accessToken,
+        refreshToken: loginResponseBody.refreshToken,
       })
 
       cy
