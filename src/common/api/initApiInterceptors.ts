@@ -1,4 +1,5 @@
 import { authService } from '../authService'
+import { DISABLE_DEBUG_TOKEN, LOCAL_DEBUG_TOKEN } from '../config/config'
 
 let isRefreshing = false
 let refreshQueue: any[] = []
@@ -9,6 +10,10 @@ export function initApiInterceptors(api: any) {
 
     if (config.headers) {
       config.headers.Authorization = token ? `Bearer ${token}` : ``
+
+      if (DISABLE_DEBUG_TOKEN === `false`) {
+        config.headers[`X-DEBUG-TOKEN`] = LOCAL_DEBUG_TOKEN
+      }
     }
 
     return config

@@ -7,10 +7,13 @@ import ReactDOM from 'react-dom/client'
 
 import { ThemeProvider } from './theme/themeContext'
 import { authService } from './common/authService'
+import { logInAsLocalDebugUserIfDebugTokenEnabled } from './common/localDebugAuth'
 import { BrowserRouter } from 'react-router-dom'
 import App from './App'
 
 async function initApp() {
+  logInAsLocalDebugUserIfDebugTokenEnabled()
+
   await authService.startPeriodicalAccessTokenRefresh()
 
   ReactDOM

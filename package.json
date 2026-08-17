@@ -4,8 +4,11 @@
   "private": true,
   "homepage": "/books",
   "scripts": {
-    "start": "npm run create-config:local && vite --host",
+    "start": "npm run create-config:local && npm run local-services:up && vite --host",
     "start-local-env": "vite --host --mode local-env",
+    "local-services:up": "npm run sync-local-services && docker compose -f books-api-docker-compose.yml -f docker-compose.yml --profile MockForTests up -d --wait --build",
+    "local-services:down": "docker compose -f books-api-docker-compose.yml -f docker-compose.yml --profile MockForTests down",
+    "sync-local-services": "node sync-local-services",
     "build": "tsc && vite build",
     "docker:build": "docker build -t inner-circle-books-ui .",
     "docker:run": "docker run -p 4457:80 inner-circle-books-ui",
@@ -20,10 +23,10 @@
     "cypress:open": "cypress open",
     "cypress:open:component": "cypress open --component --browser electron",
     "cypress:run:component": "cypress run --component --browser electron",
-    "cypress:open:e2e": "cypress open --e2e --browser electron --config-file cypress.config.prod.ts",
-    "cypress:run:e2e": "cypress run --e2e --config-file cypress.config.prod.ts",
     "cypress:open:e2e:local-env": "cypress open --e2e --browser electron --config-file cypress.config.local-env.ts",
-    "cypress:run:e2e:local-env": "cypress run --e2e --config-file cypress.config.local-env.ts"
+    "cypress:run:e2e:local-env": "cypress run --e2e --config-file cypress.config.local-env.ts",
+    "cypress:open:e2e:docker-compose": "cypress open --e2e --browser electron --config-file cypress.config.mock-for-tests.ts",
+    "cypress:run:e2e:docker-compose": "cypress run --e2e --config-file cypress.config.mock-for-tests.ts"
   },
   "dependencies": {
     "@fortawesome/free-solid-svg-icons": "^6.7.2",
