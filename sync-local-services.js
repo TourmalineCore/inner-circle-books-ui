@@ -1,5 +1,6 @@
 /* eslint-disable no-undef */
 import fs from 'fs'
+import { wrapAsJwt } from './src/common/wrapAsJwt.js'
 
 const MOCK_SERVER_CONFIG_URL = `https://raw.githubusercontent.com/TourmalineCore/inner-circle-books-api/master/e2e/mock-server-initialization.json`
 const MOCK_SERVER_CONFIG_PATH = `./mock-server-initialization.json`
@@ -38,15 +39,6 @@ function readLocalDebugToken(mockServerConfig) {
   ))
 
   return JSON.parse(loginMock.httpResponse.body).accessToken.value
-}
-
-function wrapAsJwt(localDebugToken) {
-  const header = btoa(JSON.stringify({
-    alg: `none`,
-    typ: `JWT`, 
-  }))
-
-  return `${header}.${localDebugToken}.`
 }
 
 // if this script already ran before, env-config.js has an old LOCAL_DEBUG_TOKEN/LOCAL_DEBUG_JWT

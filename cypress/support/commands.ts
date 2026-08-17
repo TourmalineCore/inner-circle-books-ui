@@ -1,6 +1,7 @@
 /// <reference types="cypress" />
 import { createAuthService } from '@tourmalinecore/react-tc-auth'
 import compareSnapshotCommand from 'cypress-image-diff-js'
+import { wrapAsJwt } from '../../src/common/wrapAsJwt.js'
 
 Cypress.on(`uncaught:exception`, () => false)
 
@@ -24,8 +25,18 @@ Cypress.Screenshot.defaults({
 
 export { }
 
+function getAuthHeaders() {
+  const accessToken = Cypress.env(`accessToken`)
+
+  return {
+    Authorization: `Bearer ${accessToken}`,
+    ...(Cypress.env(`DISABLE_DEBUG_TOKEN`) === false ? {
+      'X-DEBUG-TOKEN': accessToken.split(`.`)[1],
+    } : {}),
+  }
+}
+
 Cypress.Commands.add(`authByApi`, () => {
-  let accessToken: any
   const authService = createAuthService({
     authApiRoot: Cypress.env(`AUTH_API_ROOT_URL`),
     authType: `ls`,
@@ -47,9 +58,17 @@ Cypress.Commands.add(`authByApi`, () => {
     .then(({
       body: loginResponseBody,
     }) => {
-      authService.setLoggedIn(loginResponseBody)
+      const tokenValue = loginResponseBody.accessToken.value
+      const accessToken = {
+        value: Cypress.env(`DISABLE_DEBUG_TOKEN`) === false 
+          ? wrapAsJwt(tokenValue) 
+          : tokenValue,
+      }
 
-      accessToken = loginResponseBody.accessToken
+      authService.setLoggedIn({
+        accessToken,
+      })
+
       cy
         .window()
         .then((window) => {
@@ -61,14 +80,12 @@ Cypress.Commands.add(`authByApi`, () => {
 })
 
 Cypress.Commands.add(`removeBooks`, () => {
-  cy.request<{ 
-    books: BookCardType[], 
+  cy.request<{
+    books: BookCardType[],
   }>({
     method: `GET`,
     url: `${Cypress.env(`API_ROOT_URL`)}`,
-    headers: {
-      Authorization: `Bearer ${Cypress.env(`accessToken`)}`,
-    },
+    headers: getAuthHeaders(),
   })
     .then(({
       body,
@@ -83,9 +100,7 @@ Cypress.Commands.add(`removeBooks`, () => {
         cy.request({
           method: `DELETE`,
           url: `${Cypress.env(`API_ROOT_URL`)}/${id}/hard-delete`,
-          headers: {
-            Authorization: `Bearer ${Cypress.env(`accessToken`)}`,
-          },
+          headers: getAuthHeaders(),
         })
       })
     })
@@ -101,9 +116,7 @@ Cypress.Commands.add(`getBookCopySecret`, ({
   return cy.request<ModalQRFormType>({
     method: `GET`,
     url: `${Cypress.env(`API_ROOT_URL`)}/copies/${bookId}`,
-    headers: {
-      Authorization: `Bearer ${Cypress.env(`accessToken`)}`,
-    },
+    headers: getAuthHeaders(),
   })
     .then(({
       body,
