@@ -6,7 +6,7 @@
   "scripts": {
     "start": "npm run create-config:local && npm run local-services:up && vite --host",
     "start-local-env": "vite --host --mode local-env",
-    "local-services:up": "npm run sync-local-services && docker compose -f books-api-docker-compose.yml -f docker-compose.yml --profile MockForTests up -d --wait --build",
+    "local-services:up": "npm run sync-local-services && docker compose -f books-api-docker-compose.yml -f docker-compose.yml --profile MockForTests up -d --wait --no-build --pull always",
     "local-services:down": "docker compose -f books-api-docker-compose.yml -f docker-compose.yml --profile MockForTests down",
     "sync-local-services": "node sync-local-services",
     "build": "tsc && vite build",
