@@ -1,29 +1,35 @@
 /* eslint-disable no-undef */
 import fs from 'fs'
-import { wrapAsJwt } from './src/common/wrapAsJwt.js'
+import { wrapAsJwt } from '../src/common/wrapAsJwt.js'
 
-const API_REPO_NAME = `inner-circle-books-api`
-
-const API_REPO_URL = `https://raw.githubusercontent.com/TourmalineCore/${API_REPO_NAME}/master`
+const API_REPO_URL = `https://raw.githubusercontent.com/TourmalineCore/inner-circle-books-api/master`
 
 const MOCK_SERVER_CONFIG_URL = `${API_REPO_URL}/e2e/mock-server-initialization.json`
-const MOCK_SERVER_CONFIG_PATH = `./mock-server-initialization.json`
+const MOCK_SERVER_CONFIG_PATH = `./local-run/mock-server-initialization.json`
 
 const API_COMPOSE_URL = `${API_REPO_URL}/docker-compose.yml`
-const API_COMPOSE_PATH = `./books-api-docker-compose.yml`
+const API_COMPOSE_PATH = `./local-run/api-docker-compose.yml`
+
+const LAYOUT_UI_COMPOSE_URL = `https://raw.githubusercontent.com/TourmalineCore/inner-circle-layout-ui/master/docker-compose.yml`
+const LAYOUT_UI_COMPOSE_PATH = `./local-run/layout-ui-docker-compose.yml`
 
 const ENV_CONFIG_PATH = `./public/env-config.js`
 
 // find  "...all-permissions" or  "...ALL_PERMISSIONS"
 const ALL_PERMISSIONS_LOGIN_PATTERN = /all[-_]permissions/i
 
-async function runAsync() {
+async function prepareLocalRunAsync() {
   await fetchRemoteFileAsync({
     url: API_COMPOSE_URL,
     path: API_COMPOSE_PATH,
   })
 
-  // also written to disk: docker-compose.yml mounts this file into books-api-mock-server
+  await fetchRemoteFileAsync({
+    url: LAYOUT_UI_COMPOSE_URL,
+    path: LAYOUT_UI_COMPOSE_PATH,
+  })
+
+  // also written to disk: api-docker-compose.override.yml mounts this file into api-mock-server
   const mockServerConfigBody = await fetchRemoteFileAsync({
     url: MOCK_SERVER_CONFIG_URL,
     path: MOCK_SERVER_CONFIG_PATH,
@@ -90,4 +96,4 @@ function injectIntoEnvConfig({
   fs.writeFileSync(path, contentWithoutOldEntries.replace(`window.__ENV__ = { `, `window.__ENV__ = { ${envEntries}`))
 }
 
-runAsync()
+prepareLocalRunAsync()

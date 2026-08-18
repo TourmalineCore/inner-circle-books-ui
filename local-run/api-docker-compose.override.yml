@@ -1,0 +1,10 @@
+# overlay on top of api-docker-compose.yml
+# points books-api at the published image instead of building it from source
+services:
+
+  inner-circle-books-api:
+    image: ghcr.io/tourmalinecore/inner-circle-books-api:latest
+
+  inner-circle-books-api-mock-server:
+    volumes:
+      - ${LOCAL_WORKSPACE_FOLDER:-..}/local-run/mock-server-initialization.json:/config/mock-server-initialization.json

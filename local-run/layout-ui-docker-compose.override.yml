@@ -1,0 +1,6 @@
+# overlay on top of the fetched layout-ui-docker-compose.yml
+# points it at the published image instead of building it from source
+services:
+
+  inner-circle-layout-ui:
+    image: ghcr.io/tourmalinecore/inner-circle-layout-ui:latest

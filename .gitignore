@@ -46,6 +46,7 @@ cypress-image-diff-html-report
 cypress-image-diff-screenshots/comparison
 cypress-image-diff-screenshots/diff
 
-# fetched fresh from books-api on every `npm run local-services:up`, see sync-local-services.js
-/mock-server-initialization.json
-/books-api-docker-compose.yml
+# fetched fresh from books-api and layout-ui on every `npm run local-services:up`
+/local-run/mock-server-initialization.json
+/local-run/api-docker-compose.yml
+/local-run/layout-ui-docker-compose.yml

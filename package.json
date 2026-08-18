@@ -6,9 +6,10 @@
   "scripts": {
     "start": "npm run create-config:local && npm run local-services:up && vite --host",
     "start-local-env": "vite --host --mode local-env",
-    "local-services:up": "npm run sync-local-services && docker compose -f books-api-docker-compose.yml -f docker-compose.yml --profile MockForTests up -d --wait --no-build --pull always",
-    "local-services:down": "docker compose -f books-api-docker-compose.yml -f docker-compose.yml --profile MockForTests down",
-    "sync-local-services": "node sync-local-services",
+    "local-services:up": "npm run prepare-local-run && npm run local-services:up:layout-ui && docker compose -p inner-circle-books-ui -f local-run/api-docker-compose.yml -f local-run/api-docker-compose.override.yml --profile MockForTests up -d --wait --no-build --pull always",
+    "local-services:up:layout-ui": "docker compose -p inner-circle-layout-ui -f local-run/layout-ui-docker-compose.yml -f local-run/layout-ui-docker-compose.override.yml up -d --wait --no-build --pull always",
+    "local-services:down": "docker compose -p inner-circle-books-ui -f local-run/api-docker-compose.yml -f local-run/api-docker-compose.override.yml --profile MockForTests down",
+    "prepare-local-run": "node local-run/prepare-local-run",
     "build": "tsc && vite build",
     "docker:build": "docker build -t inner-circle-books-ui .",
     "docker:run": "docker run -p 4457:80 inner-circle-books-ui",

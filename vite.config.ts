@@ -26,7 +26,7 @@ export default defineConfig(({
       port: BOOKS_PORT,
       proxy: {
         '/layout': {
-          target: `http://localhost:4006`,
+          target: `http://localhost:4406`,
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/layout/, ``),
         },
