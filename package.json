@@ -6,6 +6,7 @@
   "scripts": {
     "start": "npm run create-config:local && npm run local-services:up && vite --host",
     "start:local-layout-ui": "npm run create-config:local && npm run local-api-services:up && LOCAL_LAYOUT_UI=true vite --host",
+    "start:local-books-api": "npm run create-config:local && npm run prepare-local-run && npm run local-services:up:layout-ui && LOCAL_BOOKS_API=true vite --host",
     "start-local-env": "vite --host --mode local-env",
     "local-services:up": "npm run prepare-local-run && npm run local-services:up:layout-ui && docker compose -p inner-circle-books-ui -f local-run/api-docker-compose.yml -f local-run/api-docker-compose.override.yml --profile MockForTests up -d --wait --no-build --pull always",
     "local-api-services:up": "npm run prepare-local-run && docker compose -p inner-circle-books-ui -f local-run/api-docker-compose.yml -f local-run/api-docker-compose.override.yml --profile MockForTests up -d --wait --no-build --pull always",

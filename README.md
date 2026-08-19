@@ -72,6 +72,39 @@ npm run start:local-layout-ui
 
 This starts only the books-api Docker services (no layout-ui container) and points the `/layout` proxy at your local layout-ui instead of the shared container.
 
+## Develop against a local books-api
+
+To develop with local books-api, run it locally instead of the docker container.
+
+1. In `inner-circle-books-ui`, run:
+
+```
+npm run start:local-books-api
+```
+
+This starts the shared layout-ui Docker container (books-ui doesn't touch books-api's own containers) and points the `/api/books` proxy at `localhost:7000` instead of the container.
+
+2. In `inner-circle-books-api`, run it the same way described in its own README's "Run in Visual Studio" section: 
+
+```
+docker compose --profile MockForDevelopment up --build
+```
+
+ for its db and mock-server, then 
+
+ ```
+ dotnet run --project ./Api --verbosity detailed
+ ```
+for the API itself.
+
+### Also test with unpushed mock-server-initialization.json changes
+
+By default `mock-server-initialization.json` is fetched from GitHub (`master`, or `BOOKS_API_REF` if set). If you're editing it locally and haven't pushed yet, set `BOOKS_API_LOCAL_PATH` to your local `inner-circle-books-api` checkout instead:
+
+```
+BOOKS_API_LOCAL_PATH=../inner-circle-books-api npm run start:local-books-api
+```
+
 ## Create local docker container to connect it with local-env
 
 ```

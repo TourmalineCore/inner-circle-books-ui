@@ -5,6 +5,10 @@ import { wrapAsJwt } from '../src/common/wrapAsJwt.js'
 // branch/commit other than master, e.g. to test against a feature branch's
 const API_REPO_REF = process.env.BOOKS_API_REF || `master`
 
+// path to a local inner-circle-books-api checkout, e.g. ../inner-circle-books-api
+// set this to test with mock-server-initialization.json changes you haven't pushed yet
+const BOOKS_API_LOCAL_PATH = process.env.BOOKS_API_LOCAL_PATH
+
 const API_REPO_URL = `https://raw.githubusercontent.com/TourmalineCore/inner-circle-books-api/${API_REPO_REF}`
 
 const MOCK_SERVER_CONFIG_URL = `${API_REPO_URL}/e2e/mock-server-initialization.json`
@@ -33,10 +37,15 @@ async function prepareLocalRunAsync() {
   })
 
   // also written to disk: api-docker-compose.override.yml mounts this file into api-mock-server
-  const mockServerConfigBody = await fetchRemoteFileAsync({
-    url: MOCK_SERVER_CONFIG_URL,
-    path: MOCK_SERVER_CONFIG_PATH,
-  })
+  const mockServerConfigBody = BOOKS_API_LOCAL_PATH
+    ? copyLocalFile({
+      from: `${BOOKS_API_LOCAL_PATH}/e2e/mock-server-initialization.json`,
+      to: MOCK_SERVER_CONFIG_PATH,
+    })
+    : await fetchRemoteFileAsync({
+      url: MOCK_SERVER_CONFIG_URL,
+      path: MOCK_SERVER_CONFIG_PATH,
+    })
   const mockServerConfig = JSON.parse(mockServerConfigBody)
 
   const localDebugToken = readLocalDebugToken({
@@ -63,6 +72,18 @@ async function fetchRemoteFileAsync({
   const body = await response.text()
 
   fs.writeFileSync(path, body)
+
+  return body
+}
+
+// copies a file from a local path instead of fetching it from GitHub
+function copyLocalFile({
+  from,
+  to,
+}) {
+  const body = fs.readFileSync(from, `utf-8`)
+
+  fs.writeFileSync(to, body)
 
   return body
 }

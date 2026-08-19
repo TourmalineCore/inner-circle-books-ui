@@ -13,6 +13,9 @@ const LOCAL_ENV_PORT = 30090
 const isLocalLayoutUi = process.env.LOCAL_LAYOUT_UI === `true`
 const LAYOUT_UI_PORT = isLocalLayoutUi ? 4006 : 4406
 
+const isLocalBooksApi = process.env.LOCAL_BOOKS_API === `true`
+const BOOKS_API_PORT = isLocalBooksApi ? 7000 : 6505
+
 // eslint-disable-next-line import/no-default-export
 export default defineConfig(({
   mode,
@@ -38,7 +41,7 @@ export default defineConfig(({
           },
         },
         '/api/books': {
-          target: `http://localhost:6505`,
+          target: `http://localhost:${BOOKS_API_PORT}`,
           changeOrigin: true,
         },
       },
