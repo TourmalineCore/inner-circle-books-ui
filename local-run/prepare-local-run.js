@@ -2,7 +2,10 @@
 import fs from 'fs'
 import { wrapAsJwt } from '../src/common/wrapAsJwt.js'
 
-const API_REPO_URL = `https://raw.githubusercontent.com/TourmalineCore/inner-circle-books-api/master`
+// branch/commit other than master, e.g. to test against a feature branch's
+const API_REPO_REF = process.env.BOOKS_API_REF || `master`
+
+const API_REPO_URL = `https://raw.githubusercontent.com/TourmalineCore/inner-circle-books-api/${API_REPO_REF}`
 
 const MOCK_SERVER_CONFIG_URL = `${API_REPO_URL}/e2e/mock-server-initialization.json`
 const MOCK_SERVER_CONFIG_PATH = `./local-run/mock-server-initialization.json`

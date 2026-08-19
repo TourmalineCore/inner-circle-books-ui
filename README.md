@@ -30,6 +30,28 @@ To stop and remove the containers:
 npm run local-services:down
 ```
 
+## Run against a different books-api version
+
+By default `npm start` pulls and runs the `latest` published `inner-circle-books-api` image. To test against a different version, set `BOOKS_API_IMAGE_TAG` before starting.
+
+Every push to an open `inner-circle-books-api` pull request publishes a Docker image tagged `sha-<short commit sha>`. Use that tag:
+
+```
+BOOKS_API_IMAGE_TAG=sha-2a3f277 npm start
+```
+
+If Docker can't find that tag, check the PR's CI run to see which commit sha was actually built, and use that tag instead.
+
+To go back to `latest`, just run `npm start` without setting `BOOKS_API_IMAGE_TAG`.
+
+### Also test against that branch's mock server data
+
+`BOOKS_API_IMAGE_TAG` only changes the Docker image. It does not change where `mock-server-initialization.json` and `api-docker-compose.yml` come from. Those always come from `master` by default. If your feature branch also changed those files, also set `BOOKS_API_REF` (git branch name used to fetch files from GitHub):
+
+```
+BOOKS_API_IMAGE_TAG=sha-2a3f277 BOOKS_API_REF=my-feature-branch npm start
+```
+
 ## Create local docker container to connect it with local-env
 
 ```
