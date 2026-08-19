@@ -10,6 +10,9 @@ import svgr from 'vite-plugin-svgr'
 
 const LOCAL_ENV_PORT = 30090
 
+const isLocalLayoutUi = process.env.LOCAL_LAYOUT_UI === `true`
+const LAYOUT_UI_PORT = isLocalLayoutUi ? 4006 : 4406
+
 // eslint-disable-next-line import/no-default-export
 export default defineConfig(({
   mode,
@@ -26,9 +29,13 @@ export default defineConfig(({
       port: BOOKS_PORT,
       proxy: {
         '/layout': {
-          target: `http://localhost:4406`,
+          target: `http://localhost:${LAYOUT_UI_PORT}`,
           changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/layout/, ``),
+          // docker nginx serves at root (strip /layout); local layout-ui's
+          // vite server has base: '/layout' (keep the prefix)
+          ...!isLocalLayoutUi && {
+            rewrite: (path: string) => path.replace(/^\/layout/, ``),
+          },
         },
         '/api/books': {
           target: `http://localhost:6505`,

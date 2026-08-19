@@ -52,6 +52,26 @@ To go back to `latest`, just run `npm start` without setting `BOOKS_API_IMAGE_TA
 BOOKS_API_IMAGE_TAG=sha-2a3f277 BOOKS_API_REF=my-feature-branch npm start
 ```
 
+## Develop layout-ui together with books-ui
+
+By default `npm start` runs the shared layout-ui Docker container. To develop layout-ui itself, run it locally instead of the container.
+
+1. In `inner-circle-layout-ui`, run:
+
+```
+npm run start:federation
+```
+
+Plain `npm start` there doesn't work for this: `vite-plugin-federation` only builds the remote entry file during `vite build`, not in the dev server. `start:federation` rebuilds on every change and serves the result on port 4006. There is no hot reload, so refresh the browser manually after each change.
+
+2. In `inner-circle-books-ui`, run:
+
+```
+npm run start:local-layout-ui
+```
+
+This starts only the books-api Docker services (no layout-ui container) and points the `/layout` proxy at your local layout-ui instead of the shared container.
+
 ## Create local docker container to connect it with local-env
 
 ```
