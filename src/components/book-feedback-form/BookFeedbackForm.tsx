@@ -5,7 +5,6 @@ import NoImage from "../../assets/img/no-image.png"
 
 import { RatingInput } from './components/RatingInput'
 import { Button } from '../button/Button'
-import { PROGRESS_OPTIONS } from '../../common/enums/progressOfReading'
 import { useImageValid } from '../../common/useImageValid'
 
 type BookFeedbackFormProps = {
@@ -16,6 +15,10 @@ type BookFeedbackFormProps = {
   advantages: string,
   disadvantages: string,
   acceptButtonLabel: string,
+  progressOfReadingOptions: {
+    value: string,
+    label: string,
+  }[],
   setProgressOfReading: ({
     progressOfReading,
   }: {
@@ -52,6 +55,7 @@ export function BookFeedbackForm({
   advantages,
   disadvantages,
   acceptButtonLabel,
+  progressOfReadingOptions,
   setProgressOfReading,
   setRating,
   setAdvantages,
@@ -95,7 +99,7 @@ export function BookFeedbackForm({
           'error': isProgressOfReadingError,
         })}
         >
-          {PROGRESS_OPTIONS.map((option) => (
+          {progressOfReadingOptions.map((option) => (
             <button
               key={option.value}
               type="button"
@@ -174,6 +178,7 @@ export function BookFeedbackForm({
           isAccent
           isDisable={isSaving}
           isLoader={isSaving}
+          data-cy='book-feedback-submit-button'
         />
       </div>
     </form>
