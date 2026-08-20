@@ -43,7 +43,7 @@ describe(`Return Book Snapshot test`, () => {
         .should(`equal`, `loaded`)
 
       cy
-        .getByData(`return-book`)
+        .getByData(`book-feedback-form`)
         .compareSnapshot(`/${viewport.width}`, {
           capture: `viewport`,
         })

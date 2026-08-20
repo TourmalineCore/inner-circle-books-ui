@@ -9,7 +9,7 @@ export class ReturnBookPage {
 
   static returnBook() {
     cy
-      .get(`.return-book__progress-options > :nth-child(2)`)
+      .get(`.book-feedback-form__progress-options > :nth-child(2)`)
       .click()
 
     cy
@@ -17,11 +17,11 @@ export class ReturnBookPage {
       .click()
 
     cy
-      .getByData(`return-book-advantages`)
+      .getByData(`book-feedback-form-advantages`)
       .type(`Хорошая книга`)
     
     cy
-      .getByData(`return-book-disadvantages`)
+      .getByData(`book-feedback-form-disadvantages`)
       .type(`Мало примеров`)
 
     cy
