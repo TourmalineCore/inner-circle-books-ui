@@ -109,7 +109,6 @@ describe(`Adding book history entries`, () => {
 
                 // DISABLE_DEBUG_TOKEN:false means we're authorized via the local debug token,
                 // which never triggers a real token refresh
-                // so there's nothing to wait for on that front in this mode
                 const waitAliases = [
                   `@getBookCopyDataRequest`,
                 ]

@@ -51,7 +51,7 @@ async function prepareLocalRunAsync() {
   const localDebugToken = readLocalDebugToken({
     mockServerConfig,
   })
-  
+
   const localDebugJwt = wrapAsJwt(localDebugToken)
 
   const envEntries = `LOCAL_DEBUG_TOKEN: "${localDebugToken}",LOCAL_DEBUG_JWT: "${localDebugJwt}",`

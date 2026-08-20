@@ -54,15 +54,15 @@ BOOKS_API_IMAGE_TAG=sha-2a3f277 BOOKS_API_REF=my-feature-branch npm start
 
 ## Develop layout-ui together with books-ui
 
-By default `npm start` runs the shared layout-ui Docker container. To develop layout-ui itself, run it locally instead of the container.
+To develop layout-ui itself, run it locally.
 
-1. In `inner-circle-layout-ui`, run:
+1. In clone repo `inner-circle-layout-ui`, run:
 
 ```
 npm run start:federation
 ```
 
-Plain `npm start` there doesn't work for this: `vite-plugin-federation` only builds the remote entry file during `vite build`, not in the dev server. `start:federation` rebuilds on every change and serves the result on port 4006. There is no hot reload, so refresh the browser manually after each change.
+Plain `npm start` there doesn't work for this: `vite-plugin-federation` only builds the remote entry file during `vite build`, not in the dev. `start:federation` rebuilds on every change and serves the result on port 4006. There is no hot reload, so refresh the browser manually after each change.
 
 2. In `inner-circle-books-ui`, run:
 
@@ -74,7 +74,7 @@ This starts only the books-api Docker services (no layout-ui container) and poin
 
 ## Develop against a local books-api
 
-To develop with local books-api, run it locally instead of the docker container.
+To develop with local books-api, run it locally instead of the Docker container.
 
 1. In `inner-circle-books-ui`, run:
 
@@ -82,7 +82,7 @@ To develop with local books-api, run it locally instead of the docker container.
 npm run start:local-books-api
 ```
 
-This starts the shared layout-ui Docker container (books-ui doesn't touch books-api's own containers) and points the `/api/books` proxy at `localhost:7000` instead of the container.
+This starts the shared layout-ui Docker container (books-ui doesn't touch books-api's containers) and points the `/api/books` proxy at `localhost:7000` instead of the Docker container.
 
 2. In `inner-circle-books-api`, run it the same way described in its own README's "Run in Visual Studio" section: 
 
@@ -140,7 +140,7 @@ to run test in local-env you need `cypress.config.local-env.ts` file and use com
 npm run cypress:run:e2e:local-env
 ```
 
-to run e2e against the mocked API from `npm run local-services:up` (no local-env or prod config needed), first make sure `npm start` is running, then use
+to run e2e against the mocked API, first make sure `npm start` is running, then use
 
 ```
 npm run cypress:run:e2e:docker-compose
