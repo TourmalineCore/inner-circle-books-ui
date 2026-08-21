@@ -38,29 +38,29 @@ npm run local-services:down:layout-ui
 
 ## Run against a different books-api version
 
-By default `npm start` pulls and runs the `latest` published `inner-circle-books-api` image. To test against a different version, set `BOOKS_API_IMAGE_TAG` before starting.
+By default `npm start` pulls and runs the `latest` published `inner-circle-books-api` image. To test against a different version, set `IMAGE_TAG` in the terminal right before `npm start`.
 
 Every push to an open `inner-circle-books-api` pull request publishes a Docker image tagged `sha-<short commit sha>`. Use that tag:
 
 ```
-BOOKS_API_IMAGE_TAG=sha-2a3f277 npm start
+IMAGE_TAG=sha-2a3f277 npm start
 ```
 
 If Docker can't find that tag, check the PR's CI run to see which commit sha was actually built, and use that tag instead.
 
-To go back to `latest`, just run `npm start` without setting `BOOKS_API_IMAGE_TAG`.
+To go back to `latest`, just run `npm start` without setting `IMAGE_TAG`.
 
 ### Also test against that branch's mock server data
 
-`BOOKS_API_IMAGE_TAG` only changes the Docker image. It does not change where `mock-server-initialization.json` and `api-docker-compose.yml` come from. Those always come from `master` by default. If your feature branch also changed those files, also set `BOOKS_API_REF` (git branch name used to fetch files from GitHub):
+`IMAGE_TAG` only changes the Docker image. It does not change where `mock-server-initialization.json` and `api-docker-compose.yml` come from. Those always come from `master` by default. If your feature branch also changed those files, also set `API_REF` (git branch name used to fetch files from GitHub):
 
 ```
-BOOKS_API_IMAGE_TAG=sha-2a3f277 BOOKS_API_REF=my-feature-branch npm start
+IMAGE_TAG=sha-2a3f277 API_REF=my-feature-branch npm start
 ```
 
-## Develop layout-ui together with books-ui
+## Develop books-ui together with locally running layout-ui
 
-To develop layout-ui itself, run it locally.
+To develop books-ui together with a locally running layout-ui, follow these steps:
 
 1. In clone repo `inner-circle-layout-ui`, run:
 
@@ -73,7 +73,7 @@ Plain `npm start` there doesn't work for this: `vite-plugin-federation` only bui
 2. In `inner-circle-books-ui`, run:
 
 ```
-npm run start:local-layout-ui
+npm run start:for-local-layout-ui
 ```
 
 This starts only the books-api Docker services (no layout-ui container) and points the `/layout` proxy at your local layout-ui instead of the shared container.
@@ -85,7 +85,7 @@ To develop with local books-api, run it locally instead of the Docker container.
 1. In `inner-circle-books-ui`, run:
 
 ```
-npm run start:local-books-api
+npm run start:for-local-books-api
 ```
 
 This starts the shared layout-ui Docker container (books-ui doesn't touch books-api's containers) and points the `/api/books` proxy at `localhost:7000` instead of the Docker container.
@@ -105,10 +105,10 @@ for the API itself.
 
 ### Also test with unpushed mock-server-initialization.json changes
 
-By default `mock-server-initialization.json` is fetched from GitHub (`master`, or `BOOKS_API_REF` if set). If you're editing it locally and haven't pushed yet, set `BOOKS_API_LOCAL_PATH` to your local `inner-circle-books-api` checkout instead:
+By default `mock-server-initialization.json` is fetched from GitHub (`master`, or `API_REF` if set). If you're editing it locally and haven't pushed yet, set `API_LOCAL_PATH` to your local `inner-circle-books-api` checkout instead:
 
 ```
-BOOKS_API_LOCAL_PATH=../inner-circle-books-api npm run start:local-books-api
+API_LOCAL_PATH=../inner-circle-books-api npm run start:for-local-books-api
 ```
 
 ## Create local docker container to connect it with local-env
@@ -140,14 +140,14 @@ npm run cypress:open:component
 
 ## E2E tests
 
+to run e2e against the mocked API, first make sure `npm start` is running, then use
+
+```
+npm run cypress:run:e2e
+```
+
 to run test in local-env you need `cypress.config.local-env.ts` file and use command
 
 ```
 npm run cypress:run:e2e:local-env
-```
-
-to run e2e against the mocked API, first make sure `npm start` is running, then use
-
-```
-npm run cypress:run:e2e:docker-compose
 ```

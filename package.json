@@ -5,8 +5,8 @@
   "homepage": "/books",
   "scripts": {
     "start": "npm run create-config:local && npm run local-services:up && vite --host",
-    "start:local-layout-ui": "npm run create-config:local && npm run prepare-local-run && npm run local-api-services:up && LOCAL_LAYOUT_UI=true vite --host",
-    "start:local-books-api": "npm run create-config:local && npm run prepare-local-run && npm run local-services:up:layout-ui && LOCAL_BOOKS_API=true vite --host",
+    "start:for-local-layout-ui": "npm run create-config:local && npm run prepare-local-run && npm run local-api-services:up && LOCAL_LAYOUT_UI=true vite --host",
+    "start:for-local-books-api": "npm run create-config:local && npm run prepare-local-run && npm run local-services:up:layout-ui && LOCAL_BOOKS_API=true vite --host",
     "start-local-env": "vite --host --mode local-env",
     "local-services:up": "npm run prepare-local-run && npm run local-services:up:layout-ui && npm run local-api-services:up",
     "local-api-services:up": "docker compose -p inner-circle-books-ui -f local-run/api-docker-compose.yml -f local-run/api-docker-compose.override.yml --profile MockForTests up -d --wait --no-build --pull always",
@@ -28,10 +28,11 @@
     "cypress:open": "cypress open",
     "cypress:open:component": "cypress open --component --browser electron",
     "cypress:run:component": "cypress run --component --browser electron",
+    "cypress:open:e2e": "cypress open --e2e --browser electron --config-file cypress.config.mock-for-tests.ts",
+    "cypress:run:e2e": "cypress run --e2e --config-file cypress.config.mock-for-tests.ts",
     "cypress:open:e2e:local-env": "cypress open --e2e --browser electron --config-file cypress.config.local-env.ts",
-    "cypress:run:e2e:local-env": "cypress run --e2e --config-file cypress.config.local-env.ts",
-    "cypress:open:e2e:docker-compose": "cypress open --e2e --browser electron --config-file cypress.config.mock-for-tests.ts",
-    "cypress:run:e2e:docker-compose": "cypress run --e2e --config-file cypress.config.mock-for-tests.ts"
+    "cypress:run:e2e:local-env": "cypress run --e2e --config-file cypress.config.local-env.ts"
+
   },
   "dependencies": {
     "@fortawesome/free-solid-svg-icons": "^6.7.2",
