@@ -48,7 +48,7 @@
     }
 
     @include m.tablet {
-      width: 129px;
+      max-width: 129px;
     }
   }
 }
