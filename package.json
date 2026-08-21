@@ -12,6 +12,7 @@
     "local-api-services:up": "npm run prepare-local-run && docker compose -p inner-circle-books-ui -f local-run/api-docker-compose.yml -f local-run/api-docker-compose.override.yml --profile MockForTests up -d --wait --no-build --pull always",
     "local-services:up:layout-ui": "docker compose -p inner-circle-layout-ui -f local-run/layout-ui-docker-compose.yml -f local-run/layout-ui-docker-compose.override.yml up -d --wait --no-build --pull always",
     "local-services:down": "docker compose -p inner-circle-books-ui -f local-run/api-docker-compose.yml -f local-run/api-docker-compose.override.yml --profile MockForTests down",
+    "local-services:down:layout-ui": "docker compose -p inner-circle-layout-ui -f local-run/layout-ui-docker-compose.yml -f local-run/layout-ui-docker-compose.override.yml down",
     "prepare-local-run": "node local-run/prepare-local-run",
     "build": "tsc && vite build",
     "docker:build": "docker build -t inner-circle-books-ui .",

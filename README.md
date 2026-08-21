@@ -30,6 +30,12 @@ To stop and remove the containers:
 npm run local-services:down
 ```
 
+This doesn't stop the layout-ui container. layout-ui runs in its own, separately named Docker project (inner-circle-layout-ui), not in the books-ui project. A developer will likely want to run several services locally that depend on layout-ui, so it runs as a single shared instance instead of each service starting its own container. Stop it explicitly when you no longer need it:
+
+```
+npm run local-services:down:layout-ui
+```
+
 ## Run against a different books-api version
 
 By default `npm start` pulls and runs the `latest` published `inner-circle-books-api` image. To test against a different version, set `BOOKS_API_IMAGE_TAG` before starting.
