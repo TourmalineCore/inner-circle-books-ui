@@ -25,23 +25,23 @@ export class AllBooksPage {
       .click()
 
     cy
-      .get(`.book__title`)
+      .getByData(`book-title`)
       .should(`have.text`, `[E2E-SMOKE] Новая книга`)
 
     cy
-      .get(`.book__annotation`)
+      .getByData(`book-annotation`)
       .should(`have.text`, `Описание книги`)   
       
     cy
-      .get(`.book-info`)
+      .getByData(`book-info`)
       .contains(`Первый Автор, Второй Автор`)
 
     cy
-      .get(`.book-info > :nth-child(2)`)
+      .getByData(`book-copies`)
       .contains(2)
       
     cy
-      .get(`.book-info`)
+      .getByData(`book-info`)
       .contains(`English`)
   }
 }

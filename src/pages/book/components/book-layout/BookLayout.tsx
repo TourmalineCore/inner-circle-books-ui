@@ -54,7 +54,12 @@ export const BookLayout = ({
 
       <div>
         <div className="book-layout__main-info-wrap">
-          <header className="book-layout__title">{title}</header>
+          <header 
+            className="book-layout__title"
+            data-cy="book-title"
+          >
+            {title}
+          </header>
           <BookReaders employeesWhoReadNow={employeesWhoReadNow} />
         </div>
 
@@ -69,7 +74,12 @@ export const BookLayout = ({
         </div>
 
         <h5 className="book-layout__section-name">Annotation</h5>
-        <div className="book-layout__annotation">{annotation}</div>
+        <div 
+          className="book-layout__annotation"
+          data-cy="book-annotation"
+        >
+          {annotation}
+        </div>
 
         <h5 className="book-layout__section-name">
           Feedback
@@ -92,7 +102,7 @@ function renderFeedbackList({
     return (
       <div
         className="book-layout__feedback-text"
-        data-cy="book-layout-feedback-text"
+        data-cy="book-feedback-text"
       >
         Let your colleagues know your opinion about this book after reading
       </div>
@@ -102,7 +112,7 @@ function renderFeedbackList({
   return (
     <div
       className="book-layout__feedback-list"
-      data-cy="book-layout-feedback-list"
+      data-cy="book-feedback-list"
     >
       {feedback.map((item) => (
         <FeedbackCard
