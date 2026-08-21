@@ -152,6 +152,7 @@ export const BookCopyContent = observer(({
               isValidCopyId 
                 ? (
                   <Button
+                    data-cy='book-action-button'
                     onClick={() => {
                       isCurrentUserReadingThisCopy
                         ? window.location.href = `${returnBookRoutes[0].path.replace(`:id`, String(copyId))}?s=${secretKey}`
