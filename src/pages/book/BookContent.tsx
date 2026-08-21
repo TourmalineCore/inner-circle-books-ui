@@ -39,7 +39,7 @@ export const BookContent = observer(({
   return (
     <div
       className='book'
-      datatype='book-page'
+      data-cy='book-page'
     >
       <BookLayout
         coverUrl={coverUrl}
