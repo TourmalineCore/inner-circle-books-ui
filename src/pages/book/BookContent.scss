@@ -2,118 +2,53 @@
 @use "../../styles/variables" as v;
 @use "../../styles/fonts-mixin" as f;
 
-.text-accent {
-  @include f.text-semibold;
-}
-
 .book {
-  display: grid;
-  margin: 0 auto;
-
-  &__title {
-    @include f.h3;
-
-    margin-top: 20px;
-
-    @include m.tablet-xl {
-      margin-top: 0;
-    }
-  }
-
-  &__buttons {
+  &__manage-buttons {
     display: flex;
     gap: 8px;
   }
 
-  &__field {
+  &__button {
+    min-height: 44px;
+
+    @include m.tablet {
+      max-width: 111px;
+    }
+  }
+
+  &__take-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 8px;
+  }
+
+  &__take-info-text {
+    @include f.text;
+
+    margin: 0;
     color: v.$color-text-secondary;
-  }
 
-  &__value {
-    margin-left: 8px;
-    color: v.$color-text-primary;
-  }
+    @include m.tablet {
+      width: 356px;
+    }
 
-  &__section-name {
-    @include f.h5;
-
-    margin: 32px 0 16px;
-  }
-
-  &__count {
-    margin-left: 8px;
-    font-weight: 400;
-    font-size: 20px;
-  }
-
-  &__annotation {
-    @include f.text;
-  }
-
-  &__main-info-wrap {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-
-    @include m.desktop {
-      align-items: center;
-      flex-direction: row;
-      justify-content: space-between;
-      gap: unset;
+    @include m.tablet-xl {
+      width: 280px;
     }
   }
 
-  &__wrapper {
-    display: flex;
-    flex-direction: column;
-  }
+  &__scan-button {
+    margin-top: 4px;
+    padding: 12px;
+    height: 44px;
 
-  // line after feedback card
-  &__feedback-list > *:not(:last-child)::after {
-    content: "";
-    display: block;
-    margin: 32px 0;
-    height: 1px;
-    background:
-      linear-gradient(
-          to right,
-          transparent,
-          v.$color-component-border,
-          transparent
-        );
-  }
-
-  &__feedback-text {
-    @include f.text;
-  }
-
-  &__cover,
-  &__cover--no-image {
-    display: block;
-    margin-bottom: 16px;
-    border: 1px solid v.$color-component-border;
-    border-radius: 8px;
-    width: 100%;
-    height: 510px;
-    object-fit: contain;
-
-    &--no-image {
-      object-fit: cover;
+    svg path {
+      stroke: v.$color-background-primary;
     }
-  }
 
-  @include m.tablet-xl {
-    gap: 20px;
-    grid-template-areas: "left right";
-    grid-template-columns: 354px 1fr;
-  }
-
-  @include m.desktop {
-    grid-template-columns: 402px 1fr;
-  }
-
-  @include m.desktop-xl {
-    max-width: 1540px;
-    grid-template-columns: 428px 1fr;
+    @include m.tablet {
+      width: 129px;
+    }
   }
 }

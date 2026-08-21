@@ -5,6 +5,7 @@ import { BookHistoryPage } from "./book-history/BookHistoryPage"
 import { ReturnBookPage } from "./return-book/ReturnBookPage"
 import { ScanPage } from "./scan/ScanPage"
 import { LINK_TO_BOOKS_SERVICE } from "../common/constant"
+import { BookCopyPage } from "./book/BookCopyPage"
 
 export const allBooksRoutes = [
   {
@@ -34,7 +35,7 @@ export const bookCopyRoutes = [
   {
     path: `${LINK_TO_BOOKS_SERVICE}/copy/:id`,
     breadcrumb: `Book Copy`,
-    Component: BookPage,
+    Component: BookCopyPage,
   },
 ]
 

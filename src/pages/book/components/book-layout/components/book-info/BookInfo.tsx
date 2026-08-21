@@ -1,6 +1,6 @@
 import './BookInfo.scss'
 
-import { Language } from '../../../../common/enums/language'
+import { Language } from '../../../../../../common/enums/language'
 
 export const BookInfo = ({
   authors,
