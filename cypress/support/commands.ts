@@ -28,12 +28,18 @@ export { }
 function getAuthHeaders() {
   const accessToken = Cypress.env(`accessToken`)
 
-  return {
+  const headers: {
+    Authorization: string,
+    'X-DEBUG-TOKEN'?: string,
+  } = {
     Authorization: `Bearer ${accessToken}`,
-    ...(Cypress.env(`DISABLE_DEBUG_TOKEN`) === false ? {
-      'X-DEBUG-TOKEN': accessToken.split(`.`)[1],
-    } : {}),
   }
+
+  if (Cypress.env(`DISABLE_DEBUG_TOKEN`) === false) {
+    headers[`X-DEBUG-TOKEN`] = accessToken.split(`.`)[1]
+  }
+
+  return headers
 }
 
 Cypress.Commands.add(`authByApi`, () => {
