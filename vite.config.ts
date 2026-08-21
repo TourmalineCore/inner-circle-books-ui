@@ -33,7 +33,6 @@ export default defineConfig(({
       proxy: {
         '/layout': {
           target: `http://localhost:${LAYOUT_UI_PORT}`,
-          changeOrigin: true,
           // docker nginx serves at root (strip /layout); local layout-ui's
           // vite server has base: '/layout' (keep the prefix)
           ...!isLocalLayoutUi && {
@@ -42,7 +41,6 @@ export default defineConfig(({
         },
         '/api/books': {
           target: `http://localhost:${BOOKS_API_PORT}`,
-          changeOrigin: true,
         },
       },
     },
