@@ -56,7 +56,7 @@ export const BookContent = observer(({
             {hasAccessPermission({
               permission: `CanManageBooks`,
             }) && (
-              <div className='book__manage-buttons'>
+              <div className='book__management-buttons'>
                 <Button
                   data-cy='book-tracking-button'
                   onClick={() => window.location.href = `${LINK_TO_BOOKS_SERVICE}/history/${bookId}`}

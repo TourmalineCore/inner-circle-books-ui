@@ -3,7 +3,7 @@
 @use "../../styles/fonts-mixin" as f;
 
 .book {
-  &__manage-buttons {
+  &__management-buttons{
     display: flex;
     gap: 8px;
   }
