@@ -90,6 +90,8 @@ npm run start:for-local-books-api
 
 This starts the shared layout-ui Docker container (books-ui doesn't touch books-api's containers) and points the `/api/books` proxy at `localhost:7000` instead of the Docker container.
 
+If you're running books-ui inside a Dev Container while books-api runs natively on the host (not in Docker), this is handled automatically: `localhost` inside a container is its own loopback, not the host's, so the proxy detects it's running inside a container and uses `host.docker.internal` instead.
+
 2. In `inner-circle-books-api`, run it the same way described in its own README's "Run in Visual Studio" section: 
 
 ```

@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/quotes */
+import fs from 'fs'
+
 import { defineConfig } from 'vite'
 // correct version of federation https://github.com/originjs/vite-plugin-federation/issues/670
 import federation from '@originjs/vite-plugin-federation'
@@ -15,6 +17,12 @@ const LAYOUT_UI_PORT = isLocalLayoutUi ? 4006 : 4406
 
 const isLocalBooksApi = process.env.LOCAL_BOOKS_API === `true`
 const BOOKS_API_PORT = isLocalBooksApi ? 7000 : 6505
+
+// in a Dev Container, localhost resolves to the container itself, not the host machine,
+// so a books-api running natively on the host (not in Docker) isn't reachable there.
+// /.dockerenv detects whether we're inside a container and uses host.docker.internal
+const isInsideContainer = fs.existsSync(`/.dockerenv`)
+const BOOKS_API_HOST = (isLocalBooksApi && isInsideContainer) ? `host.docker.internal` : `localhost`
 
 // eslint-disable-next-line import/no-default-export
 export default defineConfig(({
@@ -40,7 +48,7 @@ export default defineConfig(({
           },
         },
         '/api/books': {
-          target: `http://localhost:${BOOKS_API_PORT}`,
+          target: `http://${BOOKS_API_HOST}:${BOOKS_API_PORT}`,
         },
       },
     },
