@@ -63,6 +63,38 @@
     flex-direction: column;
   }
 
+  &__leave-feedback-button {
+    @include f.text-semibold;
+
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+    border: none;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    color: v.$color-component-border-active;
+    background: none;
+    cursor: pointer;
+    gap: 4px;
+
+    &:hover,
+    &:focus-visible {
+      color: v.$color-background-component-accent-hover;
+
+      svg path {
+        stroke: v.$color-background-component-accent-hover;
+      }
+    }
+
+    &:active {
+      color: v.$color-component-border-active;
+
+      svg path {
+        stroke: v.$color-component-border-active;
+      }
+    }
+  }
+
   // line after feedback card
   &__feedback-list > *:not(:last-child)::after {
     content: "";

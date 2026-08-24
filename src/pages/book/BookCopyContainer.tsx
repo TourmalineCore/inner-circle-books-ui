@@ -8,6 +8,10 @@ import { BookCopyContent } from "./BookCopyContent"
 export const BookCopyContainer = observer(() => {
   const bookCopyState = useContext(BookStateContext)
   const location = useLocation()
+
+  const {
+    book,
+  } = bookCopyState
       
   const pathnameParts = location
     .pathname
@@ -29,6 +33,7 @@ export const BookCopyContainer = observer(() => {
 
   return (
     <BookCopyContent
+      bookId={String(book.id)}
       onTake={takeBookAsync}
       copyId={bookCopyId}
     />
