@@ -111,6 +111,7 @@ function mountComponent() {
         <authService.AuthContext.Provider value={mockAuthContext}>
           <BookStateContext.Provider value={bookCopyState}>
             <BookCopyContent
+              bookId="1"
               copyId="1"
               onTake={() => {}} 
             />
