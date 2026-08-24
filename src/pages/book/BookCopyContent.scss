@@ -1,8 +1,8 @@
-@use "../../../../styles/media" as m;
-@use "../../../../styles/variables" as v;
-@use "../../../../styles/fonts-mixin" as f;
+@use "../../styles/media" as m;
+@use "../../styles/variables" as v;
+@use "../../styles/fonts-mixin" as f;
 
-.book-action-button {
+.book-copy {
   &__button {
     min-height: 44px;
 
@@ -30,20 +30,6 @@
 
     @include m.tablet-xl {
       width: 280px;
-    }
-  }
-
-  &__scan-button {
-    margin-top: 4px;
-    padding: 12px;
-    height: 44px;
-
-    svg path {
-      stroke: v.$color-background-primary;
-    }
-
-    @include m.tablet {
-      width: 129px;
     }
   }
 }

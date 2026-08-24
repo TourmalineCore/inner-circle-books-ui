@@ -1,7 +1,6 @@
 import { BookState } from "../../pages/book/state/BookState"
 import { BookStateContext } from "../../pages/book/state/BookStateStateContext"
 import { ModalWindow } from "./ModalWindow"
-import './../../pages/book/BookContent.scss'
 
 export const VIEWPORTS = [
   {
