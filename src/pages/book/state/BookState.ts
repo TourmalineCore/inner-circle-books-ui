@@ -16,6 +16,7 @@ const EMPTY_BOOK: NewBook = {
   knowledgeAreas: [],
 }
 
+// This state is used for both a book and a copy of the book
 export class BookState {
   private _book: NewBook = {
     ...EMPTY_BOOK, 

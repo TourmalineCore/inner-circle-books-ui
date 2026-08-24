@@ -27,7 +27,7 @@ export class BookPage {
 
   static takeBook() {
     cy
-      .get(`.book-action-button > .button`)
+      .getByData(`book-action-button`)
       .should(`have.text`, `Take Book`)
       .click()
 
@@ -42,13 +42,13 @@ export class BookPage {
       .should(`exist`)
 
     cy
-      .get(`.book-action-button > .button`)
+      .getByData(`book-action-button`)
       .should(`have.text`, `Return Book`)
   }
 
   static clickReturnBookButton() {
     cy
-      .get(`.book-action-button > .button`)
+      .getByData(`book-action-button`)
       .should(`have.text`, `Return Book`)
       .click()
   }
@@ -59,7 +59,7 @@ export class BookPage {
       .should(`not.exist`)
 
     cy
-      .get(`.book-action-button > .button`)
+      .getByData(`book-action-button`)
       .should(`have.text`, `Take Book`)
   }
 

@@ -1,0 +1,114 @@
+@use "../../../../styles/media" as m;
+@use "../../../../styles/variables" as v;
+@use "../../../../styles/fonts-mixin" as f;
+
+.text-accent {
+  @include f.text-semibold;
+}
+
+.book-layout {
+  display: grid;
+  margin: 0 auto;
+
+  &__title {
+    @include f.h3;
+
+    margin-top: 20px;
+
+    @include m.tablet-xl {
+      margin-top: 0;
+    }
+  }
+
+  &__field {
+    color: v.$color-text-secondary;
+  }
+
+  &__value {
+    margin-left: 8px;
+    color: v.$color-text-primary;
+  }
+
+  &__section-name {
+    @include f.h5;
+
+    margin: 32px 0 16px;
+  }
+
+  &__count {
+    margin-left: 8px;
+    font-weight: 400;
+    font-size: 20px;
+  }
+
+  &__annotation {
+    @include f.text;
+  }
+
+  &__main-info-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    @include m.desktop {
+      align-items: center;
+      flex-direction: row;
+      justify-content: space-between;
+      gap: unset;
+    }
+  }
+
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+
+  // line after feedback card
+  &__feedback-list > *:not(:last-child)::after {
+    content: "";
+    display: block;
+    margin: 32px 0;
+    height: 1px;
+    background:
+      linear-gradient(
+          to right,
+          transparent,
+          v.$color-component-border,
+          transparent
+        );
+  }
+
+  &__feedback-text {
+    @include f.text;
+  }
+
+  &__cover,
+  &__cover--no-image {
+    display: block;
+    margin-bottom: 16px;
+    border: 1px solid v.$color-component-border;
+    border-radius: 8px;
+    width: 100%;
+    height: 510px;
+    object-fit: contain;
+
+    &--no-image {
+      object-fit: cover;
+    }
+  }
+
+  @include m.tablet-xl {
+    gap: 20px;
+    grid-template-areas: "left right";
+    grid-template-columns: 354px 1fr;
+  }
+
+  @include m.desktop {
+    grid-template-columns: 402px 1fr;
+  }
+
+  @include m.desktop-xl {
+    max-width: 1540px;
+    grid-template-columns: 428px 1fr;
+  }
+}
