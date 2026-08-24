@@ -42,10 +42,14 @@ export const BookLayout = ({
 }: BookLayoutProps) => {
   const isValidUrl = useImageValid(coverUrl)
 
+  const goToBookFeedbackPage = () => {
+    sessionStorage.setItem(`bookFeedbackReturnUrl`, window.location.href)
+
+    window.location.href = `${bookFeedbackRoutes[0].path.replace(`:id`, bookId)}`
+  }
+
   return (
-    <div
-      className="book-layout"
-    >
+    <div className="book-layout">
       <div>
         <img
           src={isValidUrl ? coverUrl : NoImage}
@@ -79,7 +83,7 @@ export const BookLayout = ({
             <button
               type='button'
               className='book-layout__leave-feedback-button'
-              onClick={() => window.location.href = `${bookFeedbackRoutes[0].path.replace(`:id`, bookId)}`}
+              onClick={goToBookFeedbackPage}
             >
               <FlagIcon/> I read this book before
             </button>

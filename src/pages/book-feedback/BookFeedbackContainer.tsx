@@ -4,6 +4,8 @@ import { api } from "../../common/api"
 import { useLocation } from "react-router-dom"
 import { BookFeedbackStateContext } from "./state/BookFeedbackStateContext"
 import { BookFeedbackContent } from "./BookFeedbackContent"
+import { isSafeReturnUrl } from "../../common/utils/isSafeReturnUrl/isSafeReturnUrl"
+import { allBooksRoutes } from "../routes"
 
 export const BookFeedbackContainer = observer(() => {
   const bookFeedbackState = useContext(BookFeedbackStateContext)
@@ -32,16 +34,40 @@ export const BookFeedbackContainer = observer(() => {
   }, [
     bookId,
   ])
+
+  const getSafeReturnUrl = ({
+    returnUrl,
+  }: {
+    returnUrl: string | null,
+  }) => {
+    if (!returnUrl) {
+      return allBooksRoutes[0].path
+    }
+
+    const safeReturnUrl = isSafeReturnUrl({
+      returnUrl,
+    }) 
+      ? returnUrl
+      : allBooksRoutes[0].path
+
+    return safeReturnUrl
+  }
   
-  // const goToBookCopyPage = () => {
-  //   window.location.href = `${bookCopyRoutes[0].path.replace(`:id`, copyId)}?s=${secretKey}`
-  // }
+  const goToPreviousPage = () => {
+    const returnUrl = sessionStorage.getItem(`bookFeedbackReturnUrl`)
+
+    const safeReturnUrl = getSafeReturnUrl({
+      returnUrl,
+    })
+
+    window.location.href = safeReturnUrl
+  }
 
   return (
     <div className="container">
       <BookFeedbackContent
         onSubmit={leaveBookFeedbackAsync} 
-        goToBookCopyPage={() => {}}
+        goToPreviousPage={goToPreviousPage}
       />
     </div>
   )
@@ -76,7 +102,7 @@ export const BookFeedbackContainer = observer(() => {
         },
       )
 
-      // goToBookCopyPage()
+      goToPreviousPage()
     }
     finally {
       bookFeedbackState.resetIsSaving()

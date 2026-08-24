@@ -7,10 +7,10 @@ import { PROGRESS_OPTIONS, ProgressOfReading } from "../../common/enums/progress
 
 export const BookFeedbackContent = observer(({
   onSubmit,
-  goToBookCopyPage,
+  goToPreviousPage,
 }:{
   onSubmit: () => unknown,
-  goToBookCopyPage: () => unknown,
+  goToPreviousPage: () => unknown,
 }) => {
   const bookFeedbackState = useContext(BookFeedbackStateContext)
 
@@ -47,7 +47,7 @@ export const BookFeedbackContent = observer(({
   const handleConfirmQuit = () => {
     setShowModal(false)
 
-    goToBookCopyPage()
+    goToPreviousPage()
   }
 
   const handleCloseModal = () => {
@@ -59,7 +59,7 @@ export const BookFeedbackContent = observer(({
       setShowModal(true)
     }
     else {
-      goToBookCopyPage() 
+      goToPreviousPage() 
     }
   }
 
