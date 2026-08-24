@@ -3,7 +3,7 @@ import { observer } from "mobx-react-lite"
 import { BookContent } from "./BookContent"
 import { BookStateContext } from "./state/BookStateStateContext"
 import { api } from "../../common/api"
-import { useLocation, useSearchParams } from "react-router-dom"
+import { useLocation } from "react-router-dom"
 
 export const BookContainer = observer(({
   openModalQrCode,
@@ -17,85 +17,52 @@ export const BookContainer = observer(({
     .pathname
     .split(`/`)
 
-  const id = pathnameParts[2]
-
-  const isBookCopy = location.pathname.includes(`/copy`)
-  const copyId = pathnameParts?.[3]
-
-  const [
-    searchParams,
-  ] = useSearchParams()
-  
-  const secretKey = searchParams.get(`s`)
+  const bookId = pathnameParts[2]
 
   useEffect(() => {
     loadDataAsync()
   }, [
-    id,
-    copyId,
+    bookId,
   ])
 
   return (
     <BookContent
-      bookId={id} 
-      onTake={takeBookAsync}
-      copyId={copyId}
+      bookId={bookId} 
       openModalQrCode={openModalQrCode}
     />
   )
 
   async function loadDataAsync() {
-    const book = await loadBookAsync()
-    await loadFeedbackAsync(book.id)
+    const bookId = await loadBookAsync()
+    await loadFeedbackAsync({
+      bookId,
+    })
   }
   
   async function loadBookAsync() {
-    const url = isBookCopy
-      ? `/copy/${copyId}?secretKey=${secretKey}`
-      : `/${id}`
-
     const {
-      data,
-    } = await api.get<BookType>(url)
+      data: loadedBook,
+    } = await api.get<BookType>(`/${bookId}`)
 
     bookState.initializeBook({
-      loadedBook: data,
+      loadedBook,
     })
-    return data
+    return loadedBook.id
   }
 
-  async function loadFeedbackAsync(bookId: number) {
-    const url = `/feedback/${bookId}`
+  async function loadFeedbackAsync({
+    bookId,
+  }: {
+    bookId: number,
+  }) {
     const {
       data: {
         bookFeedback,
       },
-    } = await api.get<FeedbackResponse>(url)
+    } = await api.get<FeedbackResponse>(`/feedback/${bookId}`)
 
     bookState.initializeFeedback({
       loadedFeedback: bookFeedback,
     })
-  }
-
-  async function takeBookAsync({
-    bookCopyId,
-    scheduledReturnDate,
-  }: TakeBookType) {
-    bookState.setIsTriedToSubmit()
-
-    try {
-      await api.post<TakeBookType>(
-        `/take`,
-        {
-          bookCopyId,
-          scheduledReturnDate,
-        },
-      )
-      
-      await loadBookAsync() 
-    }
-    finally {
-      bookState.resetIsTriedToSubmit()
-    }
   }
 })

@@ -1,6 +1,6 @@
 import './BookInfo.scss'
 
-import { Language } from '../../../../common/enums/language'
+import { Language } from '../../../../../../common/enums/language'
 
 export const BookInfo = ({
   authors,
@@ -19,7 +19,10 @@ export const BookInfo = ({
   count: number,
 }) => {
   return (
-    <ul className='book-info'>
+    <ul 
+      className='book-info'
+      data-cy='book-info'
+    >
       <li className='book-info__field'>
         Author
         <span className='book-info__value'>
@@ -33,7 +36,10 @@ export const BookInfo = ({
 
       <li className='book-info__field'>
         Number of Copies
-        <span className='book-info__value'>
+        <span 
+          className='book-info__value'
+          data-cy='book-copies'
+        >
           {count}
         </span>
       </li>

@@ -2,9 +2,9 @@ import './FeedbackCard.scss'
 
 import moment from "moment"
 import clsx from 'clsx'
-import Star from '../../../../assets/icons/Star.svg?react'
-import { PROGRESS_LABELS, ProgressOfReading } from '../../../../common/enums/progressOfReading'
-import Avatar from '../../../../assets/img/avatar.png'
+import Star from '../../../../../../assets/icons/Star.svg?react'
+import { PROGRESS_LABELS, ProgressOfReading } from '../../../../../../common/enums/progressOfReading'
+import Avatar from '../../../../../../assets/img/avatar.png'
 
 export function FeedbackCard({
   employeeFullName,

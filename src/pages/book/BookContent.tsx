@@ -1,39 +1,23 @@
 import './BookContent.scss'
 
-import NoImage from "../../assets/img/no-image.png"
 import ViewQRIcon from "../../assets/icons/View-qr.svg?react"
 import ClockIcon from "../../assets/icons/Clock.svg?react"
+import ScanIcon from '../../assets/icons/Scan.svg?react'
 
-import clsx from 'clsx'
 import { observer } from "mobx-react-lite"
-import { useContext, useState } from 'react'
+import { useContext } from 'react'
 import { BookStateContext } from './state/BookStateStateContext'
 import { Button } from '../../components/button/Button'
-import { useImageValid } from '../../common/useImageValid'
-import { Overlay } from '../../components/overlay/Overlay'
-import { useCopyIdValidation } from './utils/useCopyIdValidation'
-import { useBookDates } from './utils/useBookDates'
-import { useCalendar } from './utils/useCalendar'
-import { BookInfo } from './components/book-info/BookInfo'
-import { BookReaders } from './components/book-readers/BookReaders'
-import { BookActionButton } from './components/book-action-button/BookActionButton'
 import { hasAccessPermission } from '../../common/tokenUtils'
 import { LINK_TO_BOOKS_SERVICE } from '../../common/constant'
-import { FeedbackCard } from './components/feedback-card/FeedbackCard'
+import { scanRoutes } from '../routes'
+import { BookLayout } from './components/book-layout/BookLayout'
 
 export const BookContent = observer(({
   bookId,
-  copyId,
-  onTake,
   openModalQrCode,
 }: {
   bookId: string,
-  copyId?: string,
-  onTake: ({
-    bookCopyId, 
-    scheduledReturnDate, 
-  }: TakeBookType,
-  ) => unknown,
   openModalQrCode: () => unknown,
 }) => {
   const bookState = useContext(BookStateContext)
@@ -46,213 +30,75 @@ export const BookContent = observer(({
       knowledgeAreas,
       authors,
       coverUrl,
-      bookCopiesIds,
       employeesWhoReadNow,
     },
     feedback,
+    count,
   } = bookState
-
-  const isValidUrl = useImageValid(coverUrl)
-
-  const [
-    showModal,
-    setShowModal,
-  ] = useState(false)
-
-  const [
-    showModalCalendar,
-    setShowModalCalendar,
-  ] = useState(false)
-
-  const {
-    formattedDate, 
-    isoDate, 
-  } = useBookDates()
-
-  const isValidCopyId = useCopyIdValidation({
-    copyId: copyId,
-    bookCopiesIds: bookCopiesIds,
-  })
-
-  const {
-    endCalendarDate, 
-    onChangeCalendar, 
-  } = useCalendar()
   
   return (
-    <>
-      {
-        showModal && (
-          <Overlay 
-            data-cy="book-modal"
-            onAccentButtonAction={() => {
-              onTake({
-                bookCopyId: Number(copyId),
-                scheduledReturnDate: isoDate,
-              })
-              setShowModal(false)
-            }}
-            onButtonAction={() => setShowModalCalendar(true)}
-            onCloseModal={() => setShowModal(false)}
-            modalName='modal'
-            title="When you are Going to&nbsp;Return Book to&nbsp;the Library?"
-            text={
-              <>
-                You can choose the date in the next step or the date{` `}
-                <span className='text-accent'>
-                  {formattedDate}
-                </span>
-                {` `}will be selected automatically
-              </>
-            }
-            buttonLabel="Choose the Return Date"
-            accentButtonLabel="Take Book"
-            hasCloseButton
-          />
-        )
-      }
+    <div
+      className='book'
+      data-cy='book-page'
+    >
+      <BookLayout
+        coverUrl={coverUrl}
+        title={title}
+        employeesWhoReadNow={employeesWhoReadNow}
+        authors={authors}
+        language={language}
+        knowledgeAreas={knowledgeAreas}
+        count={count}
+        annotation={annotation}
+        feedback={feedback}
+        underCoverSlot={
+          <>
+            {hasAccessPermission({
+              permission: `CanManageBooks`,
+            }) && (
+              <div className='book__management-buttons'>
+                <Button
+                  data-cy='book-tracking-button'
+                  onClick={() => window.location.href = `${LINK_TO_BOOKS_SERVICE}/history/${bookId}`}
+                  label={
+                    <>
+                      <ClockIcon /> Book Tracking
+                    </>
+                  }
+                  isOutline
+                />
 
-      {
-        showModalCalendar && (
-          <Overlay 
-            onAccentButtonAction={() => {
-              onTake({
-                bookCopyId: Number(copyId),
-                scheduledReturnDate: endCalendarDate!
-                  .toISOString()
-                  .slice(0, 10),
-              })
-              setShowModalCalendar(false)
-              setShowModal(false)
-            }}
-            onButtonAction={() => setShowModalCalendar(false)}
-            onCloseModal={() => {
-              setShowModalCalendar(false)
-              setShowModal(false)
-            }}
-            modalName='modalCalendar'
-            endCalendarDate={endCalendarDate}
-            onChangeCalendar={onChangeCalendar}
-          />
-        )
-      }
-
-      <div 
-        className="book"
-        data-cy="book-page"
-      >
-        <div>
-          <img
-            src={isValidUrl 
-              ? coverUrl 
-              : NoImage
-            }
-            alt="Preview"
-            className={clsx(`book__cover`, { 
-              'book__cover--no-image': !isValidUrl,
-            })}
-          />
-
-          {hasAccessPermission({
-            permission: `CanManageBooks`,
-          }) && <div className='book__buttons'>
-            {!copyId && <Button
-              data-cy='book-tracking-button'
-              onClick={() => window.location.href = `${LINK_TO_BOOKS_SERVICE}/history/${bookId}`}
+                <Button
+                  onClick={openModalQrCode}
+                  label={
+                    <>
+                      <ViewQRIcon /> View QR Code
+                    </>
+                  }
+                  isOutline
+                />
+              </div>
+            )}
+          </>
+        }
+        actionSlot={
+          <div className="book__take-info">
+            <Button
+              className="book__scan-button"
+              onClick={() => window.location.href = scanRoutes[0].path}
               label={
                 <>
-                  <ClockIcon /> Book Tracking
+                  <ScanIcon /> Scan QR
                 </>
               }
-              isOutline
-            />}
-
-            {!copyId && <Button
-              onClick={openModalQrCode}
-              label={
-                <>
-                  <ViewQRIcon /> View QR Code
-                </>
-              }
-              isOutline
-            />}
-          </div>
-          }
-        </div>
-
-        <div>
-          <div className='book__main-info-wrap'>
-            <header className='book__title'>
-              {title}
-            </header>
-
-            <BookReaders employeesWhoReadNow={employeesWhoReadNow} />
-          </div>
-
-          <div className='book__wrapper'>
-            <BookInfo 
-              authors={authors}
-              language={language}
-              knowledgeAreas={knowledgeAreas}
-              count={bookState.count} 
+              isAccent
             />
-
-            <BookActionButton
-              copyId={copyId}
-              employeesWhoReadNow={employeesWhoReadNow}
-              setShowModal={setShowModal}
-              isValidCopyId={isValidCopyId}
-            />
+            <p className="book__take-info-text">
+            You can take book after scanning the QR code on book cover
+            </p>
           </div>
-
-          <h5 className='book__section-name'>
-            Annotation
-          </h5>
-          <div className='book__annotation'>
-            {annotation}
-          </div>
-          
-          <h5 className="book__section-name">
-            Feedback 
-            <span className="book__count">
-              {feedback.length}
-            </span>
-          </h5>
-          {renderFeedbackList()}
-        </div>
-      </div>
-    </>
+        }
+      />
+    </div>
   )
-
-  function renderFeedbackList() {
-    if (feedback.length > 0) {
-      return (
-        <div 
-          className="book__feedback-list"
-          data-cy='book-feedback-list'>
-          {feedback.map((feedback) => (
-            <FeedbackCard
-              key={feedback.id}
-              id={feedback.id}
-              employeeFullName={feedback.employeeFullName}
-              leftFeedbackAtUtc={feedback.leftFeedbackAtUtc}
-              rating={feedback.rating}
-              progressOfReading={feedback.progressOfReading}
-              advantages={feedback.advantages}
-              disadvantages={feedback.disadvantages}
-            />
-          ))}
-        </div>
-      )
-    }
-    
-    return (
-      <div 
-        className='book__feedback-text'
-        data-cy='book-feedback-text'
-      > 
-        Let your colleagues know your opinion about this book after reading 
-      </div>
-    )
-  }
 })
