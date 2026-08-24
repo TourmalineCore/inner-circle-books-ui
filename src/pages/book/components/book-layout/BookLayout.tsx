@@ -9,7 +9,7 @@ import { useImageValid } from '../../../../common/useImageValid'
 import { BookReaders } from './components/book-readers/BookReaders'
 import { BookInfo } from './components/book-info/BookInfo'
 import { FeedbackCard } from './components/feedback-card/FeedbackCard'
-import { LINK_TO_BOOKS_SERVICE } from '../../../../common/constant'
+import { bookFeedbackRoutes } from '../../../routes'
 
 type BookLayoutProps = {
   bookId: string,
@@ -79,7 +79,7 @@ export const BookLayout = ({
             <button
               type='button'
               className='book-layout__leave-feedback-button'
-              onClick={() => window.location.href = `${LINK_TO_BOOKS_SERVICE}/${bookId}/feedback`}
+              onClick={() => window.location.href = `${bookFeedbackRoutes[0].path.replace(`:id`, bookId)}`}
             >
               <FlagIcon/> I read this book before
             </button>

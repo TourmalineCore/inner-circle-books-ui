@@ -83,4 +83,4 @@ export const BookFeedbackContainer = observer(() => {
       bookFeedbackState.resetIsTriedToSubmit()
     }
   }
-})
+})  
