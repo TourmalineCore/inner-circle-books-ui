@@ -18,13 +18,28 @@ When your Dev Container is ready, the VSCode window will be re-opened. Open a ne
 
 ## Getting Started
 
-```
+```bash
+# install the exact dependency versions from package-lock.json
 npm ci
 
+# start everything needed for local development: Docker services and the dev server
 npm start
 ```
 
-To stop and remove the containers:
+Then open http://localhost:3505.
+
+### What `npm start` does
+
+1. **Builds `public/env-config.js` from `.config-local`** - the runtime config the app reads in the browser.
+2. **Fetches compose files from GitHub** - `docker-compose.yml` from `inner-circle-books-api` and `inner-circle-layout-ui`, plus books-api's `mock-server-initialization.json`. You don't need to clone those repos.
+3. **Starts the Docker containers** - the shared layout-ui container, and books-api with its Postgres database and mock server. Published images are pulled on every run, and the command waits until the containers report healthy.
+4. **Starts the Vite dev server**, which proxies `/layout` and `/api/books` to those containers.
+
+Steps 1-3 repeat on every `npm start`, so each run starts from a fresh config and up-to-date images.
+
+## Stop the local services
+
+`Ctrl+C` in the dev server terminal stops only the dev server - the containers keep running. To stop and remove them:
 
 ```
 npm run local-services:down
@@ -36,39 +51,59 @@ This doesn't stop the layout-ui container. layout-ui runs in its own, separately
 npm run local-services:down:layout-ui
 ```
 
-## Run against a different books-api version
+## Run against a books-api feature branch
 
-By default `npm start` pulls and runs the `latest` published `inner-circle-books-api` image. To test against a different version, set `IMAGE_TAG` in the terminal right before `npm start`.
+By default `npm start` pulls and runs the `latest` published `inner-circle-books-api` image. To test against a different version, set `API_IMAGE_TAG` in the terminal right before `npm start`.
 
 Every push to an open `inner-circle-books-api` pull request publishes a Docker image tagged `sha-<short commit sha>`. Use that tag:
 
 ```
-IMAGE_TAG=sha-2a3f277 npm start
+API_IMAGE_TAG=sha-2a3f277 npm start
 ```
 
 If Docker can't find that tag, check the PR's CI run to see which commit sha was actually built, and use that tag instead.
 
-To go back to `latest`, just run `npm start` without setting `IMAGE_TAG`.
+To go back to `latest`, just run `npm start` without setting `API_IMAGE_TAG`.
 
 ### Also test against that branch's mock server data
 
-`IMAGE_TAG` only changes the Docker image. It does not change where `mock-server-initialization.json` and `api-docker-compose.yml` come from. Those always come from `master` by default. If your feature branch also changed those files, also set `API_REF` (git branch name used to fetch files from GitHub):
+`API_IMAGE_TAG` only changes the Docker image. It does not change where `mock-server-initialization.json` and `api-docker-compose.yml` come from. Those always come from `master` by default. If your feature branch also changed those files, also set `API_REF` (git branch name used to fetch files from GitHub):
 
 ```
-IMAGE_TAG=sha-2a3f277 API_REF=my-feature-branch npm start
+API_IMAGE_TAG=sha-2a3f277 API_REF=my-feature-branch npm start
 ```
+
+## Run against a layout-ui feature branch
+
+layout-ui has the same two switches, under its own variable names. By default `npm start` pulls the `latest` published `inner-circle-layout-ui` image and takes its `docker-compose.yml` from `master`.
+
+`LAYOUT_IMAGE_TAG` picks the image, the same way `API_IMAGE_TAG` does for books-api:
+
+```
+LAYOUT_IMAGE_TAG=sha-9c1e044 npm start
+```
+
+`LAYOUT_REF` picks the branch its `docker-compose.yml` is fetched from. Set it when your layout-ui branch changed that file; otherwise the branch's image would still run with `master`'s compose:
+
+```
+LAYOUT_IMAGE_TAG=sha-9c1e044 LAYOUT_REF=feature/#496-add-local-run npm start
+```
+
+Branch names with a `#` in them work as-is - no quoting or escaping needed.
+
+All four variables are independent, so you can pin both services in one run:
+
+```
+API_IMAGE_TAG=sha-2a3f277 API_REF=my-api-branch LAYOUT_IMAGE_TAG=sha-9c1e044 LAYOUT_REF=feature/#496-add-local-run npm start
+```
+
+`npm run start:for-local-books-api` reads both layout-ui variables, since it starts the layout-ui container. `npm run start:for-local-layout-ui` doesn't start that container, so `LAYOUT_IMAGE_TAG` has no effect there. `LAYOUT_REF` still picks the branch the compose file is downloaded from, but nothing in that mode uses that file.
 
 ## Develop books-ui together with locally running layout-ui
 
 To develop books-ui together with a locally running layout-ui, follow these steps:
 
-1. In clone repo `inner-circle-layout-ui`, run:
-
-```
-npm run start:federation
-```
-
-Plain `npm start` there doesn't work for this: `vite-plugin-federation` only builds the remote entry file during `vite build`, not in the dev. `start:federation` rebuilds on every change and serves the result on port 4006. There is no hot reload, so refresh the browser manually after each change.
+1. Start layout-ui from its own repo, as described in [Local run with module federation](https://github.com/TourmalineCore/inner-circle-layout-ui#local-run-with-module-federation) in the layout-ui README. books-ui expects it on port 4500.
 
 2. In `inner-circle-books-ui`, run:
 
@@ -88,22 +123,11 @@ To develop with local books-api, run it locally instead of the Docker container.
 npm run start:for-local-books-api
 ```
 
-This starts the shared layout-ui Docker container (books-ui doesn't touch books-api's containers) and points the `/api/books` proxy at `localhost:7000` instead of the Docker container.
+This starts the shared layout-ui Docker container (books-ui doesn't touch books-api's containers) and points the `/api/books` proxy at `localhost:4505` instead of the Docker container.
 
-If you're running books-ui inside a Dev Container while books-api runs natively on the host (not in Docker), this is handled automatically: `localhost` inside a container is its own loopback, not the host's, so the proxy detects it's running inside a container and uses `host.docker.internal` instead.
+If you're running books-ui inside a Dev Container, this is handled automatically: `localhost` inside a container is its own loopback, not the host's or another container's, so the proxy detects it's running inside a container and uses `host.docker.internal` instead.
 
-2. In `inner-circle-books-api`, run it the same way described in its own README's "Run in Visual Studio" section: 
-
-```
-docker compose --profile MockForDevelopment up --build
-```
-
- for its db and mock-server, then 
-
- ```
- dotnet run --project ./Api --verbosity detailed
- ```
-for the API itself.
+2. Start books-api from its own repo, as described in [Develop inside Dev Container](https://github.com/TourmalineCore/inner-circle-books-api#develop-inside-dev-container) in the books-api README. books-ui expects it on port `4505`, which is the port it listens on inside its own Dev Container.
 
 ### Also test with unpushed mock-server-initialization.json changes
 

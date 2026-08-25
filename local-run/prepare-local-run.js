@@ -3,7 +3,8 @@ import fs from 'fs'
 import { wrapAsJwt } from '../src/common/wrapAsJwt.js'
 
 // branch/commit other than master, e.g. to test against a feature branch's
-const API_REPO_REF = process.env.API_REF || `master`
+const API_REPO_REF = encodeRef(process.env.API_REF || `master`)
+const LAYOUT_UI_REPO_REF = encodeRef(process.env.LAYOUT_REF || `master`)
 
 // path to a local inner-circle-books-api checkout, e.g. ../inner-circle-books-api
 // set this to test with mock-server-initialization.json changes you haven't pushed yet
@@ -17,7 +18,9 @@ const MOCK_SERVER_CONFIG_PATH = `./local-run/mock-server-initialization.json`
 const API_COMPOSE_URL = `${API_REPO_URL}/docker-compose.yml`
 const API_COMPOSE_PATH = `./local-run/api-docker-compose.yml`
 
-const LAYOUT_UI_COMPOSE_URL = `https://raw.githubusercontent.com/TourmalineCore/inner-circle-layout-ui/master/docker-compose.yml`
+const LAYOUT_UI_REPO_URL = `https://raw.githubusercontent.com/TourmalineCore/inner-circle-layout-ui/${LAYOUT_UI_REPO_REF}`
+
+const LAYOUT_UI_COMPOSE_URL = `${LAYOUT_UI_REPO_URL}/docker-compose.yml`
 const LAYOUT_UI_COMPOSE_PATH = `./local-run/layout-ui-docker-compose.yml`
 
 const ENV_CONFIG_PATH = `./public/env-config.js`
@@ -61,6 +64,13 @@ async function prepareLocalRunAsync() {
     path: ENV_CONFIG_PATH,
     envEntries,
   })
+}
+
+// escapes `#`, which would otherwise start a URL fragment, but also escapes `/`,
+// which needs to stay a path separator
+function encodeRef(ref) {
+  return encodeURIComponent(ref)
+    .replaceAll(`%2F`, `/`)
 }
 
 // fetches a file from `url` and saves a copy of it to disk at `path`

@@ -1,10 +1,14 @@
-# overlay on top of api-docker-compose.yml
-# points books-api at the published image instead of building it from source
+# docker compose override file: passed to `docker compose` together with the fetched
+# api-docker-compose.yml, and merged on top of it, so it only needs to list the
+# fields that change - here, swapping the build step for the published image
 services:
 
   inner-circle-books-api:
-    image: ghcr.io/tourmalinecore/inner-circle-books-api:${IMAGE_TAG:-latest}
+    image: ghcr.io/tourmalinecore/inner-circle-books-api:${API_IMAGE_TAG:-latest}
 
+  # mounts our own mock-server-initialization.json instead of the image's copy.
+  # Docker looks for this path on the host machine, not inside the container
+  # in a Dev Container that's LOCAL_WORKSPACE_FOLDER, otherwise `..` already points there
   inner-circle-books-api-mock-server:
     volumes:
       - ${LOCAL_WORKSPACE_FOLDER:-..}/local-run/mock-server-initialization.json:/config/mock-server-initialization.json

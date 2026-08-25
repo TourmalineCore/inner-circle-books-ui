@@ -3,7 +3,7 @@ import { defineConfig } from 'cypress'
 // eslint-disable-next-line import/no-default-export
 export default defineConfig({
   e2e: {
-    baseUrl: `http://localhost:4005`,
+    baseUrl: `http://localhost:3505`,
     env: {
       API_ROOT_URL: `http://localhost:6505/api/books`,
       AUTH_API_ROOT_URL: `http://localhost:8505/api/auth`,

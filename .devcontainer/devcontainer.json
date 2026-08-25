@@ -22,6 +22,7 @@
 	"remoteEnv": {
 		// https://stackoverflow.com/q/65343518
 		// the original host directory which is needed for volume mount commands from inside the container (Docker in Docker)
+		// vite.config.ts also uses the presence of this var to detect that it runs inside the Dev Container
 		"LOCAL_WORKSPACE_FOLDER": "${localWorkspaceFolder}"
 	}
 }

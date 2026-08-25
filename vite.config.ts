@@ -1,6 +1,4 @@
 /* eslint-disable @typescript-eslint/quotes */
-import fs from 'fs'
-
 import { defineConfig } from 'vite'
 // correct version of federation https://github.com/originjs/vite-plugin-federation/issues/670
 import federation from '@originjs/vite-plugin-federation'
@@ -13,16 +11,17 @@ import svgr from 'vite-plugin-svgr'
 const LOCAL_ENV_PORT = 30090
 
 const isLocalLayoutUi = process.env.LOCAL_LAYOUT_UI === `true`
-const LAYOUT_UI_PORT = isLocalLayoutUi ? 4006 : 4406
+const LAYOUT_UI_PORT = isLocalLayoutUi ? 4500 : 6500
 
 const isLocalBooksApi = process.env.LOCAL_BOOKS_API === `true`
-const BOOKS_API_PORT = isLocalBooksApi ? 7000 : 6505
+const BOOKS_API_PORT = isLocalBooksApi ? 4505 : 6505
 
-// in a Dev Container, localhost resolves to the container itself, not the host machine,
-// so a books-api running natively on the host (not in Docker) isn't reachable there.
-// /.dockerenv detects whether we're inside a container and uses host.docker.internal
-const isInsideContainer = fs.existsSync(`/.dockerenv`)
-const BOOKS_API_HOST = (isLocalBooksApi && isInsideContainer) ? `host.docker.internal` : `localhost`
+// in a Dev Container, localhost resolves to the container itself, not the host machine
+// or another container, so a books-api running outside books-ui's own container isn't
+// reachable there. LOCAL_WORKSPACE_FOLDER is set only inside the Dev Container,
+// so its presence means we need host.docker.internal
+const isInsideDevContainer = !!process.env.LOCAL_WORKSPACE_FOLDER
+const BOOKS_API_HOST = (isLocalBooksApi && isInsideDevContainer) ? `host.docker.internal` : `localhost`
 
 // eslint-disable-next-line import/no-default-export
 export default defineConfig(({
@@ -31,7 +30,7 @@ export default defineConfig(({
   const isLocalDev = mode === `development`
 
   // Set the port for the layout based on the environment
-  const BOOKS_PORT = isLocalDev ? 4005 : LOCAL_ENV_PORT
+  const BOOKS_PORT = isLocalDev ? 3505 : LOCAL_ENV_PORT
 
   return {
     // Set the port on which the development server runs
@@ -70,7 +69,7 @@ export default defineConfig(({
         name: "inner_circle_books_ui",
         // The path where the remote application file can be found and its name
         remotes: {
-          // `http://localhost:4455/assets/inner_circle_layout_ui.js` for local docker
+          // `http://localhost:6500/assets/inner_circle_layout_ui.js` for local docker
           // `http://localhost:30090/layout/assets/inner_circle_layout_ui.js` for local-env
           inner_circle_layout_ui: `/layout/assets/inner_circle_layout_ui.js`,
         },

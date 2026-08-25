@@ -1,6 +1,7 @@
-# overlay on top of the fetched layout-ui-docker-compose.yml
-# points it at the published image instead of building it from source
+# docker compose override file: passed to `docker compose` together with the fetched
+# layout-ui-docker-compose.yml, and merged on top of it, so it only needs to list the
+# fields that change - here, swapping the build step for the published image
 services:
 
   inner-circle-layout-ui:
-    image: ghcr.io/tourmalinecore/inner-circle-layout-ui:latest
+    image: ghcr.io/tourmalinecore/inner-circle-layout-ui:${LAYOUT_IMAGE_TAG:-latest}
