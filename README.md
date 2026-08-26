@@ -32,7 +32,7 @@ Then open http://localhost:3505.
 
 1. **Builds `public/env-config.js` from `.config-local`** - the runtime config the app reads in the browser.
 2. **Fetches compose files from GitHub** - `docker-compose.yml` from `inner-circle-books-api` and `inner-circle-layout-ui`, plus books-api's `mock-server-initialization.json`. You don't need to clone those repos.
-3. **Starts the Docker containers** - the shared layout-ui container, and books-api with its Postgres database and mock server. Published images are pulled on every run, and the command waits until the containers report healthy.
+3. **Starts the Docker containers** - the shared layout-ui container, and books-api with its Postgres database and mock server. These two stacks are separate Docker Compose projects, so they start in parallel. Published images are pulled on every run, and the command waits until the containers report healthy. Output lines are prefixed with the task they come from, since both stacks log at the same time.
 4. **Starts the Vite dev server**, which proxies `/layout` and `/api/books` to those containers.
 
 Steps 1-3 repeat on every `npm start`, so each run starts from a fresh config and up-to-date images.
