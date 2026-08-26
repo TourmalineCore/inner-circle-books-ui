@@ -204,7 +204,7 @@ function validationAndErrorTests() {
   })
 
   it(`
-  GIVEN ratring and progressOfReading is set
+  GIVEN rating and progressOfReading is set
   WHEN form is submitted
   THEN isValid return true
   `, () => {
