@@ -10,7 +10,7 @@
     "start:vite": "vite --host",
     "start-local-env": "vite --host --mode local-env",
     "local-services:up": "npm-run-all -l -s prepare-local-run -p local-services:up:layout-ui local-api-services:up",
-    "local-api-services:up": "docker compose -p inner-circle-books-ui -f local-run/api-docker-compose.yml -f local-run/api-docker-compose.override.yml --profile MockForTests up -d --wait --no-build --pull always",
+    "local-api-services:up": "docker compose -p inner-circle-books-api -f local-run/api-docker-compose.yml -f local-run/api-docker-compose.override.yml --profile MockForTests up -d --wait --no-build --pull always",
     "local-services:up:layout-ui": "docker compose -p inner-circle-layout-ui -f local-run/layout-ui-docker-compose.yml -f local-run/layout-ui-docker-compose.override.yml up -d --wait --no-build --pull always",
     "local-services:down": "docker compose -p inner-circle-books-ui -f local-run/api-docker-compose.yml -f local-run/api-docker-compose.override.yml --profile MockForTests down",
     "local-services:down:layout-ui": "docker compose -p inner-circle-layout-ui -f local-run/layout-ui-docker-compose.yml -f local-run/layout-ui-docker-compose.override.yml down",
