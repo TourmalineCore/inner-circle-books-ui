@@ -1,14 +1,18 @@
 import './BookLayout.scss'
 
 import NoImage from "../../../../assets/img/no-image.png"
+import FlagIcon from '../../../../assets/icons/Flag.svg?react'
+
 import clsx from 'clsx'
 import { ReactNode } from 'react'
 import { useImageValid } from '../../../../common/useImageValid'
 import { BookReaders } from './components/book-readers/BookReaders'
 import { BookInfo } from './components/book-info/BookInfo'
 import { FeedbackCard } from './components/feedback-card/FeedbackCard'
+import { bookFeedbackRoutes } from '../../../routes'
 
 type BookLayoutProps = {
+  bookId: string,
   coverUrl: string,
   title: string,
   employeesWhoReadNow: EmployeeWhoReadNowType[],
@@ -23,6 +27,7 @@ type BookLayoutProps = {
 }
 
 export const BookLayout = ({
+  bookId,
   coverUrl,
   title,
   employeesWhoReadNow,
@@ -37,10 +42,14 @@ export const BookLayout = ({
 }: BookLayoutProps) => {
   const isValidUrl = useImageValid(coverUrl)
 
+  const goToBookFeedbackPage = () => {
+    sessionStorage.setItem(`bookFeedbackReturnUrl`, window.location.href)
+
+    window.location.href = `${bookFeedbackRoutes[0].path.replace(`:id`, bookId)}`
+  }
+
   return (
-    <div
-      className="book-layout"
-    >
+    <div className="book-layout">
       <div>
         <img
           src={isValidUrl ? coverUrl : NoImage}
@@ -70,7 +79,16 @@ export const BookLayout = ({
             knowledgeAreas={knowledgeAreas}
             count={count}
           />
-          {actionSlot}
+          <div className='book-layout__actions'>
+            <button
+              type='button'
+              className='book-layout__leave-feedback-button'
+              onClick={goToBookFeedbackPage}
+            >
+              <FlagIcon/> I read this book before
+            </button>
+            {actionSlot}
+          </div>
         </div>
 
         <h5 className="book-layout__section-name">Annotation</h5>

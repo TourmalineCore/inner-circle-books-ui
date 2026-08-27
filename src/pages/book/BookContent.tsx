@@ -42,6 +42,7 @@ export const BookContent = observer(({
       data-cy='book-page'
     >
       <BookLayout
+        bookId={bookId}
         coverUrl={coverUrl}
         title={title}
         employeesWhoReadNow={employeesWhoReadNow}

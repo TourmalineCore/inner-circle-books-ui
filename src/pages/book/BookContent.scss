@@ -3,7 +3,7 @@
 @use "../../styles/fonts-mixin" as f;
 
 .book {
-  &__management-buttons{
+  &__management-buttons {
     display: flex;
     gap: 8px;
   }
@@ -39,7 +39,6 @@
   }
 
   &__scan-button {
-    margin-top: 4px;
     padding: 12px;
     height: 44px;
 

@@ -15,11 +15,11 @@ describe(`ReturnBookContent`, () => {
       .click()
 
     cy
-      .getByData(`return-book-advantages`)
+      .getByData(`book-feedback-form-advantages`)
       .should(`be.disabled`)
       
     cy
-      .getByData(`return-book-disadvantages`)
+      .getByData(`book-feedback-form-disadvantages`)
       .should(`be.disabled`)
 
     cy
