@@ -1,36 +1,38 @@
 import { observer } from "mobx-react-lite"
-import { ReturnBookStateContext } from './state/ReturnBookStateContext'
 import { useContext, useState } from 'react'
 import { Overlay } from '../../components/overlay/Overlay'
 import { BookFeedbackForm } from '../../components/book-feedback-form/BookFeedbackForm'
-import { PROGRESS_OPTIONS } from "../../common/enums/progressOfReading"
+import { BookFeedbackStateContext } from './state/BookFeedbackStateContext'
+import { PROGRESS_OPTIONS, ProgressOfReading } from "../../common/enums/progressOfReading"
 
-export const ReturnBookContent = observer(({
-  title,
-  coverUrl,
+export const BookFeedbackContent = observer(({
   onSubmit,
-  goToBookCopyPage,
+  goToPreviousPage,
 }:{
-  title: string,
-  coverUrl: string,
   onSubmit: () => unknown,
-  goToBookCopyPage: () => unknown,
+  goToPreviousPage: () => unknown,
 }) => {
-  const returnBookState = useContext(ReturnBookStateContext)
+  const bookFeedbackState = useContext(BookFeedbackStateContext)
 
   const {
     book,
+    bookFeedback,
     isSaving,
     errors,
     isFeedbackDisabled,
-  } = returnBookState
+  } = bookFeedbackState
+
+  const {
+    title,
+    coverUrl,
+  } = book
 
   const {
     advantages,
     disadvantages,
     rating,
     progressOfReading,
-  } = book
+  } = bookFeedback
 
   const {
     isRatingError,
@@ -45,7 +47,7 @@ export const ReturnBookContent = observer(({
   const handleConfirmQuit = () => {
     setShowModal(false)
 
-    goToBookCopyPage()
+    goToPreviousPage()
   }
 
   const handleCloseModal = () => {
@@ -53,11 +55,11 @@ export const ReturnBookContent = observer(({
   }
 
   const handleCancel = () => {
-    if (returnBookState.isSomethingFilledWithinTheForm()) {
+    if (bookFeedbackState.isSomethingFilledWithinTheForm()) {
       setShowModal(true)
     }
     else {
-      goToBookCopyPage() 
+      goToPreviousPage() 
     }
   }
 
@@ -66,7 +68,6 @@ export const ReturnBookContent = observer(({
       {
         showModal && (
           <Overlay 
-            data-cy="add-book-overlay"
             onAccentButtonAction={handleConfirmQuit}
             onButtonAction={handleCloseModal}
             modalName='modal'
@@ -85,27 +86,28 @@ export const ReturnBookContent = observer(({
         advantages={advantages}
         disadvantages={disadvantages}
         acceptButtonLabel={isSaving 
-          ? `Returning` 
-          : `Return Book`}
-        progressOfReadingOptions={PROGRESS_OPTIONS}
+          ? `Sending` 
+          : `Send`
+        }
+        progressOfReadingOptions={PROGRESS_OPTIONS.filter((item) => item.value !== ProgressOfReading.NotReadAtAll)}
         setProgressOfReading={({
           progressOfReading,
-        }) => returnBookState.setProgressOfReading({
+        }) => bookFeedbackState.setProgressOfReading({
           progressOfReading,
         })}
         setRating={({
           rating,
-        }) => returnBookState.setRating({
+        }) => bookFeedbackState.setRating({
           rating,
         })}
         setAdvantages={({
           advantages,
-        }) => returnBookState.setAdvantages({
+        }) => bookFeedbackState.setAdvantages({
           advantages,
         })}
         setDisadvantages={({
           disadvantages,
-        }) => returnBookState.setDisadvantages({
+        }) => bookFeedbackState.setDisadvantages({
           disadvantages,
         })}
         handleCancel={handleCancel}

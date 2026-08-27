@@ -14,9 +14,11 @@ import { useSearchParams } from 'react-router-dom'
 import { BookLayout } from './components/book-layout/BookLayout'
 
 export const BookCopyContent = observer(({
+  bookId,
   copyId,
   onTake,
 }: {
+  bookId: string,
   copyId: string,
   onTake: ({
     bookCopyId, 
@@ -135,8 +137,8 @@ export const BookCopyContent = observer(({
           />
         )
       }
-
       <BookLayout
+        bookId={bookId}
         coverUrl={coverUrl}
         title={title}
         employeesWhoReadNow={employeesWhoReadNow}
@@ -147,7 +149,7 @@ export const BookCopyContent = observer(({
         annotation={annotation}
         feedback={feedback}
         actionSlot={
-          <div className='book-copy__action'>
+          <>
             { 
               isValidCopyId 
                 ? (
@@ -173,7 +175,7 @@ export const BookCopyContent = observer(({
                     </p>
                   </div>
                 )}
-          </div>
+          </>
         }
       />
     </div>
