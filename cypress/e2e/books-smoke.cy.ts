@@ -39,7 +39,7 @@ describe(`Books Smoke`, () => {
   `, function () {
     // when running locally, the /b -> /books redirect doesn't
     // work, because this logic isn't described in this application
-    if (Cypress.env(`DISABLE_DEBUG_TOKEN`) === false) {
+    if (Cypress.env(`DISABLE_REDIRECT`) === true) {
       this.skip()
     }
 

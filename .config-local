@@ -1,4 +1,4 @@
-API_ROOT_URL:/api/books
+API_ROOT_URL:http://localhost:3505/api/books
 AUTH_API_ROOT_URL:http://localhost:5002/api/auth
 DISABLE_ACCESS_TOKEN_REFRESH:true
 DISABLE_DEBUG_TOKEN:false

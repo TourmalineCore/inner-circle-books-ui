@@ -16,13 +16,6 @@ const LAYOUT_UI_PORT = isLocalLayoutUi ? 4500 : 6500
 const isLocalBooksApi = process.env.LOCAL_BOOKS_API === `true`
 const BOOKS_API_PORT = isLocalBooksApi ? 4505 : 6505
 
-// in a Dev Container, localhost resolves to the container itself, not the host machine
-// or another container, so a books-api running outside books-ui's own container isn't
-// reachable there. LOCAL_WORKSPACE_FOLDER is set only inside the Dev Container,
-// so its presence means we need host.docker.internal
-const isInsideDevContainer = !!process.env.LOCAL_WORKSPACE_FOLDER
-const BOOKS_API_HOST = (isLocalBooksApi && isInsideDevContainer) ? `host.docker.internal` : `localhost`
-
 // eslint-disable-next-line import/no-default-export
 export default defineConfig(({
   mode,
@@ -47,7 +40,7 @@ export default defineConfig(({
           },
         },
         '/api/books': {
-          target: `http://${BOOKS_API_HOST}:${BOOKS_API_PORT}`,
+          target: `http://localhost:${BOOKS_API_PORT}`,
         },
       },
     },

@@ -107,24 +107,7 @@ describe(`Adding book history entries`, () => {
                     `/api/books/copy/${bookCopyId}?secretKey=${secretKey}`)
                   .as(`getBookCopyDataRequest`)
 
-                // DISABLE_DEBUG_TOKEN:false means we're authorized via the local debug token,
-                // which never triggers a real token refresh
-                const waitAliases = [
-                  `@getBookCopyDataRequest`,
-                ]
-
-                if (Cypress.env(`DISABLE_DEBUG_TOKEN`) !== false) {
-                  cy
-                    .intercept(
-                      `POST`,
-                      `/api/auth/refresh`,
-                    )
-                    .as(`refreshRequest`)
-
-                  waitAliases.push(`@refreshRequest`)
-                }
-
-                cy.wait(waitAliases)
+                cy.wait(`@getBookCopyDataRequest`)
 
                 ReturnBookPage.returnBook()
 

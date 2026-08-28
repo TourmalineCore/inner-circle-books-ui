@@ -45,7 +45,7 @@ Steps 1-3 repeat on every `npm start`, so each run starts from a fresh config an
 npm run local-services:down
 ```
 
-This doesn't stop the layout-ui container. layout-ui runs in its own, separately named Docker project (inner-circle-layout-ui), not in the books-ui project. A developer will likely want to run several services locally that depend on layout-ui, so it runs as a single shared instance instead of each service starting its own container. Stop it explicitly when you no longer need it:
+This doesn't stop the layout-ui container. layout-ui runs on its own, separately named Docker project (inner-circle-layout-ui), not in the books-ui project. A developer will likely want to run several services locally that depend on layout-ui, so it runs as a single shared instance instead of each service starting its own container. Stop it explicitly when you no longer need it:
 
 ```
 npm run local-services:down:layout-ui
