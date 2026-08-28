@@ -24,8 +24,8 @@ export const AddBookContent = observer(({
   goToBooksList: ({
     id,
   }: {
-   id? :number,
- }) => unknown, 
+    id? :number,
+  }) => unknown, 
 }) => {
   const addBookState = useContext(AddBookStateContext)
 
