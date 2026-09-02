@@ -55,19 +55,25 @@ There are two ways to change a value, and you can mix them:
 
 A variable written before a command applies to that command only. `VAR=1 npm run local-services:up && npm start` does not pass `VAR` to `npm start`, and a variable on a line of its own passes it to nothing. Use `export VAR=1` when you need it for several commands.
 
-After you change a key of the first group, build the config again:
+What you re-run after the change depends on the group the key is in.
+
+**First group** - build the config again, then put the debug token back into it:
 
 ```
-npm run create-config:local
+npm run create-config:local && npm run prepare-local-run
 ```
 
-After you change a key of the other two groups, start the services again:
+Both commands are needed. `create-config:local` writes `public/env-config.js` from scratch out of the keys listed in `.env-vars`, and `LOCAL_DEBUG_TOKEN` and `LOCAL_DEBUG_JWT` are not among them - those come from the API mock config, and `prepare-local-run` appends them to the file afterwards. Run the build on its own and you are left without a token, so the app cannot log in. Reload the page once both commands are done.
+
+**Second group** - restart `npm start`. `vite.config.ts` reads these keys when the dev server starts, so the containers don't have to be touched.
+
+**Third group** - start the services again:
 
 ```
 npm run local-services:up
 ```
 
-The Dev Container runs both commands on start, so reopening it has the same result.
+The Dev Container runs `create-config:local` and then `local-services:up` on start, and the second of those runs `prepare-local-run` for you. So reopening the container covers the first and the third group, and the second one applies the next time you run `npm start` anyway.
 
 ## Ports
 
@@ -151,14 +157,12 @@ API_URL=http://localhost:4505 npm start
 ```
 3. If your checkout also changes `mock-server-initialization.json`, take the mocks from there
 ```
-API_LOCAL_PATH=../inner-circle-books-api npm run local-services:up
+API_LOCAL_PATH=../inner-circle-books-api npm run prepare-local-run
 ```
 
-`API_LOCAL_PATH` changes one thing: the mock file is copied from your folder, not downloaded from GitHub.
+`API_LOCAL_PATH` changes one thing: the mock file is copied from your folder, not downloaded from GitHub. The mocks hold the debug token that the app uses to log in, so a new copy also updates that token in `env-config.js`.
 
-The mocks hold the debug token that the app uses to log in. A new copy of the file updates that token in `env-config.js`.
-
-`prepare-local-run` only copies the file. Run `npm run local-services:up` instead when the mock server container has to use the new mocks as well - that command also restarts the containers.
+`prepare-local-run` starts no containers, which is what you want here, because step 1 stopped them. Run `npm run local-services:up` instead when the mock server container has to use the new mocks as well - that command starts the API containers again.
 
 The path must be visible from the place where the command runs. 
 
