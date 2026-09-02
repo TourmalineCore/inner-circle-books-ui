@@ -1,24 +1,17 @@
-/* eslint-disable semi */
-// @ts-ignore
-/* eslint-disable @typescript-eslint/quotes */
-// eslint-disable-next-line no-undef
-const env = process.argv[2]
+/* eslint-disable no-undef */
+import fs from 'fs'
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires, no-undef
-const fs = require("fs")
+const filepath = `./public/env-config.js`
+const filepathCypress = `./cypress/env-config.js`
 
-const filepath = "./public/env-config.js";
-const filepathCypress = "./cypress/env-config.js";
-const data = fs.readFileSync(`./.config-${env}`);
+// .env-vars lists the variables the app is allowed to see in the browser, and the values come
+// from .env. This is what ci/env.sh does inside a built image, only for a local run
+const variables = fs.readFileSync(`./.env-vars`, `utf-8`)
+  .split(`\n`)
+  .map((key) => key.trim())
+  .filter(Boolean)
+  .map((key) => `${key}: "${process.env[key] ?? ``}",`)
+  .join(``)
 
-// eslint-disable-next-line newline-per-chained-call
-const variables = data.toString().split("\n")
-  .map((str) => {
-    const regex = /^([^:]+):(.+)/gm;
-    const m = regex.exec(str);
-    return `${m[1].trim()}: "${m[2].trim()}",`;
-  })
-  .reduce((res, x) => res.concat(x), "");
-
-fs.writeFileSync(filepath, `window.__ENV__ = { ${variables} }`);
-fs.writeFileSync(filepathCypress, `window.__ENV__ = { ${variables} }`);
+fs.writeFileSync(filepath, `window.__ENV__ = { ${variables} }`)
+fs.writeFileSync(filepathCypress, `window.__ENV__ = { ${variables} }`)

@@ -2,9 +2,9 @@
 import fs from 'fs'
 import { wrapAsJwt } from '../src/common/wrapAsJwt.js'
 
-// branch/commit other than master, e.g. to test against a feature branch's
-const API_REPO_REF = encodeRef(process.env.API_REF || `master`)
-const LAYOUT_UI_REPO_REF = encodeRef(process.env.LAYOUT_REF || `master`)
+// branch/commit the compose files are taken from, set in .env
+const API_REPO_REF = encodeRef(process.env.API_REF)
+const LAYOUT_UI_REPO_REF = encodeRef(process.env.LAYOUT_REF)
 
 // path to a local inner-circle-books-api checkout, e.g. ../inner-circle-books-api
 // set this to test with mock-server-initialization.json changes you haven't pushed yet
@@ -111,10 +111,8 @@ function readLocalDebugToken({
   return JSON.parse(loginMock.httpResponse.body).accessToken.value
 }
 
-// if this script already ran before, env-config.js has an old LOCAL_DEBUG_TOKEN/LOCAL_DEBUG_JWT
-// entry in it we need to remove that first so re-running doesn't just append a duplicate
-// if env-config.js doesn't exist at all yet (e.g. `local-services:up` was run on its own,
-// without `create-config:local` first), there's nothing to inject into, so just skip
+// drops the entries a previous run added, so re-running doesn't append duplicates. If there is
+// no env-config.js yet (local-services:up without create-config:local), nothing to inject into
 function injectIntoEnvConfig({
   path,
   envEntries,

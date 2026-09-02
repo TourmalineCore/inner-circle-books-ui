@@ -12,6 +12,11 @@
 		6080,
 		5901
 	],
+	// installing dependencies is a one-off, everything else has to happen on every start
+	"postCreateCommand": "npm ci",
+	// builds env-config.js and starts the services the app talks to, so a ready environment
+	// is waiting when the container opens and `npm start` only has to run the app
+	"postStartCommand": "npm run create-config:local && npm run local-services:up",
 	"runArgs": [
 		"--network=host"
 	],
@@ -22,7 +27,7 @@
 	"remoteEnv": {
 		// https://stackoverflow.com/q/65343518
 		// the original host directory which is needed for volume mount commands from inside the container (Docker in Docker)
-		// vite.config.ts also uses the presence of this var to detect that it runs inside the Dev Container
+		// local-run/api-docker-compose.override.yml needs it to mount the mock server config
 		"LOCAL_WORKSPACE_FOLDER": "${localWorkspaceFolder}"
 	}
 }

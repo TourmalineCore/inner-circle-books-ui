@@ -16,163 +16,207 @@ Open this repo's folder in VSCode/Codespaces, it might immediately propose you t
 
 When your Dev Container is ready, the VSCode window will be re-opened. Open a new terminal in this Dev Container which will be executing the commands under this prepared Linux container where we already have all pre-installed and pre-configured development related dependencies.
 
-## Getting Started
+### What happens when the container starts
+
+1. **`npm ci`** installs the exact dependency versions from `package-lock.json`. This runs once, when the container is created.
+2. **`npm run create-config:local`** builds `public/env-config.js` from `.env`. The app reads this file in the browser.
+3. **`npm run local-services:up`** downloads the compose files of the API and of layout-ui from GitHub, together with the API mock config, and starts those services. You do not need their repositories on your machine.
+
+Steps 2 and 3 run on every container start, so each session begins with a fresh config and up to date images. You can also run both commands yourself, without restarting the container.
+
+## Start the app
 
 ```bash
-# install the exact dependency versions from package-lock.json
-npm ci
-
-# start everything needed for local development: Docker services and the dev server
 npm start
 ```
 
-Then open http://localhost:3505.
+Then open http://localhost:3505/books.
 
-### What `npm start` does
+`npm start` runs only the dev server. The config and the containers are ready before it.
 
-1. **Builds `public/env-config.js` from `.config-local`** - the runtime config the app reads in the browser.
-2. **Fetches compose files from GitHub** - `docker-compose.yml` from `inner-circle-books-api` and `inner-circle-layout-ui`, plus books-api's `mock-server-initialization.json`. You don't need to clone those repos.
-3. **Starts the Docker containers** - the shared layout-ui container, and books-api with its Postgres database and mock server. These two stacks are separate Docker Compose projects, so they start in parallel. Published images are pulled on every run, and the command waits until the containers report healthy. Output lines are prefixed with the task they come from, since both stacks log at the same time.
-4. **Starts the Vite dev server**, which proxies `/layout` and `/api/books` to those containers.
+## Configuration
 
-Steps 1-3 repeat on every `npm start`, so each run starts from a fresh config and up-to-date images.
+All values of a local run are in **`.env`**. Nothing else needs editing.
 
-## Stop the local services
+| group | keys |
+| :--- | :--- |
+| runtime config the app reads in the browser | `API_ROOT_URL`, `AUTH_API_ROOT_URL`, `DISABLE_ACCESS_TOKEN_REFRESH`, `DISABLE_DEBUG_TOKEN` |
+| the dev server port, and the services it proxies to | `UI_PORT`, `LAYOUT_UI_URL`, `API_URL` |
+| the images the local services run, and the branch their compose files come from | `LAYOUT_IMAGE_TAG`, `LAYOUT_REF`, `API_IMAGE_TAG`, `API_REF` |
 
-`Ctrl+C` in the dev server terminal stops only the dev server - the containers keep running. To stop and remove them:
+The Vite config, the scripts in `local-run` and `docker compose` read the same file.
+
+`.env` is used for a local run only. It is not part of the Docker build context, so nothing from it can reach a built image. There the same `env-config.js` is built by `ci/env.sh` from the values the cluster passes in.
+
+There are two ways to change a value, and you can mix them:
+
+- **edit `.env`** - the value stays until you change it back;
+- **set it before a command** - `LAYOUT_IMAGE_TAG=sha-9c1e044 npm start`. A value from the terminal wins over the .env file.
+
+A variable written before a command applies to that command only. `VAR=1 npm run local-services:up && npm start` does not pass `VAR` to `npm start`, and a variable on a line of its own passes it to nothing. Use `export VAR=1` when you need it for several commands.
+
+After you change a key of the first group, build the config again:
 
 ```
-npm run local-services:down
+npm run create-config:local
 ```
 
-This doesn't stop the layout-ui container. layout-ui runs on its own, separately named Docker project (inner-circle-layout-ui), not in the books-ui project. A developer will likely want to run several services locally that depend on layout-ui, so it runs as a single shared instance instead of each service starting its own container. Stop it explicitly when you no longer need it:
+After you change a key of the other two groups, start the services again:
 
+```
+npm run local-services:up
+```
+
+The Dev Container runs both commands on start, so reopening it has the same result.
+
+## Ports
+
+| Service                            | Dev server | Docker Compose |
+| :--------------------------------- | :--------: | :------------: |
+| inner-circle-books-ui              |    3505    |       -        |
+| inner-circle-layout-ui             |    4500    |      6500      |
+| inner-circle-books-api             |    4505    |      6505      |
+| inner-circle-books-api-db          |     -      |      7505      |
+| inner-circle-books-api-mock-server |     -      |      8505      |
+
+**Dev server** is the port a service uses when you start it from its own repo. **Docker Compose** is the port its container publishes. In local-env the app is served on `30090`.
+
+## Run modes
+
+### The app and the published services
+
+What you get after `npm start`: the app in the dev server, the API and layout-ui in containers with the images from `.env`.
+
+The dev server proxies `/layout` to `LAYOUT_UI_URL` and `/api/books` to `API_URL`, and both point at those containers.
+
+### A service from a feature branch
+
+Every push to an open pull request publishes an image of that commit, tagged `sha-<commit sha>`. Both the short and the full form of the sha are published, and both work. A branch without an open pull request has no image.
+
+Each service has two variables:
+
+| service | which image runs | where its compose file and mocks come from |
+| :--- | :--- | :--- |
+| API | `API_IMAGE_TAG` | `API_REF` |
+| layout-ui | `LAYOUT_IMAGE_TAG` | `LAYOUT_REF` |
+
+Put the tag in `.env`, or set it for one run:
+
+```
+API_IMAGE_TAG=sha-6c3f5f2 npm run local-services:up
+LAYOUT_IMAGE_TAG=sha-9c1e044 npm run local-services:up
+```
+
+The command restarts the containers only. The dev server can keep running, because it talks to the same ports. To do both steps in one line:
+
+```
+API_IMAGE_TAG=sha-6c3f5f2 npm run local-services:up && npm start
+```
+
+If Docker cannot find the tag, open the CI run of the pull request: the image appears only after the build ends.
+
+The tag changes the image only. The compose file and the API mock config still come from `master`, so change the ref as well when your branch also edits those files:
+
+```
+API_IMAGE_TAG=sha-6c3f5f2 API_REF=feature/#1-test npm run local-services:up
+```
+
+Branch names with `#` need no quotes. All four variables are independent, so you can pin both services in one run.
+
+### A service you run from its own repo
+
+You start the service from its own repo, and tell the dev server to use it instead of the container.
+
+**layout-ui.** Start it from its own repo with `npm run start:federation`, as its README describes in [Local run with module federation](https://github.com/TourmalineCore/inner-circle-layout-ui#local-run-with-module-federation). Then:
+
+1. Stop the layout container, if one is running
 ```
 npm run local-services:down:layout-ui
 ```
-
-## Run against a books-api feature branch
-
-By default `npm start` pulls and runs the `latest` published `inner-circle-books-api` image. To test against a different version, set `API_IMAGE_TAG` in the terminal right before `npm start`.
-
-Every push to an open `inner-circle-books-api` pull request publishes a Docker image tagged `sha-<short commit sha>`. Use that tag:
+2. Send /layout to your local layout-ui instead
 
 ```
-API_IMAGE_TAG=sha-2a3f277 npm start
+LAYOUT_UI_URL=http://localhost:4500/layout npm start   
 ```
 
-If Docker can't find that tag, check the PR's CI run to see which commit sha was actually built, and use that tag instead.
+**The API.** Start it from its own repo, then:
 
-To go back to `latest`, just run `npm start` without setting `API_IMAGE_TAG`.
-
-### Also test against that branch's mock server data
-
-`API_IMAGE_TAG` only changes the Docker image. It does not change where `mock-server-initialization.json` and `api-docker-compose.yml` come from. Those always come from `master` by default. If your feature branch also changed those files, also set `API_REF` (git branch name used to fetch files from GitHub):
-
+1. Stop the API container, if one is running
 ```
-API_IMAGE_TAG=sha-2a3f277 API_REF=my-feature-branch npm start
+npm run local-services:down:api
 ```
-
-## Run against a layout-ui feature branch
-
-layout-ui has the same two switches, under its own variable names. By default `npm start` pulls the `latest` published `inner-circle-layout-ui` image and takes its `docker-compose.yml` from `master`.
-
-`LAYOUT_IMAGE_TAG` picks the image, the same way `API_IMAGE_TAG` does for books-api:
-
+2. Send /api/books to your local API instead
 ```
-LAYOUT_IMAGE_TAG=sha-9c1e044 npm start
+API_URL=http://localhost:4505 npm start
+```
+3. If your checkout also changes `mock-server-initialization.json`, take the mocks from there
+```
+API_LOCAL_PATH=../inner-circle-books-api npm run local-services:up
 ```
 
-`LAYOUT_REF` picks the branch its `docker-compose.yml` is fetched from. Set it when your layout-ui branch changed that file; otherwise the branch's image would still run with `master`'s compose:
+`API_LOCAL_PATH` changes one thing: the mock file is copied from your folder, not downloaded from GitHub.
+
+The mocks hold the debug token that the app uses to log in. A new copy of the file updates that token in `env-config.js`.
+
+`prepare-local-run` only copies the file. Run `npm run local-services:up` instead when the mock server container has to use the new mocks as well - that command also restarts the containers.
+
+The path must be visible from the place where the command runs. 
+
+### The app as a Docker image
+
+The image the cluster runs. nginx serves it, not the dev server.
 
 ```
-LAYOUT_IMAGE_TAG=sha-9c1e044 LAYOUT_REF=feature/#496-add-local-run npm start
+npm run docker:build
+npm run docker:run
 ```
 
-Branch names with a `#` in them work as-is - no quoting or escaping needed.
+It listens on http://localhost:4457, but the image alone is not a working app. In the cluster the ingress removes the `/books` prefix before nginx sees it, and here nothing does, so the assets come back as `index.html`. Use this to check that the image builds and starts, and local-env to see the app run.
 
-All four variables are independent, so you can pin both services in one run:
-
-```
-API_IMAGE_TAG=sha-2a3f277 API_REF=my-api-branch LAYOUT_IMAGE_TAG=sha-9c1e044 LAYOUT_REF=feature/#496-add-local-run npm start
-```
-
-`npm run start:for-local-books-api` reads both layout-ui variables, since it starts the layout-ui container. `npm run start:for-local-layout-ui` doesn't start that container, so `LAYOUT_IMAGE_TAG` has no effect there. `LAYOUT_REF` still picks the branch the compose file is downloaded from, but nothing in that mode uses that file.
-
-## Develop books-ui together with locally running layout-ui
-
-To develop books-ui together with a locally running layout-ui, follow these steps:
-
-1. Start layout-ui from its own repo, as described in [Local run with module federation](https://github.com/TourmalineCore/inner-circle-layout-ui#local-run-with-module-federation) in the layout-ui README. books-ui expects it on port 4500.
-
-2. In `inner-circle-books-ui`, run:
-
-```
-npm run start:for-local-layout-ui
-```
-
-This starts only the books-api Docker services (no layout-ui container) and points the `/layout` proxy at your local layout-ui instead of the shared container.
-
-## Develop against a local books-api
-
-To develop with local books-api, run it locally instead of the Docker container.
-
-1. In `inner-circle-books-ui`, run:
-
-```
-npm run start:for-local-books-api
-```
-
-This starts the shared layout-ui Docker container (books-ui doesn't touch books-api's containers) and points the `/api/books` proxy at `localhost:4505` instead of the Docker container.
-
-If you're running books-ui inside a Dev Container, this is handled automatically: `localhost` inside a container is its own loopback, not the host's or another container's, so the proxy detects it's running inside a container and uses `host.docker.internal` instead.
-
-2. Start books-api from its own repo, as described in [Develop inside Dev Container](https://github.com/TourmalineCore/inner-circle-books-api#develop-inside-dev-container) in the books-api README. books-ui expects it on port `4505`, which is the port it listens on inside its own Dev Container.
-
-### Also test with unpushed mock-server-initialization.json changes
-
-By default `mock-server-initialization.json` is fetched from GitHub (`master`, or `API_REF` if set). If you're editing it locally and haven't pushed yet, set `API_LOCAL_PATH` to your local `inner-circle-books-api` checkout instead:
-
-```
-API_LOCAL_PATH=../inner-circle-books-api npm run start:for-local-books-api
-```
-
-## Create local docker container to connect it with local-env
+To build the image with the tag local-env uses:
 
 ```
 npm run docker:build:local-env
 ```
 
-## Create local docker container to work in it (local docker container for layout-ui service must run too)
+## Stop the local services
+
+`Ctrl+C` in the terminal of the dev server stops the dev server only. The containers keep running.
+
+Stop everything this repo starts:
 ```
-npm run docker:build
-
-npm run docker:run
-```
-
-## Component tests
-
-To run component tests in console you need enter the command
-
-```
-npm run cypress:run:component
+npm run local-services:down
 ```
 
-To open cypress to run component tests you need enter the command
-
+Stop the API, its database and mock server:
 ```
-npm run cypress:open:component
-```
-
-## E2E tests
-
-to run e2e against the mocked API, first make sure `npm start` is running, then use
-
-```
-npm run cypress:run:e2e
+npm run local-services:down:api
 ```
 
-to run test in local-env you need `cypress.config.local-env.ts` file and use command
+Stop the shared layout-ui container:
+```
+npm run local-services:down:layout-ui
+```
+
+Other UI services can use the same layout container, and an API started in its own Dev Container uses the same database and mock server. They all stop working if you shut everything down, so each part has a command of its own.
+
+## Tests
+
+**Component tests.**
+
+```
+npm run cypress:run:component     # in the console
+npm run cypress:open:component    # in the Cypress window
+```
+
+**E2E tests** run against the app in the dev server and against the mocked API, so start both first.
+
+```
+npm run cypress:run:e2e     # in the console
+npm run cypress:open:e2e    # in the Cypress window
+```
+
+**E2E tests in local-env**, which serves the app on 30090:
 
 ```
 npm run cypress:run:e2e:local-env
