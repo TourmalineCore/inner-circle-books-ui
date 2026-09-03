@@ -164,7 +164,7 @@ API_LOCAL_PATH=../inner-circle-books-api npm run prepare-local-run
 
 `prepare-local-run` starts no containers, which is what you want here, because step 1 stopped them. Run `npm run local-services:up` instead when the mock server container has to use the new mocks as well - that command starts the API containers again.
 
-The path must be visible from the place where the command runs. 
+This does not work inside the Dev Container. Only this repository is mounted there, so `../inner-circle-books-api` does not exist and the command fails with `ENOENT`. Run it from a terminal on your own machine instead, from the repo root - it writes the file into `local-run/`, which the container sees through the same mount.
 
 ### The app as a Docker image
 
