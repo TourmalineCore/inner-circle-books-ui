@@ -4,7 +4,7 @@
 services:
 
   inner-circle-books-api:
-    image: ghcr.io/tourmalinecore/inner-circle-books-api:${API_IMAGE_TAG:-latest}
+    image: ghcr.io/tourmalinecore/inner-circle-books-api:${API_IMAGE_TAG}
 
   # mounts our own mock-server-initialization.json instead of the image's copy.
   # Docker looks for this path on the host machine, not inside the container

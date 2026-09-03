@@ -4,4 +4,4 @@
 services:
 
   inner-circle-layout-ui:
-    image: ghcr.io/tourmalinecore/inner-circle-layout-ui:${LAYOUT_IMAGE_TAG:-latest}
+    image: ghcr.io/tourmalinecore/inner-circle-layout-ui:${LAYOUT_IMAGE_TAG}
