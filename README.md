@@ -101,10 +101,10 @@ Every push to an open pull request publishes an image of that commit, tagged `sh
 
 Each service has two variables:
 
-| service | which image runs | where its compose file and mocks come from |
-| :--- | :--- | :--- |
-| API | `API_IMAGE_TAG` | `API_REF` |
-| layout-ui | `LAYOUT_IMAGE_TAG` | `LAYOUT_REF` |
+| service   | which image runs   | where its compose file and mocks come from |
+| :-------- | :----------------- | :----------------------------------------- |
+|    API    |   `API_IMAGE_TAG`  |                  `API_REF`                 |
+| layout-ui | `LAYOUT_IMAGE_TAG` |                `LAYOUT_REF`                |
 
 Put the tag in `.env`, or set it for one run:
 
