@@ -2,7 +2,7 @@
 import fs from 'fs'
 import { wrapAsJwt } from '../src/common/wrapAsJwt.js'
 
-// branch/commit the compose files are taken from, set in .env
+// branch/commit the compose files are taken from, set in .env.local
 const API_REPO_REF = encodeRef(process.env.API_REF)
 const LAYOUT_UI_REPO_REF = encodeRef(process.env.LAYOUT_REF)
 

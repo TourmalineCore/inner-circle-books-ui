@@ -5,7 +5,7 @@ const filepath = `./public/env-config.js`
 const filepathCypress = `./cypress/env-config.js`
 
 // .env-vars lists the variables the app is allowed to see in the browser, and the values come
-// from .env. This is what ci/env.sh does inside a built image, only for a local run
+// from .env.local. This is what ci/env.sh does inside a built image, only for a local run
 const variables = fs.readFileSync(`./.env-vars`, `utf-8`)
   .split(`\n`)
   .map((key) => key.trim())

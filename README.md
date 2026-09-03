@@ -19,7 +19,7 @@ When your Dev Container is ready, the VSCode window will be re-opened. Open a ne
 ### What happens when the container starts
 
 1. **`npm ci`** installs the exact dependency versions from `package-lock.json`. This runs once, when the container is created.
-2. **`npm run create-config:local`** builds `public/env-config.js` from `.env`. The app reads this file in the browser.
+2. **`npm run create-config:local`** builds `public/env-config.js` from `.env.local`. The app reads this file in the browser.
 3. **`npm run local-services:up`** downloads the compose files of the API and of layout-ui from GitHub, together with the API mock config, and starts those services. You do not need their repositories on your machine.
 
 Steps 2 and 3 run on every container start, so each session begins with a fresh config and up to date images. You can also run both commands yourself, without restarting the container.
@@ -36,7 +36,7 @@ Then open http://localhost:3505/books.
 
 ## Configuration
 
-All values of a local run are in **`.env`**. Nothing else needs editing.
+All values of a local run are in **`.env.local`**. Nothing else needs editing.
 
 | group | keys |
 | :--- | :--- |
@@ -46,12 +46,12 @@ All values of a local run are in **`.env`**. Nothing else needs editing.
 
 The Vite config, the scripts in `local-run` and `docker compose` read the same file.
 
-`.env` is used for a local run only. It is not part of the Docker build context, so nothing from it can reach a built image. There the same `env-config.js` is built by `ci/env.sh` from the values the cluster passes in.
+`.env.local` is used for a local run only. It is not part of the Docker build context, so nothing from it can reach a built image. There the same `env-config.js` is built by `ci/env.sh` from the values the cluster passes in.
 
 There are two ways to change a value, and you can mix them:
 
-- **edit `.env`** - the value stays until you change it back;
-- **set it before a command** - `LAYOUT_IMAGE_TAG=sha-9c1e044 npm start`. A value from the terminal wins over the .env file.
+- **edit `.env.local`** - the value stays until you change it back;
+- **set it before a command** - `LAYOUT_IMAGE_TAG=sha-9c1e044 npm start`. A value from the terminal wins over the .env.local file.
 
 A variable written before a command applies to that command only. `VAR=1 npm run local-services:up && npm start` does not pass `VAR` to `npm start`, and a variable on a line of its own passes it to nothing. Use `export VAR=1` when you need it for several commands.
 
@@ -91,7 +91,7 @@ The Dev Container runs `create-config:local` and then `local-services:up` on sta
 
 ### The app and the published services
 
-What you get after `npm start`: the app in the dev server, the API and layout-ui in containers with the images from `.env`.
+What you get after `npm start`: the app in the dev server, the API and layout-ui in containers with the images from `.env.local`.
 
 The dev server proxies `/layout` to `LAYOUT_UI_URL` and `/api/books` to `API_URL`, and both point at those containers.
 
@@ -106,7 +106,7 @@ Each service has two variables:
 |    API    |   `API_IMAGE_TAG`  |                  `API_REF`                 |
 | layout-ui | `LAYOUT_IMAGE_TAG` |                `LAYOUT_REF`                |
 
-Put the tag in `.env`, or set it for one run:
+Put the tag in `.env.local`, or set it for one run:
 
 ```
 API_IMAGE_TAG=sha-6c3f5f2 npm run local-services:up
