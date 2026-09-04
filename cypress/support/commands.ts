@@ -1,7 +1,6 @@
 /// <reference types="cypress" />
 import { createAuthService } from '@tourmalinecore/react-tc-auth'
 import compareSnapshotCommand from 'cypress-image-diff-js'
-import { wrapAsJwt } from '../../src/common/wrapAsJwt.js'
 
 Cypress.on(`uncaught:exception`, () => false)
 
@@ -64,11 +63,8 @@ Cypress.Commands.add(`authByApi`, () => {
     .then(({
       body: loginResponseBody,
     }) => {
-      const tokenValue = loginResponseBody.accessToken.value
       const accessToken = {
-        value: Cypress.env(`DISABLE_DEBUG_TOKEN`) === false
-          ? wrapAsJwt(tokenValue)
-          : tokenValue,
+        value: loginResponseBody.accessToken.value,
       }
 
       authService.setLoggedIn({

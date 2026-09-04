@@ -1,6 +1,5 @@
 /* eslint-disable no-undef */
 import fs from 'fs'
-import { wrapAsJwt } from '../src/common/wrapAsJwt.js'
 
 // branch/commit the compose files are taken from, set in .env.local
 const API_REPO_REF = encodeRef(process.env.API_REF)
@@ -51,15 +50,13 @@ async function prepareLocalRunAsync() {
     })
   const mockServerConfig = JSON.parse(mockServerConfigBody)
 
-  const localDebugToken = readLocalDebugToken({
+  const localDebugJwt = readLocalDebugJwt({
     mockServerConfig,
   })
 
-  const localDebugJwt = wrapAsJwt(localDebugToken)
+  const envEntries = `LOCAL_DEBUG_JWT: "${localDebugJwt}",`
 
-  const envEntries = `LOCAL_DEBUG_TOKEN: "${localDebugToken}",LOCAL_DEBUG_JWT: "${localDebugJwt}",`
-
-  // writes the mock server's debug token into env-config.js so the local app can use it
+  // writes the mock server's token into env-config.js so the local app can use it
   injectIntoEnvConfig({
     path: ENV_CONFIG_PATH,
     envEntries,
@@ -100,7 +97,7 @@ function copyLocalFile({
 
 // mock-server-initialization.json can have several /api/auth/login mocks
 // we need the all-permissions one, so match on the login value, not just the path
-function readLocalDebugToken({
+function readLocalDebugJwt({
   mockServerConfig,
 }) {
   const loginMock = mockServerConfig.find((mock) => (
@@ -111,7 +108,7 @@ function readLocalDebugToken({
   return JSON.parse(loginMock.httpResponse.body).accessToken.value
 }
 
-// drops the entries a previous run added, so re-running doesn't append duplicates. If there is
+// drops the entry a previous run added, so re-running doesn't append duplicates. If there is
 // no env-config.js yet (local-services:up without create-config:local), nothing to inject into
 function injectIntoEnvConfig({
   path,
@@ -123,7 +120,7 @@ function injectIntoEnvConfig({
 
   const fileBuffer = fs.readFileSync(path)
   const content = fileBuffer.toString()
-  const contentWithoutOldEntries = content.replace(/LOCAL_DEBUG_TOKEN: "[^"]*",LOCAL_DEBUG_JWT: "[^"]*",/, ``)
+  const contentWithoutOldEntries = content.replace(/LOCAL_DEBUG_JWT: "[^"]*",/, ``)
 
   fs.writeFileSync(path, contentWithoutOldEntries.replace(`window.__ENV__ = { `, `window.__ENV__ = { ${envEntries}`))
 }
