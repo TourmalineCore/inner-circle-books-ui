@@ -54,7 +54,7 @@ async function prepareLocalRunAsync() {
     mockServerConfig,
   })
 
-  const envEntries = `LOCAL_DEBUG_JWT: "${localDebugJwt}",`
+  const envEntries = `DEBUG_TOKEN: "${localDebugJwt}",`
 
   // writes the mock server's token into env-config.js so the local app can use it
   injectIntoEnvConfig({
@@ -120,7 +120,7 @@ function injectIntoEnvConfig({
 
   const fileBuffer = fs.readFileSync(path)
   const content = fileBuffer.toString()
-  const contentWithoutOldEntries = content.replace(/^ *LOCAL_DEBUG_JWT: "[^"]*",\n/m, ``)
+  const contentWithoutOldEntries = content.replace(/^ *DEBUG_TOKEN: "[^"]*",\n/m, ``)
 
   // env.sh writes one key per line, so the entry is added as a line of its own right after the opening brace, in the same shape as the keys env.sh puts there
   fs.writeFileSync(path, contentWithoutOldEntries.replace(`window.__ENV__ = {\n`, `window.__ENV__ = {\n  ${envEntries}\n`))

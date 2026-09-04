@@ -1,5 +1,5 @@
 import { authService } from './authService'
-import { DISABLE_DEBUG_TOKEN, LOCAL_DEBUG_JWT } from './config/config'
+import { DISABLE_DEBUG_TOKEN, DEBUG_TOKEN } from './config/config'
 
 export function logInAsLocalDebugUserIfDebugTokenEnabled() {
   if (DISABLE_DEBUG_TOKEN !== `false`) {
@@ -8,7 +8,7 @@ export function logInAsLocalDebugUserIfDebugTokenEnabled() {
 
   authService.setLoggedIn({
     accessToken: {
-      value: LOCAL_DEBUG_JWT,
+      value: DEBUG_TOKEN,
     },
   })
 }

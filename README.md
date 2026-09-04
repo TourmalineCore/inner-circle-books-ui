@@ -62,7 +62,7 @@ What you re-run after the change depends on the group the key is in.
 npm run create-config:local && npm run prepare-local-run
 ```
 
-Both commands are needed. `create-config:local` writes `public/env-config.js` from scratch out of the keys listed in `.env-vars`, and `LOCAL_DEBUG_JWT` is not among them - it comes from the API mock config, and `prepare-local-run` appends it to the file afterwards. Run the build on its own and you are left without a token, so the app cannot log in. Reload the page once both commands are done.
+Both commands are needed. `create-config:local` writes `public/env-config.js` from scratch out of the keys listed in `.env-vars`, and `DEBUG_TOKEN` is not among them - it comes from the API mock config, and `prepare-local-run` appends it to the file afterwards. Run the build on its own and you are left without a token, so the app cannot log in. Reload the page once both commands are done.
 
 **Second group** - start the services again:
 
