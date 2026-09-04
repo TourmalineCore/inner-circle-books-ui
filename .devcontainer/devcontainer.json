@@ -22,9 +22,21 @@
 	"runArgs": [
 		"--network=host"
 	],
+	// applied when the container is created, so every shell in it sees these without reading a file.
+	// a value set before a command wins over them: API_IMAGE_TAG=sha-6c3f5f2 npm run local-services:up
 	"containerEnv": {
 		// https://stackoverflow.com/questions/76555858/how-to-run-cypress-in-interactive-mode-in-a-devcontainer-on-windows-with-docker
-		"CHOKIDAR_USEPOLLING": "true"
+		"CHOKIDAR_USEPOLLING": "true",
+		// runtime config of the app, served to the browser as public/env-config.js
+		"API_ROOT_URL": "/api/books",
+		"AUTH_API_ROOT_URL": "http://localhost:5002/api/auth",
+		"DISABLE_ACCESS_TOKEN_REFRESH": "true",
+		"DISABLE_DEBUG_TOKEN": "false",
+		// which published images the local services run, and which branch their compose files are taken from
+		"LAYOUT_IMAGE_TAG": "latest",
+		"LAYOUT_REF": "master",
+		"API_IMAGE_TAG": "sha-80388c3",
+		"API_REF": "feature/#496-change-access-token-in-mock-server"
 	},
 	"remoteEnv": {
 		// https://stackoverflow.com/q/65343518
