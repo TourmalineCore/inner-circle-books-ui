@@ -19,7 +19,7 @@ When your Dev Container is ready, the VSCode window will be re-opened. Open a ne
 ### What happens when the container starts
 
 1. **`npm ci`** installs the exact dependency versions from `package-lock.json`. This runs once, when the container is created.
-2. **`npm run create-config:local`** builds `public/env-config.js` from `.env.local`. The app reads this file in the browser.
+2. **`npm run create-config:local`** builds `public/env-config.js` out of the keys listed in `.env-vars`, taking their values from the container environment. The app reads this file in the browser.
 3. **`npm run local-services:up`** downloads the compose files of the API and of layout-ui from GitHub, together with the API mock config, and starts those services. You do not need their repositories on your machine.
 
 Steps 2 and 3 run on every container start, so each session begins with a fresh config and up to date images. You can also run both commands yourself, without restarting the container.
@@ -36,28 +36,27 @@ Then open http://localhost:3505/books.
 
 ## Configuration
 
-All values of a local run are in **`.env.local`**. Nothing else needs editing.
+The values of a local run live in two places.
 
-| group | keys |
-| :--- | :--- |
-| runtime config the app reads in the browser | `API_ROOT_URL`, `AUTH_API_ROOT_URL`, `DISABLE_ACCESS_TOKEN_REFRESH`, `DISABLE_DEBUG_TOKEN` |
-| the dev server port, and the services it proxies to | `UI_PORT`, `LAYOUT_UI_URL`, `API_URL` |
-| the images the local services run, and the branch their compose files come from | `LAYOUT_IMAGE_TAG`, `LAYOUT_REF`, `API_IMAGE_TAG`, `API_REF` |
+| group | keys | where |
+| :--- | :--- | :--- |
+| runtime config the app reads in the browser | `API_ROOT_URL`, `AUTH_API_ROOT_URL`, `DISABLE_ACCESS_TOKEN_REFRESH`, `DISABLE_DEBUG_TOKEN` | `containerEnv` in `.devcontainer/devcontainer.json` |
+| the images the local services run, and the branch their compose files come from | `LAYOUT_IMAGE_TAG`, `LAYOUT_REF`, `API_IMAGE_TAG`, `API_REF` | `containerEnv` in `.devcontainer/devcontainer.json` |
+| the dev server port, and the services it proxies to | `UI_PORT`, `LAYOUT_UI_URL`, `API_URL` | `.env.local` |
 
-The Vite config, the scripts in `local-run` and `docker compose` read the same file.
+`containerEnv` puts its keys into the environment of the container itself, so the scripts in `local-run`, `docker compose` and the Vite config all see them without opening a file. `.env.local` is read by the Vite config.
 
-`.env.local` is used for a local run only. It is not part of the Docker build context, so nothing from it can reach a built image. There the same `env-config.js` is built by `ci/env.sh` from the values the cluster passes in.
 
 There are two ways to change a value, and you can mix them:
 
-- **edit `.env.local`** - the value stays until you change it back;
-- **set it before a command** - `LAYOUT_IMAGE_TAG=sha-9c1e044 npm start`. A value from the terminal wins over the .env.local file.
+- **set it before a command** - `LAYOUT_IMAGE_TAG=sha-9c1e044 npm run local-services:up`. A value from the terminal wins over both places;
+- **edit the file the key lives in** - the value stays until you change it back.
 
 A variable written before a command applies to that command only. `VAR=1 npm run local-services:up && npm start` does not pass `VAR` to `npm start`, and a variable on a line of its own passes it to nothing. Use `export VAR=1` when you need it for several commands.
 
 What you re-run after the change depends on the group the key is in.
 
-**First group** - build the config again, then put the debug token back into it:
+**First group** - build the config again, then put the token back into it:
 
 ```
 npm run create-config:local && npm run prepare-local-run
@@ -65,15 +64,15 @@ npm run create-config:local && npm run prepare-local-run
 
 Both commands are needed. `create-config:local` writes `public/env-config.js` from scratch out of the keys listed in `.env-vars`, and `LOCAL_DEBUG_JWT` is not among them - it comes from the API mock config, and `prepare-local-run` appends it to the file afterwards. Run the build on its own and you are left without a token, so the app cannot log in. Reload the page once both commands are done.
 
-**Second group** - restart `npm start`. `vite.config.ts` reads these keys when the dev server starts, so the containers don't have to be touched.
-
-**Third group** - start the services again:
+**Second group** - start the services again:
 
 ```
 npm run local-services:up
 ```
 
-The Dev Container runs `create-config:local` and then `local-services:up` on start, and the second of those runs `prepare-local-run` for you. So reopening the container covers the first and the third group, and the second one applies the next time you run `npm start` anyway.
+**Third group** - restart `npm start`. `vite.config.ts` reads these keys when the dev server starts, so the containers don't have to be touched.
+
+An edit to `devcontainer.json` itself needs **Dev Containers: Rebuild Container** on top of that, because `containerEnv` is applied when the container is created. The rebuild runs `create-config:local` and then `local-services:up` on start, and the second of those runs `prepare-local-run` for you, so it covers the first two groups on its own. A one-off value before a command needs no rebuild.
 
 ## Ports
 
@@ -91,7 +90,7 @@ The Dev Container runs `create-config:local` and then `local-services:up` on sta
 
 ### The app and the published services
 
-What you get after `npm start`: the app in the dev server, the API and layout-ui in containers with the images from `.env.local`.
+What you get after `npm start`: the app in the dev server, the API and layout-ui in containers with the images from `containerEnv`.
 
 The dev server proxies `/layout` to `LAYOUT_UI_URL` and `/api/books` to `API_URL`, and both point at those containers.
 
@@ -106,7 +105,7 @@ Each service has two variables:
 |    API    |   `API_IMAGE_TAG`  |                  `API_REF`                 |
 | layout-ui | `LAYOUT_IMAGE_TAG` |                `LAYOUT_REF`                |
 
-Put the tag in `.env.local`, or set it for one run:
+Put the tag in `containerEnv`, or set it for one run:
 
 ```
 API_IMAGE_TAG=sha-6c3f5f2 npm run local-services:up
