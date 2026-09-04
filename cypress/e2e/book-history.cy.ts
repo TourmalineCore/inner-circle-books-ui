@@ -103,22 +103,11 @@ describe(`Adding book history entries`, () => {
 
                 cy
                   .intercept(
-                    `GET`, 
+                    `GET`,
                     `/api/books/copy/${bookCopyId}?secretKey=${secretKey}`)
                   .as(`getBookCopyDataRequest`)
-                  
-                cy
-                  .intercept(
-                    `POST`, 
-                    `/api/auth/refresh`,
-                  )
-                  .as(`refreshRequest`)
-                  
-                cy
-                  .wait([
-                    `@getBookCopyDataRequest`,
-                    `@refreshRequest`,
-                  ])
+
+                cy.wait(`@getBookCopyDataRequest`)
 
                 ReturnBookPage.returnBook()
 

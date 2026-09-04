@@ -1,0 +1,55 @@
+name: Run README Commands on PR
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  readme-steps:
+    runs-on: ubuntu-24.04
+    env:
+      API_ROOT_URL: /api/books
+      AUTH_API_ROOT_URL: /api/auth
+      DISABLE_ACCESS_TOKEN_REFRESH: "true"
+      DISABLE_DEBUG_TOKEN: "false"
+      LAYOUT_IMAGE_TAG: latest
+      LAYOUT_REF: master
+      API_IMAGE_TAG: latest
+      API_REF: master
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Set up Node.js 24.20.0
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24.20.0
+
+      - name: npm ci
+        run: npm ci
+
+      - name: npm run create-config:local
+        run: npm run create-config:local
+
+      - name: npm run local-services:up
+        run: npm run local-services:up
+
+      - name: npm start
+        run: |
+          nohup npm start > dev-server.log 2>&1 &
+          timeout 120 bash -c 'until curl -fsS http://localhost:3505/books > /dev/null; do sleep 2; done'
+
+      - name: npm run cypress:run:component
+        run: npm run cypress:run:component
+
+      - name: npm run cypress:run:e2e
+        run: npm run cypress:run:e2e
+
+
+      - name: npm run docker:build
+        run: npm run docker:build
+
+      - name: npm run docker:run
+        run: |
+          nohup npm run docker:run > docker-run.log 2>&1 &
+          timeout 60 bash -c 'until curl -fsS http://localhost:4457 > /dev/null; do sleep 2; done'

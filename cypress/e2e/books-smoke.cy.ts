@@ -36,7 +36,13 @@ describe(`Books Smoke`, () => {
   GIVEN book with QR code pointing to copy ID 1
   WHEN QR code is scanned
   SHOULD redirect to /books/copy/1
-  `, () => {
+  `, function () {
+    // when running locally, the /b -> /books redirect doesn't
+    // work, because this logic isn't described in this application
+    if (Cypress.env(`DISABLE_REDIRECT`) === true) {
+      this.skip()
+    }
+
     const bookCopyId = 1
 
     BookPage.visitViaQR({

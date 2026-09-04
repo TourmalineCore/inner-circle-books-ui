@@ -26,6 +26,11 @@ jobs:
 
       - name: Cypress run component tests
         uses: cypress-io/github-action@v7
+        env:
+          API_ROOT_URL: /api/books
+          AUTH_API_ROOT_URL: /api/auth
+          DISABLE_ACCESS_TOKEN_REFRESH: "true"
+          DISABLE_DEBUG_TOKEN: "false"
         with:
           component: true
           # Need to generate env-config file with env variables, without this the tests will not run.
