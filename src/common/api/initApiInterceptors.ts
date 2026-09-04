@@ -13,7 +13,7 @@ export function initApiInterceptors(api: any) {
 
       if (DISABLE_DEBUG_TOKEN === `false`) {
         // the api's debug auth wants the payload part on its own, without the header and the signature
-        config.headers[`X-DEBUG-TOKEN`] = LOCAL_DEBUG_JWT.split(`.`)[1]
+        config.headers[`X-DEBUG-TOKEN`] = LOCAL_DEBUG_JWT?.split(`.`)[1]
       }
     }
 
