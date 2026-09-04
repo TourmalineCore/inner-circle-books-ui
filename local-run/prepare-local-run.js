@@ -120,9 +120,10 @@ function injectIntoEnvConfig({
 
   const fileBuffer = fs.readFileSync(path)
   const content = fileBuffer.toString()
-  const contentWithoutOldEntries = content.replace(/LOCAL_DEBUG_JWT: "[^"]*",/, ``)
+  const contentWithoutOldEntries = content.replace(/^ *LOCAL_DEBUG_JWT: "[^"]*",\n/m, ``)
 
-  fs.writeFileSync(path, contentWithoutOldEntries.replace(`window.__ENV__ = { `, `window.__ENV__ = { ${envEntries}`))
+  // env.sh writes one key per line, so the entry is added as a line of its own right after the opening brace, in the same shape as the keys env.sh puts there
+  fs.writeFileSync(path, contentWithoutOldEntries.replace(`window.__ENV__ = {\n`, `window.__ENV__ = {\n  ${envEntries}\n`))
 }
 
 prepareLocalRunAsync()

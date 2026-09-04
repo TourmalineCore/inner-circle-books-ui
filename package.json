@@ -13,7 +13,7 @@
     "local-services:down:api": "docker compose --env-file .env.local -p inner-circle-books-api -f local-run/api-docker-compose.yml -f local-run/api-docker-compose.override.yml --profile MockForTests down",
     "local-services:down:layout-ui": "docker compose --env-file .env.local -p inner-circle-layout-ui -f local-run/layout-ui-docker-compose.yml -f local-run/layout-ui-docker-compose.override.yml down",
     "prepare-local-run": "node --env-file=.env.local local-run/prepare-local-run",
-    "create-config:local": "node --env-file=.env.local local-config-builder",
+    "create-config:local": "bash env-config-js-builder.local.sh",
     "build": "run-s lint-ts build:vite",
     "build:vite": "vite build",
     "docker:build": "docker build -t inner-circle-books-ui .",
