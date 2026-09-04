@@ -31,7 +31,7 @@
 		"CHOKIDAR_USEPOLLING": "true",
 		// runtime config of the app, served to the browser as public/env-config.js
 		"API_ROOT_URL": "/api/books",
-		"AUTH_API_ROOT_URL": "http://localhost:5002/api/auth",
+		"AUTH_API_ROOT_URL": "/api/auth",
 		"DISABLE_ACCESS_TOKEN_REFRESH": "true",
 		"DISABLE_DEBUG_TOKEN": "false",
 		// which published images the local services run, and which branch their compose files are taken from
