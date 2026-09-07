@@ -80,14 +80,16 @@ describe(`Adding book history entries`, () => {
                   bookId,
                 })
 
-                BookPage.clickBookTrackingButton()
-
                 cy
                   .intercept(
                     `GET`, 
-                    `/api/books/history/${bookCopyId}?draw=1&page=1&pageSize=10&orderBy=&orderingDirection=asc`)
+                    `/api/books/history/${bookId}?draw=1&page=1&pageSize=10&orderBy=&orderingDirection=asc`)
                   .as(`getBookHistoryDataRequest`)
-                
+
+                BookPage.clickBookTrackingButton()
+
+                cy.wait(`@getBookHistoryDataRequest`)
+
                 cy.contains(`Reading now`)
                   
                 cy.should(`not.contain`, `Read Partially`)
@@ -99,21 +101,38 @@ describe(`Adding book history entries`, () => {
                   secretKey,
                 })
 
-                BookPage.clickReturnBookButton()
-
                 cy
                   .intercept(
                     `GET`,
                     `/api/books/copy/${bookCopyId}?secretKey=${secretKey}`)
                   .as(`getBookCopyDataRequest`)
 
+                BookPage.clickReturnBookButton()
+
                 cy.wait(`@getBookCopyDataRequest`)
 
+                cy
+                  .intercept(
+                    `POST`,
+                    `/api/books/return`)
+                  .as(`returnBookRequest`)
+
                 ReturnBookPage.returnBook()
+
+                cy.wait(`@returnBookRequest`)
+
+                // a successful return sends the app back to the copy page. Without waiting for
+                // that navigation it lands after the visit below and takes the browser off the
+                // history page, which then never asks for its data
+                cy
+                  .location(`pathname`)
+                  .should(`eq`, `/books/copy/${bookCopyId}`)
 
                 BookHistoryPage.visit({
                   bookId,
                 })
+
+                cy.wait(`@getBookHistoryDataRequest`)
 
                 cy.getByData(`table-cell`)
                   .should(`contain`, `Read Partially`)
