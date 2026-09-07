@@ -7,49 +7,45 @@ on:
 jobs:
   readme-steps:
     runs-on: ubuntu-24.04
-    env:
-      API_ROOT_URL: /api/books
-      AUTH_API_ROOT_URL: /api/auth
-      DISABLE_ACCESS_TOKEN_REFRESH: "true"
-      DISABLE_DEBUG_TOKEN: "false"
-      LAYOUT_IMAGE_TAG: latest
-      LAYOUT_REF: master
-      API_IMAGE_TAG: latest
-      API_REF: master
     steps:
       - name: Checkout
         uses: actions/checkout@v7
 
-      - name: Set up Node.js 24.20.0
-        uses: actions/setup-node@v7
-        with:
-          node-version: 24.20.0
-
-      - name: npm ci
-        run: npm ci
-
-      - name: npm run create-config:local
-        run: npm run create-config:local
-
-      - name: npm run local-services:up
-        run: npm run local-services:up
-
+      # starting the Dev Container is itself the first part of the README: it runs npm ci, npm run create-config:local
+      # and npm run local-services:up, and supplies the containerEnv values they need
       - name: npm start
-        run: |
-          nohup npm start > dev-server.log 2>&1 &
-          timeout 120 bash -c 'until curl -fsS http://localhost:3505/books > /dev/null; do sleep 2; done'
+        uses: devcontainers/ci@v0.3
+        with:
+          runCmd: |
+            # we need the dev server to stay up for the next steps, that is why we forward its
+            # output and start it in background with & at the end
+            npm start \
+              > /dev/null 2>&1 &
 
-      - name: npm run cypress:run:component
-        run: npm run cypress:run:component
+            # then wait for the url the README tells you to open. wget does the waiting itself,
+            # --retry-connrefused is what keeps it going while nothing listens on the port yet.
+            # curl is not in this image, wget is
+            wget --retry-connrefused --tries=60 --waitretry=2 -q -O /dev/null \
+              http://localhost:3505/books
+          push: never
 
-      - name: npm run cypress:run:e2e
-        run: npm run cypress:run:e2e
+      - name: npm run cypress:run:component and npm run cypress:run:e2e
+        uses: devcontainers/ci@v0.3
+        with:
+          runCmd: |
+            npm run cypress:run:component
+            npm run cypress:run:e2e
+          push: never
 
+      - name: npm run docker:build and npm run docker:run
+        uses: devcontainers/ci@v0.3
+        with:
+          runCmd: |
+            npm run docker:build
 
-      - name: npm run docker:build
-        run: npm run docker:build
+            npm run docker:run \
+              > /dev/null 2>&1 &
 
-      - name: npm run docker:run
-        run: |
-          nohup npm run docker:run > docker-run.log 2>&1 &
-          timeout 60 bash -c 'until curl -fsS http://localhost:4457 > /dev/null; do sleep 2; done'
+            wget --retry-connrefused --tries=30 --waitretry=2 -q -O /dev/null \
+              http://localhost:4457
+          push: never
