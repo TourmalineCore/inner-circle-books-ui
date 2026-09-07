@@ -96,20 +96,32 @@ describe(`Adding book history entries`, () => {
 
                 cy.should(`not.contain`, `Returned`)
 
+                // the copy page and the return page ask for the very same URL, so each one gets its own alias. 
+                // Cypress matches a request against the most recently registered intercept, and waiting the 
+                // copy page out here keeps its request from being counted as the return page's one
+                cy
+                  .intercept(
+                    `GET`,
+                    `/api/books/copy/${bookCopyId}?secretKey=${secretKey}`)
+                  .as(`getBookCopyPageDataRequest`)
+
                 BookPage.visitCopy({
                   bookCopyId,
                   secretKey,
                 })
 
+                cy.wait(`@getBookCopyPageDataRequest`)
+
                 cy
                   .intercept(
                     `GET`,
                     `/api/books/copy/${bookCopyId}?secretKey=${secretKey}`)
-                  .as(`getBookCopyDataRequest`)
+                  .as(`getReturnPageBookCopyDataRequest`)
 
                 BookPage.clickReturnBookButton()
 
-                cy.wait(`@getBookCopyDataRequest`)
+                // the response re-initializes the form, so it has to land before anything is filled in
+                cy.wait(`@getReturnPageBookCopyDataRequest`)
 
                 cy
                   .intercept(

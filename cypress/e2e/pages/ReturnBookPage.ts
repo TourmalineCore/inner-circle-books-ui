@@ -25,7 +25,7 @@ export class ReturnBookPage {
       .type(`Мало примеров`)
 
     cy
-      .get(`.button__accent`)
+      .getByData(`book-feedback-submit-button`)
       .click()
   }
 }

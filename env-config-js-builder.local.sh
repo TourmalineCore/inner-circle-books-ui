@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# builds env-config.js for a local run. 
+# builds env-config.js for a local run
 bash ./ci/env.sh
 
 # the dev server serves public/, cypress reads its own copy
