@@ -24,8 +24,24 @@ Cypress.Screenshot.defaults({
 
 export { }
 
+function getAuthHeaders() {
+  const accessToken = Cypress.env(`accessToken`)
+
+  const headers: {
+    Authorization: string,
+    'X-DEBUG-TOKEN'?: string,
+  } = {
+    Authorization: `Bearer ${accessToken}`,
+  }
+
+  if (Cypress.env(`DISABLE_DEBUG_TOKEN`) === false) {
+    headers[`X-DEBUG-TOKEN`] = accessToken.split(`.`)[1]
+  }
+
+  return headers
+}
+
 Cypress.Commands.add(`authByApi`, () => {
-  let accessToken: any
   const authService = createAuthService({
     authApiRoot: Cypress.env(`AUTH_API_ROOT_URL`),
     authType: `ls`,
@@ -47,9 +63,15 @@ Cypress.Commands.add(`authByApi`, () => {
     .then(({
       body: loginResponseBody,
     }) => {
-      authService.setLoggedIn(loginResponseBody)
+      const accessToken = {
+        value: loginResponseBody.accessToken.value,
+      }
 
-      accessToken = loginResponseBody.accessToken
+      authService.setLoggedIn({
+        accessToken,
+        refreshToken: loginResponseBody.refreshToken,
+      })
+
       cy
         .window()
         .then((window) => {
@@ -61,14 +83,12 @@ Cypress.Commands.add(`authByApi`, () => {
 })
 
 Cypress.Commands.add(`removeBooks`, () => {
-  cy.request<{ 
-    books: BookCardType[], 
+  cy.request<{
+    books: BookCardType[],
   }>({
     method: `GET`,
     url: `${Cypress.env(`API_ROOT_URL`)}`,
-    headers: {
-      Authorization: `Bearer ${Cypress.env(`accessToken`)}`,
-    },
+    headers: getAuthHeaders(),
   })
     .then(({
       body,
@@ -83,9 +103,7 @@ Cypress.Commands.add(`removeBooks`, () => {
         cy.request({
           method: `DELETE`,
           url: `${Cypress.env(`API_ROOT_URL`)}/${id}/hard-delete`,
-          headers: {
-            Authorization: `Bearer ${Cypress.env(`accessToken`)}`,
-          },
+          headers: getAuthHeaders(),
         })
       })
     })
@@ -101,9 +119,7 @@ Cypress.Commands.add(`getBookCopySecret`, ({
   return cy.request<ModalQRFormType>({
     method: `GET`,
     url: `${Cypress.env(`API_ROOT_URL`)}/copies/${bookId}`,
-    headers: {
-      Authorization: `Bearer ${Cypress.env(`accessToken`)}`,
-    },
+    headers: getAuthHeaders(),
   })
     .then(({
       body,
