@@ -58,7 +58,7 @@ export const scanRoutes = [
 
 export const bookHistoryRoutes = [
   {
-    path: `${LINK_TO_BOOKS_SERVICE}/history/:id`,
+    path: `${LINK_TO_BOOKS_SERVICE}/:id/history`,
     breadcrumb: `Book History`,
     Component: BookHistoryPage,
   },

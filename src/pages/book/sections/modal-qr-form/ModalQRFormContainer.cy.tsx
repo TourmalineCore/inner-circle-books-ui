@@ -24,7 +24,7 @@ function addBookCopyTests() {
 
     cy.intercept(
       `GET`,
-      `*/books/copies/1`,
+      `*/books/1/copies`,
       {
         statusCode: 200,
         body: {

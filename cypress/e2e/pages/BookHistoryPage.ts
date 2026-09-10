@@ -4,6 +4,6 @@ export class BookHistoryPage {
   }: {
     bookId: number,
   }) {
-    cy.visit(`/books/history/${bookId}`)
+    cy.visit(`/books/${bookId}/history`)
   }
 }

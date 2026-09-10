@@ -78,7 +78,7 @@ describe(`BookContainer`, () => {
 
     cy.intercept(
       `GET`,
-      `*/books/feedback/1`,
+      `*/books/1/feedback`,
       FEEDBACK_RESPONSE,
     )
   

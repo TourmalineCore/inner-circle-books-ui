@@ -118,7 +118,7 @@ Cypress.Commands.add(`getBookCopySecret`, ({
 }) => {
   return cy.request<ModalQRFormType>({
     method: `GET`,
-    url: `${Cypress.env(`API_ROOT_URL`)}/copies/${bookId}`,
+    url: `${Cypress.env(`API_ROOT_URL`)}/${bookId}/copies`,
     headers: getAuthHeaders(),
   })
     .then(({

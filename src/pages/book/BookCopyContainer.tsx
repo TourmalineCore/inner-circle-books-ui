@@ -68,7 +68,7 @@ export const BookCopyContainer = observer(() => {
       data: {
         bookFeedback,
       },
-    } = await api.get<FeedbackResponse>(`/feedback/${bookId}`)
+    } = await api.get<FeedbackResponse>(`/${bookId}/feedback`)
 
     bookCopyState.initializeFeedback({
       loadedFeedback: bookFeedback,

@@ -83,7 +83,7 @@ describe(`Adding book history entries`, () => {
                 cy
                   .intercept(
                     `GET`, 
-                    `/api/books/history/${bookId}?draw=1&page=1&pageSize=10&orderBy=&orderingDirection=asc`)
+                    `/api/books/${bookId}/history?draw=1&page=1&pageSize=10&orderBy=&orderingDirection=asc`)
                   .as(`getBookHistoryDataRequest`)
 
                 BookPage.clickBookTrackingButton()
