@@ -18,7 +18,7 @@ function addBookCopyAfterAddBookInAllBooksPageTests() {
   `, () => {
     cy.intercept(
       `GET`,
-      `*/books/copies/1`,
+      `*/books/1/copies`,
     )
       .as(`load-book-copies`)
       

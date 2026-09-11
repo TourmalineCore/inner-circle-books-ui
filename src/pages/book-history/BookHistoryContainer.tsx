@@ -14,14 +14,14 @@ export function BookHistoryContainer() {
   const pathnameParts = location
     .pathname
     .split(`/`)
-  const id = pathnameParts[3]
+  const id = pathnameParts[2]
 
   return (
     <ServerTable<BookCopyHistory>
       tableId={`book-history-${id}`}
       tcHttpClient={api}
       tcApiHostUrl={``}
-      tcDataPath={`/history/${id}`}
+      tcDataPath={`/${id}/history`}
       columns={[
         {
           id: `Employee`,

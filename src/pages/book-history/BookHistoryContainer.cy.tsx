@@ -21,7 +21,7 @@ describe(`BookHistoryContainer`, () => {
   beforeEach(() => {
     cy.intercept(
       `GET`,
-      `*/books/history/1?draw=1&page=1&pageSize=10&orderBy=&orderingDirection=asc`,
+      `*/books/1/history?draw=1&page=1&pageSize=10&orderBy=&orderingDirection=asc`,
       BOOK_HISTORY_RESPONSE,
     )
 
@@ -65,7 +65,7 @@ function mountComponent() {
     .mount(
       <MemoryRouter 
         initialEntries={[
-          `/books/history/1`,
+          `/books/1/history`,
         ]}>
         <BookHistoryContainer />
       </MemoryRouter>,

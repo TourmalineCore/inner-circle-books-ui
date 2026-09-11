@@ -30,7 +30,7 @@ export const ModalQRFormContainer = observer(({
   async function loadModalQRFormDataAsync() {
     const {
       data,
-    } = await api.get<ModalQRFormType>(`/copies/${bookId}`)
+    } = await api.get<ModalQRFormType>(`/${bookId}/copies`)
 
     modalQRFormState.initialize({
       loadedModalQRFormData: data,
