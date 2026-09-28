@@ -77,7 +77,7 @@ An edit to `devcontainer.json` itself needs **Dev Containers: Rebuild Container*
 ## Ports
 
 | Service                            | Dev server | Docker Compose |
-| :--------------------------------- | :--------: | :------------: |
+| :--------------------------------  | :--------: | :------------: |
 | inner-circle-books-ui              |    3505    |       -        |
 | inner-circle-layout-ui             |    4500    |      6500      |
 | inner-circle-books-api             |    4505    |      6505      |
@@ -222,5 +222,6 @@ npm run cypress:open:e2e    # in the Cypress window
 **E2E tests in local-env**, which serves the app on 30090:
 
 ```
-npm run cypress:run:e2e:local-env
+npm run cypress:run:e2e:local-env     # in the console
+npm run cypress:open:e2e:local-env    # in the Cypress window
 ```

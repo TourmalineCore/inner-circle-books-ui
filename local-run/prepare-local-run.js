@@ -1,11 +1,10 @@
 /* eslint-disable no-undef */
 import fs from 'fs'
 
-// branch/commit the compose files are taken from, set in .env.local
+// branch/commit the compose files are taken from, set in .devcontainer/devcontainer.json
 const API_REPO_REF = encodeRef(process.env.API_REF)
 const LAYOUT_UI_REPO_REF = encodeRef(process.env.LAYOUT_REF)
 
-// path to a local inner-circle-books-api checkout, e.g. ../inner-circle-books-api
 // set this to test with mock-server-initialization.json changes you haven't pushed yet
 const API_LOCAL_PATH = process.env.API_LOCAL_PATH
 
