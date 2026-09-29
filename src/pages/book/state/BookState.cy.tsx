@@ -56,6 +56,7 @@ function bookDataTests() {
         bookCopyId: 1,
       },
     ],
+    availabilityStatuses: [],
     knowledgeAreas: [
       {
         id: 1,

@@ -3,6 +3,19 @@
 @use "../../../../styles/media" as m;
 
 .filter-desktop {
+  &__reset {
+    transition:
+      opacity 0.2s,
+      transform 0.2s,
+      visibility 0.2s;
+
+    &--hidden {
+      opacity: 0;
+      visibility: hidden;
+      transform: scale(0.95);
+    }
+  }
+
   @include m.desktop {
     margin-bottom: 12px;
 
@@ -10,6 +23,20 @@
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
+    }
+
+    &__controls {
+      display: flex;
+      align-items: center;
+      margin-top: 12px;
+      min-height: 44px;
+      gap: 16px;
+    }
+
+    &__reset-button {
+      flex: none;
+      padding: 12px 16px;
+      width: auto;
     }
   }
 }

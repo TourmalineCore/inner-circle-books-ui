@@ -65,9 +65,11 @@ function mountComponent() {
             knowledgeAreas={MOCK_KNOWLEDGE_AREAS}
             selectedAreasIds={[]}
             toggleKnowledgeArea={()=>{}}
-            applySelectedAreas={()=>{}}
+            isInOfficeOnly
+            toggleInOfficeOnly={()=>{}}
+            applyFilters={()=>{}}
             resetFilters={()=>{}}
-            resetToPreviouslySelectedAreas={()=>{}}
+            resetToPreviouslyAppliedFilters={()=>{}}
             onClose={()=>{}}
           />
         </AllBooksStateContext.Provider>

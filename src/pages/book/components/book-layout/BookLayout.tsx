@@ -10,6 +10,7 @@ import { BookReaders } from './components/book-readers/BookReaders'
 import { BookInfo } from './components/book-info/BookInfo'
 import { FeedbackCard } from './components/feedback-card/FeedbackCard'
 import { bookFeedbackRoutes } from '../../../routes'
+import { AvailabilityStatusLabels } from '../../../../components/availability-status-labels/AvailabilityStatusLabels'
 
 type BookLayoutProps = {
   bookId: string,
@@ -22,6 +23,7 @@ type BookLayoutProps = {
   count: number,
   annotation: string,
   feedback: Feedback[],
+  availabilityStatuses: AvailabilityStatusType[],
   actionSlot?: ReactNode,
   underCoverSlot?: ReactNode,
 }
@@ -37,6 +39,7 @@ export const BookLayout = ({
   count,
   annotation,
   feedback,
+  availabilityStatuses,
   actionSlot,
   underCoverSlot,
 }: BookLayoutProps) => {
@@ -51,13 +54,19 @@ export const BookLayout = ({
   return (
     <div className="book-layout">
       <div>
-        <img
-          src={isValidUrl ? coverUrl : NoImage}
-          alt="Preview"
-          className={clsx(`book-layout__cover`, {
-            'book-layout__cover--no-image': !isValidUrl,
-          })}
-        />
+        <div className="book-layout__cover-wrapper">
+          <img
+            src={isValidUrl ? coverUrl : NoImage}
+            alt="Preview"
+            className={clsx(`book-layout__cover`, {
+              'book-layout__cover--no-image': !isValidUrl,
+            })}
+          />
+          <AvailabilityStatusLabels
+            className="book-layout__statuses"
+            availabilityStatuses={availabilityStatuses}
+          />
+        </div>
         {underCoverSlot}
       </div>
 

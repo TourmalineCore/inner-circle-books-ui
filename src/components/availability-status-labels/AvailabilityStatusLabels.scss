@@ -1,0 +1,31 @@
+@use "../../styles/variables" as v;
+@use "../../styles/fonts-mixin" as f;
+
+.availability-status-labels {
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+  gap: 8px;
+
+  &__label {
+    @include f.subhead1-medium;
+
+    border-radius: 32px;
+    padding: 4px 12px;
+
+    &--inoffice {
+      color: v.$color-text-green;
+      background-color: v.$color-background-component-green;
+    }
+
+    &--onhand {
+      color: v.$color-text-blue;
+      background-color: v.$color-background-component-blue;
+    }
+
+    &--onyou {
+      color: v.$color-text-brown;
+      background-color: v.$color-background-component-yellow;
+    }
+  }
+}

@@ -7,9 +7,11 @@ export function FilterMobile({
   knowledgeAreas,
   selectedAreasIds,
   toggleKnowledgeArea,
+  isInOfficeOnly,
+  toggleInOfficeOnly,
   resetFilters,
-  applySelectedAreas,
-  resetToPreviouslySelectedAreas,
+  applyFilters,
+  resetToPreviouslyAppliedFilters,
 }: {
   knowledgeAreas: KnowledgeArea[],
   selectedAreasIds: number[],
@@ -18,9 +20,11 @@ export function FilterMobile({
   }: {
     knowledgeAreaId: number,
   }) => unknown,
+  isInOfficeOnly: boolean,
+  toggleInOfficeOnly: () => unknown,
   resetFilters: () => unknown,
-  applySelectedAreas: () => unknown,
-  resetToPreviouslySelectedAreas: () => unknown,
+  applyFilters: () => unknown,
+  resetToPreviouslyAppliedFilters: () => unknown,
 }) {
   const [
     isOpen,
@@ -44,9 +48,11 @@ export function FilterMobile({
           knowledgeAreas={knowledgeAreas}
           selectedAreasIds={selectedAreasIds}
           toggleKnowledgeArea={toggleKnowledgeArea}
+          isInOfficeOnly={isInOfficeOnly}
+          toggleInOfficeOnly={toggleInOfficeOnly}
           resetFilters={resetFilters}
-          resetToPreviouslySelectedAreas={resetToPreviouslySelectedAreas}
-          applySelectedAreas={applySelectedAreas}
+          resetToPreviouslyAppliedFilters={resetToPreviouslyAppliedFilters}
+          applyFilters={applyFilters}
           onClose={() => setIsOpen(false)}
         />
       )}

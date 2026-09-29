@@ -43,9 +43,24 @@
     color: v.$color-text-primary;
   }
 
+  &__cover {
+    position: relative;
+    margin-bottom: 12px;
+  }
+
+  &__statuses {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+
+    @include m.tablet {
+      right: 16px;
+    }
+  }
+
   &__image {
     display: block;
-    margin: 0 auto 12px;
+    margin: 0 auto;
     height: 144px;
     max-width: 100%;
     object-fit: contain;

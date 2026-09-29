@@ -4,6 +4,7 @@ import { AllBooksState } from "./state/AllBooksState"
 import { AllBooksStateContext } from "./state/AllBooksStateStateContext"
 import { MOCK_TOKEN } from "../../common/constant"
 import { Language } from "../../common/enums/language"
+import { AvailabilityStatus } from "../../common/enums/availabilityStatus"
 
 const BOOK_CARDS_RESPONSE = {
   books: [
@@ -19,6 +20,7 @@ const BOOK_CARDS_RESPONSE = {
         },
       ],
       coverUrl: ``,
+      availabilityStatuses: [],
     },
     {
       title: `Думай медленно… решай быстро`,
@@ -29,6 +31,9 @@ const BOOK_CARDS_RESPONSE = {
         },
       ],
       coverUrl: ``,
+      availabilityStatuses: [
+        AvailabilityStatus.InOffice,
+      ],
     },
   ],
 }
@@ -76,6 +81,7 @@ function booksInitializationTests() {
     cy.contains(`Разработка ценностных предложений`)
     cy.contains(Language.EN)
     cy.contains(`Даниэль Канеман`)
+    cy.contains(`In Office`)
   })
 }
 

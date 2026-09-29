@@ -1,6 +1,7 @@
 import { authService } from "../../common/authService"
 import { MOCK_TOKEN, VIEWPORTS } from "../../common/constant"
 import { Language } from "../../common/enums/language"
+import { AvailabilityStatus } from "../../common/enums/availabilityStatus"
 import { AllBooksContent } from "./AllBooksContent"
 import { AllBooksState } from "./state/AllBooksState"
 import { AllBooksStateContext } from "./state/AllBooksStateStateContext"
@@ -57,6 +58,11 @@ function mountComponent() {
       },
     ],
     coverUrl: ``,
+    availabilityStatuses: [
+      AvailabilityStatus.OnYou,
+      AvailabilityStatus.InOffice,
+      AvailabilityStatus.OnHand,
+    ],
   }
 
   const cards = Array.from({

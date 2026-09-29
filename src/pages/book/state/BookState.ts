@@ -14,6 +14,7 @@ const EMPTY_BOOK: NewBook = {
   bookCopiesIds: [],
   employeesWhoReadNow: [],
   knowledgeAreas: [],
+  availabilityStatuses: [],
 }
 
 // This state is used for both a book and a copy of the book

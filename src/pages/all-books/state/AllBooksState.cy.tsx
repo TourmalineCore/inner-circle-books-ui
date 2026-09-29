@@ -1,10 +1,12 @@
 import { AllBooksState } from "./AllBooksState"
+import { AvailabilityStatus } from "../../../common/enums/availabilityStatus"
 
 describe(`AllBooksState`, () => {
   describe(`Initialization`, initializationTests)
   describe(`Search query`, searchQueryTests)
   describe(`Selected knowledge areas`, selectedKnowledgeAreasTests)
   describe(`Previously selected knowledge areas`, previouslySelectedKnowledgeAreasTests)
+  describe(`In office filter`, inOfficeFilterTests)
   describe(`Filtered books`, filteredBooksTests)
   describe(`Loading`, loadingTests)
 })
@@ -44,6 +46,14 @@ function initializationTests() {
       .eq(``)
 
     expect(allBooksState.isLoading)
+      .to
+      .eq(false)
+
+    expect(allBooksState.isInOfficeOnly)
+      .to
+      .eq(false)
+
+    expect(allBooksState.hasActiveFilters)
       .to
       .eq(false)
   })
@@ -141,6 +151,7 @@ function selectedKnowledgeAreasTests() {
   GIVEN initial state
   WHEN toggle knowledgeArea
   SHOULD add knowledgeArea to selected areas
+  AND have active filters
   `, () => {
     const {
       allBooksState,
@@ -156,6 +167,10 @@ function selectedKnowledgeAreasTests() {
       .eq([
         1,
       ])
+
+    expect(allBooksState.hasActiveFilters)
+      .to
+      .eq(true)
   })
 
   it(`
@@ -181,9 +196,9 @@ function selectedKnowledgeAreasTests() {
   })
 
   it(`
-  GIVEN selected areas
+  GIVEN selected areas and turned on in office filter
   WHEN reset filters
-  SHOULD clear selected areas
+  SHOULD not have active filters
   `, () => {
     const {
       allBooksState,
@@ -195,6 +210,7 @@ function selectedKnowledgeAreasTests() {
     allBooksState.toggleKnowledgeArea({
       knowledgeAreaId: 2,
     })
+    allBooksState.toggleInOfficeOnly()
 
     allBooksState.resetFilters()
 
@@ -202,6 +218,14 @@ function selectedKnowledgeAreasTests() {
       .to
       .deep
       .eq([])
+
+    expect(allBooksState.isInOfficeOnly)
+      .to
+      .eq(false)
+
+    expect(allBooksState.hasActiveFilters)
+      .to
+      .eq(false)
   })
 
 }
@@ -220,7 +244,7 @@ function previouslySelectedKnowledgeAreasTests() {
       knowledgeAreaId: 1,
     })
   
-    allBooksState.applySelectedAreas()
+    allBooksState.applyFilters()
 
     expect(allBooksState.previouslySelectedAreasIds)
       .to
@@ -251,7 +275,7 @@ function previouslySelectedKnowledgeAreasTests() {
         1,
       ])
   
-    allBooksState.applySelectedAreas()
+    allBooksState.applyFilters()
 
     allBooksState.resetFilters()
 
@@ -282,7 +306,7 @@ function previouslySelectedKnowledgeAreasTests() {
       knowledgeAreaId: 1,
     })
   
-    allBooksState.applySelectedAreas()
+    allBooksState.applyFilters()
 
     allBooksState.toggleKnowledgeArea({
       knowledgeAreaId: 2,
@@ -320,6 +344,9 @@ function filteredBooksTests() {
           id: 1,
         },
       ],
+      availabilityStatuses: [
+        AvailabilityStatus.OnHand,
+      ],
     },
     {
       id: 2,
@@ -337,6 +364,10 @@ function filteredBooksTests() {
           id: 3,
         },
       ],
+      availabilityStatuses: [
+        AvailabilityStatus.OnYou,
+        AvailabilityStatus.InOffice,
+      ],
     },
     {
       id: 3,
@@ -350,6 +381,9 @@ function filteredBooksTests() {
         {
           id: 2,
         },
+      ],
+      availabilityStatuses: [
+        AvailabilityStatus.InOffice,
       ],
     },
   ]
@@ -543,6 +577,52 @@ function filteredBooksTests() {
   })
 
   it(`
+  GIVEN books with different availability statuses
+  WHEN turn on in office filter
+  SHOULD return only books that have in office status, including the ones that are also on you
+  `, () => {
+    const {
+      allBooksState,
+    } = createState({
+      booksCardsForInitialization,
+    })
+
+    allBooksState.toggleInOfficeOnly()
+
+    expect(allBooksState.filteredBooks)
+      .to
+      .deep
+      .eq([
+        booksCardsForInitialization[1],
+        booksCardsForInitialization[2],
+      ])
+  })
+
+  it(`
+  GIVEN books
+  WHEN turn on in office filter and set knowledgeArea filter
+  SHOULD return books matching both filters
+  `, () => {
+    const {
+      allBooksState,
+    } = createState({
+      booksCardsForInitialization,
+    })
+
+    allBooksState.toggleInOfficeOnly()
+    allBooksState.toggleKnowledgeArea({
+      knowledgeAreaId: 1,
+    })
+
+    expect(allBooksState.filteredBooks)
+      .to
+      .deep
+      .eq([
+        booksCardsForInitialization[1],
+      ])
+  })
+
+  it(`
   GIVEN active knowledgeArea filters
   WHEN reset filters
   SHOULD return all books again
@@ -565,6 +645,78 @@ function filteredBooksTests() {
       .eq(
         booksCardsForInitialization,
       )
+  })
+}
+
+function inOfficeFilterTests() {
+  it(`
+  GIVEN initial state
+  WHEN toggle in office filter twice
+  SHOULD turn it on and then off
+  AND have active filters only while it is on
+  `, () => {
+    const {
+      allBooksState,
+    } = createState()
+
+    allBooksState.toggleInOfficeOnly()
+
+    expect(allBooksState.isInOfficeOnly)
+      .to
+      .eq(true)
+
+    expect(allBooksState.hasActiveFilters)
+      .to
+      .eq(true)
+
+    allBooksState.toggleInOfficeOnly()
+
+    expect(allBooksState.isInOfficeOnly)
+      .to
+      .eq(false)
+
+    expect(allBooksState.hasActiveFilters)
+      .to
+      .eq(false)
+  })
+
+  it(`
+  GIVEN applied in office filter
+  WHEN turn it off
+  AND reset to previously applied filters
+  SHOULD turn it on again
+  `, () => {
+    const {
+      allBooksState,
+    } = createState()
+
+    allBooksState.toggleInOfficeOnly()
+    allBooksState.applyFilters()
+
+    allBooksState.toggleInOfficeOnly()
+    allBooksState.resetToPreviouslyAppliedFilters()
+
+    expect(allBooksState.isInOfficeOnly)
+      .to
+      .eq(true)
+  })
+
+  it(`
+  GIVEN not applied in office filter
+  WHEN turn it on
+  AND reset to previously applied filters
+  SHOULD turn it off
+  `, () => {
+    const {
+      allBooksState,
+    } = createState()
+
+    allBooksState.toggleInOfficeOnly()
+    allBooksState.resetToPreviouslyAppliedFilters()
+
+    expect(allBooksState.isInOfficeOnly)
+      .to
+      .eq(false)
   })
 }
 

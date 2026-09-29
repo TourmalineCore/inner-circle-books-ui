@@ -15,6 +15,8 @@ export const AllBooksContent = observer(() => {
     filteredBooks,
     knowledgeAreas,
     selectedAreasIds,
+    isInOfficeOnly,
+    hasActiveFilters,
     isLoading,
   } = allBooksState
    
@@ -45,9 +47,11 @@ export const AllBooksContent = observer(() => {
           knowledgeAreas={knowledgeAreas}
           selectedAreasIds={selectedAreasIds}
           toggleKnowledgeArea={(knowledgeArea) => allBooksState.toggleKnowledgeArea(knowledgeArea)}
+          isInOfficeOnly={isInOfficeOnly}
+          toggleInOfficeOnly={() => allBooksState.toggleInOfficeOnly()}
           resetFilters={() => allBooksState.resetFilters()}
-          resetToPreviouslySelectedAreas={() => allBooksState.resetToPreviouslySelectedAreas()}
-          applySelectedAreas={() => allBooksState.applySelectedAreas()}
+          resetToPreviouslyAppliedFilters={() => allBooksState.resetToPreviouslyAppliedFilters()}
+          applyFilters={() => allBooksState.applyFilters()}
         />
       )
     }
@@ -57,6 +61,10 @@ export const AllBooksContent = observer(() => {
         knowledgeAreas={knowledgeAreas}
         selectedAreasIds={selectedAreasIds}
         toggleKnowledgeArea={(knowledgeArea) => allBooksState.toggleKnowledgeArea(knowledgeArea)}
+        isInOfficeOnly={isInOfficeOnly}
+        toggleInOfficeOnly={() => allBooksState.toggleInOfficeOnly()}
+        hasActiveFilters={hasActiveFilters}
+        resetFilters={() => allBooksState.resetFilters()}
       />
     )
   }
