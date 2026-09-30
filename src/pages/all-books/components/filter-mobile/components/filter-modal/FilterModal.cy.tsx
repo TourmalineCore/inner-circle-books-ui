@@ -1,12 +1,12 @@
 import { FilterModal } from "./FilterModal"
 
 describe(`FilterModal`, () => {
-  describe(`In office filter`, inOfficeFilterTests)
+  describe(`"In office" filter`, inOfficeFilterTests)
 })
 
 function inOfficeFilterTests() {
   it(`
-  GIVEN turned off in office filter
+  GIVEN turned off "In office" filter
   WHEN click on it
   SHOULD call toggleInOfficeOnly once
   `, () => {

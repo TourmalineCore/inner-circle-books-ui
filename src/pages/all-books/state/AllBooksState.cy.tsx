@@ -6,7 +6,7 @@ describe(`AllBooksState`, () => {
   describe(`Search query`, searchQueryTests)
   describe(`Selected knowledge areas`, selectedKnowledgeAreasTests)
   describe(`Previously selected knowledge areas`, previouslySelectedKnowledgeAreasTests)
-  describe(`In office filter`, inOfficeFilterTests)
+  describe(`"In office" filter`, inOfficeFilterTests)
   describe(`Filtered books`, filteredBooksTests)
   describe(`Loading`, loadingTests)
 })
@@ -196,7 +196,7 @@ function selectedKnowledgeAreasTests() {
   })
 
   it(`
-  GIVEN selected areas and turned on in office filter
+  GIVEN selected areas and turned on "In office" filter
   WHEN reset filters
   SHOULD not have active filters
   `, () => {
@@ -578,8 +578,8 @@ function filteredBooksTests() {
 
   it(`
   GIVEN books with different availability statuses
-  WHEN turn on in office filter
-  SHOULD return only books that have in office status, including the ones that are also on you
+  WHEN turn on "In office" filter
+  SHOULD return only books that have "In office" status, including the ones that are also on you
   `, () => {
     const {
       allBooksState,
@@ -600,7 +600,7 @@ function filteredBooksTests() {
 
   it(`
   GIVEN books
-  WHEN turn on in office filter and set knowledgeArea filter
+  WHEN turn on "In office" filter and set knowledgeArea filter
   SHOULD return books matching both filters
   `, () => {
     const {
@@ -651,7 +651,7 @@ function filteredBooksTests() {
 function inOfficeFilterTests() {
   it(`
   GIVEN initial state
-  WHEN toggle in office filter twice
+  WHEN toggle "In office" filter twice
   SHOULD turn it on and then off
   AND have active filters only while it is on
   `, () => {
@@ -681,7 +681,7 @@ function inOfficeFilterTests() {
   })
 
   it(`
-  GIVEN applied in office filter
+  GIVEN applied "In office" filter
   WHEN turn it off
   AND reset to previously applied filters
   SHOULD turn it on again
