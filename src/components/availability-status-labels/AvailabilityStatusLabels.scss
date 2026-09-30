@@ -13,17 +13,17 @@
     border-radius: 32px;
     padding: 4px 12px;
 
-    &--inoffice {
+    &--in-office {
       color: v.$color-text-green;
       background-color: v.$color-background-component-green;
     }
 
-    &--onhand {
+    &--on-hand {
       color: v.$color-text-blue;
       background-color: v.$color-background-component-blue;
     }
 
-    &--onyou {
+    &--on-you {
       color: v.$color-text-brown;
       background-color: v.$color-background-component-yellow;
     }

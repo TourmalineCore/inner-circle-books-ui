@@ -1,7 +1,7 @@
 import './AvailabilityStatusLabels.scss'
 
 import clsx from 'clsx'
-import { AVAILABILITY_STATUS_LABELS, AvailabilityStatus } from '../../common/enums/availabilityStatus'
+import { AVAILABILITY_STATUS_CLASS_MODIFIERS, AVAILABILITY_STATUS_LABELS, AvailabilityStatus } from '../../common/enums/availabilityStatus'
 
 export function AvailabilityStatusLabels({
   availabilityStatuses,
@@ -20,7 +20,7 @@ export function AvailabilityStatusLabels({
       {sortedStatuses.map((status) => (
         <li
           key={status}
-          className={`availability-status-labels__label availability-status-labels__label--${status.toLowerCase()}`}
+          className={`availability-status-labels__label availability-status-labels__label--${AVAILABILITY_STATUS_CLASS_MODIFIERS[status]}`}
           data-cy="availability-status-label"
         >
           {AVAILABILITY_STATUS_LABELS[status]}
