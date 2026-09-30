@@ -7,7 +7,7 @@ export function AvailabilityStatusLabels({
   availabilityStatuses,
   className,
 }: {
-  availabilityStatuses: AvailabilityStatusType[],
+  availabilityStatuses: AvailabilityStatus[],
   className?: string,
 }) {
   const sortedStatuses = [

@@ -25,10 +25,8 @@ type BookType = {
   bookCopiesIds: number[],
   employeesWhoReadNow: EmployeeWhoReadNowType[],
   knowledgeAreas: KnowledgeArea[],
-  availabilityStatuses: AvailabilityStatusType[],
+  availabilityStatuses: AvailabilityStatus[],
 }
-
-type AvailabilityStatusType = `InOffice` | `OnHand` | `OnYou`
 
 type BookHistoryType = {
   list: BookCopyHistory[],

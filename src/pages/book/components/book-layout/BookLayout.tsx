@@ -10,6 +10,7 @@ import { BookReaders } from './components/book-readers/BookReaders'
 import { BookInfo } from './components/book-info/BookInfo'
 import { FeedbackCard } from './components/feedback-card/FeedbackCard'
 import { bookFeedbackRoutes } from '../../../routes'
+import { AvailabilityStatus } from '../../../../common/enums/availabilityStatus'
 import { AvailabilityStatusLabels } from '../../../../components/availability-status-labels/AvailabilityStatusLabels'
 
 type BookLayoutProps = {
@@ -23,7 +24,7 @@ type BookLayoutProps = {
   count: number,
   annotation: string,
   feedback: Feedback[],
-  availabilityStatuses: AvailabilityStatusType[],
+  availabilityStatuses: AvailabilityStatus[],
   actionSlot?: ReactNode,
   underCoverSlot?: ReactNode,
 }
