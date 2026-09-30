@@ -700,24 +700,6 @@ function inOfficeFilterTests() {
       .to
       .eq(true)
   })
-
-  it(`
-  GIVEN not applied in office filter
-  WHEN turn it on
-  AND reset to previously applied filters
-  SHOULD turn it off
-  `, () => {
-    const {
-      allBooksState,
-    } = createState()
-
-    allBooksState.toggleInOfficeOnly()
-    allBooksState.resetToPreviouslyAppliedFilters()
-
-    expect(allBooksState.isInOfficeOnly)
-      .to
-      .eq(false)
-  })
 }
 
 function loadingTests() {

@@ -3,9 +3,9 @@ import { AvailabilityStatusLabels } from "./AvailabilityStatusLabels"
 
 describe(`AvailabilityStatusLabels`, () => {
   it(`
-  GIVEN on you status after other statuses
+  GIVEN "On you" and "In office" statutes
   WHEN render the component
-  SHOULD see on you label first
+  SHOULD see that the label "On you" is the first one
   `, () => {
     mountComponent({
       availabilityStatuses: [
