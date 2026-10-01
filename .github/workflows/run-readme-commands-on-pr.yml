@@ -17,6 +17,9 @@ jobs:
         uses: devcontainers/ci@v0.3
         with:
           runCmd: |
+            # without it only the last command decides whether the step passed
+            set -e
+
             # we need the dev server to stay up for the next steps, that is why we forward its
             # output and start it in background with & at the end
             npm start \
@@ -41,6 +44,9 @@ jobs:
         uses: devcontainers/ci@v0.3
         with:
           runCmd: |
+            # without it only the last command decides whether the step passed
+            set -e
+
             npm run docker:build
 
             npm run docker:run \
