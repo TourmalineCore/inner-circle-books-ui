@@ -44,6 +44,7 @@ export const BookCopyContent = observer(({
       coverUrl,
       bookCopiesIds,
       employeesWhoReadNow,
+      availabilityStatuses,
     },
     feedback,
     count,
@@ -148,6 +149,7 @@ export const BookCopyContent = observer(({
         count={count}
         annotation={annotation}
         feedback={feedback}
+        availabilityStatuses={availabilityStatuses}
         actionSlot={
           <>
             { 

@@ -1,4 +1,5 @@
 import { makeAutoObservable } from 'mobx'
+import { AvailabilityStatus } from '../../../common/enums/availabilityStatus'
 
 export class AllBooksState {
   private _booksCards: BookCardType[] = []
@@ -6,6 +7,8 @@ export class AllBooksState {
   private _knowledgeAreas: KnowledgeArea[] = []
   private _selectedAreasIds: number[] = []
   private _previouslySelectedAreasIds: number[] = []
+  private _isInOfficeOnly = false
+  private _previouslyIsInOfficeOnly = false
   private _isLoading = false
 
   constructor() {
@@ -48,6 +51,14 @@ export class AllBooksState {
     return this._knowledgeAreas
   }
 
+  get isInOfficeOnly() {
+    return this._isInOfficeOnly
+  }
+
+  get hasActiveFilters() {
+    return this._selectedAreasIds.length > 0 || this._isInOfficeOnly
+  }
+
   get filteredBooks() {
     let result = this._booksCards
 
@@ -71,6 +82,12 @@ export class AllBooksState {
         book.knowledgeAreas.some((knowledgeArea: KnowledgeArea) =>
           this._selectedAreasIds.includes(knowledgeArea.id),
         ),
+      )
+    }
+
+    if (this._isInOfficeOnly) {
+      result = result.filter((book) =>
+        book.availabilityStatuses.includes(AvailabilityStatus.InOffice),
       )
     }
 
@@ -108,21 +125,28 @@ export class AllBooksState {
     }
   }
 
+  toggleInOfficeOnly() {
+    this._isInOfficeOnly = !this._isInOfficeOnly
+  }
+
   // call when click back button
-  resetToPreviouslySelectedAreas() {
+  resetToPreviouslyAppliedFilters() {
     this._selectedAreasIds = [
       ...this._previouslySelectedAreasIds,
     ] 
+    this._isInOfficeOnly = this._previouslyIsInOfficeOnly
   }
 
   // apply method for mobile 
-  applySelectedAreas() {
+  applyFilters() {
     this._previouslySelectedAreasIds = [
       ...this._selectedAreasIds,
     ]
+    this._previouslyIsInOfficeOnly = this._isInOfficeOnly
   }
 
   resetFilters() {
     this._selectedAreasIds = []
+    this._isInOfficeOnly = false
   }
 }

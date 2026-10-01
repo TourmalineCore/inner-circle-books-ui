@@ -114,10 +114,20 @@
     @include f.text;
   }
 
+  &__cover-wrapper {
+    position: relative;
+    margin-bottom: 16px;
+  }
+
+  &__statuses {
+    position: absolute;
+    right: 16px;
+    bottom: 16px;
+  }
+
   &__cover,
   &__cover--no-image {
     display: block;
-    margin-bottom: 16px;
     border: 1px solid v.$color-component-border;
     border-radius: 8px;
     width: 100%;

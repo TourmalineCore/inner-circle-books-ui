@@ -6,6 +6,7 @@ import { authService } from "../../common/authService"
 import { MOCK_TOKEN } from "../../common/constant"
 import { Language } from "../../common/enums/language"
 import { ProgressOfReading } from "../../common/enums/progressOfReading"
+import { AvailabilityStatus } from "../../common/enums/availabilityStatus"
 
 const BOOK_RESPONSE: BookType = {
   id: 1,
@@ -42,6 +43,9 @@ const BOOK_RESPONSE: BookType = {
       id: 1,
       name: `Frontend`,
     },
+  ],
+  availabilityStatuses: [
+    AvailabilityStatus.OnHand,
   ],
 }
 
@@ -108,6 +112,7 @@ function initializationTests() {
     cy.contains(`Петров Петр`)
     cy.contains(`Feedback`)
     cy.contains(`Frontend`)
+    cy.contains(`On Hand`)
 
     cy.getByData(`feedback-card-date`)
       .first()

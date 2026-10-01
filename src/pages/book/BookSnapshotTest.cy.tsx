@@ -6,6 +6,7 @@ import { BookStateContext } from "./state/BookStateStateContext"
 import { Language } from "../../common/enums/language"
 import { authService } from "../../common/authService"
 import { ProgressOfReading } from "../../common/enums/progressOfReading"
+import { AvailabilityStatus } from "../../common/enums/availabilityStatus"
 
 describe(`Book Page Snapshot test`, () => {
   it(`Take the snapshot of a result`, () => {
@@ -62,6 +63,9 @@ function mountComponent() {
         2,
       ],
       employeesWhoReadNow: [],
+      availabilityStatuses: [
+        AvailabilityStatus.InOffice,
+      ],
       knowledgeAreas: [
         {
           id: 1,

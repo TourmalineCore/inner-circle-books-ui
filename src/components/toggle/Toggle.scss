@@ -1,0 +1,69 @@
+@use "../../styles/variables" as v;
+@use "../../styles/fonts-mixin" as f;
+@use "../../styles/media" as m;
+
+.toggle {
+  @include f.text;
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  gap: 8px;
+
+  &__input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  &__switch {
+    position: relative;
+    flex-shrink: 0;
+    border: 1px solid v.$color-border-primary;
+    border-radius: 33px;
+    width: 38px;
+    height: 24px;
+    background-color: v.$color-background-primary;
+    transition:
+      border-color 0.15s,
+      background-color 0.15s;
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 2.5px;
+      top: 2.5px;
+      border-radius: 50%;
+      width: 18px;
+      height: 18px;
+      background-color: v.$color-background-component-accent;
+      transition: transform 0.15s;
+
+      @include m.desktop {
+        left: 3px;
+        top: 3px;
+        width: 28px;
+        height: 28px;
+      }
+    }
+
+    @include m.desktop {
+      width: 60px;
+      height: 36px;
+    }
+  }
+
+  &__input:checked + &__switch {
+    border-color: transparent;
+    background-color: v.$color-background-component-secondary-active;
+
+    &::after {
+      transform: translateX(13px);
+
+      @include m.desktop {
+        transform: translateX(24px);
+      }
+    }
+  }
+}

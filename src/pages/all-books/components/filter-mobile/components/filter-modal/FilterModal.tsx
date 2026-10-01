@@ -3,14 +3,17 @@ import FocusLock from 'react-focus-lock'
 import { Button } from "../../../../../../components/button/Button"
 import ArrowLeftIcon from "../../../../../../assets/icons/ArrowLeft.svg?react"
 import { FilterChip } from "../../../../../../components/filter-chip/FilterChip"
+import { Toggle } from "../../../../../../components/toggle/Toggle"
 
 export function FilterModal({
   knowledgeAreas,
   selectedAreasIds,
   toggleKnowledgeArea,
-  applySelectedAreas,
+  isInOfficeOnly,
+  toggleInOfficeOnly,
+  applyFilters,
   resetFilters,
-  resetToPreviouslySelectedAreas,
+  resetToPreviouslyAppliedFilters,
   onClose,
 }: {
   knowledgeAreas: KnowledgeArea[],
@@ -20,9 +23,11 @@ export function FilterModal({
   }: {
     knowledgeAreaId: number,
   }) => unknown,
+  isInOfficeOnly: boolean,
+  toggleInOfficeOnly: () => unknown,
   resetFilters: () => unknown,
-  resetToPreviouslySelectedAreas: () => unknown,
-  applySelectedAreas: () => unknown,
+  resetToPreviouslyAppliedFilters: () => unknown,
+  applyFilters: () => unknown,
   onClose: () => unknown,
 }) {
   return (
@@ -39,7 +44,7 @@ export function FilterModal({
             className="filter-modal__back"
             onClick={() => {
               onClose()
-              resetToPreviouslySelectedAreas()
+              resetToPreviouslyAppliedFilters()
             }}
             aria-label="Exit filters modal window"
           >
@@ -52,6 +57,13 @@ export function FilterModal({
         </div>
 
         <div className="filter-modal__content">
+          <Toggle
+            className="filter-modal__in-office-toggle"
+            label="In Office"
+            isChecked={isInOfficeOnly}
+            onChange={toggleInOfficeOnly}
+          />
+
           <div className="filter-modal__section">
             <h3 className="filter-modal__subtitle">
               Knowledge Areas
@@ -87,7 +99,7 @@ export function FilterModal({
             className="filter-modal__button"
             onClick={() => {
               onClose()
-              applySelectedAreas()
+              applyFilters()
             }}
             label={`Apply`}
             isAccent

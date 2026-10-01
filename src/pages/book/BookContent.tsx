@@ -31,6 +31,7 @@ export const BookContent = observer(({
       authors,
       coverUrl,
       employeesWhoReadNow,
+      availabilityStatuses,
     },
     feedback,
     count,
@@ -52,6 +53,7 @@ export const BookContent = observer(({
         count={count}
         annotation={annotation}
         feedback={feedback}
+        availabilityStatuses={availabilityStatuses}
         underCoverSlot={
           <>
             {hasAccessPermission({

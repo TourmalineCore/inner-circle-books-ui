@@ -123,6 +123,7 @@ function mountComponent({
         authors={authors}
         coverUrl={coverUrl}
         knowledgeAreas={[]}
+        availabilityStatuses={[]}
       />,
     )
 }
