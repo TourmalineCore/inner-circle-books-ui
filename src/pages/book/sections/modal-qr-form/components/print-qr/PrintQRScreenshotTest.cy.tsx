@@ -2,9 +2,8 @@
 import moment from "moment"
 import { PrintQR } from "./PrintQR"
 
-describe(`Print QR Snapshot test`, () => {
-
-  it(`Take the snapshot of a result`, () => {
+describe(`Print QR Screenshot test`, () => {
+  it(`Take the screenshot of a result`, () => {
     mountComponent()
 
     cy

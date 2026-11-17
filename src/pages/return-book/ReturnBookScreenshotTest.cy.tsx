@@ -14,8 +14,8 @@ export const VIEWPORTS = [
   },
 ]
 
-describe(`Return Book Snapshot test`, () => {
-  it(`Take the snapshot of a result`, () => {
+describe(`Return Book Screenshot test`, () => {
+  it(`Take the screenshot of a result`, () => {
     VIEWPORTS.forEach((viewport) => {
       cy.viewport(viewport.width, viewport.height)
 

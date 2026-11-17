@@ -13,7 +13,7 @@ export const VIEWPORTS = [
   },
 ]
 
-describe(`Modal Calendar Snapshot test`, () => {
+describe(`Modal Calendar Screenshot test`, () => {
   // here is a problem with bottom padding
   beforeEach(() => {
     const style = document.createElement(`style`)
@@ -25,7 +25,7 @@ describe(`Modal Calendar Snapshot test`, () => {
     document.head.appendChild(style)
   })
 
-  it(`Take the snapshot of a result`, () => {
+  it(`Take the screenshot of a result`, () => {
     cy.clock(new Date(`2025-08-10`) 
       .getTime())
   

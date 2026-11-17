@@ -13,8 +13,8 @@ export const VIEWPORTS = [
   },
 ]
 
-describe(`Modal Window Snapshot test`, () => {
-  it(`Take the snapshot of a result`, () => {
+describe(`Modal Window Screenshot test`, () => {
+  it(`Take the screenshot of a result`, () => {
     VIEWPORTS.forEach((viewport) => {
       cy.viewport(viewport.width, viewport.height)
 

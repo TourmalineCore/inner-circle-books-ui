@@ -1,15 +1,14 @@
 import { MemoryRouter } from "react-router-dom"
 import { MOCK_TOKEN, VIEWPORTS } from "../../common/constant"
-import { BookContent } from "./BookContent"
 import { BookState } from "./state/BookState"
 import { BookStateContext } from "./state/BookStateStateContext"
 import { Language } from "../../common/enums/language"
 import { authService } from "../../common/authService"
 import { ProgressOfReading } from "../../common/enums/progressOfReading"
-import { AvailabilityStatus } from "../../common/enums/availabilityStatus"
+import { BookCopyContent } from "./BookCopyContent"
 
-describe(`Book Page Snapshot test`, () => {
-  it(`Take the snapshot of a result`, () => {
+describe(`Book Copy Page Screenshot test`, () => {
+  it(`Take the screenshot of a result`, () => {
     VIEWPORTS.forEach((viewport) => {
       cy.viewport(viewport.width, viewport.height)
 
@@ -32,7 +31,7 @@ describe(`Book Page Snapshot test`, () => {
         .then((win) => win.document.fonts.ready)
 
       cy
-        .getByData(`book-page`)
+        .getByData(`book-copy-page`)
         .compareSnapshot(`/${viewport.width}`, {
           capture: `viewport`,
         })
@@ -41,9 +40,9 @@ describe(`Book Page Snapshot test`, () => {
 })
 
 function mountComponent() {
-  const bookState = new BookState()
+  const bookCopyState = new BookState()
   
-  bookState.initializeBook({
+  bookCopyState.initializeBook({
     loadedBook: {
       id: 1,
       title: `ChatGPT мастер подсказок или как создавать сильные промты для нейросети`,
@@ -63,9 +62,7 @@ function mountComponent() {
         2,
       ],
       employeesWhoReadNow: [],
-      availabilityStatuses: [
-        AvailabilityStatus.InOffice,
-      ],
+      availabilityStatuses: [],
       knowledgeAreas: [
         {
           id: 1,
@@ -79,7 +76,7 @@ function mountComponent() {
     },
   })
   
-  bookState.initializeFeedback({
+  bookCopyState.initializeFeedback({
     loadedFeedback: [
       {
         id: 1,
@@ -110,13 +107,14 @@ function mountComponent() {
     .mount(
       <MemoryRouter 
         initialEntries={[
-          `/books/1`,
+          `/books/copy/1`,
         ]}>
         <authService.AuthContext.Provider value={mockAuthContext}>
-          <BookStateContext.Provider value={bookState}>
-            <BookContent 
+          <BookStateContext.Provider value={bookCopyState}>
+            <BookCopyContent
               bookId="1"
-              openModalQrCode={() => {}}
+              copyId="1"
+              onTake={() => {}} 
             />
           </BookStateContext.Provider>
         </authService.AuthContext.Provider>,
