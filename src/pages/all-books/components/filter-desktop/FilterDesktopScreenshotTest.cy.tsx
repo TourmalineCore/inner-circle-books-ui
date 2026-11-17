@@ -15,8 +15,8 @@ export const VIEWPORTS = [
   },
 ]
 
-describe(`Filter Desktop Snapshot test`, () => {
-  it(`Take the snapshot of filter modal`, () => {
+describe(`Filter Desktop Screenshot test`, () => {
+  it(`Take the screenshot of filter modal`, () => {
     VIEWPORTS.forEach((viewport) => {
 
       cy.viewport(viewport.width, viewport.height)

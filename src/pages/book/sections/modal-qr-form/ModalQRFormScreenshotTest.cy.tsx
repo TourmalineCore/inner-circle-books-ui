@@ -31,7 +31,7 @@ export const VIEWPORTS_FOR_ONE = [
   },
 ]
 
-describe(`Modal QR Form Snapshot test`, () => {
+describe(`Modal QR Form Screenshot test`, () => {
   // We added margin for the mobile sidebar panel, but it is not needed in the test
   beforeEach(() => {
     const style = document.createElement(`style`)
@@ -43,7 +43,7 @@ describe(`Modal QR Form Snapshot test`, () => {
     document.head.appendChild(style)
   })
 
-  it(`Take the snapshot of a result with several copies`, () => {
+  it(`Take the screenshot of a result with several copies`, () => {
     VIEWPORTS.forEach((viewport) => {
       cy.viewport(viewport.width, viewport.height)
 

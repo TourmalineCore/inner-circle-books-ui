@@ -25,10 +25,9 @@ export const VIEWPORTS = [
   },
 ]
 
-describe(`Add Book Overlay Snapshot test`, () => {
-  it(`Take the snapshot of a result with overlay`, () => {
+describe(`Add Book Screenshot test`, () => {
+  it(`Take the screenshot of a result`, () => {
     VIEWPORTS.forEach((viewport) => {
-
       cy.viewport(viewport.width, viewport.height)
 
       cy.wrap(
@@ -50,14 +49,12 @@ describe(`Add Book Overlay Snapshot test`, () => {
         .then((win) => win.document.fonts.ready)
 
       cy
-        .getByData(`add-book-title`)
-        .type(`Some Title`)
+        .document()
+        .its(`fonts.status`)
+        .should(`equal`, `loaded`)
 
       cy
-        .get(`.add-book__actions > :nth-child(1)`)
-        .click()
-      cy
-        .getByData(`add-book-overlay`)
+        .getByData(`add-book`)
         .compareSnapshot(`/${viewport.width}`, {
           capture: `viewport`,
         })

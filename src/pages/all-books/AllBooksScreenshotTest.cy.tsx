@@ -6,8 +6,8 @@ import { AllBooksContent } from "./AllBooksContent"
 import { AllBooksState } from "./state/AllBooksState"
 import { AllBooksStateContext } from "./state/AllBooksStateStateContext"
 
-describe(`All Books Snapshot test`, () => {
-  it(`Take the snapshot of a result`, () => {
+describe(`All Books Screenshot test`, () => {
+  it(`Take the screenshot of a result`, () => {
     VIEWPORTS.forEach((viewport) => {
       cy.viewport(viewport.width, viewport.height)
 
