@@ -26,7 +26,7 @@ export const VIEWPORTS = [
 ]
 
 describe(`Add Book Overlay Screenshot test`, () => {
-  it(`Take the Screenshot of a result with overlay`, () => {
+  it(`Take the screenshot of a result with overlay`, () => {
     VIEWPORTS.forEach((viewport) => {
 
       cy.viewport(viewport.width, viewport.height)
